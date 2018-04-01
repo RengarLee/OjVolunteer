@@ -143,6 +143,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -151,6 +152,21 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\oj\css\bootstrap.css" />
+    <Content Include="Content\oj\css\bootstrap.min.css" />
+    <Content Include="Content\oj\css\main.css" />
+    <Content Include="Content\oj\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\oj\images\1.jpg" />
+    <Content Include="Content\oj\images\acimg.png" />
+    <Content Include="Content\oj\images\goin.png" />
+    <Content Include="Content\oj\images\icon1.png" />
+    <Content Include="Content\oj\images\password.png" />
+    <Content Include="Content\oj\images\topback.png" />
+    <Content Include="Content\oj\js\bootstrap.js" />
+    <Content Include="Content\oj\js\bootstrap.min.js" />
+    <Content Include="Content\oj\js\jquery-1.12.4.js" />
+    <Content Include="Content\oj\js\main.js" />
+    <Content Include="Content\oj\js\npm.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -160,6 +176,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\oj\css\bootstrap.css.map" />
+    <Content Include="Content\oj\css\bootstrap.min.css.map" />
+    <Content Include="Content\oj\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\oj\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\oj\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\oj\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -185,6 +207,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

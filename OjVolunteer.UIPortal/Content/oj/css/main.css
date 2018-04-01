@@ -1,0 +1,408 @@
+/*---------
+基本默认值
+-----------*/
+
+html{
+	font-size: 62.5%;
+	/* 62.5%代表1个rem = 10px */
+	color: #000;
+}
+::selection {
+	background-color: #b3d3fc;
+	text-shadow: none;
+}
+ul{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style:none;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+a:visited{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+}
+a:focus{
+	text-decoration: none;
+}
+a:active{
+	text-decoration: none;
+}
+/*---------
+工具样式
+-----------*/
+
+/*居中显示*/
+.conter-block{
+	display: block;;
+	margin-right: auto;;
+	margin-left: auto;
+}
+/*在右边显示*/
+.pull-right{
+	float: right !important;
+}
+/*在左边显示*/
+.pull-left{
+	float: left  !important;
+}
+/*文字居右*/
+.text-right{
+	text-align: right !important;
+}
+/*文字居左*/
+.text-left{
+	text-align: left !important;
+}
+/*隐藏 但占空间*/
+.hide{
+	display: none !important;
+}
+/*出现*/
+.show{
+	display: block !important;
+}
+/*隐藏 但不占空间*/
+.invisible{
+	visibility: hidden;
+}
+/*文字隐藏*/
+.text-hide{
+	font:0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+/*清除浮动*/
+.clearfix:before,
+.clearfix:after{
+	content: " ";
+	display: table;
+}
+.clearfix:after{
+	clear: both;
+}
+
+/*主界面样式*/
+
+	header{
+		width: 100%;
+	}
+	/*导航条部分*/
+	header .top{
+		width: 100%;
+		height: 50px;
+		background-color: rgb(198,47,47);
+		text-align: center;
+		line-height: 50px;
+		position: fixed;
+		top: 0;
+		z-index: 99;
+	}
+	header .top p{
+		color: #fff;
+		font-size: 1.6rem;
+	}
+	/*轮播图部分*/
+	header .ad{
+		width: 96%;
+		height: 200px;
+		background-color: #5ac8fa;
+		margin: 10px auto;
+		margin-top: 60px;
+	}
+	/*图标导航部分*/
+	header .icons{
+		padding: 10px 15px 10px;
+	}
+	header .icons .icons-row{
+		margin: 0 auto;
+		text-align: center;
+	}
+	/*这里宽度设置了25%，可以让每排四个图标平均分配*/
+	header .icons .icons-row li{
+		width: 25%;
+		float: left;
+		margin-bottom: 15px;
+	}
+	header .icons .icons-row li a{
+		width: 45px;
+		height: 45px;
+		margin: 0 auto;
+		text-align: center;
+		line-height: 55px;
+		display: block;
+	}
+	header .icons .icons-row li a img{
+		width: 45px;
+		height: 45px;
+	}
+	header .icons .icons-row li span{
+		display: block;
+		width: 100%;
+		text-align: center;
+		padding-top: 20px;
+	}
+
+	/*主要内容部分*/
+	.hot-action{
+		margin-bottom: 70px;
+		margin-top: -30px;
+	}
+	.hot-action .kinds{
+		margin-left: 15px;
+		margin-bottom: -5px;
+	}
+	.action{
+		width: 98%;
+		border: 1px solid rgb(242,242,242);
+		box-shadow: 0 0 20px rgb(242,242,242);
+		margin: 0 auto;
+		margin-bottom: 20px;
+		padding:10px 15px;
+	}
+	/*头像和用户名样式*/
+	.action .userinfo img{
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+	}
+	.action .userinfo .ac-username{
+		margin-left: 5px;
+		color: #8e8e93;
+	}
+	/*活动标题样式*/
+	.action .ac-left{
+		float: left;
+		width: 70%;
+	}
+	.action .ac-left .ac-title{
+		font-weight: bold;
+	}
+	.action .ac-left .ac-time{
+		margin-top: 30px;
+	}
+	.action .ac-left .ac-time span{
+		color: red;
+	}
+	/*活动图片样式*/
+	.action .ac-right{
+		float: left;
+		width: 30%;
+		text-align: center;
+	}
+	.action .ac-right img{
+		width: 99%;
+		margin-top: 5px;
+	}
+
+
+	/*底部导航*/
+	.navbt{
+		background-color: #fff;
+		border-top: 1px solid #e7e7e7e7;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		display: flex;
+		z-index: 9999;
+	}
+	.navbt .btBar{
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		color: #333;
+	}
+	.navbt .btBar img{
+		width: 30px;
+		height: 30px;
+		margin-top: 5px;
+	}
+	.navbt .btBar span{
+		margin-top: 5px;
+		margin-bottom: 5px;
+		font-size: 12px;
+	}
+
+
+/*登录界面样式*/
+	/*由于导航栏有50px高所以下面的元素至少要有50px的上边距*/
+	.login-content{
+		margin-top: 60px;
+		text-align: center;
+		border:1px solid #ccc;
+		width: 90%; 
+		padding-bottom: 40px;
+		border-radius: 5px;
+		box-shadow: 0 0 5px gray;
+		max-width: 750px;
+		overflow: hidden;
+	}
+	.login-content .lg-title{
+		font-size: 20px;
+		margin-bottom: 30px;
+		margin-top: 20px;
+	}
+	.login-content form{
+		width: 100%;
+		overflow: hidden;
+	}
+	/*把input的类单独写出来，可以给其他表单的元素使用*/
+	.forminput{
+		padding: 10px 5px;
+		margin:0 auto;
+		width: 250px;
+		font-size: 1.3rem;
+		vertical-align: middle;
+		border: 1px solid #ccc;
+		border-radius: 3px;		
+		margin-bottom: 20px;
+		display: block;
+	}
+	.btn{
+		width: 250px;
+	}
+	.login-content form a{
+		display: block;
+		margin-top: 30px;
+	}
+	.tips{
+		margin-left: -200px;
+	}
+	/*这里发现注册表单项之间太近了，单独写个负margin*/
+	.login-content .item{
+		margin-bottom: -10px;
+	}
+	#rebtn{
+		margin-top: 20px;
+	}
+
+/*个人中心界面样式*/
+	.usertitle{
+		margin: 0 auto;
+		margin-top: 50px;
+		width: 90%;
+		text-align: center;
+		min-width: 300px;
+		padding: 20px 10px;
+	}
+	.usertitle img{
+		width: 100px;
+		border-radius: 50%;
+	
+	}
+	.usertitle .info-img{
+		width: 40%;	
+		float: left;
+	}
+	.usertitle .info-name{
+		float: left;
+		width: 60%;
+		text-align: left;
+		padding-left: 20px;
+	}
+	.usertitle .info-name h3{
+		font-weight: bold;
+	}
+	.usertitle .info-name p{
+		color: #999;
+	}
+	
+	/*用户头像下的一些信息*/
+	.baseinfo{
+		padding: 0.5rem;
+		margin-top: -10px;
+	}
+	/*右箭头*/
+	.baseinfo .info-item{
+		background-image: url(../images/goin.png);
+		background-repeat: no-repeat;
+		background-position: 97% center;
+		background-size: 10px;
+		border:1px solid #eee;
+		border-left: none;
+		border-right: none;
+		border-bottom: none;
+	}
+	.baseinfo .info-item a{
+		display: block;
+		padding-left: 10%;
+		height: 50px;
+	}
+	.baseinfo .info-item a img{
+		width: 20px;
+	}
+	.baseinfo .info-item a span{
+		font-size: 12px;	
+		line-height: 50px;
+		margin-left: 5px;
+	}
+	/*退出按钮*/
+	.userout{
+		margin-top: 40px;
+		text-align: center;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*组件样式*/
+/*返回顶部组件*/
+.topback{
+	position: fixed;
+	bottom: 70px;
+	right: 20px;
+}
+.topback img{
+	width: 30px;
+}
+/*返回上一页组件*/
+.header-back{
+	display: block;
+	position: absolute;
+	top: 12px;
+	left: 15px;
+	z-index: 9999;
+}
+.header-back span{
+	font-size: 20px;
+	color: #fff;
+}
+/* 
+参考数据
+橙色：#ff9500
+淡红色：#ff3b30
+天蓝色（偏白）：#5ac8fa
+蓝色（正常）：#0071ff
+蓝色（偏紫）：#5856d6
+绿色（偏白）：#4cd964
+粉红色：#ff2d55
+背景灰色（淡）：#efeff4
+背景灰色（中）：#ceced2
+背景灰色（深）：#8e8e93
+黄色：#ffcc00*/
