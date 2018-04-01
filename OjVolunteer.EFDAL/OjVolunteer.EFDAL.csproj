@@ -47,14 +47,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDal.cs" />
+    <Compile Include="Dals.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dals.tt</DependentUpon>
+    </Compile>
     <Compile Include="MajorDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OjVolunteer.IDAL\OjVolunteer.IDAL.csproj">
+      <Project>{339ddc50-e64f-495a-87b4-edf9224d9bee}</Project>
+      <Name>OjVolunteer.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OjVolunteer.Model\OjVolunteer.Model.csproj">
       <Project>{CB830E1C-2A16-4993-A641-C3CA9D7FE762}</Project>
       <Name>OjVolunteer.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dals.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Dals.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

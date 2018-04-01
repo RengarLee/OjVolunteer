@@ -50,100 +50,98 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="actcondition.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="actenroll.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="activeindex.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="activitytype.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="actsdetail.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="change.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="department.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EFDateModel.Context.cs">
+    <Compile Include="EFDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EFDateModel.Context.tt</DependentUpon>
+      <DependentUpon>EFDataModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EFDateModel.cs">
+    <Compile Include="EFDataModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EFDateModel.Designer.cs">
+    <Compile Include="EFDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EFDateModel.edmx</DependentUpon>
+      <DependentUpon>EFDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="favors.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="major.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="organizeinfos.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="political.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="status.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="talk.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="timedetail.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="userduration.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="userinfo.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="userinte.cs">
-      <DependentUpon>EFDateModel.tt</DependentUpon>
+      <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="EFDateModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EFDateModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="EFDateModel.edmx.diagram">
-      <DependentUpon>EFDateModel.edmx</DependentUpon>
+    <EntityDeploy Include="EFDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EFDataModel.edmx.diagram">
+      <DependentUpon>EFDataModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EFDateModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EFDateModel.Context.cs</LastGenOutput>
-      <DependentUpon>EFDateModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="EFDateModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EFDateModel.edmx</DependentUpon>
-      <LastGenOutput>EFDateModel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="EFDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDataModel.edmx</DependentUpon>
+      <LastGenOutput>EFDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EFDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDataModel.edmx</DependentUpon>
+      <LastGenOutput>EFDataModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

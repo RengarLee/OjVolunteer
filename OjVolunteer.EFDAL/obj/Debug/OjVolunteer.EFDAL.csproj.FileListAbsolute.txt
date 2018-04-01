@@ -1,0 +1,2 @@
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.EFDAL\obj\Debug\OjVolunteer.EFDAL.csprojResolveAssemblyReference.cache
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.EFDAL\obj\Debug\OjVolunteer.EFDAL.csproj.CoreCompileInputs.cache

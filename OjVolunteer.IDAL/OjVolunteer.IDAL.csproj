@@ -41,7 +41,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBaseDal.cs" />
+    <Compile Include="IDals.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDals.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IDals.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDals.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OjVolunteer.Model\OjVolunteer.Model.csproj">
+      <Project>{cb830e1c-2a16-4993-a641-c3ca9d7fe762}</Project>
+      <Name>OjVolunteer.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

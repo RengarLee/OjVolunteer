@@ -1,0 +1,6 @@
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\bin\Debug\OjVolunteer.IDAL.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\bin\Debug\OjVolunteer.IDAL.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug\OjVolunteer.IDAL.csprojResolveAssemblyReference.cache
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug\OjVolunteer.IDAL.csproj.CoreCompileInputs.cache
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug\OjVolunteer.IDAL.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug\OjVolunteer.IDAL.pdb

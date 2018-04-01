@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OjVolunteerModelStoreContainer" CdmEntityContainer="OjVolunteerEntities">
+    <EntitySetMapping Name="actcondition">
+      <EntityTypeMapping TypeName="OjVolunteerModel.actcondition">
+        <MappingFragment StoreEntitySet="actcondition">
+          <ScalarProperty Name="actcondition_id" ColumnName="actcondition_id" />
+          <ScalarProperty Name="actcondition_political" ColumnName="actcondition_political" />
+          <ScalarProperty Name="actcondition_major" ColumnName="actcondition_major" />
+          <ScalarProperty Name="actcondition_department" ColumnName="actcondition_department" />
+          <ScalarProperty Name="actcondition_time" ColumnName="actcondition_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="actenroll">
+      <EntityTypeMapping TypeName="OjVolunteerModel.actenroll">
+        <MappingFragment StoreEntitySet="actenroll">
+          <ScalarProperty Name="actenroll_id" ColumnName="actenroll_id" />
+          <ScalarProperty Name="actsdetail_id" ColumnName="actsdetail_id" />
+          <ScalarProperty Name="userinfo_id" ColumnName="userinfo_id" />
+          <ScalarProperty Name="actenroll_time" ColumnName="actenroll_time" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="actenroll_remarks" ColumnName="actenroll_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="activeindex">
+      <EntityTypeMapping TypeName="OjVolunteerModel.activeindex">
+        <MappingFragment StoreEntitySet="activeindex">
+          <ScalarProperty Name="activeindex_id" ColumnName="activeindex_id" />
+          <ScalarProperty Name="activeindex_num" ColumnName="activeindex_num" />
+          <ScalarProperty Name="activeindex_remarks" ColumnName="activeindex_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="activitytype">
+      <EntityTypeMapping TypeName="OjVolunteerModel.activitytype">
+        <MappingFragment StoreEntitySet="activitytype">
+          <ScalarProperty Name="activitytype_id" ColumnName="activitytype_id" />
+          <ScalarProperty Name="activitytype_name" ColumnName="activitytype_name" />
+          <ScalarProperty Name="activitytype_remarks" ColumnName="activitytype_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="actsdetail">
+      <EntityTypeMapping TypeName="OjVolunteerModel.actsdetail">
+        <MappingFragment StoreEntitySet="actsdetail">
+          <ScalarProperty Name="actsdetail_id" ColumnName="actsdetail_id" />
+          <ScalarProperty Name="actsdetail_name" ColumnName="actsdetail_name" />
+          <ScalarProperty Name="activitytype_id" ColumnName="activitytype_id" />
+          <ScalarProperty Name="actsdetail_icon" ColumnName="actsdetail_icon" />
+          <ScalarProperty Name="actsdetail_address" ColumnName="actsdetail_address" />
+          <ScalarProperty Name="actsdetail_address_x" ColumnName="actsdetail_address_x" />
+          <ScalarProperty Name="actsdetail_address_y" ColumnName="actsdetail_address_y" />
+          <ScalarProperty Name="actsdetail_content" ColumnName="actsdetail_content" />
+          <ScalarProperty Name="actsdetail_predinum" ColumnName="actsdetail_predinum" />
+          <ScalarProperty Name="actsdetail_wantnum" ColumnName="actsdetail_wantnum" />
+          <ScalarProperty Name="actsdetail_peoples" ColumnName="actsdetail_peoples" />
+          <ScalarProperty Name="actsdetail_applicantid" ColumnName="actsdetail_applicantid" />
+          <ScalarProperty Name="actcondition_id" ColumnName="actcondition_id" />
+          <ScalarProperty Name="clicks" ColumnName="clicks" />
+          <ScalarProperty Name="act_enroll_endtime" ColumnName="act_enroll_endtime" />
+          <ScalarProperty Name="act_enroll_starttime" ColumnName="act_enroll_starttime" />
+          <ScalarProperty Name="act_starttime" ColumnName="act_starttime" />
+          <ScalarProperty Name="art_endtime" ColumnName="art_endtime" />
+          <ScalarProperty Name="actsdetail_createtime" ColumnName="actsdetail_createtime" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="updateid" ColumnName="updateid" />
+          <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+          <ScalarProperty Name="actsdetail_remarks" ColumnName="actsdetail_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="change">
+      <EntityTypeMapping TypeName="OjVolunteerModel.change">
+        <MappingFragment StoreEntitySet="change">
+          <ScalarProperty Name="changes_id" ColumnName="changes_id" />
+          <ScalarProperty Name="userinfo_id" ColumnName="userinfo_id" />
+          <ScalarProperty Name="political_id" ColumnName="political_id" />
+          <ScalarProperty Name="organizeinfo_id" ColumnName="organizeinfo_id" />
+          <ScalarProperty Name="createtime" ColumnName="createtime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="department">
+      <EntityTypeMapping TypeName="OjVolunteerModel.department">
+        <MappingFragment StoreEntitySet="department">
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="department_name" ColumnName="department_name" />
+          <ScalarProperty Name="department_remarks" ColumnName="department_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="favors">
+      <EntityTypeMapping TypeName="OjVolunteerModel.favors">
+        <MappingFragment StoreEntitySet="favors">
+          <ScalarProperty Name="favor_id" ColumnName="favor_id" />
+          <ScalarProperty Name="talk_id" ColumnName="talk_id" />
+          <ScalarProperty Name="userinfo_id" ColumnName="userinfo_id" />
+          <ScalarProperty Name="favor_time" ColumnName="favor_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="major">
+      <EntityTypeMapping TypeName="OjVolunteerModel.major">
+        <MappingFragment StoreEntitySet="major">
+          <ScalarProperty Name="major_id" ColumnName="major_id" />
+          <ScalarProperty Name="major_name" ColumnName="major_name" />
+          <ScalarProperty Name="major_remarks" ColumnName="major_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="organizeinfos">
+      <EntityTypeMapping TypeName="OjVolunteerModel.organizeinfos">
+        <MappingFragment StoreEntitySet="organizeinfos">
+          <ScalarProperty Name="organizeinfo_id" ColumnName="organizeinfo_id" />
+          <ScalarProperty Name="organizeinfo_username" ColumnName="organizeinfo_username" />
+          <ScalarProperty Name="organizeinfo_realname" ColumnName="organizeinfo_realname" />
+          <ScalarProperty Name="organizeinfo_password" ColumnName="organizeinfo_password" />
+          <ScalarProperty Name="organizeinfo_people" ColumnName="organizeinfo_people" />
+          <ScalarProperty Name="organizeinfo_phone" ColumnName="organizeinfo_phone" />
+          <ScalarProperty Name="organizeinfo_email" ColumnName="organizeinfo_email" />
+          <ScalarProperty Name="organizeinfo_lasttime" ColumnName="organizeinfo_lasttime" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="updateid" ColumnName="updateid" />
+          <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+          <ScalarProperty Name="organizeinfo_remarks" ColumnName="organizeinfo_remarks" />
+          <ScalarProperty Name="f_organizeinfo_id" ColumnName="f_organizeinfo_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="political">
+      <EntityTypeMapping TypeName="OjVolunteerModel.political">
+        <MappingFragment StoreEntitySet="political">
+          <ScalarProperty Name="political_id" ColumnName="political_id" />
+          <ScalarProperty Name="political_name" ColumnName="political_name" />
+          <ScalarProperty Name="political_remarks" ColumnName="political_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="status">
+      <EntityTypeMapping TypeName="OjVolunteerModel.status">
+        <MappingFragment StoreEntitySet="status">
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="status_meaning" ColumnName="status_meaning" />
+          <ScalarProperty Name="status_remarks" ColumnName="status_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="talk">
+      <EntityTypeMapping TypeName="OjVolunteerModel.talk">
+        <MappingFragment StoreEntitySet="talk">
+          <ScalarProperty Name="talk_id" ColumnName="talk_id" />
+          <ScalarProperty Name="userinfo_id" ColumnName="userinfo_id" />
+          <ScalarProperty Name="talk_content" ColumnName="talk_content" />
+          <ScalarProperty Name="talk_time" ColumnName="talk_time" />
+          <ScalarProperty Name="talk_favor" ColumnName="talk_favor" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="updataid" ColumnName="updataid" />
+          <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+          <ScalarProperty Name="talk_remarks" ColumnName="talk_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="timedetail">
+      <EntityTypeMapping TypeName="OjVolunteerModel.timedetail">
+        <MappingFragment StoreEntitySet="timedetail">
+          <ScalarProperty Name="timedetail_id" ColumnName="timedetail_id" />
+          <ScalarProperty Name="actsdetail_id" ColumnName="actsdetail_id" />
+          <ScalarProperty Name="userinfo_id" ColumnName="userinfo_id" />
+          <ScalarProperty Name="timedetai_length" ColumnName="timedetai_length" />
+          <ScalarProperty Name="updateid" ColumnName="updateid" />
+          <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+          <ScalarProperty Name="timedetail_remarks" ColumnName="timedetail_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userduration">
+      <EntityTypeMapping TypeName="OjVolunteerModel.userduration">
+        <MappingFragment StoreEntitySet="userduration">
+          <ScalarProperty Name="userduration_id" ColumnName="userduration_id" />
+          <ScalarProperty Name="userinfo_id" ColumnName="userinfo_id" />
+          <ScalarProperty Name="tatallength" ColumnName="tatallength" />
+          <ScalarProperty Name="propartytimelength" ColumnName="propartytimelength" />
+          <ScalarProperty Name="partytimelength" ColumnName="partytimelength" />
+          <ScalarProperty Name="userduration_createtime" ColumnName="userduration_createtime" />
+          <ScalarProperty Name="propartytime" ColumnName="propartytime" />
+          <ScalarProperty Name="partytime" ColumnName="partytime" />
+          <ScalarProperty Name="updateid" ColumnName="updateid" />
+          <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+          <ScalarProperty Name="userduration_remarks" ColumnName="userduration_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userinfo">
+      <EntityTypeMapping TypeName="OjVolunteerModel.userinfo">
+        <MappingFragment StoreEntitySet="userinfo">
+          <ScalarProperty Name="userinfo_id" ColumnName="userinfo_id" />
+          <ScalarProperty Name="userinfo_username" ColumnName="userinfo_username" />
+          <ScalarProperty Name="userinfo_password" ColumnName="userinfo_password" />
+          <ScalarProperty Name="userinfo_phone" ColumnName="userinfo_phone" />
+          <ScalarProperty Name="userinfo_studentid" ColumnName="userinfo_studentid" />
+          <ScalarProperty Name="userinfo_realname" ColumnName="userinfo_realname" />
+          <ScalarProperty Name="major_id" ColumnName="major_id" />
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="political_id" ColumnName="political_id" />
+          <ScalarProperty Name="organizeinfo_id" ColumnName="organizeinfo_id" />
+          <ScalarProperty Name="userinfo_email" ColumnName="userinfo_email" />
+          <ScalarProperty Name="userinfo_lasttiem" ColumnName="userinfo_lasttiem" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="updateid" ColumnName="updateid" />
+          <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+          <ScalarProperty Name="userinfo_remarks" ColumnName="userinfo_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userinte">
+      <EntityTypeMapping TypeName="OjVolunteerModel.userinte">
+        <MappingFragment StoreEntitySet="userinte">
+          <ScalarProperty Name="userinte_id" ColumnName="userinte_id" />
+          <ScalarProperty Name="userinfo_id" ColumnName="userinfo_id" />
+          <ScalarProperty Name="userinte_integral" ColumnName="userinte_integral" />
+          <ScalarProperty Name="activeindex_id" ColumnName="activeindex_id" />
+          <ScalarProperty Name="updateid" ColumnName="updateid" />
+          <ScalarProperty Name="updatetime" ColumnName="updatetime" />
+          <ScalarProperty Name="userinte_remarks" ColumnName="userinte_remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
