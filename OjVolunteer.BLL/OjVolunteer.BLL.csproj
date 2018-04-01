@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{339DDC50-E64F-495A-87B4-EDF9224D9BEE}</ProjectGuid>
+    <ProjectGuid>{36FBEDE8-5F42-42A3-BE3B-9224290BF6CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OjVolunteer.IDAL</RootNamespace>
-    <AssemblyName>OjVolunteer.IDAL</AssemblyName>
+    <RootNamespace>OjVolunteer.BLL</RootNamespace>
+    <AssemblyName>OjVolunteer.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,36 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBaseDal.cs" />
-    <Compile Include="IDals.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IDals.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IDbSession.cs" />
-    <Compile Include="IDbSession1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IDbSession.tt</DependentUpon>
-    </Compile>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="MajorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IDals.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IDals.cs</LastGenOutput>
-    </Content>
-    <Content Include="IDbSession.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IDbSession1.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\OjVolunteer.IDAL\OjVolunteer.IDAL.csproj">
+      <Project>{339DDC50-E64F-495A-87B4-EDF9224D9BEE}</Project>
+      <Name>OjVolunteer.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OjVolunteer.Model\OjVolunteer.Model.csproj">
-      <Project>{cb830e1c-2a16-4993-a641-c3ca9d7fe762}</Project>
+      <Project>{CB830E1C-2A16-4993-A641-C3CA9D7FE762}</Project>
       <Name>OjVolunteer.Model</Name>
     </ProjectReference>
   </ItemGroup>

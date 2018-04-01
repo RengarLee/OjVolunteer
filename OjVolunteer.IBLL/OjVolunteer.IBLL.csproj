@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{339DDC50-E64F-495A-87B4-EDF9224D9BEE}</ProjectGuid>
+    <ProjectGuid>{24A67FA4-1209-49D3-8F5A-7648B00AA795}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OjVolunteer.IDAL</RootNamespace>
-    <AssemblyName>OjVolunteer.IDAL</AssemblyName>
+    <RootNamespace>OjVolunteer.IBLL</RootNamespace>
+    <AssemblyName>OjVolunteer.IBLL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,38 +40,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBaseDal.cs" />
-    <Compile Include="IDals.cs">
+    <Compile Include="IBaseService.cs" />
+    <Compile Include="IMajorService.cs" />
+    <Compile Include="IServices.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IDals.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IDbSession.cs" />
-    <Compile Include="IDbSession1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IDbSession.tt</DependentUpon>
+      <DependentUpon>IServices.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IDals.tt">
+    <ProjectReference Include="..\OjVolunteer.Model\OjVolunteer.Model.csproj">
+      <Project>{CB830E1C-2A16-4993-A641-C3CA9D7FE762}</Project>
+      <Name>OjVolunteer.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IServices.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IDals.cs</LastGenOutput>
-    </Content>
-    <Content Include="IDbSession.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IDbSession1.cs</LastGenOutput>
+      <LastGenOutput>IServices.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OjVolunteer.Model\OjVolunteer.Model.csproj">
-      <Project>{cb830e1c-2a16-4993-a641-c3ca9d7fe762}</Project>
-      <Name>OjVolunteer.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,33 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#><#@
+ output extension=".cs"#>
+ 
+<#
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+CodeRegion region = new CodeRegion(this, 1);
+MetadataTools ef = new MetadataTools(this);
+
+string inputFile = @"..\\OjVolunteer.Model\\EFDataModel.edmx";
+
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+#>
+using OjVolunteer.EFDAL;
+using OjVolunteer.IDAL;
+
+namespace OjVolunteer.DALFactory
+{
+    public partial class DbSession :IDbSession
+    {   <#foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{ #>		
+		public I<#=entity.Name#>Dal <#=entity.Name#>Dal
+		{
+			get { return StaticDalFactory.Get<#=entity.Name#>Dal(); }
+		}
+<#}#>
+	}
+}
