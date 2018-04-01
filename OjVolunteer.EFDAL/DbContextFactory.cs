@@ -15,7 +15,6 @@ namespace OjVolunteer.EFDAL
                 CallContext.SetData("DbContext", dbContext);
             }
             return dbContext;
-    
         }
     }
 }

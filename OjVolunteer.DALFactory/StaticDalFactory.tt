@@ -1,0 +1,52 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#><#@
+ output extension=".cs"#>
+ 
+<#
+
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+CodeRegion region = new CodeRegion(this, 1);
+MetadataTools ef = new MetadataTools(this);
+
+string inputFile = @"..\\OjVolunteer.Model\\EFDataModel.edmx";
+
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using OjVolunteer.EFDAL;
+using OjVolunteer.IDAL;
+
+namespace OjVolunteer.DALFactory
+{
+    /// <summary>
+    /// 由简单工厂转变成了抽象工厂。
+    /// 抽象工厂  VS  简单工厂
+    /// 
+    /// </summary>
+    public partial class StaticDalFactory
+    {
+   
+<#
+foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{
+   
+#>	
+		public static I<#=entity.Name#>Dal Get<#=entity.Name#>Dal()
+		{
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".<#=entity.Name#>Dal")
+				as I<#=entity.Name#>Dal;
+		}
+<#}#>
+	}
+}
