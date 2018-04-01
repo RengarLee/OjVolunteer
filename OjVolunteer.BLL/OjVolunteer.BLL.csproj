@@ -43,8 +43,25 @@
     <Compile Include="BaseService.cs" />
     <Compile Include="MajorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OjVolunteer.DALFactory\OjVolunteer.DALFactory.csproj">
+      <Project>{322af1c4-864c-4347-af27-8c31abb4e09d}</Project>
+      <Name>OjVolunteer.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OjVolunteer.EFDAL\OjVolunteer.EFDAL.csproj">
+      <Project>{2d3844db-a603-405d-b36a-1d1f76d1b9f7}</Project>
+      <Name>OjVolunteer.EFDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OjVolunteer.IBLL\OjVolunteer.IBLL.csproj">
+      <Project>{24a67fa4-1209-49d3-8f5a-7648b00aa795}</Project>
+      <Name>OjVolunteer.IBLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OjVolunteer.IDAL\OjVolunteer.IDAL.csproj">
       <Project>{339DDC50-E64F-495A-87B4-EDF9224D9BEE}</Project>
       <Name>OjVolunteer.IDAL</Name>
@@ -53,6 +70,15 @@
       <Project>{CB830E1C-2A16-4993-A641-C3CA9D7FE762}</Project>
       <Name>OjVolunteer.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Services.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Services.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

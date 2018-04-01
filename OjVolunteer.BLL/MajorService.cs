@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OjVolunteer.BLL
 {
-    public partial class MajorService:BaseService<major>
-    {
-    }
+    //public partial class MajorService:BaseService<major>
+    //{
+    //}
 }

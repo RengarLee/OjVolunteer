@@ -1,0 +1,13 @@
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\OjVolunteer.IBLL.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\OjVolunteer.IBLL.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\OjVolunteer.Model.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\EntityFramework.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\OjVolunteer.Model.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\OjVolunteer.Model.dll.config
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\EntityFramework.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug\OjVolunteer.IBLL.csprojResolveAssemblyReference.cache
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug\OjVolunteer.IBLL.csproj.CoreCompileInputs.cache
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug\OjVolunteer.IBLL.csproj.CopyComplete
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug\OjVolunteer.IBLL.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug\OjVolunteer.IBLL.pdb

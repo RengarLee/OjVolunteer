@@ -53,6 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbSession.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbSessionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticDalFactory.cs" />
     <Compile Include="StaticDalFactory1.cs">

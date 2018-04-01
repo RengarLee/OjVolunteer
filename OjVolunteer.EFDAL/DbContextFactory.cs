@@ -4,7 +4,7 @@ using System.Runtime.Remoting.Messaging;
 
 namespace OjVolunteer.EFDAL
 {
-    public static class DbContextFactory
+    public class DbContextFactory
     {
         public static DbContext GetCurrentDbContext()
         {

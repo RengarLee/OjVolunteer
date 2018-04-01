@@ -1,4 +1,5 @@
-﻿using OjVolunteer.IDAL;
+﻿using OjVolunteer.DALFactory;
+using OjVolunteer.IDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,40 +9,58 @@ using System.Threading.Tasks;
 
 namespace OjVolunteer.BLL
 {
-    public class BaseService<T> where T: class, new ()
+    public abstract class BaseService<T> where T: class, new ()
     {
         public IBaseDal<T> CurrentDal { get; set; }
 
+        public IDbSession DbSession
+        {
+            get { return DbSessionFactory.GetCurrentDbSession(); }
+        }
+
+        public abstract void SetCurrentDal();
+
+        public BaseService()
+        {
+            SetCurrentDal();
+        }
 
         #region 查询
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
-         
+            return CurrentDal.GetEntities(whereLambda);
         }
-        IQueryable<T> GetPageEntities<S>(int pageSize, int pageIndex, out int total,
+        public IQueryable<T> GetPageEntities<S>(int pageSize, int pageIndex, out int total,
                                             Expression<Func<T, bool>> whereLambda,
                                             Expression<Func<T, S>> orderByLambda,
                                             bool isAsc)
-        { }
+        {
+            return CurrentDal.GetPageEntities(pageSize, pageIndex, out total, whereLambda, orderByLambda, isAsc);      
+        }
         #endregion
 
         #region 添加
         public T Add(T entity)
-
         {
+            CurrentDal.Add(entity);
+            DbSession.SaveChanges();
             return entity;
         }
         #endregion
 
         #region 更新
-        public bool Update(T entity) {
-            return true;
-                }
+        public bool Update(T entity)
+        {
+            CurrentDal.Update(entity);
+            return DbSession.SaveChanges()>0;
+        }
         #endregion
 
         #region 删除
         public bool Delete(T entity) {
-            return true;
+            CurrentDal.Detele(entity);
+            return DbSession.SaveChanges()>0;
+
         }
         #endregion
 
