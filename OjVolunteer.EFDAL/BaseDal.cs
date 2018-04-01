@@ -1,6 +1,7 @@
 ﻿using OjVolunteer.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,7 +11,7 @@ namespace OjVolunteer.EFDAL
 {
     public class BaseDal<T> where T:class ,new ()
     {
-        public OjVolunteerEntities db = new OjVolunteerEntities();
+        public DbContext Db { get { return DbContextFactory.GetCurrentDbContext(); } }
 
         #region 查询
         /// <summary>
@@ -20,7 +21,7 @@ namespace OjVolunteer.EFDAL
         /// <returns>全部实体的集合</returns>
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
-            return db.Set<T>().Where(whereLambda).AsQueryable();
+            return Db.Set<T>().Where(whereLambda).AsQueryable();
         }
 
         /// <summary>
@@ -39,14 +40,14 @@ namespace OjVolunteer.EFDAL
                                                     Expression<Func<T, S>> orderByLambda,
                                                     bool isAsc)
         {
-            total = db.Set<T>().Count();
+            total = Db.Set<T>().Count();
             if (isAsc)
             {
-                return db.Set<T>().Where(whereLambda).OrderBy<T, S>(orderByLambda).Skip<T>(pageSize * (pageIndex - 1)).Take(pageSize).AsQueryable();
+                return Db.Set<T>().Where(whereLambda).OrderBy<T, S>(orderByLambda).Skip<T>(pageSize * (pageIndex - 1)).Take(pageSize).AsQueryable();
             }
             else
             {
-                return db.Set<T>().Where(whereLambda).OrderByDescending<T, S>(orderByLambda).Skip<T>(pageSize * (pageIndex - 1)).Take(pageSize).AsQueryable();
+                return Db.Set<T>().Where(whereLambda).OrderByDescending<T, S>(orderByLambda).Skip<T>(pageSize * (pageIndex - 1)).Take(pageSize).AsQueryable();
             }
         }
         #endregion
@@ -59,8 +60,8 @@ namespace OjVolunteer.EFDAL
         /// <returns>实体</returns>
         public T Add(T entity)
         {
-            db.Set<T>().Add(entity);
-            db.SaveChanges();
+            Db.Set<T>().Add(entity);
+            Db.SaveChanges();
             return entity;
         }
         #endregion
@@ -73,8 +74,8 @@ namespace OjVolunteer.EFDAL
         /// <returns>true</returns>
         public bool Update(T entity)
         {
-            db.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
+            Db.SaveChanges();
             return true;
         }
         #endregion
@@ -87,8 +88,8 @@ namespace OjVolunteer.EFDAL
         /// <returns>true</returns>
         public bool Detele(T entity)
         {
-            db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
-            db.SaveChanges();
+            Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
+            Db.SaveChanges();
             return true;
         } 
         #endregion

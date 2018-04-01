@@ -52,6 +52,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Dals.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContextFactory.cs" />
     <Compile Include="MajorDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

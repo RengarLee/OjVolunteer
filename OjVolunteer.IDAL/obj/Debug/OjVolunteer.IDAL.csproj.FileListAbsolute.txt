@@ -4,3 +4,10 @@ E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug\OjVolunteer.IDAL.csproj.CoreCompileInputs.cache
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug\OjVolunteer.IDAL.dll
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug\OjVolunteer.IDAL.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\bin\Debug\OjVolunteer.Model.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\bin\Debug\EntityFramework.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\bin\Debug\OjVolunteer.Model.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\bin\Debug\OjVolunteer.Model.dll.config
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\bin\Debug\EntityFramework.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IDAL\obj\Debug\OjVolunteer.IDAL.csproj.CopyComplete
