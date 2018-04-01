@@ -44,3 +44,7 @@ E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal.Tests
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal.Tests\obj\Debug\OjVolunteer.UIPortal.Tests.csproj.CopyComplete
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal.Tests\obj\Debug\OjVolunteer.UIPortal.Tests.dll
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal.Tests\obj\Debug\OjVolunteer.UIPortal.Tests.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal.Tests\bin\Debug\Spring.Web.Mvc4.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal.Tests\bin\Debug\Spring.Core.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal.Tests\bin\Debug\Spring.Web.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal.Tests\bin\Debug\Common.Logging.dll

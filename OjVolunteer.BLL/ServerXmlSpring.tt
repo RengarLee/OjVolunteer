@@ -1,0 +1,27 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="EF.Utility.CS.ttinclude"#><#@
+ output extension=".xml"#><#
+
+CodeGenerationTools code = new CodeGenerationTools(this);
+MetadataLoader loader = new MetadataLoader(this);
+CodeRegion region = new CodeRegion(this, 1);
+MetadataTools ef = new MetadataTools(this);
+
+string inputFile = @"..\\OjVolunteer.Model\\EFDataModel.edmx";
+
+EdmItemCollection ItemCollection = loader.CreateEdmItemCollection(inputFile);
+string namespaceName = code.VsNamespaceSuggestion();
+
+EntityFrameworkTemplateFileManager fileManager = EntityFrameworkTemplateFileManager.Create(this);
+
+#><?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+<#
+foreach (EntityType entity in ItemCollection.GetItems<EntityType>().OrderBy(e => e.Name))
+{
+   
+#>
+	<object name="<#=entity.Name#>Service" type="OjVolunteer.BLL.<#=entity.Name#>Service, OjVolunteer.BLL" singleton="false" >
+  </object>
+<#}#>
+</objects>
