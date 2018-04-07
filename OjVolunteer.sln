@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OjVolunteer.BLL", "OjVolunt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OjVolunteer.IBLL", "OjVolunteer.IBLL\OjVolunteer.IBLL.csproj", "{24A67FA4-1209-49D3-8F5A-7648B00AA795}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OjVolunteer.Common", "OjVolunteer.Common\OjVolunteer.Common.csproj", "{FE036E45-29DE-4BCD-9255-34DFCFD0FE78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{24A67FA4-1209-49D3-8F5A-7648B00AA795}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24A67FA4-1209-49D3-8F5A-7648B00AA795}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24A67FA4-1209-49D3-8F5A-7648B00AA795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE036E45-29DE-4BCD-9255-34DFCFD0FE78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE036E45-29DE-4BCD-9255-34DFCFD0FE78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE036E45-29DE-4BCD-9255-34DFCFD0FE78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE036E45-29DE-4BCD-9255-34DFCFD0FE78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{322AF1C4-864C-4347-AF27-8C31ABB4E09D} = {14367E93-1B52-46AE-BC1E-3744C33592B3}
 		{36FBEDE8-5F42-42A3-BE3B-9224290BF6CC} = {41D2753A-5DFA-4553-8471-F3A9ABC21A47}
 		{24A67FA4-1209-49D3-8F5A-7648B00AA795} = {41D2753A-5DFA-4553-8471-F3A9ABC21A47}
+		{FE036E45-29DE-4BCD-9255-34DFCFD0FE78} = {69472ED6-FA59-4FAB-AEC1-2AFA94ABD331}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DD07AD1-D63B-4598-B89A-E7BD2007655C}

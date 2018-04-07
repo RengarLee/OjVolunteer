@@ -1,0 +1,8 @@
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\OjVolunteer.Common.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\OjVolunteer.Common.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\log4net.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\obj\Debug\OjVolunteer.Common.csprojResolveAssemblyReference.cache
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\obj\Debug\OjVolunteer.Common.csproj.CoreCompileInputs.cache
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\obj\Debug\OjVolunteer.Common.csproj.CopyComplete
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\obj\Debug\OjVolunteer.Common.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\obj\Debug\OjVolunteer.Common.pdb

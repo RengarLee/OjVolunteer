@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OjVolunteer.EFDAL
 {
-    public partial class MajorDal:BaseDal<major>
+    public partial class MajorDal:BaseDal<Major>
     {
     }
 }

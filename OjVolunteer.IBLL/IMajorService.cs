@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OjVolunteer.IBLL
 {
-    public partial interface IMajorService:IBaseService<major>
+    public partial interface IMajorService:IBaseService<Major>
     {
     }
 }

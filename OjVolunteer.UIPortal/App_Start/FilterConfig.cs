@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using OjVolunteer.UIPortal.OtherClass;
+using System.Web;
 using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal
@@ -7,7 +8,8 @@ namespace OjVolunteer.UIPortal
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            //filters.Add(new HandleErrorAttribute());
+            filters.Add(new ExceptionLogFilterAttribute());
         }
     }
 }
