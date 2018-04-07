@@ -30,11 +30,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\SpringNet\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\Log4Net\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Spring.Aop">
+      <HintPath>..\packages\SpringNet\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core">
+      <HintPath>..\packages\SpringNet\Spring.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web">
+      <HintPath>..\packages\SpringNet\Spring.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web.Extensions">
+      <HintPath>..\packages\SpringNet\Spring.Web.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Web.Mvc4">
+      <HintPath>..\packages\SpringNet\Spring.Web.Mvc4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +62,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheHelper.cs" />
+    <Compile Include="Cache\HttpRuntimeCacheWriter.cs" />
+    <Compile Include="Cache\ICacheWriter.cs" />
+    <Compile Include="Cache\MemecacheWriter.cs" />
     <Compile Include="LogWriter\ILogWriter.cs" />
     <Compile Include="LogWriter\Log4NetWriter.cs" />
     <Compile Include="LogWriter\LogHelper.cs" />

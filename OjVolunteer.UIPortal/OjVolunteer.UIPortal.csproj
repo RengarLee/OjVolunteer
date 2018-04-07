@@ -191,6 +191,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\common.xml" />
     <Content Include="Config\controllers.xml" />
     <Content Include="Config\services.xml" />
     <Content Include="Content\bootstrap.css" />

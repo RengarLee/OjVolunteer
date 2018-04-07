@@ -28,6 +28,7 @@ namespace OjVolunteer.UIPortal.Controllers
             var organizeinfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfLoginId == name && o.OrganizeInfoPwd == pwd && o.Status == delNormal).FirstOrDefault();
             if (organizeinfo != null)
             {
+
                 return Content("OrganizeInfo");
             }
             var userinfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status == delNormal).FirstOrDefault();
