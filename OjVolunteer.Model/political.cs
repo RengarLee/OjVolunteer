@@ -12,22 +12,22 @@ namespace OjVolunteer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class political
+    public partial class Political
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public political()
+        public Political()
         {
-            this.change = new HashSet<change>();
-            this.userinfo = new HashSet<userinfo>();
+            this.UserInfo = new HashSet<UserInfo>();
         }
     
-        public int political_id { get; set; }
-        public string political_name { get; set; }
-        public string political_remarks { get; set; }
+        public int PoliticalID { get; set; }
+        public string PoliticalName { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public string Remark { get; set; }
+        public int Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<change> change { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userinfo> userinfo { get; set; }
+        public virtual ICollection<UserInfo> UserInfo { get; set; }
     }
 }

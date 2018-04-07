@@ -12,19 +12,22 @@ namespace OjVolunteer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class major
+    public partial class Major
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public major()
+        public Major()
         {
-            this.userinfo = new HashSet<userinfo>();
+            this.UserInfo = new HashSet<UserInfo>();
         }
     
-        public int major_id { get; set; }
-        public string major_name { get; set; }
-        public string major_remarks { get; set; }
+        public int MajorID { get; set; }
+        public string MajorName { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public string Remark { get; set; }
+        public int Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userinfo> userinfo { get; set; }
+        public virtual ICollection<UserInfo> UserInfo { get; set; }
     }
 }

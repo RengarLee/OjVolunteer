@@ -12,14 +12,17 @@ namespace OjVolunteer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class favors
+    public partial class Favors
     {
-        public int favor_id { get; set; }
-        public int talk_id { get; set; }
-        public int userinfo_id { get; set; }
-        public System.DateTime favor_time { get; set; }
+        public int FavorID { get; set; }
+        public int TalkID { get; set; }
+        public int UserInfoID { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public string Remark { get; set; }
+        public int Status { get; set; }
     
-        public virtual talk talk { get; set; }
-        public virtual userinfo userinfo { get; set; }
+        public virtual Talks Talks { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

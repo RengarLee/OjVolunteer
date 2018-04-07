@@ -4,38 +4,30 @@ namespace OjVolunteer.IDAL
     public partial interface IDbSession
     {   
 	 
-		IactconditionDal actconditionDal { get;}
+		IActivityDal ActivityDal { get;}
 	 
-		IactenrollDal actenrollDal { get;}
+		IActivityDetailDal ActivityDetailDal { get;}
 	 
-		IactiveindexDal activeindexDal { get;}
+		IActivityTypeDal ActivityTypeDal { get;}
 	 
-		IactivitytypeDal activitytypeDal { get;}
+		IDepartmentDal DepartmentDal { get;}
 	 
-		IactsdetailDal actsdetailDal { get;}
+		IFavorsDal FavorsDal { get;}
 	 
-		IchangeDal changeDal { get;}
+		IIntegralsDal IntegralsDal { get;}
 	 
-		IdepartmentDal departmentDal { get;}
+		IMajorDal MajorDal { get;}
 	 
-		IfavorsDal favorsDal { get;}
+		IOrganizeInfoDal OrganizeInfoDal { get;}
 	 
-		ImajorDal majorDal { get;}
+		IPoliticalDal PoliticalDal { get;}
 	 
-		IorganizeinfosDal organizeinfosDal { get;}
+		ITalksDal TalksDal { get;}
 	 
-		IpoliticalDal politicalDal { get;}
+		IUserDurationDal UserDurationDal { get;}
 	 
-		IstatusDal statusDal { get;}
+		IUserEnrollDal UserEnrollDal { get;}
 	 
-		ItalkDal talkDal { get;}
-	 
-		ItimedetailDal timedetailDal { get;}
-	 
-		IuserdurationDal userdurationDal { get;}
-	 
-		IuserinfoDal userinfoDal { get;}
-	 
-		IuserinteDal userinteDal { get;}
+		IUserInfoDal UserInfoDal { get;}
 	}
 }

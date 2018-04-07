@@ -25,22 +25,18 @@ namespace OjVolunteer.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<actcondition> actcondition { get; set; }
-        public virtual DbSet<actenroll> actenroll { get; set; }
-        public virtual DbSet<activeindex> activeindex { get; set; }
-        public virtual DbSet<activitytype> activitytype { get; set; }
-        public virtual DbSet<actsdetail> actsdetail { get; set; }
-        public virtual DbSet<change> change { get; set; }
-        public virtual DbSet<department> department { get; set; }
-        public virtual DbSet<favors> favors { get; set; }
-        public virtual DbSet<major> major { get; set; }
-        public virtual DbSet<organizeinfos> organizeinfos { get; set; }
-        public virtual DbSet<political> political { get; set; }
-        public virtual DbSet<status> status { get; set; }
-        public virtual DbSet<talk> talk { get; set; }
-        public virtual DbSet<timedetail> timedetail { get; set; }
-        public virtual DbSet<userduration> userduration { get; set; }
-        public virtual DbSet<userinfo> userinfo { get; set; }
-        public virtual DbSet<userinte> userinte { get; set; }
+        public virtual DbSet<Activity> Activity { get; set; }
+        public virtual DbSet<ActivityDetail> ActivityDetail { get; set; }
+        public virtual DbSet<ActivityType> ActivityType { get; set; }
+        public virtual DbSet<Department> Department { get; set; }
+        public virtual DbSet<Favors> Favors { get; set; }
+        public virtual DbSet<Integrals> Integrals { get; set; }
+        public virtual DbSet<Major> Major { get; set; }
+        public virtual DbSet<OrganizeInfo> OrganizeInfo { get; set; }
+        public virtual DbSet<Political> Political { get; set; }
+        public virtual DbSet<Talks> Talks { get; set; }
+        public virtual DbSet<UserDuration> UserDuration { get; set; }
+        public virtual DbSet<UserEnroll> UserEnroll { get; set; }
+        public virtual DbSet<UserInfo> UserInfo { get; set; }
     }
 }

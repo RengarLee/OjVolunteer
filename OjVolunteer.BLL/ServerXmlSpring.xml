@@ -1,54 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
 
-	<object name="actconditionService" type="OjVolunteer.BLL.actconditionService, OjVolunteer.BLL" singleton="false" >
+	<object name="ActivityService" type="OjVolunteer.BLL.ActivityService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="actenrollService" type="OjVolunteer.BLL.actenrollService, OjVolunteer.BLL" singleton="false" >
+	<object name="ActivityDetailService" type="OjVolunteer.BLL.ActivityDetailService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="activeindexService" type="OjVolunteer.BLL.activeindexService, OjVolunteer.BLL" singleton="false" >
+	<object name="ActivityTypeService" type="OjVolunteer.BLL.ActivityTypeService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="activitytypeService" type="OjVolunteer.BLL.activitytypeService, OjVolunteer.BLL" singleton="false" >
+	<object name="DepartmentService" type="OjVolunteer.BLL.DepartmentService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="actsdetailService" type="OjVolunteer.BLL.actsdetailService, OjVolunteer.BLL" singleton="false" >
+	<object name="FavorsService" type="OjVolunteer.BLL.FavorsService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="changeService" type="OjVolunteer.BLL.changeService, OjVolunteer.BLL" singleton="false" >
+	<object name="IntegralsService" type="OjVolunteer.BLL.IntegralsService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="departmentService" type="OjVolunteer.BLL.departmentService, OjVolunteer.BLL" singleton="false" >
+	<object name="MajorService" type="OjVolunteer.BLL.MajorService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="favorsService" type="OjVolunteer.BLL.favorsService, OjVolunteer.BLL" singleton="false" >
+	<object name="OrganizeInfoService" type="OjVolunteer.BLL.OrganizeInfoService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="majorService" type="OjVolunteer.BLL.majorService, OjVolunteer.BLL" singleton="false" >
+	<object name="PoliticalService" type="OjVolunteer.BLL.PoliticalService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="organizeinfosService" type="OjVolunteer.BLL.organizeinfosService, OjVolunteer.BLL" singleton="false" >
+	<object name="TalksService" type="OjVolunteer.BLL.TalksService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="politicalService" type="OjVolunteer.BLL.politicalService, OjVolunteer.BLL" singleton="false" >
+	<object name="UserDurationService" type="OjVolunteer.BLL.UserDurationService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="statusService" type="OjVolunteer.BLL.statusService, OjVolunteer.BLL" singleton="false" >
+	<object name="UserEnrollService" type="OjVolunteer.BLL.UserEnrollService, OjVolunteer.BLL" singleton="false" >
   </object>
 
-	<object name="talkService" type="OjVolunteer.BLL.talkService, OjVolunteer.BLL" singleton="false" >
-  </object>
-
-	<object name="timedetailService" type="OjVolunteer.BLL.timedetailService, OjVolunteer.BLL" singleton="false" >
-  </object>
-
-	<object name="userdurationService" type="OjVolunteer.BLL.userdurationService, OjVolunteer.BLL" singleton="false" >
-  </object>
-
-	<object name="userinfoService" type="OjVolunteer.BLL.userinfoService, OjVolunteer.BLL" singleton="false" >
-  </object>
-
-	<object name="userinteService" type="OjVolunteer.BLL.userinteService, OjVolunteer.BLL" singleton="false" >
+	<object name="UserInfoService" type="OjVolunteer.BLL.UserInfoService, OjVolunteer.BLL" singleton="false" >
   </object>
 </objects>

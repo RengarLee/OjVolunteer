@@ -12,19 +12,25 @@ namespace OjVolunteer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class activeindex
+    public partial class Talks
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public activeindex()
+        public Talks()
         {
-            this.userinte = new HashSet<userinte>();
+            this.Favors = new HashSet<Favors>();
         }
     
-        public int activeindex_id { get; set; }
-        public decimal activeindex_num { get; set; }
-        public string activeindex_remarks { get; set; }
+        public int TalkID { get; set; }
+        public int UserInfoID { get; set; }
+        public string TalkContent { get; set; }
+        public int TalkFavorsNum { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public string Remark { get; set; }
+        public int Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userinte> userinte { get; set; }
+        public virtual ICollection<Favors> Favors { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

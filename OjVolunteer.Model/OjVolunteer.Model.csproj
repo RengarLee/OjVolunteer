@@ -36,11 +36,24 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,25 +62,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="actcondition.cs">
+    <Compile Include="Activity.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="actenroll.cs">
+    <Compile Include="ActivityDetail.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="activeindex.cs">
+    <Compile Include="ActivityType.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="activitytype.cs">
-      <DependentUpon>EFDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="actsdetail.cs">
-      <DependentUpon>EFDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="change.cs">
-      <DependentUpon>EFDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="department.cs">
+    <Compile Include="Department.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EFDataModel.Context.cs">
@@ -85,35 +89,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="favors.cs">
+    <Compile Include="Favors.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="major.cs">
+    <Compile Include="Integrals.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="organizeinfos.cs">
+    <Compile Include="Major.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="political.cs">
+    <Compile Include="OrganizeInfo.cs">
+      <DependentUpon>EFDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Political.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="status.cs">
+    <Compile Include="Talks.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="talk.cs">
+    <Compile Include="UserDuration.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="timedetail.cs">
+    <Compile Include="UserEnroll.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="userduration.cs">
-      <DependentUpon>EFDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userinfo.cs">
-      <DependentUpon>EFDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userinte.cs">
+    <Compile Include="UserInfo.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

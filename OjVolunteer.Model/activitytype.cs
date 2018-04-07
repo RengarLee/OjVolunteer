@@ -12,19 +12,22 @@ namespace OjVolunteer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class activitytype
+    public partial class ActivityType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public activitytype()
+        public ActivityType()
         {
-            this.actsdetail = new HashSet<actsdetail>();
+            this.Activity = new HashSet<Activity>();
         }
     
-        public int activitytype_id { get; set; }
-        public string activitytype_name { get; set; }
-        public string activitytype_remarks { get; set; }
+        public int ActivityTypeID { get; set; }
+        public string ActivityTypeName { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public string Remark { get; set; }
+        public int Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<actsdetail> actsdetail { get; set; }
+        public virtual ICollection<Activity> Activity { get; set; }
     }
 }

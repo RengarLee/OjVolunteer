@@ -11,3 +11,11 @@ E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug\OjVolunteer.IBLL.csproj.CopyComplete
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug\OjVolunteer.IBLL.dll
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\obj\Debug\OjVolunteer.IBLL.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\Newtonsoft.Json.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\System.Net.Http.Formatting.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\System.Web.Http.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\System.Web.Http.WebHost.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\Newtonsoft.Json.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\System.Net.Http.Formatting.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\System.Web.Http.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.IBLL\bin\Debug\System.Web.Http.WebHost.xml

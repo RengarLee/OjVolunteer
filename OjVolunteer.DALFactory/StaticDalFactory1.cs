@@ -20,106 +20,82 @@ namespace OjVolunteer.DALFactory
     {
    
 	
-		public static IactconditionDal GetactconditionDal()
+		public static IActivityDal GetActivityDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".actconditionDal")
-				as IactconditionDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".ActivityDal")
+				as IActivityDal;
 		}
 	
-		public static IactenrollDal GetactenrollDal()
+		public static IActivityDetailDal GetActivityDetailDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".actenrollDal")
-				as IactenrollDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".ActivityDetailDal")
+				as IActivityDetailDal;
 		}
 	
-		public static IactiveindexDal GetactiveindexDal()
+		public static IActivityTypeDal GetActivityTypeDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".activeindexDal")
-				as IactiveindexDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".ActivityTypeDal")
+				as IActivityTypeDal;
 		}
 	
-		public static IactivitytypeDal GetactivitytypeDal()
+		public static IDepartmentDal GetDepartmentDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".activitytypeDal")
-				as IactivitytypeDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".DepartmentDal")
+				as IDepartmentDal;
 		}
 	
-		public static IactsdetailDal GetactsdetailDal()
+		public static IFavorsDal GetFavorsDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".actsdetailDal")
-				as IactsdetailDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".FavorsDal")
+				as IFavorsDal;
 		}
 	
-		public static IchangeDal GetchangeDal()
+		public static IIntegralsDal GetIntegralsDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".changeDal")
-				as IchangeDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".IntegralsDal")
+				as IIntegralsDal;
 		}
 	
-		public static IdepartmentDal GetdepartmentDal()
+		public static IMajorDal GetMajorDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".departmentDal")
-				as IdepartmentDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".MajorDal")
+				as IMajorDal;
 		}
 	
-		public static IfavorsDal GetfavorsDal()
+		public static IOrganizeInfoDal GetOrganizeInfoDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".favorsDal")
-				as IfavorsDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".OrganizeInfoDal")
+				as IOrganizeInfoDal;
 		}
 	
-		public static ImajorDal GetmajorDal()
+		public static IPoliticalDal GetPoliticalDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".majorDal")
-				as ImajorDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".PoliticalDal")
+				as IPoliticalDal;
 		}
 	
-		public static IorganizeinfosDal GetorganizeinfosDal()
+		public static ITalksDal GetTalksDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".organizeinfosDal")
-				as IorganizeinfosDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".TalksDal")
+				as ITalksDal;
 		}
 	
-		public static IpoliticalDal GetpoliticalDal()
+		public static IUserDurationDal GetUserDurationDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".politicalDal")
-				as IpoliticalDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".UserDurationDal")
+				as IUserDurationDal;
 		}
 	
-		public static IstatusDal GetstatusDal()
+		public static IUserEnrollDal GetUserEnrollDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".statusDal")
-				as IstatusDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".UserEnrollDal")
+				as IUserEnrollDal;
 		}
 	
-		public static ItalkDal GettalkDal()
+		public static IUserInfoDal GetUserInfoDal()
 		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".talkDal")
-				as ItalkDal;
-		}
-	
-		public static ItimedetailDal GettimedetailDal()
-		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".timedetailDal")
-				as ItimedetailDal;
-		}
-	
-		public static IuserdurationDal GetuserdurationDal()
-		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".userdurationDal")
-				as IuserdurationDal;
-		}
-	
-		public static IuserinfoDal GetuserinfoDal()
-		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".userinfoDal")
-				as IuserinfoDal;
-		}
-	
-		public static IuserinteDal GetuserinteDal()
-		{
-			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".userinteDal")
-				as IuserinteDal;
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".UserInfoDal")
+				as IUserInfoDal;
 		}
 	}
 }

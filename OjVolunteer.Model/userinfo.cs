@@ -12,58 +12,57 @@ namespace OjVolunteer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userinfo
+    public partial class UserInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public userinfo()
+        public UserInfo()
         {
-            this.actenroll = new HashSet<actenroll>();
-            this.actsdetail = new HashSet<actsdetail>();
-            this.change = new HashSet<change>();
-            this.favors = new HashSet<favors>();
-            this.talk = new HashSet<talk>();
-            this.timedetail = new HashSet<timedetail>();
-            this.userduration = new HashSet<userduration>();
-            this.userinte = new HashSet<userinte>();
+            this.Activity = new HashSet<Activity>();
+            this.Activity1 = new HashSet<Activity>();
+            this.ActivityDetail = new HashSet<ActivityDetail>();
+            this.Favors = new HashSet<Favors>();
+            this.Integrals = new HashSet<Integrals>();
+            this.Talks = new HashSet<Talks>();
+            this.UserDuration = new HashSet<UserDuration>();
+            this.UserEnroll = new HashSet<UserEnroll>();
         }
     
-        public int userinfo_id { get; set; }
-        public string userinfo_username { get; set; }
-        public string userinfo_password { get; set; }
-        public string userinfo_phone { get; set; }
-        public string userinfo_studentid { get; set; }
-        public string userinfo_realname { get; set; }
-        public Nullable<int> major_id { get; set; }
-        public Nullable<int> department_id { get; set; }
-        public Nullable<int> political_id { get; set; }
-        public Nullable<int> organizeinfo_id { get; set; }
-        public string userinfo_email { get; set; }
-        public System.DateTime userinfo_lasttiem { get; set; }
-        public int status_id { get; set; }
-        public Nullable<int> updateid { get; set; }
-        public Nullable<System.DateTime> updatetime { get; set; }
-        public string userinfo_remarks { get; set; }
+        public int UserInfoID { get; set; }
+        public string UserInfoLoginId { get; set; }
+        public string UserInfoPwd { get; set; }
+        public string UserInfoStuId { get; set; }
+        public string UserInfoShowName { get; set; }
+        public string UserInfoPhone { get; set; }
+        public string UserInfoEmail { get; set; }
+        public Nullable<int> MajorID { get; set; }
+        public Nullable<int> DepartmentID { get; set; }
+        public Nullable<int> PoliticalID { get; set; }
+        public Nullable<int> UpdateDepartmentID { get; set; }
+        public Nullable<int> OrganizeinfoID { get; set; }
+        public System.DateTime UserInfoLastTime { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public string Remark { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<actenroll> actenroll { get; set; }
+        public virtual ICollection<Activity> Activity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<actsdetail> actsdetail { get; set; }
+        public virtual ICollection<Activity> Activity1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<change> change { get; set; }
-        public virtual department department { get; set; }
+        public virtual ICollection<ActivityDetail> ActivityDetail { get; set; }
+        public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<favors> favors { get; set; }
-        public virtual major major { get; set; }
-        public virtual organizeinfos organizeinfos { get; set; }
-        public virtual political political { get; set; }
-        public virtual status status { get; set; }
+        public virtual ICollection<Favors> Favors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<talk> talk { get; set; }
+        public virtual ICollection<Integrals> Integrals { get; set; }
+        public virtual Major Major { get; set; }
+        public virtual OrganizeInfo OrganizeInfo { get; set; }
+        public virtual Political Political { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<timedetail> timedetail { get; set; }
+        public virtual ICollection<Talks> Talks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userduration> userduration { get; set; }
+        public virtual ICollection<UserDuration> UserDuration { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userinte> userinte { get; set; }
+        public virtual ICollection<UserEnroll> UserEnroll { get; set; }
     }
 }

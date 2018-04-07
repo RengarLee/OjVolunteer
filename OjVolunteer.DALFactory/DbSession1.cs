@@ -6,89 +6,69 @@ namespace OjVolunteer.DALFactory
 {
     public partial class DbSession :IDbSession
     {   		
-		public IactconditionDal actconditionDal
+		public IActivityDal ActivityDal
 		{
-			get { return StaticDalFactory.GetactconditionDal(); }
+			get { return StaticDalFactory.GetActivityDal(); }
 		}
 		
-		public IactenrollDal actenrollDal
+		public IActivityDetailDal ActivityDetailDal
 		{
-			get { return StaticDalFactory.GetactenrollDal(); }
+			get { return StaticDalFactory.GetActivityDetailDal(); }
 		}
 		
-		public IactiveindexDal activeindexDal
+		public IActivityTypeDal ActivityTypeDal
 		{
-			get { return StaticDalFactory.GetactiveindexDal(); }
+			get { return StaticDalFactory.GetActivityTypeDal(); }
 		}
 		
-		public IactivitytypeDal activitytypeDal
+		public IDepartmentDal DepartmentDal
 		{
-			get { return StaticDalFactory.GetactivitytypeDal(); }
+			get { return StaticDalFactory.GetDepartmentDal(); }
 		}
 		
-		public IactsdetailDal actsdetailDal
+		public IFavorsDal FavorsDal
 		{
-			get { return StaticDalFactory.GetactsdetailDal(); }
+			get { return StaticDalFactory.GetFavorsDal(); }
 		}
 		
-		public IchangeDal changeDal
+		public IIntegralsDal IntegralsDal
 		{
-			get { return StaticDalFactory.GetchangeDal(); }
+			get { return StaticDalFactory.GetIntegralsDal(); }
 		}
 		
-		public IdepartmentDal departmentDal
+		public IMajorDal MajorDal
 		{
-			get { return StaticDalFactory.GetdepartmentDal(); }
+			get { return StaticDalFactory.GetMajorDal(); }
 		}
 		
-		public IfavorsDal favorsDal
+		public IOrganizeInfoDal OrganizeInfoDal
 		{
-			get { return StaticDalFactory.GetfavorsDal(); }
+			get { return StaticDalFactory.GetOrganizeInfoDal(); }
 		}
 		
-		public ImajorDal majorDal
+		public IPoliticalDal PoliticalDal
 		{
-			get { return StaticDalFactory.GetmajorDal(); }
+			get { return StaticDalFactory.GetPoliticalDal(); }
 		}
 		
-		public IorganizeinfosDal organizeinfosDal
+		public ITalksDal TalksDal
 		{
-			get { return StaticDalFactory.GetorganizeinfosDal(); }
+			get { return StaticDalFactory.GetTalksDal(); }
 		}
 		
-		public IpoliticalDal politicalDal
+		public IUserDurationDal UserDurationDal
 		{
-			get { return StaticDalFactory.GetpoliticalDal(); }
+			get { return StaticDalFactory.GetUserDurationDal(); }
 		}
 		
-		public IstatusDal statusDal
+		public IUserEnrollDal UserEnrollDal
 		{
-			get { return StaticDalFactory.GetstatusDal(); }
+			get { return StaticDalFactory.GetUserEnrollDal(); }
 		}
 		
-		public ItalkDal talkDal
+		public IUserInfoDal UserInfoDal
 		{
-			get { return StaticDalFactory.GettalkDal(); }
-		}
-		
-		public ItimedetailDal timedetailDal
-		{
-			get { return StaticDalFactory.GettimedetailDal(); }
-		}
-		
-		public IuserdurationDal userdurationDal
-		{
-			get { return StaticDalFactory.GetuserdurationDal(); }
-		}
-		
-		public IuserinfoDal userinfoDal
-		{
-			get { return StaticDalFactory.GetuserinfoDal(); }
-		}
-		
-		public IuserinteDal userinteDal
-		{
-			get { return StaticDalFactory.GetuserinteDal(); }
+			get { return StaticDalFactory.GetUserInfoDal(); }
 		}
 	}
 }

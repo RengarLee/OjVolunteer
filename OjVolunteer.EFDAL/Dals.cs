@@ -12,71 +12,55 @@ using OjVolunteer.Model;
 namespace OjVolunteer.EFDAL
 { 
 		
-	public partial class actconditionDal:BaseDal<actcondition>,IactconditionDal
+	public partial class ActivityDal:BaseDal<Activity>,IActivityDal
     {
 	}
 		
-	public partial class actenrollDal:BaseDal<actenroll>,IactenrollDal
+	public partial class ActivityDetailDal:BaseDal<ActivityDetail>,IActivityDetailDal
     {
 	}
 		
-	public partial class activeindexDal:BaseDal<activeindex>,IactiveindexDal
+	public partial class ActivityTypeDal:BaseDal<ActivityType>,IActivityTypeDal
     {
 	}
 		
-	public partial class activitytypeDal:BaseDal<activitytype>,IactivitytypeDal
+	public partial class DepartmentDal:BaseDal<Department>,IDepartmentDal
     {
 	}
 		
-	public partial class actsdetailDal:BaseDal<actsdetail>,IactsdetailDal
+	public partial class FavorsDal:BaseDal<Favors>,IFavorsDal
     {
 	}
 		
-	public partial class changeDal:BaseDal<change>,IchangeDal
+	public partial class IntegralsDal:BaseDal<Integrals>,IIntegralsDal
     {
 	}
 		
-	public partial class departmentDal:BaseDal<department>,IdepartmentDal
+	public partial class MajorDal:BaseDal<Major>,IMajorDal
     {
 	}
 		
-	public partial class favorsDal:BaseDal<favors>,IfavorsDal
+	public partial class OrganizeInfoDal:BaseDal<OrganizeInfo>,IOrganizeInfoDal
     {
 	}
 		
-	public partial class majorDal:BaseDal<major>,ImajorDal
+	public partial class PoliticalDal:BaseDal<Political>,IPoliticalDal
     {
 	}
 		
-	public partial class organizeinfosDal:BaseDal<organizeinfos>,IorganizeinfosDal
+	public partial class TalksDal:BaseDal<Talks>,ITalksDal
     {
 	}
 		
-	public partial class politicalDal:BaseDal<political>,IpoliticalDal
+	public partial class UserDurationDal:BaseDal<UserDuration>,IUserDurationDal
     {
 	}
 		
-	public partial class statusDal:BaseDal<status>,IstatusDal
+	public partial class UserEnrollDal:BaseDal<UserEnroll>,IUserEnrollDal
     {
 	}
 		
-	public partial class talkDal:BaseDal<talk>,ItalkDal
-    {
-	}
-		
-	public partial class timedetailDal:BaseDal<timedetail>,ItimedetailDal
-    {
-	}
-		
-	public partial class userdurationDal:BaseDal<userduration>,IuserdurationDal
-    {
-	}
-		
-	public partial class userinfoDal:BaseDal<userinfo>,IuserinfoDal
-    {
-	}
-		
-	public partial class userinteDal:BaseDal<userinte>,IuserinteDal
+	public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
     {
 	}
 }

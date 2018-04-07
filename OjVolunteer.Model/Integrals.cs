@@ -12,17 +12,17 @@ namespace OjVolunteer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class actenroll
+    public partial class Integrals
     {
-        public int actenroll_id { get; set; }
-        public int actsdetail_id { get; set; }
-        public int userinfo_id { get; set; }
-        public System.DateTime actenroll_time { get; set; }
-        public int status_id { get; set; }
-        public string actenroll_remarks { get; set; }
+        public int IntegralID { get; set; }
+        public int UserInfoID { get; set; }
+        public int IntegralNum { get; set; }
+        public Nullable<decimal> IntegralIndex { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public string Remark { get; set; }
+        public int Status { get; set; }
     
-        public virtual actsdetail actsdetail { get; set; }
-        public virtual status status { get; set; }
-        public virtual userinfo userinfo { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }

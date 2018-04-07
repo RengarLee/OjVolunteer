@@ -5,49 +5,37 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a5243fa8637648ecae7876874c0ba4dc" Name="Diagram1">
-        <EntityTypeShape EntityType="OjVolunteerModel.actcondition" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.actenroll" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.activeindex" Width="1.5" PointX="11.25" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.activitytype" Width="1.5" PointX="3" PointY="21.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.actsdetail" Width="1.5" PointX="5.25" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.change" Width="1.5" PointX="5.25" PointY="26.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.department" Width="1.5" PointX="6" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.favors" Width="1.5" PointX="13.5" PointY="20.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.major" Width="1.5" PointX="6" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.organizeinfos" Width="1.5" PointX="3" PointY="24.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.political" Width="1.5" PointX="6" PointY="30.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.status" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.talk" Width="1.5" PointX="10.5" PointY="16.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.timedetail" Width="1.5" PointX="10.5" PointY="20.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.userduration" Width="1.5" PointX="10.5" PointY="26.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.userinfo" Width="1.5" PointX="8.25" PointY="18.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="OjVolunteerModel.userinte" Width="1.5" PointX="13.5" PointY="16.25" IsExpanded="true" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTSDETA_REFERENCE_ACTCONDI" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTENROL_REFERENCE_ACTSDETA" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTENROL_REFERENCE_STATUS" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTENROL_REFERENCE_USERINFO" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERINTE_REFERENCE_ACTIVEIN" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTSDETA_REFERENCE_ACTIVITY" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTSDETA_REFERENCE_ORGANIZE" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTSDETA_REFERENCE_STATUS" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTSDETA_REFERENCE_USERINFO" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_TIMEDETA_REFERENCE_ACTSDETA" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_CHANGE_REFERENCE_ORGANIZE" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_CHANGE_REFERENCE_POLITICA" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_CHANGE_REFERENCE_USERINFO" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_FAVORS_REFERENCE_TALK" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ORGANIZE_REFERENCE_STATUS" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_TALK_REFERENCE_STATUS" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_STATUS" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_TALK_REFERENCE_USERINFO" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_TIMEDETA_REFERENCE_USERINFO" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" ManuallyRouted="false" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERINTE_REFERENCE_USERINFO" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Activity" Width="1.5" PointX="3" PointY="9.125" />
+        <EntityTypeShape EntityType="OjVolunteerModel.ActivityDetail" Width="1.5" PointX="11.25" PointY="7.125" />
+        <EntityTypeShape EntityType="OjVolunteerModel.ActivityType" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Department" Width="1.5" PointX="3.75" PointY="17.375" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Favors" Width="1.5" PointX="10.5" PointY="14.875" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Integrals" Width="1.5" PointX="8.25" PointY="11.375" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Major" Width="1.5" PointX="3.75" PointY="20.375" />
+        <EntityTypeShape EntityType="OjVolunteerModel.OrganizeInfo" Width="1.5" PointX="0.75" PointY="10.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Political" Width="1.5" PointX="3.75" PointY="5.375" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Talks" Width="1.5" PointX="8.25" PointY="18.25" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserDuration" Width="1.5" PointX="8.25" PointY="7.375" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserEnroll" Width="1.5" PointX="11.25" PointY="10.875" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserInfo" Width="1.5" PointX="6" PointY="9.5" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" />
+        <AssociationConnector Association="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS" />
+        <AssociationConnector Association="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" />
+        <AssociationConnector Association="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" />
+        <AssociationConnector Association="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

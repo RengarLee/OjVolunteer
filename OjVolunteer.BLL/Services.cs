@@ -11,139 +11,107 @@ using OjVolunteer.Model;
 
 namespace OjVolunteer.BLL
 {	
-	public partial class actconditionService:BaseService<actcondition>,IactconditionService 
+	public partial class ActivityService:BaseService<Activity>,IActivityService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.actconditionDal;
+            CurrentDal = DbSession.ActivityDal;
         } 
 	}
 	
-	public partial class actenrollService:BaseService<actenroll>,IactenrollService 
+	public partial class ActivityDetailService:BaseService<ActivityDetail>,IActivityDetailService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.actenrollDal;
+            CurrentDal = DbSession.ActivityDetailDal;
         } 
 	}
 	
-	public partial class activeindexService:BaseService<activeindex>,IactiveindexService 
+	public partial class ActivityTypeService:BaseService<ActivityType>,IActivityTypeService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.activeindexDal;
+            CurrentDal = DbSession.ActivityTypeDal;
         } 
 	}
 	
-	public partial class activitytypeService:BaseService<activitytype>,IactivitytypeService 
+	public partial class DepartmentService:BaseService<Department>,IDepartmentService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.activitytypeDal;
+            CurrentDal = DbSession.DepartmentDal;
         } 
 	}
 	
-	public partial class actsdetailService:BaseService<actsdetail>,IactsdetailService 
+	public partial class FavorsService:BaseService<Favors>,IFavorsService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.actsdetailDal;
+            CurrentDal = DbSession.FavorsDal;
         } 
 	}
 	
-	public partial class changeService:BaseService<change>,IchangeService 
+	public partial class IntegralsService:BaseService<Integrals>,IIntegralsService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.changeDal;
+            CurrentDal = DbSession.IntegralsDal;
         } 
 	}
 	
-	public partial class departmentService:BaseService<department>,IdepartmentService 
+	public partial class MajorService:BaseService<Major>,IMajorService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.departmentDal;
+            CurrentDal = DbSession.MajorDal;
         } 
 	}
 	
-	public partial class favorsService:BaseService<favors>,IfavorsService 
+	public partial class OrganizeInfoService:BaseService<OrganizeInfo>,IOrganizeInfoService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.favorsDal;
+            CurrentDal = DbSession.OrganizeInfoDal;
         } 
 	}
 	
-	public partial class majorService:BaseService<major>,ImajorService 
+	public partial class PoliticalService:BaseService<Political>,IPoliticalService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.majorDal;
+            CurrentDal = DbSession.PoliticalDal;
         } 
 	}
 	
-	public partial class organizeinfosService:BaseService<organizeinfos>,IorganizeinfosService 
+	public partial class TalksService:BaseService<Talks>,ITalksService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.organizeinfosDal;
+            CurrentDal = DbSession.TalksDal;
         } 
 	}
 	
-	public partial class politicalService:BaseService<political>,IpoliticalService 
+	public partial class UserDurationService:BaseService<UserDuration>,IUserDurationService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.politicalDal;
+            CurrentDal = DbSession.UserDurationDal;
         } 
 	}
 	
-	public partial class statusService:BaseService<status>,IstatusService 
+	public partial class UserEnrollService:BaseService<UserEnroll>,IUserEnrollService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.statusDal;
+            CurrentDal = DbSession.UserEnrollDal;
         } 
 	}
 	
-	public partial class talkService:BaseService<talk>,ItalkService 
+	public partial class UserInfoService:BaseService<UserInfo>,IUserInfoService 
     {
 		public override void SetCurrentDal()
         {
-            CurrentDal = DbSession.talkDal;
-        } 
-	}
-	
-	public partial class timedetailService:BaseService<timedetail>,ItimedetailService 
-    {
-		public override void SetCurrentDal()
-        {
-            CurrentDal = DbSession.timedetailDal;
-        } 
-	}
-	
-	public partial class userdurationService:BaseService<userduration>,IuserdurationService 
-    {
-		public override void SetCurrentDal()
-        {
-            CurrentDal = DbSession.userdurationDal;
-        } 
-	}
-	
-	public partial class userinfoService:BaseService<userinfo>,IuserinfoService 
-    {
-		public override void SetCurrentDal()
-        {
-            CurrentDal = DbSession.userinfoDal;
-        } 
-	}
-	
-	public partial class userinteService:BaseService<userinte>,IuserinteService 
-    {
-		public override void SetCurrentDal()
-        {
-            CurrentDal = DbSession.userinteDal;
+            CurrentDal = DbSession.UserInfoDal;
         } 
 	}
 }

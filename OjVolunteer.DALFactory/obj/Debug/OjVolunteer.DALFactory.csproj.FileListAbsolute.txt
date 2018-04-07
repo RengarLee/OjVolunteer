@@ -17,3 +17,12 @@ E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\obj
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\obj\Debug\OjVolunteer.DALFactory.csproj.CopyComplete
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\obj\Debug\OjVolunteer.DALFactory.dll
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\obj\Debug\OjVolunteer.DALFactory.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\Newtonsoft.Json.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\System.Net.Http.Formatting.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\System.Web.Http.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\System.Web.Http.WebHost.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\Newtonsoft.Json.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\System.Net.Http.Formatting.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\System.Web.Http.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\System.Web.Http.WebHost.xml
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll

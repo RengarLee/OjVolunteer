@@ -12,20 +12,20 @@ namespace OjVolunteer.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class userduration
+    public partial class UserDuration
     {
-        public int userduration_id { get; set; }
-        public int userinfo_id { get; set; }
-        public decimal tatallength { get; set; }
-        public decimal propartytimelength { get; set; }
-        public decimal partytimelength { get; set; }
-        public System.DateTime userduration_createtime { get; set; }
-        public System.DateTime propartytime { get; set; }
-        public System.DateTime partytime { get; set; }
-        public Nullable<int> updateid { get; set; }
-        public Nullable<System.DateTime> updatetime { get; set; }
-        public string userduration_remarks { get; set; }
+        public int UserDurationID { get; set; }
+        public int UserInfoID { get; set; }
+        public decimal UserDurationTotal { get; set; }
+        public decimal UserDurationPropartyTotal { get; set; }
+        public decimal UserDurationPartyTotal { get; set; }
+        public System.DateTime UserDurationPropartyTime { get; set; }
+        public System.DateTime UserDurationPartyTime { get; set; }
+        public Nullable<System.DateTime> CreateTime { get; set; }
+        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public string Remark { get; set; }
+        public int Status { get; set; }
     
-        public virtual userinfo userinfo { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }
