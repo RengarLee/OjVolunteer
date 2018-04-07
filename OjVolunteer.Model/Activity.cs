@@ -31,9 +31,9 @@ namespace OjVolunteer.Model
         public string ActivityContent { get; set; }
         public int ActivityPrediNum { get; set; }
         public int ActivityManagerID { get; set; }
-        public Nullable<int> ActivityUserInfoID { get; set; }
-        public Nullable<int> ActivityOrganizeID { get; set; }
-        public int OrganizeInfoID { get; set; }
+        public Nullable<int> ActivityApplyUserInfoID { get; set; }
+        public Nullable<int> ActivityApplyOrganizeID { get; set; }
+        public int AuditOrganizeInfoID { get; set; }
         public int ActivityClicks { get; set; }
         public System.DateTime ActivityEnrollEnd { get; set; }
         public System.DateTime ActivityEnrollStart { get; set; }
@@ -45,14 +45,14 @@ namespace OjVolunteer.Model
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
-        public int Status { get; set; }
+        public short Status { get; set; }
     
-        public virtual OrganizeInfo OrganizeInfo { get; set; }
-        public virtual UserInfo UserInfo { get; set; }
-        public virtual OrganizeInfo OrganizeInfo1 { get; set; }
+        public virtual OrganizeInfo ApplyOrganizeInfo { get; set; }
+        public virtual UserInfo ApplyUserInfo { get; set; }
+        public virtual OrganizeInfo AuditOrganizeInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActivityDetail> ActivityDetail { get; set; }
-        public virtual UserInfo UserInfo1 { get; set; }
+        public virtual UserInfo ManagerUserInfo { get; set; }
         public virtual ActivityType ActivityType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserEnroll> UserEnroll { get; set; }

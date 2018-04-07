@@ -10,22 +10,39 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+        function afterLogin(data) {
+            if (data == "UserInfo") {
+                window.top.location.href = "/UserInfo/Index";
+            } else if (data == "OrganizeInfo") {
+                window.top.location.href = "/OrganizeInfo/Index";
+            } else if (data == "Error") {
+                alert("密码错误，请重新输入！");
+            }
+        }
+    </script>
+
 </head>
 <body>
 
     <div class="login-content conter-block">
         <p class="lg-title">登录</p>
-        <form>
-            <input type="text" name="" class="forminput clearfix" placeholder="请输入帐号">
-            <input type="password" name="" class="forminput clearfix" placeholder="请输入密码（不少于6位）">
+        @using (Ajax.BeginForm("ProcessLogin", "Login", new AjaxOptions() { OnSuccess = "afterLogin" }))
+        {
+            <input type="text" name="LoginCode" class="forminput clearfix" placeholder="请输入帐号">
+            <input type="password" name="LoginPwd" class="forminput clearfix" placeholder="请输入密码（不少于6位）">
             <button type="submit" class="btn btn-success" id="loginbtn">登录</button>
             <a href="register.html">快速注册></a>
-        </form>
+        }
     </div>
 
-    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
-    <script src="~/Content/oj/js/bootstrap.min.js"></script>
-    <script src="~/Content/oj/js/main.js"></script>
+
 </body>
 </html>
 

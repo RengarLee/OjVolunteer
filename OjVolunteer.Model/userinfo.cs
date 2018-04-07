@@ -17,8 +17,8 @@ namespace OjVolunteer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserInfo()
         {
-            this.Activity = new HashSet<Activity>();
-            this.Activity1 = new HashSet<Activity>();
+            this.ApplyActivity = new HashSet<Activity>();
+            this.ManagerActivity = new HashSet<Activity>();
             this.ActivityDetail = new HashSet<ActivityDetail>();
             this.Favors = new HashSet<Favors>();
             this.Integrals = new HashSet<Integrals>();
@@ -39,15 +39,16 @@ namespace OjVolunteer.Model
         public Nullable<int> PoliticalID { get; set; }
         public Nullable<int> UpdateDepartmentID { get; set; }
         public Nullable<int> OrganizeinfoID { get; set; }
-        public System.DateTime UserInfoLastTime { get; set; }
+        public Nullable<System.DateTime> UserInfoLastTime { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
+        public short Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity> Activity { get; set; }
+        public virtual ICollection<Activity> ApplyActivity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity> Activity1 { get; set; }
+        public virtual ICollection<Activity> ManagerActivity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActivityDetail> ActivityDetail { get; set; }
         public virtual Department Department { get; set; }

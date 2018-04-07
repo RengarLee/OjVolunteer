@@ -2,210 +2,211 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="OjVolunteerModelStoreContainer" CdmEntityContainer="OjVolunteerEntities">
     <EntitySetMapping Name="Activity">
-      <EntityTypeMapping TypeName="OjVolunteerModel.Activity">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Activity)">
         <MappingFragment StoreEntitySet="Activity">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="ActivityDepartment" ColumnName="ActivityDepartment" />
-          <ScalarProperty Name="ActivityMajor" ColumnName="ActivityMajor" />
-          <ScalarProperty Name="ActivityPolitical" ColumnName="ActivityPolitical" />
-          <ScalarProperty Name="ActivityEnd" ColumnName="ActivityEnd" />
-          <ScalarProperty Name="ActivityStart" ColumnName="ActivityStart" />
-          <ScalarProperty Name="ActivityEnrollStart" ColumnName="ActivityEnrollStart" />
-          <ScalarProperty Name="ActivityEnrollEnd" ColumnName="ActivityEnrollEnd" />
-          <ScalarProperty Name="ActivityClicks" ColumnName="ActivityClicks" />
-          <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
-          <ScalarProperty Name="ActivityOrganizeID" ColumnName="ActivityOrganizeID" />
-          <ScalarProperty Name="ActivityUserInfoID" ColumnName="ActivityUserInfoID" />
-          <ScalarProperty Name="ActivityManagerID" ColumnName="ActivityManagerID" />
-          <ScalarProperty Name="ActivityPrediNum" ColumnName="ActivityPrediNum" />
-          <ScalarProperty Name="ActivityContent" ColumnName="ActivityContent" />
-          <ScalarProperty Name="ActivityAddressY" ColumnName="ActivityAddressY" />
-          <ScalarProperty Name="ActivityAddressX" ColumnName="ActivityAddressX" />
-          <ScalarProperty Name="ActivityAddress" ColumnName="ActivityAddress" />
-          <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
-          <ScalarProperty Name="ActivityIcon" ColumnName="ActivityIcon" />
-          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
           <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ActivityIcon" ColumnName="ActivityIcon" />
+          <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+          <ScalarProperty Name="ActivityAddress" ColumnName="ActivityAddress" />
+          <ScalarProperty Name="ActivityAddressX" ColumnName="ActivityAddressX" />
+          <ScalarProperty Name="ActivityAddressY" ColumnName="ActivityAddressY" />
+          <ScalarProperty Name="ActivityContent" ColumnName="ActivityContent" />
+          <ScalarProperty Name="ActivityPrediNum" ColumnName="ActivityPrediNum" />
+          <ScalarProperty Name="ActivityManagerID" ColumnName="ActivityManagerID" />
+          <ScalarProperty Name="ActivityApplyUserInfoID" ColumnName="ActivityApplyUserInfoID" />
+          <ScalarProperty Name="ActivityApplyOrganizeID" ColumnName="ActivityApplyOrganizeID" />
+          <ScalarProperty Name="AuditOrganizeInfoID" ColumnName="AuditOrganizeInfoID" />
+          <ScalarProperty Name="ActivityClicks" ColumnName="ActivityClicks" />
+          <ScalarProperty Name="ActivityEnrollEnd" ColumnName="ActivityEnrollEnd" />
+          <ScalarProperty Name="ActivityEnrollStart" ColumnName="ActivityEnrollStart" />
+          <ScalarProperty Name="ActivityStart" ColumnName="ActivityStart" />
+          <ScalarProperty Name="ActivityEnd" ColumnName="ActivityEnd" />
+          <ScalarProperty Name="ActivityPolitical" ColumnName="ActivityPolitical" />
+          <ScalarProperty Name="ActivityMajor" ColumnName="ActivityMajor" />
+          <ScalarProperty Name="ActivityDepartment" ColumnName="ActivityDepartment" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ActivityDetail">
-      <EntityTypeMapping TypeName="OjVolunteerModel.ActivityDetail">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.ActivityDetail)">
         <MappingFragment StoreEntitySet="ActivityDetail">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="ActivityDetailTime" ColumnName="ActivityDetailTime" />
-          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
           <ScalarProperty Name="ActivityDetailID" ColumnName="ActivityDetailID" />
+          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ActivityDetailTime" ColumnName="ActivityDetailTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ActivityType">
-      <EntityTypeMapping TypeName="OjVolunteerModel.ActivityType">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.ActivityType)">
         <MappingFragment StoreEntitySet="ActivityType">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="ActivityTypeName" ColumnName="ActivityTypeName" />
           <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+          <ScalarProperty Name="ActivityTypeName" ColumnName="ActivityTypeName" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Department">
-      <EntityTypeMapping TypeName="OjVolunteerModel.Department">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Department)">
         <MappingFragment StoreEntitySet="Department">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="department_name" ColumnName="department_name" />
           <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="department_name" ColumnName="department_name" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Favors">
-      <EntityTypeMapping TypeName="OjVolunteerModel.Favors">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Favors)">
         <MappingFragment StoreEntitySet="Favors">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
-          <ScalarProperty Name="TalkID" ColumnName="TalkID" />
           <ScalarProperty Name="FavorID" ColumnName="FavorID" />
+          <ScalarProperty Name="TalkID" ColumnName="TalkID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Integrals">
-      <EntityTypeMapping TypeName="OjVolunteerModel.Integrals">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Integrals)">
         <MappingFragment StoreEntitySet="Integrals">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="IntegralIndex" ColumnName="IntegralIndex" />
-          <ScalarProperty Name="IntegralNum" ColumnName="IntegralNum" />
-          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="IntegralID" ColumnName="IntegralID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="IntegralNum" ColumnName="IntegralNum" />
+          <ScalarProperty Name="IntegralIndex" ColumnName="IntegralIndex" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Major">
-      <EntityTypeMapping TypeName="OjVolunteerModel.Major">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Major)">
         <MappingFragment StoreEntitySet="Major">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="MajorName" ColumnName="MajorName" />
           <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+          <ScalarProperty Name="MajorName" ColumnName="MajorName" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OrganizeInfo">
-      <EntityTypeMapping TypeName="OjVolunteerModel.OrganizeInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.OrganizeInfo)">
         <MappingFragment StoreEntitySet="OrganizeInfo">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="OrganizeInfoLastTime" ColumnName="OrganizeInfoLastTime" />
-          <ScalarProperty Name="OrganizeInfoManageId" ColumnName="OrganizeInfoManageId" />
-          <ScalarProperty Name="OrganizeInfoEmail" ColumnName="OrganizeInfoEmail" />
-          <ScalarProperty Name="OrganizeInfoPhone" ColumnName="OrganizeInfoPhone" />
-          <ScalarProperty Name="OrganizeInfoPeople" ColumnName="OrganizeInfoPeople" />
-          <ScalarProperty Name="OrganizeInfoPwd" ColumnName="OrganizeInfoPwd" />
-          <ScalarProperty Name="OrganizeInfoShowName" ColumnName="OrganizeInfoShowName" />
-          <ScalarProperty Name="OrganizeInfLoginId" ColumnName="OrganizeInfLoginId" />
           <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
+          <ScalarProperty Name="OrganizeInfLoginId" ColumnName="OrganizeInfLoginId" />
+          <ScalarProperty Name="OrganizeInfoShowName" ColumnName="OrganizeInfoShowName" />
+          <ScalarProperty Name="OrganizeInfoPwd" ColumnName="OrganizeInfoPwd" />
+          <ScalarProperty Name="OrganizeInfoPeople" ColumnName="OrganizeInfoPeople" />
+          <ScalarProperty Name="OrganizeInfoPhone" ColumnName="OrganizeInfoPhone" />
+          <ScalarProperty Name="OrganizeInfoEmail" ColumnName="OrganizeInfoEmail" />
+          <ScalarProperty Name="OrganizeInfoManageId" ColumnName="OrganizeInfoManageId" />
+          <ScalarProperty Name="OrganizeInfoLastTime" ColumnName="OrganizeInfoLastTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Political">
-      <EntityTypeMapping TypeName="OjVolunteerModel.Political">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Political)">
         <MappingFragment StoreEntitySet="Political">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="PoliticalName" ColumnName="PoliticalName" />
           <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
+          <ScalarProperty Name="PoliticalName" ColumnName="PoliticalName" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Talks">
-      <EntityTypeMapping TypeName="OjVolunteerModel.Talks">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Talks)">
         <MappingFragment StoreEntitySet="Talks">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="TalkFavorsNum" ColumnName="TalkFavorsNum" />
-          <ScalarProperty Name="TalkContent" ColumnName="TalkContent" />
-          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="TalkID" ColumnName="TalkID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="TalkContent" ColumnName="TalkContent" />
+          <ScalarProperty Name="TalkFavorsNum" ColumnName="TalkFavorsNum" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserDuration">
-      <EntityTypeMapping TypeName="OjVolunteerModel.UserDuration">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserDuration)">
         <MappingFragment StoreEntitySet="UserDuration">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="UserDurationPartyTime" ColumnName="UserDurationPartyTime" />
-          <ScalarProperty Name="UserDurationPropartyTime" ColumnName="UserDurationPropartyTime" />
-          <ScalarProperty Name="UserDurationPartyTotal" ColumnName="UserDurationPartyTotal" />
-          <ScalarProperty Name="UserDurationPropartyTotal" ColumnName="UserDurationPropartyTotal" />
-          <ScalarProperty Name="UserDurationTotal" ColumnName="UserDurationTotal" />
-          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="UserDurationID" ColumnName="UserDurationID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="UserDurationTotal" ColumnName="UserDurationTotal" />
+          <ScalarProperty Name="UserDurationPropartyTotal" ColumnName="UserDurationPropartyTotal" />
+          <ScalarProperty Name="UserDurationPartyTotal" ColumnName="UserDurationPartyTotal" />
+          <ScalarProperty Name="UserDurationPropartyTime" ColumnName="UserDurationPropartyTime" />
+          <ScalarProperty Name="UserDurationPartyTime" ColumnName="UserDurationPartyTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserEnroll">
-      <EntityTypeMapping TypeName="OjVolunteerModel.UserEnroll">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserEnroll)">
         <MappingFragment StoreEntitySet="UserEnroll">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="UserEnrollActivityEnd" ColumnName="UserEnrollActivityEnd" />
-          <ScalarProperty Name="UserEnrollActivityStart" ColumnName="UserEnrollActivityStart" />
-          <ScalarProperty Name="UserEnrollStart" ColumnName="UserEnrollStart" />
-          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
-          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
           <ScalarProperty Name="UserEnrollID" ColumnName="UserEnrollID" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="UserEnrollStart" ColumnName="UserEnrollStart" />
+          <ScalarProperty Name="UserEnrollActivityStart" ColumnName="UserEnrollActivityStart" />
+          <ScalarProperty Name="UserEnrollActivityEnd" ColumnName="UserEnrollActivityEnd" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserInfo">
-      <EntityTypeMapping TypeName="OjVolunteerModel.UserInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
-          <ScalarProperty Name="Remark" ColumnName="Remark" />
-          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-          <ScalarProperty Name="UserInfoLastTime" ColumnName="UserInfoLastTime" />
-          <ScalarProperty Name="OrganizeinfoID" ColumnName="OrganizeinfoID" />
-          <ScalarProperty Name="UpdateDepartmentID" ColumnName="UpdateDepartmentID" />
-          <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
-          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
-          <ScalarProperty Name="UserInfoEmail" ColumnName="UserInfoEmail" />
-          <ScalarProperty Name="UserInfoPhone" ColumnName="UserInfoPhone" />
-          <ScalarProperty Name="UserInfoShowName" ColumnName="UserInfoShowName" />
-          <ScalarProperty Name="UserInfoStuId" ColumnName="UserInfoStuId" />
-          <ScalarProperty Name="UserInfoPwd" ColumnName="UserInfoPwd" />
-          <ScalarProperty Name="UserInfoLoginId" ColumnName="UserInfoLoginId" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="UserInfoLoginId" ColumnName="UserInfoLoginId" />
+          <ScalarProperty Name="UserInfoPwd" ColumnName="UserInfoPwd" />
+          <ScalarProperty Name="UserInfoStuId" ColumnName="UserInfoStuId" />
+          <ScalarProperty Name="UserInfoShowName" ColumnName="UserInfoShowName" />
+          <ScalarProperty Name="UserInfoPhone" ColumnName="UserInfoPhone" />
+          <ScalarProperty Name="UserInfoEmail" ColumnName="UserInfoEmail" />
+          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
+          <ScalarProperty Name="UpdateDepartmentID" ColumnName="UpdateDepartmentID" />
+          <ScalarProperty Name="OrganizeinfoID" ColumnName="OrganizeinfoID" />
+          <ScalarProperty Name="UserInfoLastTime" ColumnName="UserInfoLastTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

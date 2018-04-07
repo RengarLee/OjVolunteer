@@ -89,6 +89,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EFDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Enum\DelFlagEnum.cs" />
     <Compile Include="Favors.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
@@ -138,11 +139,13 @@
       <DependentUpon>EFDataModel.edmx</DependentUpon>
       <LastGenOutput>EFDataModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="EFDataModel.edmx.sql" />
     <Content Include="EFDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EFDataModel.edmx</DependentUpon>
       <LastGenOutput>EFDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

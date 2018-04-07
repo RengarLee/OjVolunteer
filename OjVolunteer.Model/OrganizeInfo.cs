@@ -17,8 +17,8 @@ namespace OjVolunteer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OrganizeInfo()
         {
-            this.Activity = new HashSet<Activity>();
-            this.Activity1 = new HashSet<Activity>();
+            this.ApplyActivity = new HashSet<Activity>();
+            this.AuditActivity = new HashSet<Activity>();
             this.UserInfo = new HashSet<UserInfo>();
         }
     
@@ -30,16 +30,16 @@ namespace OjVolunteer.Model
         public string OrganizeInfoPhone { get; set; }
         public string OrganizeInfoEmail { get; set; }
         public Nullable<int> OrganizeInfoManageId { get; set; }
-        public System.DateTime OrganizeInfoLastTime { get; set; }
+        public Nullable<System.DateTime> OrganizeInfoLastTime { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
-        public int Status { get; set; }
+        public short Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity> Activity { get; set; }
+        public virtual ICollection<Activity> ApplyActivity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity> Activity1 { get; set; }
+        public virtual ICollection<Activity> AuditActivity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserInfo> UserInfo { get; set; }
     }

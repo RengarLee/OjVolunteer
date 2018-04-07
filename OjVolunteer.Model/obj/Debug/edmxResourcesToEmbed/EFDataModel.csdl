@@ -101,9 +101,9 @@
     <Property Name="ActivityContent" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="ActivityPrediNum" Type="Int32" Nullable="false" />
     <Property Name="ActivityManagerID" Type="Int32" Nullable="false" />
-    <Property Name="ActivityUserInfoID" Type="Int32" />
-    <Property Name="ActivityOrganizeID" Type="Int32" />
-    <Property Name="OrganizeInfoID" Type="Int32" Nullable="false" />
+    <Property Name="ActivityApplyUserInfoID" Type="Int32" />
+    <Property Name="ActivityApplyOrganizeID" Type="Int32" />
+    <Property Name="AuditOrganizeInfoID" Type="Int32" Nullable="false" />
     <Property Name="ActivityClicks" Type="Int32" Nullable="false" />
     <Property Name="ActivityEnrollEnd" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ActivityEnrollStart" Type="DateTime" Nullable="false" Precision="3" />
@@ -115,12 +115,12 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
-    <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
-    <NavigationProperty Name="OrganizeInfo1" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="ApplyOrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
+    <NavigationProperty Name="ApplyUserInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
+    <NavigationProperty Name="AuditOrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
     <NavigationProperty Name="ActivityDetail" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="ActivityDetail" />
-    <NavigationProperty Name="UserInfo1" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
+    <NavigationProperty Name="ManagerUserInfo" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
     <NavigationProperty Name="ActivityType" Relationship="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="ActivityType" />
     <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="UserEnroll" />
   </EntityType>
@@ -135,7 +135,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" FromRole="ActivityDetail" ToRole="Activity" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" FromRole="ActivityDetail" ToRole="UserInfo" />
   </EntityType>
@@ -148,7 +148,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" FromRole="ActivityType" ToRole="Activity" />
   </EntityType>
   <EntityType Name="Department">
@@ -160,7 +160,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" FromRole="Department" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Favors">
@@ -173,7 +173,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS" FromRole="Favors" ToRole="Talks" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" FromRole="Favors" ToRole="UserInfo" />
   </EntityType>
@@ -188,7 +188,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO" FromRole="Integrals" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Major">
@@ -200,7 +200,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" FromRole="Major" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="OrganizeInfo">
@@ -209,19 +209,19 @@
     </Key>
     <Property Name="OrganizeInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="OrganizeInfLoginId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="OrganizeInfoShowName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="OrganizeInfoShowName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="OrganizeInfoPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="OrganizeInfoPeople" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="OrganizeInfoPhone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="OrganizeInfoEmail" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="OrganizeInfoPeople" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="OrganizeInfoPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="OrganizeInfoEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="OrganizeInfoManageId" Type="Int32" />
-    <Property Name="OrganizeInfoLastTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="OrganizeInfoLastTime" Type="DateTime" Precision="3" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
-    <NavigationProperty Name="Activity1" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
+    <NavigationProperty Name="AuditActivity" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Political">
@@ -233,7 +233,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" FromRole="Political" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Talks">
@@ -247,7 +247,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="Favors" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS" FromRole="Talks" ToRole="Favors" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="Talks" ToRole="UserInfo" />
   </EntityType>
@@ -265,7 +265,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" FromRole="UserDuration" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="UserEnroll">
@@ -281,7 +281,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
     <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY" FromRole="UserEnroll" ToRole="Activity" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserEnroll" ToRole="UserInfo" />
   </EntityType>
@@ -292,21 +292,21 @@
     <Property Name="UserInfoID" Type="Int32" Nullable="false" />
     <Property Name="UserInfoLoginId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="UserInfoPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="UserInfoStuId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="UserInfoShowName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="UserInfoPhone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="UserInfoEmail" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UserInfoStuId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UserInfoShowName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UserInfoPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UserInfoEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="MajorID" Type="Int32" />
     <Property Name="DepartmentID" Type="Int32" />
     <Property Name="PoliticalID" Type="Int32" />
     <Property Name="UpdateDepartmentID" Type="Int32" />
     <Property Name="OrganizeinfoID" Type="Int32" />
-    <Property Name="UserInfoLastTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserInfoLastTime" Type="DateTime" Precision="3" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
-    <NavigationProperty Name="Activity1" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
+    <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
+    <NavigationProperty Name="ManagerActivity" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
     <NavigationProperty Name="ActivityDetail" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="ActivityDetail" />
     <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" FromRole="UserInfo" ToRole="Department" />
     <NavigationProperty Name="Favors" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Favors" />
@@ -317,6 +317,7 @@
     <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Talks" />
     <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserDuration" />
     <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserEnroll" />
+    <Property Name="Status" Type="Int16" Nullable="false" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
     <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
@@ -326,7 +327,7 @@
         <PropertyRef Name="OrganizeInfoID" />
       </Principal>
       <Dependent Role="Activity">
-        <PropertyRef Name="ActivityOrganizeID" />
+        <PropertyRef Name="ActivityApplyOrganizeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -338,7 +339,7 @@
         <PropertyRef Name="UserInfoID" />
       </Principal>
       <Dependent Role="Activity">
-        <PropertyRef Name="ActivityUserInfoID" />
+        <PropertyRef Name="ActivityApplyUserInfoID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -350,7 +351,7 @@
         <PropertyRef Name="OrganizeInfoID" />
       </Principal>
       <Dependent Role="Activity">
-        <PropertyRef Name="OrganizeInfoID" />
+        <PropertyRef Name="AuditOrganizeInfoID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

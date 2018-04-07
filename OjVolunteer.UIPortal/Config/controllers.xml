@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <objects xmlns="http://www.springframework.net">
   <object type="OjVolunteer.UIPortal.Controllers.LoginController, OjVolunteer.UIPortal" singleton="false" >
+    <property name="UserInfoService" ref="UserInfoService" ></property>
+    <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
   </object>
 </objects>

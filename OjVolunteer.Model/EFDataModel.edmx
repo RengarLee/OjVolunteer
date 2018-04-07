@@ -19,9 +19,9 @@
           <Property Name="ActivityContent" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="ActivityPrediNum" Type="int" Nullable="false" />
           <Property Name="ActivityManagerID" Type="int" Nullable="false" />
-          <Property Name="ActivityUserInfoID" Type="int" />
-          <Property Name="ActivityOrganizeID" Type="int" />
-          <Property Name="OrganizeInfoID" Type="int" Nullable="false" />
+          <Property Name="ActivityApplyUserInfoID" Type="int" />
+          <Property Name="ActivityApplyOrganizeID" Type="int" />
+          <Property Name="AuditOrganizeInfoID" Type="int" Nullable="false" />
           <Property Name="ActivityClicks" Type="int" Nullable="false" />
           <Property Name="ActivityEnrollEnd" Type="datetime" Nullable="false" />
           <Property Name="ActivityEnrollStart" Type="datetime" Nullable="false" />
@@ -33,7 +33,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="ActivityDetail">
           <Key>
@@ -46,7 +46,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="ActivityType">
           <Key>
@@ -57,7 +57,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -68,7 +68,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Favors">
           <Key>
@@ -80,7 +80,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Integrals">
           <Key>
@@ -93,7 +93,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Major">
           <Key>
@@ -104,7 +104,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="OrganizeInfo">
           <Key>
@@ -112,17 +112,17 @@
           </Key>
           <Property Name="OrganizeInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrganizeInfLoginId" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="OrganizeInfoShowName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizeInfoShowName" Type="nvarchar" MaxLength="20" />
           <Property Name="OrganizeInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="OrganizeInfoPeople" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="OrganizeInfoPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="OrganizeInfoEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizeInfoPeople" Type="nvarchar" MaxLength="20" />
+          <Property Name="OrganizeInfoPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="OrganizeInfoEmail" Type="nvarchar" MaxLength="20" />
           <Property Name="OrganizeInfoManageId" Type="int" />
-          <Property Name="OrganizeInfoLastTime" Type="datetime" Nullable="false" />
+          <Property Name="OrganizeInfoLastTime" Type="datetime" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Political">
           <Key>
@@ -133,7 +133,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Talks">
           <Key>
@@ -146,7 +146,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="UserDuration">
           <Key>
@@ -162,7 +162,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="UserEnroll">
           <Key>
@@ -177,7 +177,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
@@ -186,19 +186,20 @@
           <Property Name="UserInfoID" Type="int" Nullable="false" />
           <Property Name="UserInfoLoginId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="UserInfoStuId" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="UserInfoShowName" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="UserInfoPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="UserInfoEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserInfoStuId" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserInfoShowName" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserInfoPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserInfoEmail" Type="nvarchar" MaxLength="20" />
           <Property Name="MajorID" Type="int" />
           <Property Name="DepartmentID" Type="int" />
           <Property Name="PoliticalID" Type="int" />
           <Property Name="UpdateDepartmentID" Type="int" />
           <Property Name="OrganizeinfoID" Type="int" />
-          <Property Name="UserInfoLastTime" Type="datetime" Nullable="false" />
+          <Property Name="UserInfoLastTime" Type="datetime" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
@@ -208,7 +209,7 @@
               <PropertyRef Name="OrganizeInfoID" />
             </Principal>
             <Dependent Role="Activity">
-              <PropertyRef Name="ActivityOrganizeID" />
+              <PropertyRef Name="ActivityApplyOrganizeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -220,7 +221,7 @@
               <PropertyRef Name="UserInfoID" />
             </Principal>
             <Dependent Role="Activity">
-              <PropertyRef Name="ActivityUserInfoID" />
+              <PropertyRef Name="ActivityApplyUserInfoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -232,7 +233,7 @@
               <PropertyRef Name="OrganizeInfoID" />
             </Principal>
             <Dependent Role="Activity">
-              <PropertyRef Name="OrganizeInfoID" />
+              <PropertyRef Name="AuditOrganizeInfoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -608,9 +609,9 @@
           <Property Name="ActivityContent" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ActivityPrediNum" Type="Int32" Nullable="false" />
           <Property Name="ActivityManagerID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityUserInfoID" Type="Int32" />
-          <Property Name="ActivityOrganizeID" Type="Int32" />
-          <Property Name="OrganizeInfoID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityApplyUserInfoID" Type="Int32" />
+          <Property Name="ActivityApplyOrganizeID" Type="Int32" />
+          <Property Name="AuditOrganizeInfoID" Type="Int32" Nullable="false" />
           <Property Name="ActivityClicks" Type="Int32" Nullable="false" />
           <Property Name="ActivityEnrollEnd" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ActivityEnrollStart" Type="DateTime" Nullable="false" Precision="3" />
@@ -622,12 +623,12 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
-          <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
-          <NavigationProperty Name="OrganizeInfo1" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="ApplyOrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
+          <NavigationProperty Name="ApplyUserInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
+          <NavigationProperty Name="AuditOrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
           <NavigationProperty Name="ActivityDetail" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="ActivityDetail" />
-          <NavigationProperty Name="UserInfo1" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
+          <NavigationProperty Name="ManagerUserInfo" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
           <NavigationProperty Name="ActivityType" Relationship="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="ActivityType" />
           <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="UserEnroll" />
         </EntityType>
@@ -642,7 +643,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" FromRole="ActivityDetail" ToRole="Activity" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" FromRole="ActivityDetail" ToRole="UserInfo" />
         </EntityType>
@@ -655,7 +656,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" FromRole="ActivityType" ToRole="Activity" />
         </EntityType>
         <EntityType Name="Department">
@@ -667,7 +668,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" FromRole="Department" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Favors">
@@ -680,7 +681,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS" FromRole="Favors" ToRole="Talks" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" FromRole="Favors" ToRole="UserInfo" />
         </EntityType>
@@ -695,7 +696,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO" FromRole="Integrals" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Major">
@@ -707,7 +708,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" FromRole="Major" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="OrganizeInfo">
@@ -716,19 +717,19 @@
           </Key>
           <Property Name="OrganizeInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrganizeInfLoginId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoShowName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizeInfoShowName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="OrganizeInfoPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoPeople" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoPhone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoEmail" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizeInfoPeople" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizeInfoPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizeInfoEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="OrganizeInfoManageId" Type="Int32" />
-          <Property Name="OrganizeInfoLastTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OrganizeInfoLastTime" Type="DateTime" Precision="3" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
-          <NavigationProperty Name="Activity1" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
+          <NavigationProperty Name="AuditActivity" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Political">
@@ -740,7 +741,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" FromRole="Political" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Talks">
@@ -754,7 +755,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Favors" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS" FromRole="Talks" ToRole="Favors" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="Talks" ToRole="UserInfo" />
         </EntityType>
@@ -772,7 +773,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" FromRole="UserDuration" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="UserEnroll">
@@ -788,7 +789,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY" FromRole="UserEnroll" ToRole="Activity" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserEnroll" ToRole="UserInfo" />
         </EntityType>
@@ -799,21 +800,21 @@
           <Property Name="UserInfoID" Type="Int32" Nullable="false" />
           <Property Name="UserInfoLoginId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserInfoPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoStuId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoShowName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoPhone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoEmail" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoStuId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoShowName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="MajorID" Type="Int32" />
           <Property Name="DepartmentID" Type="Int32" />
           <Property Name="PoliticalID" Type="Int32" />
           <Property Name="UpdateDepartmentID" Type="Int32" />
           <Property Name="OrganizeinfoID" Type="Int32" />
-          <Property Name="UserInfoLastTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserInfoLastTime" Type="DateTime" Precision="3" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
-          <NavigationProperty Name="Activity1" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
+          <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
+          <NavigationProperty Name="ManagerActivity" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
           <NavigationProperty Name="ActivityDetail" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="ActivityDetail" />
           <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" FromRole="UserInfo" ToRole="Department" />
           <NavigationProperty Name="Favors" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Favors" />
@@ -824,6 +825,7 @@
           <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Talks" />
           <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserDuration" />
           <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserEnroll" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
@@ -833,7 +835,7 @@
               <PropertyRef Name="OrganizeInfoID" />
             </Principal>
             <Dependent Role="Activity">
-              <PropertyRef Name="ActivityOrganizeID" />
+              <PropertyRef Name="ActivityApplyOrganizeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -845,7 +847,7 @@
               <PropertyRef Name="UserInfoID" />
             </Principal>
             <Dependent Role="Activity">
-              <PropertyRef Name="ActivityUserInfoID" />
+              <PropertyRef Name="ActivityApplyUserInfoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -857,7 +859,7 @@
               <PropertyRef Name="OrganizeInfoID" />
             </Principal>
             <Dependent Role="Activity">
-              <PropertyRef Name="OrganizeInfoID" />
+              <PropertyRef Name="AuditOrganizeInfoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1045,219 +1047,219 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="OjVolunteerModelStoreContainer" CdmEntityContainer="OjVolunteerEntities">
-          <EntitySetMapping Name="Activity">
-            <EntityTypeMapping TypeName="OjVolunteerModel.Activity">
-              <MappingFragment StoreEntitySet="Activity">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="ActivityDepartment" ColumnName="ActivityDepartment" />
-                <ScalarProperty Name="ActivityMajor" ColumnName="ActivityMajor" />
-                <ScalarProperty Name="ActivityPolitical" ColumnName="ActivityPolitical" />
-                <ScalarProperty Name="ActivityEnd" ColumnName="ActivityEnd" />
-                <ScalarProperty Name="ActivityStart" ColumnName="ActivityStart" />
-                <ScalarProperty Name="ActivityEnrollStart" ColumnName="ActivityEnrollStart" />
-                <ScalarProperty Name="ActivityEnrollEnd" ColumnName="ActivityEnrollEnd" />
-                <ScalarProperty Name="ActivityClicks" ColumnName="ActivityClicks" />
-                <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
-                <ScalarProperty Name="ActivityOrganizeID" ColumnName="ActivityOrganizeID" />
-                <ScalarProperty Name="ActivityUserInfoID" ColumnName="ActivityUserInfoID" />
-                <ScalarProperty Name="ActivityManagerID" ColumnName="ActivityManagerID" />
-                <ScalarProperty Name="ActivityPrediNum" ColumnName="ActivityPrediNum" />
-                <ScalarProperty Name="ActivityContent" ColumnName="ActivityContent" />
-                <ScalarProperty Name="ActivityAddressY" ColumnName="ActivityAddressY" />
-                <ScalarProperty Name="ActivityAddressX" ColumnName="ActivityAddressX" />
-                <ScalarProperty Name="ActivityAddress" ColumnName="ActivityAddress" />
-                <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
-                <ScalarProperty Name="ActivityIcon" ColumnName="ActivityIcon" />
-                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ActivityDetail">
-            <EntityTypeMapping TypeName="OjVolunteerModel.ActivityDetail">
-              <MappingFragment StoreEntitySet="ActivityDetail">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="ActivityDetailTime" ColumnName="ActivityDetailTime" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
-                <ScalarProperty Name="ActivityDetailID" ColumnName="ActivityDetailID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ActivityType">
-            <EntityTypeMapping TypeName="OjVolunteerModel.ActivityType">
-              <MappingFragment StoreEntitySet="ActivityType">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="ActivityTypeName" ColumnName="ActivityTypeName" />
-                <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Department">
-            <EntityTypeMapping TypeName="OjVolunteerModel.Department">
-              <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="department_name" ColumnName="department_name" />
-                <ScalarProperty Name="department_id" ColumnName="department_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Favors">
-            <EntityTypeMapping TypeName="OjVolunteerModel.Favors">
-              <MappingFragment StoreEntitySet="Favors">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
-                <ScalarProperty Name="TalkID" ColumnName="TalkID" />
-                <ScalarProperty Name="FavorID" ColumnName="FavorID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Integrals">
-            <EntityTypeMapping TypeName="OjVolunteerModel.Integrals">
-              <MappingFragment StoreEntitySet="Integrals">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="IntegralIndex" ColumnName="IntegralIndex" />
-                <ScalarProperty Name="IntegralNum" ColumnName="IntegralNum" />
-                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
-                <ScalarProperty Name="IntegralID" ColumnName="IntegralID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Major">
-            <EntityTypeMapping TypeName="OjVolunteerModel.Major">
-              <MappingFragment StoreEntitySet="Major">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="MajorName" ColumnName="MajorName" />
-                <ScalarProperty Name="MajorID" ColumnName="MajorID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrganizeInfo">
-            <EntityTypeMapping TypeName="OjVolunteerModel.OrganizeInfo">
-              <MappingFragment StoreEntitySet="OrganizeInfo">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="OrganizeInfoLastTime" ColumnName="OrganizeInfoLastTime" />
-                <ScalarProperty Name="OrganizeInfoManageId" ColumnName="OrganizeInfoManageId" />
-                <ScalarProperty Name="OrganizeInfoEmail" ColumnName="OrganizeInfoEmail" />
-                <ScalarProperty Name="OrganizeInfoPhone" ColumnName="OrganizeInfoPhone" />
-                <ScalarProperty Name="OrganizeInfoPeople" ColumnName="OrganizeInfoPeople" />
-                <ScalarProperty Name="OrganizeInfoPwd" ColumnName="OrganizeInfoPwd" />
-                <ScalarProperty Name="OrganizeInfoShowName" ColumnName="OrganizeInfoShowName" />
-                <ScalarProperty Name="OrganizeInfLoginId" ColumnName="OrganizeInfLoginId" />
-                <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Political">
-            <EntityTypeMapping TypeName="OjVolunteerModel.Political">
-              <MappingFragment StoreEntitySet="Political">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="PoliticalName" ColumnName="PoliticalName" />
-                <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Talks">
-            <EntityTypeMapping TypeName="OjVolunteerModel.Talks">
-              <MappingFragment StoreEntitySet="Talks">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="TalkFavorsNum" ColumnName="TalkFavorsNum" />
-                <ScalarProperty Name="TalkContent" ColumnName="TalkContent" />
-                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
-                <ScalarProperty Name="TalkID" ColumnName="TalkID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserDuration">
-            <EntityTypeMapping TypeName="OjVolunteerModel.UserDuration">
-              <MappingFragment StoreEntitySet="UserDuration">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="UserDurationPartyTime" ColumnName="UserDurationPartyTime" />
-                <ScalarProperty Name="UserDurationPropartyTime" ColumnName="UserDurationPropartyTime" />
-                <ScalarProperty Name="UserDurationPartyTotal" ColumnName="UserDurationPartyTotal" />
-                <ScalarProperty Name="UserDurationPropartyTotal" ColumnName="UserDurationPropartyTotal" />
-                <ScalarProperty Name="UserDurationTotal" ColumnName="UserDurationTotal" />
-                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
-                <ScalarProperty Name="UserDurationID" ColumnName="UserDurationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserEnroll">
-            <EntityTypeMapping TypeName="OjVolunteerModel.UserEnroll">
-              <MappingFragment StoreEntitySet="UserEnroll">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="UserEnrollActivityEnd" ColumnName="UserEnrollActivityEnd" />
-                <ScalarProperty Name="UserEnrollActivityStart" ColumnName="UserEnrollActivityStart" />
-                <ScalarProperty Name="UserEnrollStart" ColumnName="UserEnrollStart" />
-                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-                <ScalarProperty Name="UserEnrollID" ColumnName="UserEnrollID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserInfo">
-            <EntityTypeMapping TypeName="OjVolunteerModel.UserInfo">
-              <MappingFragment StoreEntitySet="UserInfo">
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="UserInfoLastTime" ColumnName="UserInfoLastTime" />
-                <ScalarProperty Name="OrganizeinfoID" ColumnName="OrganizeinfoID" />
-                <ScalarProperty Name="UpdateDepartmentID" ColumnName="UpdateDepartmentID" />
-                <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
-                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
-                <ScalarProperty Name="MajorID" ColumnName="MajorID" />
-                <ScalarProperty Name="UserInfoEmail" ColumnName="UserInfoEmail" />
-                <ScalarProperty Name="UserInfoPhone" ColumnName="UserInfoPhone" />
-                <ScalarProperty Name="UserInfoShowName" ColumnName="UserInfoShowName" />
-                <ScalarProperty Name="UserInfoStuId" ColumnName="UserInfoStuId" />
-                <ScalarProperty Name="UserInfoPwd" ColumnName="UserInfoPwd" />
-                <ScalarProperty Name="UserInfoLoginId" ColumnName="UserInfoLoginId" />
-                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OjVolunteerModelStoreContainer" CdmEntityContainer="OjVolunteerEntities">
+    <EntitySetMapping Name="Activity">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Activity)">
+        <MappingFragment StoreEntitySet="Activity">
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+          <ScalarProperty Name="ActivityIcon" ColumnName="ActivityIcon" />
+          <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+          <ScalarProperty Name="ActivityAddress" ColumnName="ActivityAddress" />
+          <ScalarProperty Name="ActivityAddressX" ColumnName="ActivityAddressX" />
+          <ScalarProperty Name="ActivityAddressY" ColumnName="ActivityAddressY" />
+          <ScalarProperty Name="ActivityContent" ColumnName="ActivityContent" />
+          <ScalarProperty Name="ActivityPrediNum" ColumnName="ActivityPrediNum" />
+          <ScalarProperty Name="ActivityManagerID" ColumnName="ActivityManagerID" />
+          <ScalarProperty Name="ActivityApplyUserInfoID" ColumnName="ActivityApplyUserInfoID" />
+          <ScalarProperty Name="ActivityApplyOrganizeID" ColumnName="ActivityApplyOrganizeID" />
+          <ScalarProperty Name="AuditOrganizeInfoID" ColumnName="AuditOrganizeInfoID" />
+          <ScalarProperty Name="ActivityClicks" ColumnName="ActivityClicks" />
+          <ScalarProperty Name="ActivityEnrollEnd" ColumnName="ActivityEnrollEnd" />
+          <ScalarProperty Name="ActivityEnrollStart" ColumnName="ActivityEnrollStart" />
+          <ScalarProperty Name="ActivityStart" ColumnName="ActivityStart" />
+          <ScalarProperty Name="ActivityEnd" ColumnName="ActivityEnd" />
+          <ScalarProperty Name="ActivityPolitical" ColumnName="ActivityPolitical" />
+          <ScalarProperty Name="ActivityMajor" ColumnName="ActivityMajor" />
+          <ScalarProperty Name="ActivityDepartment" ColumnName="ActivityDepartment" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActivityDetail">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.ActivityDetail)">
+        <MappingFragment StoreEntitySet="ActivityDetail">
+          <ScalarProperty Name="ActivityDetailID" ColumnName="ActivityDetailID" />
+          <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ActivityDetailTime" ColumnName="ActivityDetailTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActivityType">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.ActivityType)">
+        <MappingFragment StoreEntitySet="ActivityType">
+          <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
+          <ScalarProperty Name="ActivityTypeName" ColumnName="ActivityTypeName" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Department)">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="department_name" ColumnName="department_name" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Favors">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Favors)">
+        <MappingFragment StoreEntitySet="Favors">
+          <ScalarProperty Name="FavorID" ColumnName="FavorID" />
+          <ScalarProperty Name="TalkID" ColumnName="TalkID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Integrals">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Integrals)">
+        <MappingFragment StoreEntitySet="Integrals">
+          <ScalarProperty Name="IntegralID" ColumnName="IntegralID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="IntegralNum" ColumnName="IntegralNum" />
+          <ScalarProperty Name="IntegralIndex" ColumnName="IntegralIndex" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Major">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Major)">
+        <MappingFragment StoreEntitySet="Major">
+          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+          <ScalarProperty Name="MajorName" ColumnName="MajorName" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrganizeInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.OrganizeInfo)">
+        <MappingFragment StoreEntitySet="OrganizeInfo">
+          <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
+          <ScalarProperty Name="OrganizeInfLoginId" ColumnName="OrganizeInfLoginId" />
+          <ScalarProperty Name="OrganizeInfoShowName" ColumnName="OrganizeInfoShowName" />
+          <ScalarProperty Name="OrganizeInfoPwd" ColumnName="OrganizeInfoPwd" />
+          <ScalarProperty Name="OrganizeInfoPeople" ColumnName="OrganizeInfoPeople" />
+          <ScalarProperty Name="OrganizeInfoPhone" ColumnName="OrganizeInfoPhone" />
+          <ScalarProperty Name="OrganizeInfoEmail" ColumnName="OrganizeInfoEmail" />
+          <ScalarProperty Name="OrganizeInfoManageId" ColumnName="OrganizeInfoManageId" />
+          <ScalarProperty Name="OrganizeInfoLastTime" ColumnName="OrganizeInfoLastTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Political">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Political)">
+        <MappingFragment StoreEntitySet="Political">
+          <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
+          <ScalarProperty Name="PoliticalName" ColumnName="PoliticalName" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Talks">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Talks)">
+        <MappingFragment StoreEntitySet="Talks">
+          <ScalarProperty Name="TalkID" ColumnName="TalkID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="TalkContent" ColumnName="TalkContent" />
+          <ScalarProperty Name="TalkFavorsNum" ColumnName="TalkFavorsNum" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDuration">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserDuration)">
+        <MappingFragment StoreEntitySet="UserDuration">
+          <ScalarProperty Name="UserDurationID" ColumnName="UserDurationID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="UserDurationTotal" ColumnName="UserDurationTotal" />
+          <ScalarProperty Name="UserDurationPropartyTotal" ColumnName="UserDurationPropartyTotal" />
+          <ScalarProperty Name="UserDurationPartyTotal" ColumnName="UserDurationPartyTotal" />
+          <ScalarProperty Name="UserDurationPropartyTime" ColumnName="UserDurationPropartyTime" />
+          <ScalarProperty Name="UserDurationPartyTime" ColumnName="UserDurationPartyTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserEnroll">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserEnroll)">
+        <MappingFragment StoreEntitySet="UserEnroll">
+          <ScalarProperty Name="UserEnrollID" ColumnName="UserEnrollID" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="UserEnrollStart" ColumnName="UserEnrollStart" />
+          <ScalarProperty Name="UserEnrollActivityStart" ColumnName="UserEnrollActivityStart" />
+          <ScalarProperty Name="UserEnrollActivityEnd" ColumnName="UserEnrollActivityEnd" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserInfo)">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="UserInfoLoginId" ColumnName="UserInfoLoginId" />
+          <ScalarProperty Name="UserInfoPwd" ColumnName="UserInfoPwd" />
+          <ScalarProperty Name="UserInfoStuId" ColumnName="UserInfoStuId" />
+          <ScalarProperty Name="UserInfoShowName" ColumnName="UserInfoShowName" />
+          <ScalarProperty Name="UserInfoPhone" ColumnName="UserInfoPhone" />
+          <ScalarProperty Name="UserInfoEmail" ColumnName="UserInfoEmail" />
+          <ScalarProperty Name="MajorID" ColumnName="MajorID" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
+          <ScalarProperty Name="UpdateDepartmentID" ColumnName="UpdateDepartmentID" />
+          <ScalarProperty Name="OrganizeinfoID" ColumnName="OrganizeinfoID" />
+          <ScalarProperty Name="UserInfoLastTime" ColumnName="UserInfoLastTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -1271,7 +1273,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
       </DesignerInfoPropertySet>
     </Options>

@@ -14,9 +14,9 @@
     <Property Name="ActivityContent" Type="nvarchar" MaxLength="500" Nullable="false" />
     <Property Name="ActivityPrediNum" Type="int" Nullable="false" />
     <Property Name="ActivityManagerID" Type="int" Nullable="false" />
-    <Property Name="ActivityUserInfoID" Type="int" />
-    <Property Name="ActivityOrganizeID" Type="int" />
-    <Property Name="OrganizeInfoID" Type="int" Nullable="false" />
+    <Property Name="ActivityApplyUserInfoID" Type="int" />
+    <Property Name="ActivityApplyOrganizeID" Type="int" />
+    <Property Name="AuditOrganizeInfoID" Type="int" Nullable="false" />
     <Property Name="ActivityClicks" Type="int" Nullable="false" />
     <Property Name="ActivityEnrollEnd" Type="datetime" Nullable="false" />
     <Property Name="ActivityEnrollStart" Type="datetime" Nullable="false" />
@@ -28,7 +28,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="ActivityDetail">
     <Key>
@@ -41,7 +41,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="ActivityType">
     <Key>
@@ -52,7 +52,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Department">
     <Key>
@@ -63,7 +63,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Favors">
     <Key>
@@ -75,7 +75,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Integrals">
     <Key>
@@ -88,7 +88,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Major">
     <Key>
@@ -99,7 +99,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="OrganizeInfo">
     <Key>
@@ -107,17 +107,17 @@
     </Key>
     <Property Name="OrganizeInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OrganizeInfLoginId" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="OrganizeInfoShowName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="OrganizeInfoShowName" Type="nvarchar" MaxLength="20" />
     <Property Name="OrganizeInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="OrganizeInfoPeople" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="OrganizeInfoPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="OrganizeInfoEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="OrganizeInfoPeople" Type="nvarchar" MaxLength="20" />
+    <Property Name="OrganizeInfoPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="OrganizeInfoEmail" Type="nvarchar" MaxLength="20" />
     <Property Name="OrganizeInfoManageId" Type="int" />
-    <Property Name="OrganizeInfoLastTime" Type="datetime" Nullable="false" />
+    <Property Name="OrganizeInfoLastTime" Type="datetime" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Political">
     <Key>
@@ -128,7 +128,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Talks">
     <Key>
@@ -141,7 +141,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="UserDuration">
     <Key>
@@ -157,7 +157,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="UserEnroll">
     <Key>
@@ -172,7 +172,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
-    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="UserInfo">
     <Key>
@@ -181,19 +181,20 @@
     <Property Name="UserInfoID" Type="int" Nullable="false" />
     <Property Name="UserInfoLoginId" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="UserInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="UserInfoStuId" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="UserInfoShowName" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="UserInfoPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="UserInfoEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="UserInfoStuId" Type="nvarchar" MaxLength="20" />
+    <Property Name="UserInfoShowName" Type="nvarchar" MaxLength="20" />
+    <Property Name="UserInfoPhone" Type="nvarchar" MaxLength="20" />
+    <Property Name="UserInfoEmail" Type="nvarchar" MaxLength="20" />
     <Property Name="MajorID" Type="int" />
     <Property Name="DepartmentID" Type="int" />
     <Property Name="PoliticalID" Type="int" />
     <Property Name="UpdateDepartmentID" Type="int" />
     <Property Name="OrganizeinfoID" Type="int" />
-    <Property Name="UserInfoLastTime" Type="datetime" Nullable="false" />
+    <Property Name="UserInfoLastTime" Type="datetime" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="Status" Type="smallint" Nullable="false" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
     <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
@@ -203,7 +204,7 @@
         <PropertyRef Name="OrganizeInfoID" />
       </Principal>
       <Dependent Role="Activity">
-        <PropertyRef Name="ActivityOrganizeID" />
+        <PropertyRef Name="ActivityApplyOrganizeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -215,7 +216,7 @@
         <PropertyRef Name="UserInfoID" />
       </Principal>
       <Dependent Role="Activity">
-        <PropertyRef Name="ActivityUserInfoID" />
+        <PropertyRef Name="ActivityApplyUserInfoID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -227,7 +228,7 @@
         <PropertyRef Name="OrganizeInfoID" />
       </Principal>
       <Dependent Role="Activity">
-        <PropertyRef Name="OrganizeInfoID" />
+        <PropertyRef Name="AuditOrganizeInfoID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
