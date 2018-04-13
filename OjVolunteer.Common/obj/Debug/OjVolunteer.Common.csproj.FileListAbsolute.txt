@@ -12,3 +12,6 @@ E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Deb
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\Spring.Web.dll
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\Spring.Web.Extensions.dll
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\Spring.Web.Mvc4.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\Commons.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\bin\Debug\Memcached.ClientLibrary.dll

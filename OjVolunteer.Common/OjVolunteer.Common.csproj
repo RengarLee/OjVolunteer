@@ -33,8 +33,17 @@
     <Reference Include="Common.Logging">
       <HintPath>..\packages\SpringNet\Common.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Commons">
+      <HintPath>..\packages\Memcached\Commons.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\Memcached\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\Log4Net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Memcached.ClientLibrary">
+      <HintPath>..\packages\Memcached\Memcached.ClientLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Spring.Aop">
       <HintPath>..\packages\SpringNet\Spring.Aop.dll</HintPath>
@@ -52,6 +61,7 @@
       <HintPath>..\packages\SpringNet\Spring.Web.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -65,7 +75,7 @@
     <Compile Include="Cache\CacheHelper.cs" />
     <Compile Include="Cache\HttpRuntimeCacheWriter.cs" />
     <Compile Include="Cache\ICacheWriter.cs" />
-    <Compile Include="Cache\MemecacheWriter.cs" />
+    <Compile Include="Cache\MemcacheWriter.cs" />
     <Compile Include="LogWriter\ILogWriter.cs" />
     <Compile Include="LogWriter\Log4NetWriter.cs" />
     <Compile Include="LogWriter\LogHelper.cs" />
