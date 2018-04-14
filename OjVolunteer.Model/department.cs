@@ -20,12 +20,12 @@ namespace OjVolunteer.Model
             this.UserInfo = new HashSet<UserInfo>();
         }
     
-        public int department_id { get; set; }
-        public string department_name { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
         public short Status { get; set; }
+        public int DepartmentID { get; set; }
+        public string DepartmentName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserInfo> UserInfo { get; set; }

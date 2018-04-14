@@ -8,6 +8,9 @@
     <property name="UserInfoService" ref="UserInfoService" ></property>
     <property name="UserDurationService" ref="UserDurationService" ></property>
   </object>
+  <object type="OjVolunteer.UIPortal.Controllers.OrganizeInfoController, OjVolunteer.UIPortal" singleton="false" >
+    <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
+  </object>
   <object type="OjVolunteer.UIPortal.Controllers.RegisterController, OjVolunteer.UIPortal" singleton="false" >
     <property name="UserInfoService" ref="UserInfoService" ></property>
     <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
@@ -15,5 +18,17 @@
   </object>
   <object type="OjVolunteer.UIPortal.Controllers.PoliticalController, OjVolunteer.UIPortal" singleton="false" >
     <property name="PoliticalService" ref="PoliticalService" ></property>
+  </object>
+  <object type="OjVolunteer.UIPortal.Controllers.DepartmentController, OjVolunteer.UIPortal" singleton="false" >
+    <property name="DepartmentService" ref="DepartmentService." ></property>
+  </object>
+  <object type="OjVolunteer.UIPortal.Controllers.ActivityTypeController, OjVolunteer.UIPortal" singleton="false" >
+    <property name="ActivityTypeService" ref="ActivityTypeService" ></property>
+  </object>
+  <object type="OjVolunteer.UIPortal.Controllers.MajorController, OjVolunteer.UIPortal" singleton="false" >
+    <property name="MajorService" ref="MajorService" ></property>
+  </object>
+  <object type="OjVolunteer.UIPortal.Controllers.TalksController, OjVolunteer.UIPortal" singleton="false" >
+    <property name="TalksService" ref="TalksService" ></property>
   </object>
 </objects>

@@ -8,18 +8,19 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
-    public class PoliticalController : Controller
+    public class TalksController : Controller
     {
+
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
-        public IPoliticalService PoliticalService { get; set; }
-        // GET: Political
+        public ITalksService TalksService { get; set; }
+        // GET: Talks
         public ActionResult Index()
         {
             return View();
         }
 
         #region  加载所有政治面貌 
-        public ActionResult GetAllPolitical()
+        public ActionResult GetAllTalks()
         {
             //TODO:分页使用  BS Table
             return View();
@@ -34,12 +35,12 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Political political)
+        public ActionResult Add(Talks talks)
         {
             //TODO:Test
-            political.CreateTime = DateTime.Now;
-            political.ModfiedOn = DateTime.Now;
-            political.Status = delNormal;
+            talks.CreateTime = DateTime.Now;
+            talks.ModfiedOn = DateTime.Now;
+            talks.Status = delNormal;
             return Content("ok");
         }
         #endregion
@@ -48,16 +49,16 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult Edit(int id)
         {
             //TODO:加载编辑对话框
-            Political political = PoliticalService.GetEntities(p => p.PoliticalID == id && p.Status == delNormal).FirstOrDefault();
-            return View(political);
+            Talks talks = TalksService.GetEntities(p => p.TalkID == id && p.Status == delNormal).FirstOrDefault();
+            return View(talks);
         }
 
         [HttpPost]
-        public ActionResult Edit(Political political)
+        public ActionResult Edit(Talks talks)
         {
             //TODO:Test
             string result = String.Empty;
-            if (PoliticalService.Update(political))
+            if (TalksService.Update(talks))
             {
                 result = "ok";
             }
@@ -84,7 +85,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             //批量删除
             #region 逻辑删除
-            if (PoliticalService.DeleteListByLogical(idList) > 0)
+            if (TalksService.DeleteListByLogical(idList) > 0)
             {
                 return Content("error");
             }

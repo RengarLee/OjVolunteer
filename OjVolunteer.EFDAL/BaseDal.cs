@@ -86,7 +86,7 @@ namespace OjVolunteer.EFDAL
         /// </summary>
         /// <param name="entity">需要删除的实体</param>
         /// <returns>true</returns>
-        public bool Detele(T entity)
+        public bool Delete(T entity)
         {
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
             Db.SaveChanges();

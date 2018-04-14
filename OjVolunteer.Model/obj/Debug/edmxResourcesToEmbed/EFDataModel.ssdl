@@ -56,10 +56,10 @@
   </EntityType>
   <EntityType Name="Department">
     <Key>
-      <PropertyRef Name="department_id" />
+      <PropertyRef Name="DepartmentID" />
     </Key>
-    <Property Name="department_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="department_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentName" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
@@ -369,7 +369,7 @@
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Department">
-        <PropertyRef Name="department_id" />
+        <PropertyRef Name="DepartmentID" />
       </Principal>
       <Dependent Role="UserInfo">
         <PropertyRef Name="DepartmentID" />

@@ -61,8 +61,8 @@
     <EntitySetMapping Name="Department">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Department)">
         <MappingFragment StoreEntitySet="Department">
-          <ScalarProperty Name="department_id" ColumnName="department_id" />
-          <ScalarProperty Name="department_name" ColumnName="department_name" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />
           <ScalarProperty Name="Remark" ColumnName="Remark" />

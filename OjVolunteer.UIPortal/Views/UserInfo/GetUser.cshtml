@@ -29,19 +29,21 @@
         <div class="info-name">
             <h3>@Model.UserInfoShowName</h3>
             <p>
-                所属院校：
+             所属院校：
                 <i>
-                    @{if (Model.DepartmentID == null)
-                        {
-                <span>未填写</span>
-}
-else
-{
-            @Model.Department.department_name
-} }
-            </i>
+                @{if (Model.DepartmentID == null)
+                    {
+                        <span>未填写</span>
+                    }
+                    else
+                    {
+                        @Model.Department.DepartmentName
+                    } 
+                    }
+                </i>
             <br>
             义工时长：
+            <i>
             @{if(ViewData["UserDuration"] == null)
                  {
                     <span>未参加活动</span>
@@ -52,7 +54,7 @@ else
                     @userDuration.UserDurationTotal
                 }
             }
-            <i>50小时59分</i>
+            </i>
             </p>
         </div>
     </div>

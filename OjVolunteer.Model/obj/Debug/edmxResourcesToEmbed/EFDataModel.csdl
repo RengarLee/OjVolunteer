@@ -46,10 +46,6 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="ActivityDetail" EntitySet="ActivityDetail" />
     </AssociationSet>
-    <AssociationSet Name="FK_USERINFO_REFERENCE_DEPARTME" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME">
-      <End Role="Department" EntitySet="Department" />
-      <End Role="UserInfo" EntitySet="UserInfo" />
-    </AssociationSet>
     <AssociationSet Name="FK_FAVORS_REFERENCE_TALKS" Association="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS">
       <End Role="Talks" EntitySet="Talks" />
       <End Role="Favors" EntitySet="Favors" />
@@ -63,8 +59,8 @@
       <End Role="Integrals" EntitySet="Integrals" />
     </AssociationSet>
     <AssociationSet Name="FK_USERINFO_REFERENCE_MAJOR" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR">
-      <End Role="Major" EntitySet="Major" />
-      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End EntitySet="Major" Role="Major" />
+      <End EntitySet="UserInfo" Role="UserInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_USERINFO_REFERENCE_ORGANIZE" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE">
       <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
@@ -85,6 +81,10 @@
     <AssociationSet Name="FK_USERENRO_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="UserEnroll" EntitySet="UserEnroll" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USERINFO_REFERENCE_DEPARTME1" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="UserInfo" EntitySet="UserInfo" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Activity">
@@ -153,15 +153,15 @@
   </EntityType>
   <EntityType Name="Department">
     <Key>
-      <PropertyRef Name="department_id" />
+      <PropertyRef Name="DepartmentID" />
     </Key>
-    <Property Name="department_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="department_name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
     <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Status" Type="Int16" Nullable="false" />
-    <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" FromRole="Department" ToRole="UserInfo" />
+    <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="Department" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Favors">
     <Key>
@@ -307,7 +307,6 @@
     <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
     <NavigationProperty Name="ManagerActivity" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
     <NavigationProperty Name="ActivityDetail" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="ActivityDetail" />
-    <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" FromRole="UserInfo" ToRole="Department" />
     <NavigationProperty Name="Favors" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Favors" />
     <NavigationProperty Name="Integrals" Relationship="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Integrals" />
     <NavigationProperty Name="Major" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" FromRole="UserInfo" ToRole="Major" />
@@ -318,6 +317,7 @@
     <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserEnroll" />
     <Property Name="Status" Type="Int16" Nullable="false" />
     <Property Name="UpdatePoliticalID" Type="Int32" />
+    <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="UserInfo" ToRole="Department" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
     <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
@@ -415,18 +415,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_USERINFO_REFERENCE_DEPARTME">
-    <End Type="OjVolunteerModel.Department" Role="Department" Multiplicity="0..1" />
-    <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Department">
-        <PropertyRef Name="department_id" />
-      </Principal>
-      <Dependent Role="UserInfo">
-        <PropertyRef Name="DepartmentID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_FAVORS_REFERENCE_TALKS">
     <End Type="OjVolunteerModel.Talks" Role="Talks" Multiplicity="1" />
     <End Type="OjVolunteerModel.Favors" Role="Favors" Multiplicity="*" />
@@ -464,8 +452,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_USERINFO_REFERENCE_MAJOR">
-    <End Type="OjVolunteerModel.Major" Role="Major" Multiplicity="0..1" />
-    <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+    <End Type="OjVolunteerModel.Major" Multiplicity="0..1" Role="Major" />
+    <End Type="OjVolunteerModel.UserInfo" Multiplicity="*" Role="UserInfo" />
     <ReferentialConstraint>
       <Principal Role="Major">
         <PropertyRef Name="MajorID" />
@@ -532,6 +520,18 @@
       </Principal>
       <Dependent Role="UserEnroll">
         <PropertyRef Name="UserInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USERINFO_REFERENCE_DEPARTME1">
+    <End Type="OjVolunteerModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="UserInfo">
+        <PropertyRef Name="DepartmentID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

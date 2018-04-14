@@ -1,6 +1,5 @@
 ﻿using OjVolunteer.IBLL;
 using OjVolunteer.Model;
-using OjVolunteer.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,48 +8,18 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
-    public class UserInfoController : UserBaseController
+    public class MajorController : Controller
     {
-        short delNormal = (short)DelFlagEnum.Normal;
-        public IUserInfoService UserInfoService { get; set; }
-        public IUserDurationService UserDurationService { get; set; }
-        // GET: UserInfo
+        short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+        public IMajorService MajorService { get; set; }
+        // GET: Major
         public ActionResult Index()
         {
-            UserInfo user = LoginUser;
-            return View(user);
+            return View();
         }
-
-        #region 获得用户信息
-        public ActionResult GetUser(int Id)
-        {
-
-            bool isSelf = LoginUser.UserInfoID == Id ? true : false;
-            //ViewData["UserDuration"] = "";
-            UserDuration userDuration = UserDurationService.GetEntities(u => u.UserInfoID == Id).FirstOrDefault();
-            if (userDuration != null)
-            {
-                ViewData["UserDuration"] = userDuration;
-            }
-            ViewBag.isSelf = isSelf;
-            if(isSelf)
-            {
-                return View(LoginUser);
-            }
-            else
-            {
-                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == Id && u.Status == delNormal).FirstOrDefault();
-                if (user == null)
-                {
-                    return View("Shared/Error.cshtml");
-                }
-                return View(user);
-            }
-        }
-        #endregion
 
         #region  加载所有政治面貌 
-        public ActionResult GetAllUserInfo()
+        public ActionResult GetAllMajor()
         {
             //TODO:分页使用  BS Table
             return View();
@@ -65,12 +34,12 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(UserInfo userInfo)
+        public ActionResult Add(Major major)
         {
             //TODO:Test
-            userInfo.CreateTime = DateTime.Now;
-            userInfo.ModfiedOn = DateTime.Now;
-            userInfo.Status = delNormal;
+            major.CreateTime = DateTime.Now;
+            major.ModfiedOn = DateTime.Now;
+            major.Status = delNormal;
             return Content("ok");
         }
         #endregion
@@ -79,16 +48,16 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult Edit(int id)
         {
             //TODO:加载编辑对话框
-            UserInfo userInfo = UserInfoService.GetEntities(p => p.UserInfoID == id && p.Status == delNormal).FirstOrDefault();
-            return View(userInfo);
+            Major major = MajorService.GetEntities(p => p.MajorID == id && p.Status == delNormal).FirstOrDefault();
+            return View(major);
         }
 
         [HttpPost]
-        public ActionResult Edit(UserInfo userInfo)
+        public ActionResult Edit(Major major)
         {
             //TODO:Test
             string result = String.Empty;
-            if (UserInfoService.Update(userInfo))
+            if (MajorService.Update(major))
             {
                 result = "ok";
             }
@@ -116,7 +85,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             //批量删除
             #region 逻辑删除
-            if (UserInfoService.DeleteListByLogical(idList) > 0)
+            if (MajorService.DeleteListByLogical(idList) > 0)
             {
                 return Content("error");
             }
@@ -127,6 +96,5 @@ namespace OjVolunteer.UIPortal.Controllers
             #endregion
         }
         #endregion
-
     }
 }

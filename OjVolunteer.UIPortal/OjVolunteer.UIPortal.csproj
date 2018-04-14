@@ -180,7 +180,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivityTypeController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\MajorController.cs" />
     <Compile Include="Controllers\PoliticalController.cs" />
+    <Compile Include="Controllers\TalksController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -263,8 +267,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\ActivityType\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Department\" />
+    <Folder Include="Views\Major\" />
     <Folder Include="Views\Political\" />
+    <Folder Include="Views\Talks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -8,4 +8,12 @@
   </object>
   <object name="UserDurationService" type="OjVolunteer.BLL.UserDurationService, OjVolunteer.BLL" singleton="false" >
   </object>
+  <object name="DepartmentService" type="OjVolunteer.BLL.DepartmentService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="ActivityTypeService" type="OjVolunteer.BLL.ActivityTypeService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="MajorService" type="OjVolunteer.BLL.MajorService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="TalksService" type="OjVolunteer.BLL.TalksService, OjVolunteer.BLL" singleton="false" >
+  </object>
 </objects>
