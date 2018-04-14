@@ -4,4 +4,6 @@
   </object>
   <object name="OrganizeInfoService" type="OjVolunteer.BLL.OrganizeInfoService, OjVolunteer.BLL" singleton="false" >
   </object>
+  <object name="PoliticalService" type="OjVolunteer.BLL.PoliticalService, OjVolunteer.BLL" singleton="false" >
+  </object>
 </objects>

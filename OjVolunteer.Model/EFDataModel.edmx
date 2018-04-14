@@ -183,7 +183,7 @@
           <Key>
             <PropertyRef Name="UserInfoID" />
           </Key>
-          <Property Name="UserInfoID" Type="int" Nullable="false" />
+          <Property Name="UserInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserInfoLoginId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserInfoStuId" Type="nvarchar" MaxLength="20" />
@@ -193,7 +193,7 @@
           <Property Name="MajorID" Type="int" />
           <Property Name="DepartmentID" Type="int" />
           <Property Name="PoliticalID" Type="int" />
-          <Property Name="UpdateDepartmentID" Type="int" />
+          <Property Name="UpdatePoliticalID" Type="int" />
           <Property Name="OrganizeinfoID" Type="int" />
           <Property Name="UserInfoLastTime" Type="datetime" />
           <Property Name="CreateTime" Type="datetime" />
@@ -807,7 +807,6 @@
           <Property Name="MajorID" Type="Int32" />
           <Property Name="DepartmentID" Type="Int32" />
           <Property Name="PoliticalID" Type="Int32" />
-          <Property Name="UpdateDepartmentID" Type="Int32" />
           <Property Name="OrganizeinfoID" Type="Int32" />
           <Property Name="UserInfoLastTime" Type="DateTime" Precision="3" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
@@ -826,6 +825,7 @@
           <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserDuration" />
           <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserEnroll" />
           <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="UpdatePoliticalID" Type="Int32" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
@@ -1238,7 +1238,8 @@
     <EntitySetMapping Name="UserInfo">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
-          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="UpdatePoliticalID" ColumnName="UpdatePoliticalID" />
+                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="UserInfoLoginId" ColumnName="UserInfoLoginId" />
           <ScalarProperty Name="UserInfoPwd" ColumnName="UserInfoPwd" />
           <ScalarProperty Name="UserInfoStuId" ColumnName="UserInfoStuId" />
@@ -1248,7 +1249,6 @@
           <ScalarProperty Name="MajorID" ColumnName="MajorID" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
           <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
-          <ScalarProperty Name="UpdateDepartmentID" ColumnName="UpdateDepartmentID" />
           <ScalarProperty Name="OrganizeinfoID" ColumnName="OrganizeinfoID" />
           <ScalarProperty Name="UserInfoLastTime" ColumnName="UserInfoLastTime" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />

@@ -299,7 +299,6 @@
     <Property Name="MajorID" Type="Int32" />
     <Property Name="DepartmentID" Type="Int32" />
     <Property Name="PoliticalID" Type="Int32" />
-    <Property Name="UpdateDepartmentID" Type="Int32" />
     <Property Name="OrganizeinfoID" Type="Int32" />
     <Property Name="UserInfoLastTime" Type="DateTime" Precision="3" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
@@ -318,6 +317,7 @@
     <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserDuration" />
     <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserEnroll" />
     <Property Name="Status" Type="Int16" Nullable="false" />
+    <Property Name="UpdatePoliticalID" Type="Int32" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
     <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />

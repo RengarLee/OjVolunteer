@@ -37,13 +37,13 @@ namespace OjVolunteer.Model
         public Nullable<int> MajorID { get; set; }
         public Nullable<int> DepartmentID { get; set; }
         public Nullable<int> PoliticalID { get; set; }
-        public Nullable<int> UpdateDepartmentID { get; set; }
         public Nullable<int> OrganizeinfoID { get; set; }
         public Nullable<System.DateTime> UserInfoLastTime { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
         public short Status { get; set; }
+        public Nullable<int> UpdatePoliticalID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> ApplyActivity { get; set; }

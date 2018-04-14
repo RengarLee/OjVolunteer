@@ -14,29 +14,40 @@ namespace OjVolunteer.UIPortal.Controllers
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
 
-        // GET: Login
         public ActionResult Index()
         {
             return View();
         }
 
+        #region ProcessLogin 验证登录
         public ActionResult ProcessLogin()
         {
             String name = Request["LoginCode"];
-            String pwd = Request["LoginPwd"];
+            String pwd = Common.Encryption.MD5Helper.Get_MD5(Request["LoginPwd"]);
             short delNormal = (short)DelFlagEnum.Normal;
-            var organizeinfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfLoginId == name && o.OrganizeInfoPwd == pwd && o.Status == delNormal).FirstOrDefault();
-            if (organizeinfo != null)
+            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfLoginId == name && o.OrganizeInfoPwd == pwd && o.Status == delNormal).FirstOrDefault();
+            if (organizeInfo != null)
             {
-
+                UserToCache(organizeInfo);
                 return Content("OrganizeInfo");
             }
-            var userinfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status == delNormal).FirstOrDefault();
-            if (userinfo != null)
+            var userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status == delNormal).FirstOrDefault();
+            if (userInfo != null)
             {
+                UserToCache(userInfo);
                 return Content("UserInfo");
             }
             return Content("Error");
         }
+        #endregion
+
+        #region UserToCache 将用户信息存储
+        public void UserToCache(Object user)
+        {
+            String userLoginId = new Guid().ToString();
+            Common.Cache.CacheHelper.AddCache(userLoginId, user);
+            Response.Cookies["userLoginId"].Value = userLoginId;
+        }
+        #endregion
     }
 }

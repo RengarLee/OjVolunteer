@@ -178,7 +178,7 @@
     <Key>
       <PropertyRef Name="UserInfoID" />
     </Key>
-    <Property Name="UserInfoID" Type="int" Nullable="false" />
+    <Property Name="UserInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserInfoLoginId" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="UserInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="UserInfoStuId" Type="nvarchar" MaxLength="20" />
@@ -188,7 +188,7 @@
     <Property Name="MajorID" Type="int" />
     <Property Name="DepartmentID" Type="int" />
     <Property Name="PoliticalID" Type="int" />
-    <Property Name="UpdateDepartmentID" Type="int" />
+    <Property Name="UpdatePoliticalID" Type="int" />
     <Property Name="OrganizeinfoID" Type="int" />
     <Property Name="UserInfoLastTime" Type="datetime" />
     <Property Name="CreateTime" Type="datetime" />

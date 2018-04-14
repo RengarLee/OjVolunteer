@@ -2,13 +2,13 @@
 <objects xmlns="http://www.springframework.net">
 
   <!--单机缓存配置-->
-  <object name="CacheWriter" type="OjVolunteer.Common.Cache.HttpRuntimeCacheWriter,  OjVolunteer.Common" singleton="false" >
+  <object name="CacheWriter" type="OjVolunteer.Common.Cache.HttpRuntimeCacheWriter, OjVolunteer.Common" singleton="false" >
   </object>
   <!--memcached分布式缓存配置-->
   <!--<object name="CacheWriter" type="OjVolunteer.Common.Cache.MemecacheWriter,  OjVolunteer.Common" singleton="false" >
   </object>-->
 
-  <object name="CacheHelper" type="OjVolunteer.Common.Cache.CacheHelper,  OjVolunteer.Common" singleton="false" >
+  <object name="CacheHelper" type="OjVolunteer.Common.Cache.CacheHelper, OjVolunteer.Common" singleton="false" >
     <property name="CacheWriter" ref="CacheWriter"> </property>
   </object>
 </objects>

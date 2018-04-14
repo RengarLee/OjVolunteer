@@ -15,6 +15,11 @@ namespace OjVolunteer.Model.Enum
         /// <summary>
         /// 删除状态
         /// </summary>
-        Deleted = 1
+        Deleted = 1,
+        /// <summary>
+        /// 待审核状态
+        /// </summary>
+        Auditing = 2,
+
     }
 }

@@ -76,6 +76,7 @@
     <Compile Include="Cache\HttpRuntimeCacheWriter.cs" />
     <Compile Include="Cache\ICacheWriter.cs" />
     <Compile Include="Cache\MemcacheWriter.cs" />
+    <Compile Include="Encryption\MD5Helper.cs" />
     <Compile Include="LogWriter\ILogWriter.cs" />
     <Compile Include="LogWriter\Log4NetWriter.cs" />
     <Compile Include="LogWriter\LogHelper.cs" />

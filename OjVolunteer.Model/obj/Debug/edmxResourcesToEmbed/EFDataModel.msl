@@ -190,6 +190,7 @@
     <EntitySetMapping Name="UserInfo">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="UpdatePoliticalID" ColumnName="UpdatePoliticalID" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="UserInfoLoginId" ColumnName="UserInfoLoginId" />
           <ScalarProperty Name="UserInfoPwd" ColumnName="UserInfoPwd" />
@@ -200,7 +201,6 @@
           <ScalarProperty Name="MajorID" ColumnName="MajorID" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
           <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
-          <ScalarProperty Name="UpdateDepartmentID" ColumnName="UpdateDepartmentID" />
           <ScalarProperty Name="OrganizeinfoID" ColumnName="OrganizeinfoID" />
           <ScalarProperty Name="UserInfoLastTime" ColumnName="UserInfoLastTime" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
