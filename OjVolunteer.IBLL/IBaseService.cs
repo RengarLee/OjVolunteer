@@ -27,6 +27,8 @@ namespace OjVolunteer.IBLL
 
         #region 删除
         bool Delete(T entity); 
+
+        int DeleteListByLogical(List<int> ids);
         #endregion
     }
 }

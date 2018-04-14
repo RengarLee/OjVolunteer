@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="DbContextFactory.cs" />
     <Compile Include="MajorDal.cs" />
+    <Compile Include="PoliticalDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -91,7 +91,34 @@ namespace OjVolunteer.EFDAL
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
             Db.SaveChanges();
             return true;
-        } 
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id">需要删除的id</param>
+        /// <returns></returns>
+        public bool Delete(int id)
+        {
+            var entity = Db.Set<T>().Find(id);
+            Db.Set<T>().Remove(entity);
+            return true;
+        }
+
+        /// <summary>
+        /// 从逻辑上删除该数据
+        /// </summary>
+        /// <param name="ids">需要删除的id集合</param>
+        /// <returns></returns>
+        public int DeleteListByLogical(List<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                var entity = Db.Set<T>().Find(id);
+                Db.Entry(entity).Property("Status").CurrentValue = (short)Model.Enum.DelFlagEnum.Deleted;
+                Db.Entry(entity).Property("Status").IsModified = true;
+            }
+            return ids.Count;
+        }
         #endregion
 
 

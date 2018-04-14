@@ -29,6 +29,10 @@ namespace OjVolunteer.IDAL
 
         #region 删除
         bool Detele(T entity);
+        bool Detele(int id);
+        //批量删除
+        int DeteleListByLogical(List<int> ids);
         #endregion
+
     }
 }

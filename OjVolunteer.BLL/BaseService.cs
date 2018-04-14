@@ -57,10 +57,16 @@ namespace OjVolunteer.BLL
         #endregion
 
         #region 删除
-        public bool Delete(T entity) {
+        public bool Delete(T entity)
+        {
             CurrentDal.Detele(entity);
             return DbSession.SaveChanges()>0;
+        }
 
+        public int DeleteListByLogical(List<int> ids)
+        {
+            CurrentDal.DeleteListByLogical(ids);
+            return DbSession.SaveChanges();
         }
         #endregion
 
