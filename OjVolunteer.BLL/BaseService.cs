@@ -46,6 +46,7 @@ namespace OjVolunteer.BLL
             DbSession.SaveChanges();
             return entity;
         }
+
         #endregion
 
         #region 更新
@@ -54,6 +55,24 @@ namespace OjVolunteer.BLL
             CurrentDal.Update(entity);
             return DbSession.SaveChanges()>0;
         }
+
+        public int UpdateListStatus(List<int> ids, short delFlag)
+        {
+            CurrentDal.UpdateListStatus(ids, delFlag);
+            return DbSession.SaveChanges();
+        }
+
+        /// <summary>
+        /// 更新列表数据的Status,使其为正常
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public int NormalListByULS(List<int> ids)
+        {
+            CurrentDal.UpdateListStatus(ids, (short)Model.Enum.DelFlagEnum.Normal);
+            return DbSession.SaveChanges();
+        }
+
         #endregion
 
         #region 删除
@@ -72,6 +91,12 @@ namespace OjVolunteer.BLL
         public int DeleteListByLogical(List<int> ids)
         {
             CurrentDal.DeleteListByLogical(ids);
+            return DbSession.SaveChanges();
+        }
+
+        public int DeleteListByULS(List<int> ids)
+        {
+            CurrentDal.UpdateListStatus(ids, (short)Model.Enum.DelFlagEnum.Deleted);
             return DbSession.SaveChanges();
         }
         #endregion

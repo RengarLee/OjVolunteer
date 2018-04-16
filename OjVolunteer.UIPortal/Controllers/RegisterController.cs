@@ -70,7 +70,9 @@ namespace OjVolunteer.UIPortal.Controllers
                     //需要通过上层组织审核才能登录
                     Status = (short)Model.Enum.DelFlagEnum.Auditing,
                     ModfiedOn = DateTime.Now,
-                    CreateTime = DateTime.Now
+                    CreateTime = DateTime.Now,
+                    //TODO:发布前需要更改
+                    OrganizeInfoManageId = 2,
                 };
                 OrganizeInfoService.Add(organize);
                 return Content("ok");

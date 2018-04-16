@@ -19,16 +19,19 @@ namespace OjVolunteer.IBLL
 
         #region 添加
         T Add(T entity);
+        
         #endregion
 
         #region 更新
         bool Update(T entity);
+        int NormalListByULS(List<int> ids);
         #endregion
 
         #region 删除
         bool Delete(T entity);
         bool Delete(int id);
         int DeleteListByLogical(List<int> ids);
+        int DeleteListByULS(List<int> ids);
         #endregion
     }
 }

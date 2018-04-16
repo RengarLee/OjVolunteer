@@ -18,7 +18,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        #region  加载所有政治面貌 
+        #region  加载所有活动类型 
         public ActionResult GetAllActivityType()
         {
             //TODO:分页使用  BS Table

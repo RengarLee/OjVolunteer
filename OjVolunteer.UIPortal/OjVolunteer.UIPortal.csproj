@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ActivityTypeController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\MajorController.cs" />
+    <Compile Include="Controllers\OrganizeBaseController.cs" />
     <Compile Include="Controllers\PoliticalController.cs" />
     <Compile Include="Controllers\TalksController.cs" />
     <Compile Include="Controllers\UserBaseController.cs" />
@@ -201,6 +202,7 @@
     <Content Include="Config\common.xml" />
     <Content Include="Config\controllers.xml" />
     <Content Include="Config\services.xml" />
+    <Content Include="Content\bootstrap-table.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\oj\css\bootstrap.css" />
@@ -219,9 +221,13 @@
     <Content Include="Content\oj\js\main.js" />
     <Content Include="Content\oj\js\npm.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-table-locale-all.min.js" />
+    <Content Include="Scripts\bootstrap-table-zh-CN.js" />
+    <Content Include="Scripts\bootstrap-table.js" />
+    <Content Include="Scripts\bootstrap-table.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -233,10 +239,13 @@
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\txt.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\datapattern.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -263,6 +272,7 @@
     <Content Include="Views\UserInfo\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\UserInfo\GetUser.cshtml" />
+    <Content Include="Views\OrganizeInfo\OrganizeOfAuditing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -271,17 +281,18 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Department\" />
     <Folder Include="Views\Major\" />
+    <Folder Include="Views\OrganizeBase\" />
     <Folder Include="Views\Political\" />
     <Folder Include="Views\Talks\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

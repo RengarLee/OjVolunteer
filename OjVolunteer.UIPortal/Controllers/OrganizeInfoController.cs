@@ -12,17 +12,44 @@ namespace OjVolunteer.UIPortal.Controllers
     {
         // GET: OrganizeInfo
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+        short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public ActionResult Index()
         {
             return View();
         }
 
-        #region  加载所有政治面貌 
+        #region  加载所有组织 
         public ActionResult GetAllOrganizeInfo()
         {
             //TODO:分页使用  BS Table
             return View();
+        }
+
+        /// <summary>
+        /// 进入组织信息审核界面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult OrganizeOfAuditing()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 加载未审核的组织信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetAllOrganizeOfAuditing()
+        {
+       
+            var total = 0;
+            var s = Request["limit"];
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = OrganizeInfoService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delAuditing && o.OrganizeInfoManageId == 2,u =>u.OrganizeInfoID ,true).Select(u=>new {u.OrganizeInfoID,u.OrganizeInfoPeople,u.OrganizeInfoPhone,u.OrganizeInfoShowName,u.CreateTime,u.OrganizeInfLoginId}).ToList();
+            var data = new { total = total, rows=pageData };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -74,7 +101,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             if (string.IsNullOrEmpty(ids))
             {
-                return Content("Please Select!");
+                return Content("null");
             }
             string[] strIds = Request["ids"].Split(',');
             List<int> idList = new List<int>();
@@ -86,11 +113,39 @@ namespace OjVolunteer.UIPortal.Controllers
             #region 逻辑删除
             if (OrganizeInfoService.DeleteListByLogical(idList) > 0)
             {
-                return Content("error");
+                return Content("ok");
             }
             else
             {
+                return Content("error");
+            }
+            #endregion
+        }
+        #endregion
+
+        #region Agree
+
+        public ActionResult Agree(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            //批量处理
+            #region 批量处理
+            if (OrganizeInfoService.NormalListByULS(idList) > 0)
+            {
                 return Content("ok");
+            }
+            else
+            {
+                return Content("error");
             }
             #endregion
         }

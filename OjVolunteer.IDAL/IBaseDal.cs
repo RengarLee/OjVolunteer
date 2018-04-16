@@ -25,6 +25,7 @@ namespace OjVolunteer.IDAL
 
         #region 更新
         bool Update(T entity);
+        int UpdateListStatus(List<int> ids, short delFlag);
         #endregion
 
         #region 删除

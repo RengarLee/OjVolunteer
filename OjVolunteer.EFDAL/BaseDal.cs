@@ -40,14 +40,14 @@ namespace OjVolunteer.EFDAL
                                                     Expression<Func<T, S>> orderByLambda,
                                                     bool isAsc)
         {
-            total = Db.Set<T>().Count();
+            total = Db.Set<T>().Where(whereLambda).Count();
             if (isAsc)
             {
-                return Db.Set<T>().Where(whereLambda).OrderBy<T, S>(orderByLambda).Skip<T>(pageSize * (pageIndex - 1)).Take(pageSize).AsQueryable();
+                return Db.Set<T>().Where(whereLambda).OrderBy<T, S>(orderByLambda).Skip<T>(pageSize * (pageIndex - 1)).Take<T>(pageSize).AsQueryable();
             }
             else
             {
-                return Db.Set<T>().Where(whereLambda).OrderByDescending<T, S>(orderByLambda).Skip<T>(pageSize * (pageIndex - 1)).Take(pageSize).AsQueryable();
+                return Db.Set<T>().Where(whereLambda).OrderByDescending<T, S>(orderByLambda).Skip<T>(pageSize * (pageIndex - 1)).Take<T>(pageSize).AsQueryable();
             }
         }
         #endregion
@@ -78,6 +78,24 @@ namespace OjVolunteer.EFDAL
             Db.SaveChanges();
             return true;
         }
+
+        /// <summary>
+        /// 批量更新数据的状态
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="delFlag"></param>
+        /// <returns></returns>
+        public int UpdateListStatus(List<int> ids, short delFlag)
+        {
+            foreach (var id in ids)
+            {
+                var entity = Db.Set<T>().Find(id);
+                Db.Entry(entity).Property("Status").CurrentValue = delFlag;
+                Db.Entry(entity).Property("Status").IsModified = true;
+            }
+            return ids.Count;
+        }
+
         #endregion
 
         #region 删除
@@ -121,6 +139,6 @@ namespace OjVolunteer.EFDAL
         }
         #endregion
 
-
+        
     }
 }
