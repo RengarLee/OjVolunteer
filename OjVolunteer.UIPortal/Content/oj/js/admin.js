@@ -17,12 +17,11 @@ $('#admininfo').on('click', function () {
     });
 });
 //点击确认键关闭弹出层 	
-		$('#adminyes').on('click', function(){
-	    	var index = parent.layer.getFrameIndex(window.name);
-	    	parent.layer.close(index);
+    $('#success').on('click', function(){
+	    	
 	});
 //	点击退出关闭弹出层
-	$('#adminno').on('click', function(){
+	$('#cancel').on('click', function(){
 	    	var index = parent.layer.getFrameIndex(window.name);
 	    	parent.layer.close(index);
 	});

@@ -29,15 +29,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 获得自身组织信息
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult GetSelf()
-        {
-            OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginUser.OrganizeInfoID).FirstOrDefault();
-            return View(organizeInfo);
-        }
+        
 
         /// <summary>
         /// 进入组织信息审核界面
@@ -59,7 +51,7 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = OrganizeInfoService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delAuditing && o.OrganizeInfoManageId == LoginUser.OrganizeInfoID,u =>u.OrganizeInfoID ,true).Select(u=>new {u.OrganizeInfoID,u.OrganizeInfoPeople,u.OrganizeInfoPhone,u.OrganizeInfoShowName,u.CreateTime,u.OrganizeInfLoginId}).ToList();
+            var pageData = OrganizeInfoService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delAuditing && o.OrganizeInfoManageId == LoginUser.OrganizeInfoID,u =>u.OrganizeInfoID ,true).Select(u=>new {u.OrganizeInfoID,u.OrganizeInfoPeople,u.OrganizeInfoPhone,u.OrganizeInfoShowName,u.CreateTime,u.OrganizeInfoLoginId}).ToList();
             var data = new { total = total, rows=pageData };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -199,6 +191,12 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             //TODO:Test
             string result = String.Empty;
+            organizeInfo.OrganizeInfoLoginId = LoginUser.OrganizeInfoLoginId;
+            organizeInfo.ModfiedOn = DateTime.Now;
+            organizeInfo.CreateTime = LoginUser.CreateTime;
+            organizeInfo.OrganizeInfoPwd = LoginUser.OrganizeInfoPwd;
+            organizeInfo.Remark = LoginUser.Remark;
+            organizeInfo.OrganizeInfoID = LoginUser.OrganizeInfoID;
             if (OrganizeInfoService.Update(organizeInfo))
             {
                 result = "ok";
@@ -208,6 +206,16 @@ namespace OjVolunteer.UIPortal.Controllers
                 result = "error";
             }
             return Content(result);
+        }
+
+        /// <summary>
+        /// 获得自身组织信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetSelf()
+        {
+            OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginUser.OrganizeInfoID).FirstOrDefault();
+            return View(organizeInfo);
         }
         #endregion
 

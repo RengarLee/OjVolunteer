@@ -25,7 +25,7 @@ namespace OjVolunteer.UIPortal.Controllers
             String name = Request["LoginCode"];
             String pwd = Common.Encryption.MD5Helper.Get_MD5(Request["LoginPwd"]);
             short delNormal = (short)DelFlagEnum.Normal;
-            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfLoginId == name && o.OrganizeInfoPwd == pwd && o.Status == delNormal).FirstOrDefault();
+            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd && o.Status == delNormal).FirstOrDefault();
             if (organizeInfo != null)
             {
                 UserToCache(organizeInfo);

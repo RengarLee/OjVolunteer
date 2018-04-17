@@ -1,19 +1,25 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>义工</title>
 
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table-filter-control.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-
-    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+    
+    @*layui冲突 <script src="~/Scripts/bootstrap.js"></script>*@
     <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Scripts/bootstrap-table-filter-control.js"></script>
-    <link href="~/Content/bootstrap-table-filter-control.css" rel="stylesheet" />
+
     <script type="text/javascript">
         $(function () {
             //初始化表格
@@ -262,11 +268,16 @@
             ].join('');
         }
     </script>
-
+</head>
+<body>
     <div>
         <table id="tb" data-filter-control="true">
 
         </table>
     </div>
+</body>
 
+
+
+</html>
 

@@ -23,7 +23,6 @@ namespace OjVolunteer.Model
         }
     
         public int OrganizeInfoID { get; set; }
-        public string OrganizeInfLoginId { get; set; }
         public string OrganizeInfoShowName { get; set; }
         public string OrganizeInfoPwd { get; set; }
         public string OrganizeInfoPeople { get; set; }
@@ -36,6 +35,7 @@ namespace OjVolunteer.Model
         public string Remark { get; set; }
         public short Status { get; set; }
         public string OrganizeInfoIcon { get; set; }
+        public string OrganizeInfoLoginId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> ApplyActivity { get; set; }

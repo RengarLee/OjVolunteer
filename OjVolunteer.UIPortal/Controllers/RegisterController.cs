@@ -62,7 +62,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 OrganizeInfo organize = new OrganizeInfo
                 {
-                    OrganizeInfLoginId = loginname,
+                    OrganizeInfoLoginId = loginname,
                     OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd),
                     OrganizeInfoShowName = nickname,
                     OrganizeInfoPeople = people,
@@ -99,7 +99,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             if (usertype == 1)
             {
-                OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfLoginId == loginId).FirstOrDefault();
+                OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId == loginId).FirstOrDefault();
                 if (organizeInfo == null)
                 {
                     return Content("ok");

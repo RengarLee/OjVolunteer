@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="OjVolunteerModel.Favors" PointX="7.5" PointY="22.125" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.Integrals" PointX="5.25" PointY="28.875" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.Major" PointX="0.75" PointY="20.75" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.OrganizeInfo" PointX="0.75" PointY="12.875" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.OrganizeInfo" PointX="10.5" PointY="12.125" Width="3.25" />
         <EntityTypeShape EntityType="OjVolunteerModel.Political" PointX="0.75" PointY="9.625" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.Talks" PointX="5.25" PointY="32.25" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.UserDuration" PointX="5.25" PointY="13.25" Width="1.5" />

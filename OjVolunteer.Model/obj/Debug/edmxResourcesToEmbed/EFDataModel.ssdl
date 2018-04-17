@@ -106,7 +106,7 @@
       <PropertyRef Name="OrganizeInfoID" />
     </Key>
     <Property Name="OrganizeInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="OrganizeInfLoginId" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="OrganizeInfoLoginId" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="OrganizeInfoShowName" Type="nvarchar" MaxLength="20" />
     <Property Name="OrganizeInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="OrganizeInfoPeople" Type="nvarchar" MaxLength="20" />

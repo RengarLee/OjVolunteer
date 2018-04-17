@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     var topback = $('#topback');
     // 返回顶部按钮点击事件
     topback.on("click",function(){
