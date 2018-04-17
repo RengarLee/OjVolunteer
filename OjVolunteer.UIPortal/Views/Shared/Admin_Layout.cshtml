@@ -1,0 +1,71 @@
+﻿@model OjVolunteer.Model.OrganizeInfo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">50小时义工后台管理</div>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="@Model.OrganizeInfoIcon " class="layui-nav-img" />
+                        @Model.OrganizeInfoShowName
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd id="admininfo"><a>基本资料</a></dd>
+                        <dd><a href="">更改密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="/OrganizeInfo/Exit">退出</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">信息设置</a>
+                        <dl class="layui-nav-child">
+                            <dd class="vol-info"><a href="/OrganizeInfo/AllUserInfo">义工信息</a></dd>
+                            @if (Model.OrganizeInfoManageId == null)
+                            {
+                                <dd><a href="adminorg.html">组织信息</a></dd>
+                            }
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">审核</a>
+                        <dl class="layui-nav-child">
+
+                            <dd><a href="javascript:;">活动审核</a></dd>
+                            <dd><a href="javascript:;">心得审核</a></dd>
+                            @if (Model.OrganizeInfoManageId == null)
+                            {
+                            <dd><a href="adminorg.html">组织审核</a></dd>
+                            <dd><a href="adminorg.html">政治面貌审核</a></dd>
+                            }
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            @RenderBody()
+        </div>
+        <div class="layui-footer">
+            © MIE DEMO工作室提供技术支持
+        </div>
+    </div>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+</body>
+</html>

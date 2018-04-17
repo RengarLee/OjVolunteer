@@ -17,15 +17,26 @@ namespace OjVolunteer.UIPortal.Controllers
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserDurationService UserDurationService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
+        //跳转后台页面
         public ActionResult Index()
         {
-            return View();
+            return View(LoginUser);
         }
 
         #region  加载所有组织 
         public ActionResult GetAllOrganizeInfo()
         {
             return View();
+        }
+
+        /// <summary>
+        /// 获得自身组织信息
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetSelf()
+        {
+            OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginUser.OrganizeInfoID).FirstOrDefault();
+            return View(organizeInfo);
         }
 
         /// <summary>
@@ -57,7 +68,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #region 加载组织自身所有用户
         public ActionResult AllUserInfo()
         {
-            return View();
+            return View(LoginUser);
         }
 
         public ActionResult GetAllUserInfo()
@@ -251,6 +262,15 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Content("error");
             }
             #endregion
+        }
+        #endregion
+
+        #region 组织操作
+        public ActionResult Exit()
+        {
+            LoginUser = null;
+            
+            return Redirect("/Login/index");
         }
         #endregion
     }

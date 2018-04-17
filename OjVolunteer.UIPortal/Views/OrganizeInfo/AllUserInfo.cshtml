@@ -1,16 +1,12 @@
-﻿@{
-    Layout = null;
+﻿
+@{
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>义工</title>
+
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
     <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
@@ -266,24 +262,11 @@
             ].join('');
         }
     </script>
-</head>
-<body>
+
     <div>
         <table id="tb" data-filter-control="true">
-            @*<thead>
-                <tr>
-                    <th data-field="UserInfoID" data-filter-control="input"> 角色名称</th>
-                    <th data-field="" data-filter-control="input"> 角色名称</th>
-
-                </tr>
-
-            </thead>*@
 
         </table>
     </div>
-</body>
 
-
-
-</html>
 

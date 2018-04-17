@@ -1,0 +1,78 @@
+/*大致界面由layui产生，接下来大部分是修改*/
+.vol-info{
+	background-color: #009688;
+}
+.org-info{
+	background-color: #009688; 
+}
+#admininfo :hover{
+	cursor: pointer;
+}
+
+
+/*更改个人信息界面*/
+/*标题部分*/
+.form-title{
+	text-align: center;
+	width: 100%;
+	font-size: 32px;
+	margin-top: 10px;
+}
+/*表单主体部分*/
+.form-content{
+	width: 95%;
+	margin: 0 auto;
+}
+/*设置每个项目的上下边距为20px*/
+.form-content .layui-form-item{
+	margin: 20px 0;
+}
+
+/*表单头部*/
+/*表单头部左边*/
+.form-content .form-head-left{
+	float: left;
+	width: 20%;
+	text-align: center;
+}
+/*更改头像按钮*/
+.form-content .form-head-left .layui-upload-list button{
+	margin-top: 5px;
+	font-size:10px !important;
+	margin-bottom: -20px;
+} 
+
+
+/*表单头部右边*/
+.form-content .form-head-right{
+	float:right;
+	width: 78%;
+	margin-bottom: -20px;
+}
+/*表单底部2个按钮*/
+.form-content .form-btns{
+	text-align: center;
+	margin-top: 180px;
+}
+/*.form-content .form-btns .btn-left,
+.form-content .form-btns .btn-right{
+	float: left;
+}*/
+
+
+
+
+
+
+
+
+
+/*清除浮动*/
+.clearfix:before,
+.clearfix:after{
+	content: " ";
+	display: table;
+}
+.clearfix:after{
+	clear: both;
+}

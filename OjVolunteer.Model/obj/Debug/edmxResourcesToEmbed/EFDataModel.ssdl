@@ -118,6 +118,7 @@
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
     <Property Name="Status" Type="smallint" Nullable="false" />
+    <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Political">
     <Key>

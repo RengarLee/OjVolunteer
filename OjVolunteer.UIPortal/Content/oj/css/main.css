@@ -353,17 +353,286 @@ a:active{
 		text-align: center;
 	}
 
+/*排行榜界面样式*/
+	/*第一名样式*/
+	.toplist{
+		width: 100%;
+		position: relative;
+		border:1px solid #eee;
+		padding-top: 10px;
+	}
+	.toplist .toplist-userinfo{
+		text-align: center;
+	}
+	.toplist .toplist-userinfo img{
+		border-radius: 50%;
+		width: 100px;
+	}
+	.toplist .toplist-userinfo p{
+		padding-top: 10px;
+	}
+	.toplist .toplist-userinfo p span{
+		color: #C62F2F;
+	}
+	/*非第一名样式*/
+	.untop{
 
+	}
+	.untop .untop-item{
+		padding-top: 5px;
+		padding-left: 10px;
+		padding-bottom: 0;
+		border-bottom: 1px solid #eee;
+	}
+	.untop .untop-item .rank{
+		float: left;
+		width: 20%;
+		line-height: 50px;
+		color: #C62F2F;
+	}
+	.untop .untop-item .untop-item-wrap{
+		float: left;
+		width: 20%;
+	}
+	.untop .untop-item img{
+		width: 50px;
+		border-radius: 50%;
+	}
+	.untop .untop-item .rankinfo{
+		float: left;
+		width: 60%;
+		height: 50px;
+	}
+	.untop .untop-item .rankinfo span{
+		color: #C62F2F;
+	}
 
+	/*选择栏*/
+	.selectbox{
+		margin-top: 50px;
+	}
+	.selectbox .seleleft{
+		float: left;
+		width: 50%;
+		font-size: 20px;
+		text-align: center;
+	}
+	/*下面2个是更改了妹子UI的的样式*/
+	.selectbox .am-btn{
+		font-size: 2rem;
+		font-weight: bold;
+	}
+	.selectbox .am-selected{
+		width: 100%;
+	}
 
+/*活动界面样式*/
+	/*活动类型选择栏*/
+	.classnav{
+		margin-top: 50px;
+	}
+	/*下面3个改变了妹子UI的基础样式*/
+	.classnav .am-btn{
+		font-size: 1rem;
+		text-align: center;
+	}
+	.classnav .am-selected{
+		width: 100%;
+	}
+	.classnav .am-selected-status{
+		text-align: center;
+	}
+	/*活动列表部分*/
+	.acbox{
+		margin-top: 5px;
+		text-align: center;
+	}
+	.ac-list .aclist-box{
+		width: 98%;
+		border:1px solid #eee;
+		margin:0 auto;
+		box-shadow: 0 0 3px #eee;
+		margin-bottom: 5px;
+	}
+	.ac-list .aclist-box a{
+		display: block;
+	}
+	.aclist-box-img{
+		float: left;
+		width: 40%;
+		margin-top: 20px;
+		margin-bottom: 0px;
+	}
+	.aclist-box-img img{
+		width: 130px;
+	}
+	.aclist-box-info{
+		float: left;
+		width: 60%;
+		text-align: left;
+		margin-bottom: 10px;
+	}
+	.aclist-box-info a{
+		font-weight: bold;
+		margin-top: 15px;
+	}
+	.aclist-box-info .actime,
+	.aclist-box-info .acendtime{
+		font-size: 12px;
+	}
+	.acbox-btn{
+		text-align: right;
+	}
+	.acbox-btn .btn{
+		background-color: #C62F2F;
+		color: #fff;
+		width: 80px;
+		margin-top: -30px;
+	}
+	.ac-bottom{
+		margin-top: -10px;
+		margin-bottom: 50px;
+	}
 
-
-
-
-
-
-
-
+/*活动详情界面样式*/
+	.acmore{
+		position: relative;
+	}
+	.acmore img{
+		width: 100%;
+		margin-top: 50px;
+	}
+	.acmore .acmore-class{
+		position: absolute;
+		top: 50px;
+		width: 100%;
+		color: #fff;
+		background-color: rgba(0, 0, 0, 0.7);
+		text-align: center;
+		line-height: 32px;
+	}
+	/*活动简介样式*/
+	.acmoreinfo .acmore-title{
+		border-bottom: 1px solid #eee;
+		padding:10px;
+	}
+	.acmoreinfo .acmore-title span {
+		text-align: left;
+		font-size: 1.6rem;
+		color: #666;
+	}
+	.acmoreinfo .acmore-title .acmore-userinfo{
+		background-image: url(../images/goin.png);
+		background-repeat: no-repeat;
+		background-position: 97% center;
+		background-size: 10px;
+		display: block;
+	}
+	.acmore-userinfo img{
+		width: 30px;
+		border-radius: 50%;
+	}
+	.acmore-userinfo i{
+		color: #eee;
+		margin-left: 10%;
+	}
+	.acmore-button{
+		margin-top: 10px;
+		text-align: center;
+	}
+	/*我要报名按钮，一直处于底端*/
+	.signnav{
+		position: fixed;
+		bottom: 0;
+		background-color:#C62F2F;
+		text-align: center;
+		width: 100%;
+		line-height: 50px;
+		z-index: 99;
+		display: block;
+	}
+	.signnav p{
+		color: #fff;
+		margin:0;
+		padding:0;
+	}
+	.acmore-content{
+		margin-bottom: 50px;
+	}
+	
+/*义工心得界面样式*/
+	.feel{
+		margin-bottom: 50px;
+		margin-top: 50px;
+		background-color: #eee;
+	}
+	.feel .feel-list{
+		padding: 0;
+		
+	}
+	/*每个用户的心得*/
+	.feel .feel-list .feel-item{
+		overflow: hidden;
+		margin: 0 auto;
+		padding: 0 10px;
+		padding-top: 10px;
+		border-bottom: 1px solid #eee;
+		background-color: #fff;
+		margin-bottom: 5px;
+		box-shadow: 0 0 3px #eee;
+		width: 96%;
+		border-radius: 3px;
+	}
+	/*心得第一行,用户头像、姓名、发布时间*/
+	.feel-item .feel-item-info{
+		text-align: center;
+		padding: 0 5px;
+	}
+	.feel-item .feel-item-info .info-img{
+		float: left;
+	}
+	.feel-item .feel-item-info .info-img img{
+		width: 50px;
+		border-radius: 50%;
+	}
+	.feel-item .feel-item-info .info-name{
+		color: #333;
+		float: left;
+	}
+	.feel-item .feel-item-info .info-name p{
+		margin-top: 10px;
+	}
+	.feel-item .feel-item-info .info-name .feeltime{
+		color: #666;
+		font-size: 6px;
+	}
+	/*心得内容*/
+	.fell-item-content{
+		padding: 0 6px;
+		padding-bottom: 6px;
+	}
+/*编写义工心得界面样式*/
+	.write{
+		margin-top: 50px;
+	}
+	.write .write-content{
+		height: 150px;
+		padding: 10px;
+		border-bottom: 1px solid #eee;
+		width: 100%;
+	}
+	.write .iconbox{
+		height: 30px;
+		border-bottom: 1px solid #eee;
+	}
+	.write .write-send{
+		text-align: center;
+		margin-top: 10px;
+	}
+	.write .write-send .btn{
+		color: #fff;
+		background-color:#0E90D2;
+	}
 
 
 
@@ -384,7 +653,7 @@ a:active{
 /*返回上一页组件*/
 .header-back{
 	display: block;
-	position: absolute;
+	position: fixed;
 	top: 12px;
 	left: 15px;
 	z-index: 9999;
@@ -393,6 +662,28 @@ a:active{
 	font-size: 20px;
 	color: #fff;
 }
+/*分页组件*/
+.pages{
+	text-align: center;
+}
+/*右上角编辑义工心得按钮组件 */
+.writefeel{
+	position: fixed;
+	top: 12px;
+	right: 15px;
+	z-index: 9999;
+	color: #fff;
+}
+.writefeel span{
+	font-size: 20px;
+}
+.writefeel:hover,
+.writefeel:active,
+.writefeel:visited
+{
+	color: #eee;
+}
+
 /* 
 参考数据
 橙色：#ff9500

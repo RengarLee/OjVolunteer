@@ -35,6 +35,7 @@ namespace OjVolunteer.Model
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
         public short Status { get; set; }
+        public string OrganizeInfoIcon { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> ApplyActivity { get; set; }
