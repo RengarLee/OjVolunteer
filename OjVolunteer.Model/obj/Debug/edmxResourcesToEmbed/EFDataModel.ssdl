@@ -147,17 +147,17 @@
     <Key>
       <PropertyRef Name="UserDurationID" />
     </Key>
-    <Property Name="UserDurationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserInfoID" Type="int" Nullable="false" />
-    <Property Name="UserDurationTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="UserDurationPropartyTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="UserDurationPartyTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="UserDurationPropartyTime" Type="datetime" Nullable="false" />
-    <Property Name="UserDurationPartyTime" Type="datetime" Nullable="false" />
+    <Property Name="UserDurationID" Type="int" Nullable="false" />
+    <Property Name="UserDurationTotal" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="UserDurationPropartyTotal" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="UserDurationPartyTotal" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="UserDurationPropartyTime" Type="datetime" />
+    <Property Name="UserDurationPartyTime" Type="datetime" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
     <Property Name="Status" Type="smallint" Nullable="false" />
+    <Property Name="UserDurationNormalTotal" Type="decimal" Precision="10" Scale="2" />
   </EntityType>
   <EntityType Name="UserEnroll">
     <Key>
@@ -195,6 +195,8 @@
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
     <Property Name="Status" Type="smallint" Nullable="false" />
+    <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserInfoTalkCount" Type="int" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
     <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
@@ -328,15 +330,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_USERDURA_REFERENCE_USERINFO">
+  <Association Name="FK_UserDuration_UserInfo">
     <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
-    <End Role="UserDuration" Type="Self.UserDuration" Multiplicity="*" />
+    <End Role="UserDuration" Type="Self.UserDuration" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="UserInfo">
         <PropertyRef Name="UserInfoID" />
       </Principal>
       <Dependent Role="UserDuration">
-        <PropertyRef Name="UserInfoID" />
+        <PropertyRef Name="UserDurationID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -470,7 +472,7 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="Talks" EntitySet="Talks" />
     </AssociationSet>
-    <AssociationSet Name="FK_USERDURA_REFERENCE_USERINFO" Association="Self.FK_USERDURA_REFERENCE_USERINFO">
+    <AssociationSet Name="FK_UserDuration_UserInfo" Association="Self.FK_UserDuration_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="UserDuration" EntitySet="UserDuration" />
     </AssociationSet>

@@ -23,7 +23,6 @@ namespace OjVolunteer.Model
             this.Favors = new HashSet<Favors>();
             this.Integrals = new HashSet<Integrals>();
             this.Talks = new HashSet<Talks>();
-            this.UserDuration = new HashSet<UserDuration>();
             this.UserEnroll = new HashSet<UserEnroll>();
         }
     
@@ -44,6 +43,8 @@ namespace OjVolunteer.Model
         public string Remark { get; set; }
         public short Status { get; set; }
         public Nullable<int> UpdatePoliticalID { get; set; }
+        public string UserInfoIcon { get; set; }
+        public Nullable<int> UserInfoTalkCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> ApplyActivity { get; set; }
@@ -61,9 +62,8 @@ namespace OjVolunteer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Talks> Talks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserDuration> UserDuration { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserEnroll> UserEnroll { get; set; }
         public virtual Department Department { get; set; }
+        public virtual UserDuration UserDuration { get; set; }
     }
 }

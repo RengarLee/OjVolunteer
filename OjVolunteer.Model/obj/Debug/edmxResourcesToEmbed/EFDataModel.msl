@@ -157,8 +157,8 @@
     <EntitySetMapping Name="UserDuration">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserDuration)">
         <MappingFragment StoreEntitySet="UserDuration">
+          <ScalarProperty Name="UserDurationNormalTotal" ColumnName="UserDurationNormalTotal" />
           <ScalarProperty Name="UserDurationID" ColumnName="UserDurationID" />
-          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="UserDurationTotal" ColumnName="UserDurationTotal" />
           <ScalarProperty Name="UserDurationPropartyTotal" ColumnName="UserDurationPropartyTotal" />
           <ScalarProperty Name="UserDurationPartyTotal" ColumnName="UserDurationPartyTotal" />
@@ -190,6 +190,8 @@
     <EntitySetMapping Name="UserInfo">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="UserInfoTalkCount" ColumnName="UserInfoTalkCount" />
+          <ScalarProperty Name="UserInfoIcon" ColumnName="UserInfoIcon" />
           <ScalarProperty Name="UpdatePoliticalID" ColumnName="UpdatePoliticalID" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="UserInfoLoginId" ColumnName="UserInfoLoginId" />

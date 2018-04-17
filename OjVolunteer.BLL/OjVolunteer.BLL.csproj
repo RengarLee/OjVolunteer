@@ -62,6 +62,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OjVolunteer.DALFactory\OjVolunteer.DALFactory.csproj">

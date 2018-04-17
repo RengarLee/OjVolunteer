@@ -22,12 +22,17 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #region 获得用户信息
+        /// <summary>
+        /// 用户获得用户信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         public ActionResult GetUser(int Id)
         {
 
             bool isSelf = LoginUser.UserInfoID == Id ? true : false;
             //ViewData["UserDuration"] = "";
-            UserDuration userDuration = UserDurationService.GetEntities(u => u.UserInfoID == Id).FirstOrDefault();
+            UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
             if (userDuration != null)
             {
                 ViewData["UserDuration"] = userDuration;
@@ -47,15 +52,10 @@ namespace OjVolunteer.UIPortal.Controllers
                 return View(user);
             }
         }
+
+
         #endregion
 
-        #region  加载所有政治面貌 
-        public ActionResult GetAllUserInfo()
-        {
-            //TODO:分页使用  BS Table
-            return View();
-        }
-        #endregion
 
         #region Add
         public ActionResult Add()

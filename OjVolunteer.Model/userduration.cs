@@ -15,16 +15,16 @@ namespace OjVolunteer.Model
     public partial class UserDuration
     {
         public int UserDurationID { get; set; }
-        public int UserInfoID { get; set; }
-        public decimal UserDurationTotal { get; set; }
-        public decimal UserDurationPropartyTotal { get; set; }
-        public decimal UserDurationPartyTotal { get; set; }
-        public System.DateTime UserDurationPropartyTime { get; set; }
-        public System.DateTime UserDurationPartyTime { get; set; }
+        public Nullable<decimal> UserDurationTotal { get; set; }
+        public Nullable<decimal> UserDurationPropartyTotal { get; set; }
+        public Nullable<decimal> UserDurationPartyTotal { get; set; }
+        public Nullable<System.DateTime> UserDurationPropartyTime { get; set; }
+        public Nullable<System.DateTime> UserDurationPartyTime { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
         public short Status { get; set; }
+        public Nullable<decimal> UserDurationNormalTotal { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
     }

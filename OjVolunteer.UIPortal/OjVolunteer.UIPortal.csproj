@@ -202,6 +202,7 @@
     <Content Include="Config\common.xml" />
     <Content Include="Config\controllers.xml" />
     <Content Include="Config\services.xml" />
+    <Content Include="Content\bootstrap-table-filter-control.css" />
     <Content Include="Content\bootstrap-table.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -221,9 +222,10 @@
     <Content Include="Content\oj\js\main.js" />
     <Content Include="Content\oj\js\npm.js" />
     <Content Include="favicon.ico" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-table-filter-control.js" />
     <Content Include="Scripts\bootstrap-table-locale-all.min.js" />
     <Content Include="Scripts\bootstrap-table-zh-CN.js" />
     <Content Include="Scripts\bootstrap-table.js" />
@@ -273,6 +275,7 @@
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\UserInfo\GetUser.cshtml" />
     <Content Include="Views\OrganizeInfo\OrganizeOfAuditing.cshtml" />
+    <Content Include="Views\OrganizeInfo\AllUserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -286,13 +289,13 @@
     <Folder Include="Views\Talks\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

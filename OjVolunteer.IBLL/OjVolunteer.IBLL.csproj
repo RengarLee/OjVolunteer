@@ -60,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IServices.tt</DependentUpon>
     </Compile>
+    <Compile Include="IUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

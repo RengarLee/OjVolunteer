@@ -152,17 +152,17 @@
           <Key>
             <PropertyRef Name="UserDurationID" />
           </Key>
-          <Property Name="UserDurationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserInfoID" Type="int" Nullable="false" />
-          <Property Name="UserDurationTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="UserDurationPropartyTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="UserDurationPartyTotal" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="UserDurationPropartyTime" Type="datetime" Nullable="false" />
-          <Property Name="UserDurationPartyTime" Type="datetime" Nullable="false" />
+          <Property Name="UserDurationID" Type="int" Nullable="false" />
+          <Property Name="UserDurationTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationPropartyTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationPartyTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationPropartyTime" Type="datetime" />
+          <Property Name="UserDurationPartyTime" Type="datetime" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="UserDurationNormalTotal" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="UserEnroll">
           <Key>
@@ -200,6 +200,8 @@
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserInfoTalkCount" Type="int" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
@@ -333,15 +335,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USERDURA_REFERENCE_USERINFO">
+        <Association Name="FK_UserDuration_UserInfo">
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
-          <End Role="UserDuration" Type="Self.UserDuration" Multiplicity="*" />
+          <End Role="UserDuration" Type="Self.UserDuration" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
             </Principal>
             <Dependent Role="UserDuration">
-              <PropertyRef Name="UserInfoID" />
+              <PropertyRef Name="UserDurationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -475,7 +477,7 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Talks" EntitySet="Talks" />
           </AssociationSet>
-          <AssociationSet Name="FK_USERDURA_REFERENCE_USERINFO" Association="Self.FK_USERDURA_REFERENCE_USERINFO">
+          <AssociationSet Name="FK_UserDuration_UserInfo" Association="Self.FK_UserDuration_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserDuration" EntitySet="UserDuration" />
           </AssociationSet>
@@ -582,10 +584,6 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Talks" EntitySet="Talks" />
           </AssociationSet>
-          <AssociationSet Name="FK_USERDURA_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="UserDuration" EntitySet="UserDuration" />
-          </AssociationSet>
           <AssociationSet Name="FK_USERENRO_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserEnroll" EntitySet="UserEnroll" />
@@ -593,6 +591,10 @@
           <AssociationSet Name="FK_USERINFO_REFERENCE_DEPARTME1" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1">
             <End Role="Department" EntitySet="Department" />
             <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDuration_UserInfo" Association="OjVolunteerModel.FK_UserDuration_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserDuration" EntitySet="UserDuration" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Activity">
@@ -764,17 +766,17 @@
             <PropertyRef Name="UserDurationID" />
           </Key>
           <Property Name="UserDurationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserInfoID" Type="Int32" Nullable="false" />
-          <Property Name="UserDurationTotal" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="UserDurationPropartyTotal" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="UserDurationPartyTotal" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="UserDurationPropartyTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UserDurationPartyTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserDurationTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationPropartyTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationPartyTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationPropartyTime" Type="DateTime" Precision="3" />
+          <Property Name="UserDurationPartyTime" Type="DateTime" Precision="3" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" FromRole="UserDuration" ToRole="UserInfo" />
+          <Property Name="UserDurationNormalTotal" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserDuration" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="UserEnroll">
           <Key>
@@ -821,11 +823,13 @@
           <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="UserInfo" ToRole="OrganizeInfo" />
           <NavigationProperty Name="Political" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" FromRole="UserInfo" ToRole="Political" />
           <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Talks" />
-          <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserDuration" />
           <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserEnroll" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <Property Name="UpdatePoliticalID" Type="Int32" />
           <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="UserInfo" ToRole="Department" />
+          <Property Name="UserInfoIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoTalkCount" Type="Int32" />
+          <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserInfo" ToRole="UserDuration" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
@@ -1007,18 +1011,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USERDURA_REFERENCE_USERINFO">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.UserDuration" Role="UserDuration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserInfo">
-              <PropertyRef Name="UserInfoID" />
-            </Principal>
-            <Dependent Role="UserDuration">
-              <PropertyRef Name="UserInfoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_USERENRO_REFERENCE_USERINFO">
           <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
           <End Type="OjVolunteerModel.UserEnroll" Role="UserEnroll" Multiplicity="*" />
@@ -1040,6 +1032,18 @@
             </Principal>
             <Dependent Role="UserInfo">
               <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDuration_UserInfo">
+          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="OjVolunteerModel.UserDuration" Role="UserDuration" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoID" />
+            </Principal>
+            <Dependent Role="UserDuration">
+              <PropertyRef Name="UserDurationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1205,8 +1209,8 @@
     <EntitySetMapping Name="UserDuration">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserDuration)">
         <MappingFragment StoreEntitySet="UserDuration">
-          <ScalarProperty Name="UserDurationID" ColumnName="UserDurationID" />
-          <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+          <ScalarProperty Name="UserDurationNormalTotal" ColumnName="UserDurationNormalTotal" />
+                <ScalarProperty Name="UserDurationID" ColumnName="UserDurationID" />
           <ScalarProperty Name="UserDurationTotal" ColumnName="UserDurationTotal" />
           <ScalarProperty Name="UserDurationPropartyTotal" ColumnName="UserDurationPropartyTotal" />
           <ScalarProperty Name="UserDurationPartyTotal" ColumnName="UserDurationPartyTotal" />
@@ -1238,7 +1242,9 @@
     <EntitySetMapping Name="UserInfo">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
-          <ScalarProperty Name="UpdatePoliticalID" ColumnName="UpdatePoliticalID" />
+          <ScalarProperty Name="UserInfoTalkCount" ColumnName="UserInfoTalkCount" />
+                <ScalarProperty Name="UserInfoIcon" ColumnName="UserInfoIcon" />
+                <ScalarProperty Name="UpdatePoliticalID" ColumnName="UpdatePoliticalID" />
                 <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="UserInfoLoginId" ColumnName="UserInfoLoginId" />
           <ScalarProperty Name="UserInfoPwd" ColumnName="UserInfoPwd" />

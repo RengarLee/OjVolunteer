@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a5243fa8637648ecae7876874c0ba4dc" Name="Diagram1" ZoomLevel="79">
+      <Diagram DiagramId="a5243fa8637648ecae7876874c0ba4dc" Name="Diagram1" ZoomLevel="107">
         <EntityTypeShape EntityType="OjVolunteerModel.Activity" PointX="5.25" PointY="17.375" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.ActivityDetail" PointX="8.25" PointY="13.375" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.ActivityType" PointX="3" PointY="19.625" Width="1.5" />
@@ -16,7 +16,7 @@
         <EntityTypeShape EntityType="OjVolunteerModel.Political" PointX="0.75" PointY="9.625" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.Talks" PointX="5.25" PointY="32.25" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.UserDuration" PointX="5.25" PointY="13.25" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.UserEnroll" PointX="5.25" PointY="9.25" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserEnroll" PointX="5.25" PointY="9.25" Width="2.375" />
         <EntityTypeShape EntityType="OjVolunteerModel.UserInfo" PointX="3" PointY="11.75" Width="1.5" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" />
@@ -33,9 +33,9 @@
         <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" />
         <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" />
         <AssociationConnector Association="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERDURA_REFERENCE_USERINFO" />
         <AssociationConnector Association="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" />
         <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" />
+        <AssociationConnector Association="OjVolunteerModel.FK_UserDuration_UserInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
