@@ -106,7 +106,12 @@
                         width: '13%',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                            formatter: function (value, row, index) {
+                                if (value == null)
+                                    return null;
+                                else
+                                    return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                            }
                         }
                     },
                     {

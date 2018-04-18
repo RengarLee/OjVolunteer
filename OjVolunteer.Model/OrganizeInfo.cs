@@ -36,6 +36,7 @@ namespace OjVolunteer.Model
         public short Status { get; set; }
         public string OrganizeInfoIcon { get; set; }
         public string OrganizeInfoLoginId { get; set; }
+        public Nullable<int> ActivityCount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> ApplyActivity { get; set; }

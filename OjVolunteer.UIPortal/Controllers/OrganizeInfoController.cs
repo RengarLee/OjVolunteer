@@ -24,10 +24,51 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #region  加载所有组织 
+        /// <summary>
+        /// 进入组织信息管理界面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AllOrganizeInfo()
+        {
+            return View(LoginUser);
+        }
+
+        /// <summary>
+        /// 加载组织信息
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetAllOrganizeInfo()
         {
-            return View();
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            OrganizeQueryParam qrganizeQueryParam = new OrganizeQueryParam();
+            if (!string.IsNullOrEmpty(Request["filter"]))
+            {
+                qrganizeQueryParam = Newtonsoft.Json.JsonConvert.DeserializeObject<OrganizeQueryParam>(Request["filter"]);
+            }
+            qrganizeQueryParam.PageSize = pageSize;
+            qrganizeQueryParam.PageIndex = pageIndex;
+            qrganizeQueryParam.Total = 0;
+            var pageData = OrganizeInfoService.LoadPageData(qrganizeQueryParam, LoginUser.OrganizeInfoID)
+                            .Select(u => new
+                            {
+                                u.OrganizeInfoID,
+                                u.OrganizeInfoLoginId,
+                                u.OrganizeInfoShowName,
+                                u.OrganizeInfoPeople,
+                                u.OrganizeInfoEmail,
+                                u.OrganizeInfoPhone,
+                                u.OrganizeInfoLastTime,
+                                u.CreateTime,
+                                u.Status,
+                                u.ActivityCount
+                            }).AsQueryable();
+            var data = new { total = qrganizeQueryParam.Total, rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
+
 
         /// <summary>
         /// 进入组织信息审核界面
@@ -56,11 +97,19 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 加载组织自身所有用户
+        /// <summary>
+        /// 进入义工信息管理界面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AllUserInfo()
         {
             return View(LoginUser);
         }
 
+        /// <summary>
+        /// 加载义工信息
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetAllUserInfo()
         {
             var total = 0;
@@ -157,11 +206,18 @@ namespace OjVolunteer.UIPortal.Controllers
             
         }
 
-        
+        /// <summary>
+        /// 进入政治面貌变更审核界面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UserOfAuditing()
         {
             return View(LoginUser);
         }
+        /// <summary>
+        /// 加载政治面貌变更审核信息
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult GetAllUserOfAuditing()
         {

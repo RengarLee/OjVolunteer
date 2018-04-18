@@ -112,6 +112,7 @@
     <EntitySetMapping Name="OrganizeInfo">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.OrganizeInfo)">
         <MappingFragment StoreEntitySet="OrganizeInfo">
+          <ScalarProperty Name="ActivityCount" ColumnName="ActivityCount" />
           <ScalarProperty Name="OrganizeInfoLoginId" ColumnName="OrganizeInfoLoginId" />
           <ScalarProperty Name="OrganizeInfoIcon" ColumnName="OrganizeInfoIcon" />
           <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />

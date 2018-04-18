@@ -228,6 +228,7 @@
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
     <Property Name="OrganizeInfoIcon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="OrganizeInfoLoginId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ActivityCount" Type="Int32" />
   </EntityType>
   <EntityType Name="Political">
     <Key>

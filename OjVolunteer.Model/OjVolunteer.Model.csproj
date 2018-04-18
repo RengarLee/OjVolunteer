@@ -103,6 +103,7 @@
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Param\BaseParam.cs" />
+    <Compile Include="Param\OrganizeQueryParam.cs" />
     <Compile Include="Param\UserQueryParam.cs" />
     <Compile Include="Political.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>

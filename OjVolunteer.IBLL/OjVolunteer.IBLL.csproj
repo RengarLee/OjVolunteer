@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="IBaseService.cs" />
     <Compile Include="IMajorService.cs" />
+    <Compile Include="IOrganizeInfoService.cs" />
     <Compile Include="IServices.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

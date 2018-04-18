@@ -124,6 +124,7 @@
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="100" />
+          <Property Name="ActivityCount" Type="int" />
         </EntityType>
         <EntityType Name="Political">
           <Key>
@@ -755,6 +756,7 @@
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
           <Property Name="OrganizeInfoIcon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="OrganizeInfoLoginId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityCount" Type="Int32" />
         </EntityType>
         <EntityType Name="Political">
           <Key>
@@ -1200,7 +1202,8 @@
     <EntitySetMapping Name="OrganizeInfo">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.OrganizeInfo)">
         <MappingFragment StoreEntitySet="OrganizeInfo">
-          <ScalarProperty Name="OrganizeInfoLoginId" ColumnName="OrganizeInfoLoginId" />
+          <ScalarProperty Name="ActivityCount" ColumnName="ActivityCount" />
+                <ScalarProperty Name="OrganizeInfoLoginId" ColumnName="OrganizeInfoLoginId" />
                 <ScalarProperty Name="OrganizeInfoIcon" ColumnName="OrganizeInfoIcon" />
                 <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
           <ScalarProperty Name="OrganizeInfoShowName" ColumnName="OrganizeInfoShowName" />
