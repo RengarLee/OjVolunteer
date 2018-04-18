@@ -420,6 +420,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserInfo_UpdatePolitical">
+          <End Role="Political" Type="Self.Political" Multiplicity="0..1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Political">
+              <PropertyRef Name="PoliticalID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="UpdatePoliticalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="OjVolunteerModelStoreContainer">
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActivityDetail" EntityType="Self.ActivityDetail" Schema="dbo" store:Type="Tables" />
@@ -503,6 +515,10 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_POLITICA" Association="Self.FK_USERINFO_REFERENCE_POLITICA">
+            <End Role="Political" EntitySet="Political" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_UpdatePolitical" Association="Self.FK_UserInfo_UpdatePolitical">
             <End Role="Political" EntitySet="Political" />
             <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
@@ -596,6 +612,10 @@
           <AssociationSet Name="FK_UserDuration_UserInfo" Association="OjVolunteerModel.FK_UserDuration_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserDuration" EntitySet="UserDuration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_UpdatePolitical" Association="OjVolunteerModel.FK_UserInfo_UpdatePolitical">
+            <End Role="Political" EntitySet="Political" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Activity">
@@ -747,6 +767,7 @@
           <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int16" Nullable="false" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" FromRole="Political" ToRole="UserInfo" />
+          <NavigationProperty Name="UpdateUserInfo" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="Political" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Talks">
           <Key>
@@ -832,6 +853,7 @@
           <Property Name="UserInfoIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserInfoTalkCount" Type="Int32" />
           <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserInfo" ToRole="UserDuration" />
+          <NavigationProperty Name="UpdatePolitical" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="UserInfo" ToRole="Political" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
@@ -1046,6 +1068,18 @@
             </Principal>
             <Dependent Role="UserDuration">
               <PropertyRef Name="UserDurationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_UpdatePolitical">
+          <End Type="OjVolunteerModel.Political" Role="Political" Multiplicity="0..1" />
+          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Political">
+              <PropertyRef Name="PoliticalID" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="UpdatePoliticalID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

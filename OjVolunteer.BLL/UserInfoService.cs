@@ -158,5 +158,19 @@ namespace OjVolunteer.BLL
             return temp.OrderBy(u => u.UserInfoID).Skip(userQueryParam.PageSize * (userQueryParam.PageIndex - 1)).Take(userQueryParam.PageSize).AsQueryable();
         }
         #endregion
+
+        #region 批量更改用户政治面貌
+
+        public int ListUpdatePolical(List<int> ids)
+        {
+            foreach(int id in ids)
+            {
+                var user = CurrentDal.GetEntities(u => u.UserInfoID == id).First();
+                user.PoliticalID = user.UpdatePoliticalID;   
+            }
+            return NormalListByULS(ids);
+        }
+
+        #endregion
     }
 }

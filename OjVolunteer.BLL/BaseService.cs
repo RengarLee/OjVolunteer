@@ -53,7 +53,7 @@ namespace OjVolunteer.BLL
         public bool Update(T entity)
         {
             CurrentDal.Update(entity);
-            return DbSession.SaveChanges()>0;
+            return DbSession.SaveChanges() > 0;
         }
 
         public int UpdateListStatus(List<int> ids, short delFlag)

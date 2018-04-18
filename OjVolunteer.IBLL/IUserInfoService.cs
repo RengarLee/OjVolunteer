@@ -11,5 +11,6 @@ namespace OjVolunteer.IBLL
     public partial interface  IUserInfoService
     {
         IQueryable<UserInfo> LoadPageData(UserQueryParam userQueryParam);
+        int ListUpdatePolical(List<int> ids);
     }
 }

@@ -31,6 +31,7 @@
             <div class="layui-side-scroll">
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
                     <li class="layui-nav-item layui-nav-itemed">
+
                         <a class="" href="javascript:;">信息设置</a>
                         <dl class="layui-nav-child">
                             <dd class="vol-info"><a href="/OrganizeInfo/AllUserInfo">义工信息</a></dd>
@@ -47,8 +48,8 @@
                             <dd><a href="javascript:;">心得审核</a></dd>
                             @if (Model.OrganizeInfoManageId == null)
                             {
-                            <dd><a href="adminorg.html">组织审核</a></dd>
-                            <dd><a href="adminorg.html">义工审核</a></dd>
+                                <dd><a href="/OrganizeInfo/UserOfAuditing">更改政治面貌审核</a></dd>
+                                <dd><a href="/OrganizeInfo/OrganizeOfAuditing">组织账号申请审核</a></dd>
                             }
                         </dl>
                     </li>
@@ -66,7 +67,6 @@
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
-
     <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Scripts/bootstrap-table-filter-control.js"></script>

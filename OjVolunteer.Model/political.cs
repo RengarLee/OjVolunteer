@@ -18,6 +18,7 @@ namespace OjVolunteer.Model
         public Political()
         {
             this.UserInfo = new HashSet<UserInfo>();
+            this.UpdateUserInfo = new HashSet<UserInfo>();
         }
     
         public int PoliticalID { get; set; }
@@ -29,5 +30,7 @@ namespace OjVolunteer.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserInfo> UserInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserInfo> UpdateUserInfo { get; set; }
     }
 }

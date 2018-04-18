@@ -14,7 +14,7 @@
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
-    
+
     @*layui冲突 <script src="~/Scripts/bootstrap.js"></script>*@
     <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
@@ -74,7 +74,7 @@
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            if (row["MajorName"] == null) {
+                            if (row["UserInfoStuId"] == null) {
                                 return '未填写';
                             }
                             return value;
@@ -96,7 +96,7 @@
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            if (row["MajorName"] == null) {
+                            if (row["UserInfoPhone"] == null) {
                                 return '未填写';
                             }
                             return value;
@@ -110,7 +110,7 @@
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            if (row["MajorName"] == null) {
+                            if (row["UserInfoEmail"] == null) {
                                 return '未填写';
                             }
                             return value;
@@ -219,9 +219,6 @@
                         sortable: true,//启用排序
                         width: '6%',
                         align: 'center',
-                        formatter: function (value, row, index) {
-                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-MM-dd hh:mm");
-                        },
                         filterControl: 'input',
                     },
                     {
@@ -241,15 +238,7 @@
                             }
                         },
                         filterControl: 'input',
-                    },
-                    //{
-                    //    field: 'operate',
-                    //    title: '操作',
-                    //    align: 'center',
-                    //    width: '10%',
-                    //    formatter: operateFormatter,
-                    //    filterControl: 'input',
-                    //}
+                    }
                 ],
                 onLoadSuccess: function (data) {
                     $(".editLink").click(function () {
@@ -271,10 +260,10 @@
 </head>
 <body>
     <div>
-        <table id="tb" data-filter-control="true">
-
-        </table>
+        <table id="tb" data-filter-control="true"></table>
     </div>
+
+
 </body>
 
 

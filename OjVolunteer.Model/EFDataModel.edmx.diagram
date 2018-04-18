@@ -36,6 +36,7 @@
         <AssociationConnector Association="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" />
         <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" />
         <AssociationConnector Association="OjVolunteerModel.FK_UserDuration_UserInfo" />
+        <AssociationConnector Association="OjVolunteerModel.FK_UserInfo_UpdatePolitical" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

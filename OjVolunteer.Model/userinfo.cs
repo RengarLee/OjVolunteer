@@ -65,5 +65,6 @@ namespace OjVolunteer.Model
         public virtual ICollection<UserEnroll> UserEnroll { get; set; }
         public virtual Department Department { get; set; }
         public virtual UserDuration UserDuration { get; set; }
+        public virtual Political UpdatePolitical { get; set; }
     }
 }

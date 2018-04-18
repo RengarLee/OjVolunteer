@@ -415,6 +415,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UserInfo_UpdatePolitical">
+    <End Role="Political" Type="Self.Political" Multiplicity="0..1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Political">
+        <PropertyRef Name="PoliticalID" />
+      </Principal>
+      <Dependent Role="UserInfo">
+        <PropertyRef Name="UpdatePoliticalID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="OjVolunteerModelStoreContainer">
     <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ActivityDetail" EntityType="Self.ActivityDetail" Schema="dbo" store:Type="Tables" />
@@ -498,6 +510,10 @@
       <End Role="UserInfo" EntitySet="UserInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_USERINFO_REFERENCE_POLITICA" Association="Self.FK_USERINFO_REFERENCE_POLITICA">
+      <End Role="Political" EntitySet="Political" />
+      <End Role="UserInfo" EntitySet="UserInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserInfo_UpdatePolitical" Association="Self.FK_UserInfo_UpdatePolitical">
       <End Role="Political" EntitySet="Political" />
       <End Role="UserInfo" EntitySet="UserInfo" />
     </AssociationSet>

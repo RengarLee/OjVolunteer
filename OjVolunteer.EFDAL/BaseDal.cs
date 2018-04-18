@@ -65,7 +65,7 @@ namespace OjVolunteer.EFDAL
             return entity;
         }
         #endregion
-
+    
         #region 更新
         /// <summary>
         /// 更新
@@ -75,7 +75,6 @@ namespace OjVolunteer.EFDAL
         public bool Update(T entity)
         {
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
-            Db.SaveChanges();
             return true;
         }
 
@@ -107,7 +106,6 @@ namespace OjVolunteer.EFDAL
         public bool Delete(T entity)
         {
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
-            Db.SaveChanges();
             return true;
         }
         /// <summary>

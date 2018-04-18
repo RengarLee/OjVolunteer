@@ -391,6 +391,7 @@
     <Content Include="Views\OrganizeInfo\OrganizeOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\AllUserInfo.cshtml" />
     <Content Include="Views\OrganizeInfo\GetSelf.cshtml" />
+    <Content Include="Views\OrganizeInfo\UserOfAuditing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
