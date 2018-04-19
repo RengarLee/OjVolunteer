@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script src="~/Content/lrz/dist/lrz.bundle.js"></script>
+
+</head>
+<body>
+    <header>
+        <nav class="writertop">
+            <p>发布心得</p>
+        </nav>
+    </header>
+    <div class="write">
+        <textarea id="demo" style="display: none;"></textarea>
+    </div>
+    <div class="write-btn">
+        <input type="submit" value="发布" class="layui-btn" />
+
+    </div>
+
+    <a href="javascript:history.go(-1)" class="write-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+
+    <script type="text/javascript">
+        document.querySelector('#file').addEventListener('change', function () {
+            lrz(this.files[0])
+                .then(function (rst) {
+                    // 处理成功会执行
+                    console.log(rst);
+                })
+                .catch(function (err) {
+                    // 处理失败会执行
+                })
+                .always(function () {
+                    // 不管是成功失败，都会执行
+                });
+        });
+    </script>
+</body>
+</html>

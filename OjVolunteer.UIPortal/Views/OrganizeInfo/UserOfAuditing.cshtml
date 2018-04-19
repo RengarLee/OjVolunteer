@@ -26,8 +26,7 @@
             });
             $("#btn_removes").click(function () {
                 opposeSelectClickEvent();
-            });
-
+            }); 
         });
 
         //初始化表格
@@ -106,12 +105,10 @@
                         width: '13%',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            formatter: function (value, row, index) {
                                 if (value == null)
                                     return null;
                                 else
                                     return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
-                            }
                         }
                     },
                     {
@@ -133,7 +130,7 @@
                         title: '操作',
                         align: 'center',
                         width: '25%',
-                        formatter: operateFormatter
+                        formatter: operateFormatter,
                     }
                 ],
                 onLoadSuccess: function (data) {

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
-    public class MajorController : Controller
+    public class MajorController : OrganizeBaseController
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         public IMajorService MajorService { get; set; }
@@ -18,11 +18,23 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        #region  加载所有政治面貌 
+        #region 加载专业
+        public ActionResult AllMajor()
+        {
+            return View(LoginUser);
+        }
+
+        [HttpPost]
         public ActionResult GetAllMajor()
         {
-            //TODO:分页使用  BS Table
-            return View();
+            var total = 0;
+            var s = Request["limit"];
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = MajorService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delNormal, u => u.MajorID, true).Select(u => new { u.MajorName, u.ModfiedOn, u.MajorID }).ToList();
+            var data = new { total = total, rows = pageData };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -57,7 +69,10 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             //TODO:Test
             string result = String.Empty;
-            if (MajorService.Update(major))
+            Major temp = MajorService.GetEntities(p => p.MajorID == major.MajorID).FirstOrDefault();
+            temp.MajorName = major.MajorName;
+            temp.ModfiedOn = DateTime.Now;
+            if (MajorService.Update(temp))
             {
                 result = "ok";
             }
@@ -75,7 +90,7 @@ namespace OjVolunteer.UIPortal.Controllers
             //TODO:                                                                                                                                                                                                                                         
             if (string.IsNullOrEmpty(ids))
             {
-                return Content("Please Select!");
+                return Content("null");
             }
             string[] strIds = Request["ids"].Split(',');
             List<int> idList = new List<int>();
@@ -87,11 +102,11 @@ namespace OjVolunteer.UIPortal.Controllers
             #region 逻辑删除
             if (MajorService.DeleteListByLogical(idList) > 0)
             {
-                return Content("error");
+                return Content("ok");
             }
             else
             {
-                return Content("ok");
+                return Content("error");
             }
             #endregion
         }

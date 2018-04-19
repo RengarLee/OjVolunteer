@@ -142,13 +142,14 @@
             <PropertyRef Name="TalkID" />
           </Key>
           <Property Name="TalkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserInfoID" Type="int" Nullable="false" />
+          <Property Name="UserInfoID" Type="int" />
           <Property Name="TalkContent" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="TalkFavorsNum" Type="int" Nullable="false" />
+          <Property Name="TalkFavorsNum" Type="int" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="OrganizeInfoID" Type="int" />
         </EntityType>
         <EntityType Name="UserDuration">
           <Key>
@@ -325,8 +326,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TALKS_REFERENCE_USERINFO">
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+        <Association Name="FK_Talks_OrganizeInfo">
+          <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
+          <End Role="Talks" Type="Self.Talks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrganizeInfo">
+              <PropertyRef Name="OrganizeInfoID" />
+            </Principal>
+            <Dependent Role="Talks">
+              <PropertyRef Name="OrganizeInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Talks_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
           <End Role="Talks" Type="Self.Talks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
@@ -487,7 +500,11 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Integrals" EntitySet="Integrals" />
           </AssociationSet>
-          <AssociationSet Name="FK_TALKS_REFERENCE_USERINFO" Association="Self.FK_TALKS_REFERENCE_USERINFO">
+          <AssociationSet Name="FK_Talks_OrganizeInfo" Association="Self.FK_Talks_OrganizeInfo">
+            <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
+            <End Role="Talks" EntitySet="Talks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Talks_UserInfo" Association="Self.FK_Talks_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Talks" EntitySet="Talks" />
           </AssociationSet>
@@ -543,111 +560,115 @@
           <EntitySet Name="UserEnroll" EntityType="OjVolunteerModel.UserEnroll" />
           <EntitySet Name="UserInfo" EntityType="OjVolunteerModel.UserInfo" />
           <AssociationSet Name="FK_ACTIVITY_REFERENCE_ORGANIZE" Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE">
-            <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
-            <End Role="Activity" EntitySet="Activity" />
+            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
+            <End EntitySet="Activity" Role="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITY_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="Activity" EntitySet="Activity" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End EntitySet="Activity" Role="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" Association="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE">
-            <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
-            <End Role="Activity" EntitySet="Activity" />
+            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
+            <End EntitySet="Activity" Role="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" Association="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY">
-            <End Role="Activity" EntitySet="Activity" />
-            <End Role="ActivityDetail" EntitySet="ActivityDetail" />
+            <End EntitySet="Activity" Role="Activity" />
+            <End EntitySet="ActivityDetail" Role="ActivityDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYMANAGER_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="Activity" EntitySet="Activity" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End EntitySet="Activity" Role="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" Association="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY">
-            <End Role="ActivityType" EntitySet="ActivityType" />
-            <End Role="Activity" EntitySet="Activity" />
+            <End EntitySet="ActivityType" Role="ActivityType" />
+            <End EntitySet="Activity" Role="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_USERENRO_REFERENCE_ACTIVITY" Association="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY">
-            <End Role="Activity" EntitySet="Activity" />
-            <End Role="UserEnroll" EntitySet="UserEnroll" />
+            <End EntitySet="Activity" Role="Activity" />
+            <End EntitySet="UserEnroll" Role="UserEnroll" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYDETAIL_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="ActivityDetail" EntitySet="ActivityDetail" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End EntitySet="ActivityDetail" Role="ActivityDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_FAVORS_REFERENCE_TALKS" Association="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS">
-            <End Role="Talks" EntitySet="Talks" />
-            <End Role="Favors" EntitySet="Favors" />
+            <End EntitySet="Talks" Role="Talks" />
+            <End EntitySet="Favors" Role="Favors" />
           </AssociationSet>
           <AssociationSet Name="FK_FAVORS_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="Favors" EntitySet="Favors" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End EntitySet="Favors" Role="Favors" />
           </AssociationSet>
           <AssociationSet Name="FK_INTEGRAL_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="Integrals" EntitySet="Integrals" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End EntitySet="Integrals" Role="Integrals" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_MAJOR" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR">
             <End EntitySet="Major" Role="Major" />
             <End EntitySet="UserInfo" Role="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_ORGANIZE" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE">
-            <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_POLITICA" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA">
-            <End Role="Political" EntitySet="Political" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End EntitySet="Political" Role="Political" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_TALKS_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="Talks" EntitySet="Talks" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End EntitySet="Talks" Role="Talks" />
           </AssociationSet>
           <AssociationSet Name="FK_USERENRO_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="UserEnroll" EntitySet="UserEnroll" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End EntitySet="UserEnroll" Role="UserEnroll" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_DEPARTME1" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1">
-            <End Role="Department" EntitySet="Department" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End EntitySet="Department" Role="Department" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_UserDuration_UserInfo" Association="OjVolunteerModel.FK_UserDuration_UserInfo">
-            <End Role="UserInfo" EntitySet="UserInfo" />
-            <End Role="UserDuration" EntitySet="UserDuration" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End EntitySet="UserDuration" Role="UserDuration" />
           </AssociationSet>
           <AssociationSet Name="FK_UserInfo_UpdatePolitical" Association="OjVolunteerModel.FK_UserInfo_UpdatePolitical">
-            <End Role="Political" EntitySet="Political" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End EntitySet="Political" Role="Political" />
+            <End EntitySet="UserInfo" Role="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Talks_OrganizeInfo" Association="OjVolunteerModel.FK_Talks_OrganizeInfo">
+            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
+            <End EntitySet="Talks" Role="Talks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityID" />
           </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActivityName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ActivityIcon" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ActivityTypeID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ActivityAddressX" Type="Decimal" Nullable="false" Precision="10" Scale="6" />
-          <Property Name="ActivityAddressY" Type="Decimal" Nullable="false" Precision="10" Scale="6" />
-          <Property Name="ActivityContent" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ActivityPrediNum" Type="Int32" Nullable="false" />
-          <Property Name="ActivityManagerID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="ActivityName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityIcon" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityTypeID" Nullable="false" Type="Int32" />
+          <Property Name="ActivityAddress" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityAddressX" Nullable="false" Precision="10" Scale="6" Type="Decimal" />
+          <Property Name="ActivityAddressY" Nullable="false" Precision="10" Scale="6" Type="Decimal" />
+          <Property Name="ActivityContent" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityPrediNum" Nullable="false" Type="Int32" />
+          <Property Name="ActivityManagerID" Nullable="false" Type="Int32" />
           <Property Name="ActivityApplyUserInfoID" Type="Int32" />
           <Property Name="ActivityApplyOrganizeID" Type="Int32" />
-          <Property Name="AuditOrganizeInfoID" Type="Int32" Nullable="false" />
-          <Property Name="ActivityClicks" Type="Int32" Nullable="false" />
-          <Property Name="ActivityEnrollEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActivityEnrollStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActivityStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActivityEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ActivityPolitical" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ActivityMajor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ActivityDepartment" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="AuditOrganizeInfoID" Nullable="false" Type="Int32" />
+          <Property Name="ActivityClicks" Nullable="false" Type="Int32" />
+          <Property Name="ActivityEnrollEnd" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="ActivityEnrollStart" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="ActivityStart" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="ActivityEnd" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="ActivityPolitical" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityMajor" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityDepartment" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="ApplyOrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
           <NavigationProperty Name="ApplyUserInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
           <NavigationProperty Name="AuditOrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
@@ -660,14 +681,14 @@
           <Key>
             <PropertyRef Name="ActivityDetailID" />
           </Key>
-          <Property Name="ActivityDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+          <Property Name="ActivityDetailID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserInfoId" Nullable="false" Type="Int32" />
           <Property Name="ActivityID" Type="Int32" />
-          <Property Name="ActivityDetailTime" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="ActivityDetailTime" Nullable="false" Precision="10" Scale="2" Type="Decimal" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" FromRole="ActivityDetail" ToRole="Activity" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" FromRole="ActivityDetail" ToRole="UserInfo" />
         </EntityType>
@@ -675,37 +696,37 @@
           <Key>
             <PropertyRef Name="ActivityTypeID" />
           </Key>
-          <Property Name="ActivityTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActivityTypeName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="ActivityTypeID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="ActivityTypeName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" FromRole="ActivityType" ToRole="Activity" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentID" />
           </Key>
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
-          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
+          <Property Name="DepartmentID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="DepartmentName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="Department" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Favors">
           <Key>
             <PropertyRef Name="FavorID" />
           </Key>
-          <Property Name="FavorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TalkID" Type="Int32" Nullable="false" />
-          <Property Name="UserInfoID" Type="Int32" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="FavorID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="TalkID" Nullable="false" Type="Int32" />
+          <Property Name="UserInfoID" Nullable="false" Type="Int32" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS" FromRole="Favors" ToRole="Talks" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" FromRole="Favors" ToRole="UserInfo" />
         </EntityType>
@@ -713,61 +734,62 @@
           <Key>
             <PropertyRef Name="IntegralID" />
           </Key>
-          <Property Name="IntegralID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserInfoID" Type="Int32" Nullable="false" />
-          <Property Name="IntegralNum" Type="Int32" Nullable="false" />
-          <Property Name="IntegralIndex" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="IntegralID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserInfoID" Nullable="false" Type="Int32" />
+          <Property Name="IntegralNum" Nullable="false" Type="Int32" />
+          <Property Name="IntegralIndex" Precision="5" Scale="2" Type="Decimal" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO" FromRole="Integrals" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Major">
           <Key>
             <PropertyRef Name="MajorID" />
           </Key>
-          <Property Name="MajorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MajorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="MajorID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="MajorName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" FromRole="Major" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="OrganizeInfo">
           <Key>
             <PropertyRef Name="OrganizeInfoID" />
           </Key>
-          <Property Name="OrganizeInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrganizeInfoShowName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoPeople" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizeInfoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="OrganizeInfoShowName" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoPwd" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoPeople" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoPhone" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoEmail" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="OrganizeInfoManageId" Type="Int32" />
-          <Property Name="OrganizeInfoLastTime" Type="DateTime" Precision="3" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="OrganizeInfoLastTime" Precision="3" Type="DateTime" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
           <NavigationProperty Name="AuditActivity" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
-          <Property Name="OrganizeInfoIcon" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OrganizeInfoLoginId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizeInfoIcon" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoLoginId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="ActivityCount" Type="Int32" />
+          <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_Talks_OrganizeInfo" FromRole="OrganizeInfo" ToRole="Talks" />
         </EntityType>
         <EntityType Name="Political">
           <Key>
             <PropertyRef Name="PoliticalID" />
           </Key>
-          <Property Name="PoliticalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PoliticalName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="PoliticalID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="PoliticalName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" FromRole="Political" ToRole="UserInfo" />
           <NavigationProperty Name="UpdateUserInfo" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="Political" ToRole="UserInfo" />
         </EntityType>
@@ -775,48 +797,50 @@
           <Key>
             <PropertyRef Name="TalkID" />
           </Key>
-          <Property Name="TalkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserInfoID" Type="Int32" Nullable="false" />
-          <Property Name="TalkContent" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="TalkFavorsNum" Type="Int32" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="TalkID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserInfoID" Type="Int32" />
+          <Property Name="TalkContent" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="TalkFavorsNum" Type="Int32" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="Favors" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS" FromRole="Talks" ToRole="Favors" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="Talks" ToRole="UserInfo" />
+          <Property Name="OrganizeInfoID" Type="Int32" />
+          <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_Talks_OrganizeInfo" FromRole="Talks" ToRole="OrganizeInfo" />
         </EntityType>
         <EntityType Name="UserDuration">
           <Key>
             <PropertyRef Name="UserDurationID" />
           </Key>
-          <Property Name="UserDurationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserDurationTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="UserDurationPropartyTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="UserDurationPartyTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="UserDurationPropartyTime" Type="DateTime" Precision="3" />
-          <Property Name="UserDurationPartyTime" Type="DateTime" Precision="3" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
-          <Property Name="UserDurationNormalTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserDurationTotal" Precision="10" Scale="2" Type="Decimal" />
+          <Property Name="UserDurationPropartyTotal" Precision="10" Scale="2" Type="Decimal" />
+          <Property Name="UserDurationPartyTotal" Precision="10" Scale="2" Type="Decimal" />
+          <Property Name="UserDurationPropartyTime" Precision="3" Type="DateTime" />
+          <Property Name="UserDurationPartyTime" Precision="3" Type="DateTime" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
+          <Property Name="UserDurationNormalTotal" Precision="10" Scale="2" Type="Decimal" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserDuration" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="UserEnroll">
           <Key>
             <PropertyRef Name="UserEnrollID" />
           </Key>
-          <Property Name="UserEnrollID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ActivityID" Type="Int32" Nullable="false" />
-          <Property Name="UserInfoID" Type="Int32" Nullable="false" />
-          <Property Name="UserEnrollStart" Type="DateTime" Precision="3" />
-          <Property Name="UserEnrollActivityStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UserEnrollActivityEnd" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="UserEnrollID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="ActivityID" Nullable="false" Type="Int32" />
+          <Property Name="UserInfoID" Nullable="false" Type="Int32" />
+          <Property Name="UserEnrollStart" Precision="3" Type="DateTime" />
+          <Property Name="UserEnrollActivityStart" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="UserEnrollActivityEnd" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="Activity" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY" FromRole="UserEnroll" ToRole="Activity" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserEnroll" ToRole="UserInfo" />
         </EntityType>
@@ -824,21 +848,21 @@
           <Key>
             <PropertyRef Name="UserInfoID" />
           </Key>
-          <Property Name="UserInfoID" Type="Int32" Nullable="false" />
-          <Property Name="UserInfoLoginId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoPwd" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoStuId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoShowName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserInfoEmail" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoID" Nullable="false" Type="Int32" />
+          <Property Name="UserInfoLoginId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="UserInfoPwd" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="UserInfoStuId" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="UserInfoShowName" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="UserInfoPhone" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="UserInfoEmail" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="MajorID" Type="Int32" />
           <Property Name="DepartmentID" Type="Int32" />
           <Property Name="PoliticalID" Type="Int32" />
           <Property Name="OrganizeinfoID" Type="Int32" />
-          <Property Name="UserInfoLastTime" Type="DateTime" Precision="3" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="ModfiedOn" Type="DateTime" Precision="3" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoLastTime" Precision="3" Type="DateTime" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
           <NavigationProperty Name="ManagerActivity" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
           <NavigationProperty Name="ActivityDetail" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="ActivityDetail" />
@@ -849,17 +873,17 @@
           <NavigationProperty Name="Political" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" FromRole="UserInfo" ToRole="Political" />
           <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Talks" />
           <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserEnroll" />
-          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="Status" Nullable="false" Type="Int16" />
           <Property Name="UpdatePoliticalID" Type="Int32" />
           <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="UserInfo" ToRole="Department" />
-          <Property Name="UserInfoIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserInfoIcon" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="UserInfoTalkCount" Type="Int32" />
           <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserInfo" ToRole="UserDuration" />
           <NavigationProperty Name="UpdatePolitical" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="UserInfo" ToRole="Political" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
-          <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
-          <End Type="OjVolunteerModel.Activity" Role="Activity" Multiplicity="*" />
+          <End Type="OjVolunteerModel.OrganizeInfo" Multiplicity="0..1" Role="OrganizeInfo" />
+          <End Type="OjVolunteerModel.Activity" Multiplicity="*" Role="Activity" />
           <ReferentialConstraint>
             <Principal Role="OrganizeInfo">
               <PropertyRef Name="OrganizeInfoID" />
@@ -870,8 +894,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITY_REFERENCE_USERINFO">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
-          <End Type="OjVolunteerModel.Activity" Role="Activity" Multiplicity="*" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="0..1" Role="UserInfo" />
+          <End Type="OjVolunteerModel.Activity" Multiplicity="*" Role="Activity" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -882,8 +906,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE">
-          <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.Activity" Role="Activity" Multiplicity="*" />
+          <End Type="OjVolunteerModel.OrganizeInfo" Multiplicity="1" Role="OrganizeInfo" />
+          <End Type="OjVolunteerModel.Activity" Multiplicity="*" Role="Activity" />
           <ReferentialConstraint>
             <Principal Role="OrganizeInfo">
               <PropertyRef Name="OrganizeInfoID" />
@@ -894,8 +918,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY">
-          <End Type="OjVolunteerModel.Activity" Role="Activity" Multiplicity="0..1" />
-          <End Type="OjVolunteerModel.ActivityDetail" Role="ActivityDetail" Multiplicity="*" />
+          <End Type="OjVolunteerModel.Activity" Multiplicity="0..1" Role="Activity" />
+          <End Type="OjVolunteerModel.ActivityDetail" Multiplicity="*" Role="ActivityDetail" />
           <ReferentialConstraint>
             <Principal Role="Activity">
               <PropertyRef Name="ActivityID" />
@@ -906,8 +930,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITYMANAGER_REFERENCE_USERINFO">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.Activity" Role="Activity" Multiplicity="*" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="1" Role="UserInfo" />
+          <End Type="OjVolunteerModel.Activity" Multiplicity="*" Role="Activity" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -918,8 +942,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITYTYPE_REFERENCE_ACTIVITY">
-          <End Type="OjVolunteerModel.ActivityType" Role="ActivityType" Multiplicity="1" />
-          <End Type="OjVolunteerModel.Activity" Role="Activity" Multiplicity="*" />
+          <End Type="OjVolunteerModel.ActivityType" Multiplicity="1" Role="ActivityType" />
+          <End Type="OjVolunteerModel.Activity" Multiplicity="*" Role="Activity" />
           <ReferentialConstraint>
             <Principal Role="ActivityType">
               <PropertyRef Name="ActivityTypeID" />
@@ -930,8 +954,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERENRO_REFERENCE_ACTIVITY">
-          <End Type="OjVolunteerModel.Activity" Role="Activity" Multiplicity="1" />
-          <End Type="OjVolunteerModel.UserEnroll" Role="UserEnroll" Multiplicity="*" />
+          <End Type="OjVolunteerModel.Activity" Multiplicity="1" Role="Activity" />
+          <End Type="OjVolunteerModel.UserEnroll" Multiplicity="*" Role="UserEnroll" />
           <ReferentialConstraint>
             <Principal Role="Activity">
               <PropertyRef Name="ActivityID" />
@@ -942,8 +966,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITYDETAIL_REFERENCE_USERINFO">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.ActivityDetail" Role="ActivityDetail" Multiplicity="*" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="1" Role="UserInfo" />
+          <End Type="OjVolunteerModel.ActivityDetail" Multiplicity="*" Role="ActivityDetail" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -954,8 +978,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FAVORS_REFERENCE_TALKS">
-          <End Type="OjVolunteerModel.Talks" Role="Talks" Multiplicity="1" />
-          <End Type="OjVolunteerModel.Favors" Role="Favors" Multiplicity="*" />
+          <End Type="OjVolunteerModel.Talks" Multiplicity="1" Role="Talks" />
+          <End Type="OjVolunteerModel.Favors" Multiplicity="*" Role="Favors" />
           <ReferentialConstraint>
             <Principal Role="Talks">
               <PropertyRef Name="TalkID" />
@@ -966,8 +990,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FAVORS_REFERENCE_USERINFO">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.Favors" Role="Favors" Multiplicity="*" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="1" Role="UserInfo" />
+          <End Type="OjVolunteerModel.Favors" Multiplicity="*" Role="Favors" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -978,8 +1002,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_INTEGRAL_REFERENCE_USERINFO">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.Integrals" Role="Integrals" Multiplicity="*" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="1" Role="UserInfo" />
+          <End Type="OjVolunteerModel.Integrals" Multiplicity="*" Role="Integrals" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -1002,8 +1026,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_ORGANIZE">
-          <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <End Type="OjVolunteerModel.OrganizeInfo" Multiplicity="0..1" Role="OrganizeInfo" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="*" Role="UserInfo" />
           <ReferentialConstraint>
             <Principal Role="OrganizeInfo">
               <PropertyRef Name="OrganizeInfoID" />
@@ -1014,8 +1038,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_POLITICA">
-          <End Type="OjVolunteerModel.Political" Role="Political" Multiplicity="0..1" />
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <End Type="OjVolunteerModel.Political" Multiplicity="0..1" Role="Political" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="*" Role="UserInfo" />
           <ReferentialConstraint>
             <Principal Role="Political">
               <PropertyRef Name="PoliticalID" />
@@ -1026,8 +1050,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TALKS_REFERENCE_USERINFO">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.Talks" Role="Talks" Multiplicity="*" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="0..1" Role="UserInfo" />
+          <End Type="OjVolunteerModel.Talks" Multiplicity="*" Role="Talks" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -1038,8 +1062,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERENRO_REFERENCE_USERINFO">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.UserEnroll" Role="UserEnroll" Multiplicity="*" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="1" Role="UserInfo" />
+          <End Type="OjVolunteerModel.UserEnroll" Multiplicity="*" Role="UserEnroll" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -1050,8 +1074,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_DEPARTME1">
-          <End Type="OjVolunteerModel.Department" Role="Department" Multiplicity="0..1" />
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <End Type="OjVolunteerModel.Department" Multiplicity="0..1" Role="Department" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="*" Role="UserInfo" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentID" />
@@ -1062,8 +1086,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserDuration_UserInfo">
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
-          <End Type="OjVolunteerModel.UserDuration" Role="UserDuration" Multiplicity="0..1" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="1" Role="UserInfo" />
+          <End Type="OjVolunteerModel.UserDuration" Multiplicity="0..1" Role="UserDuration" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -1074,14 +1098,26 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserInfo_UpdatePolitical">
-          <End Type="OjVolunteerModel.Political" Role="Political" Multiplicity="0..1" />
-          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+          <End Type="OjVolunteerModel.Political" Multiplicity="0..1" Role="Political" />
+          <End Type="OjVolunteerModel.UserInfo" Multiplicity="*" Role="UserInfo" />
           <ReferentialConstraint>
             <Principal Role="Political">
               <PropertyRef Name="PoliticalID" />
             </Principal>
             <Dependent Role="UserInfo">
               <PropertyRef Name="UpdatePoliticalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Talks_OrganizeInfo">
+          <End Type="OjVolunteerModel.OrganizeInfo" Multiplicity="0..1" Role="OrganizeInfo" />
+          <End Type="OjVolunteerModel.Talks" Multiplicity="*" Role="Talks" />
+          <ReferentialConstraint>
+            <Principal Role="OrganizeInfo">
+              <PropertyRef Name="OrganizeInfoID" />
+            </Principal>
+            <Dependent Role="Talks">
+              <PropertyRef Name="OrganizeInfoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1235,7 +1271,8 @@
     <EntitySetMapping Name="Talks">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Talks)">
         <MappingFragment StoreEntitySet="Talks">
-          <ScalarProperty Name="TalkID" ColumnName="TalkID" />
+          <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
+                <ScalarProperty Name="TalkID" ColumnName="TalkID" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="TalkContent" ColumnName="TalkContent" />
           <ScalarProperty Name="TalkFavorsNum" ColumnName="TalkFavorsNum" />

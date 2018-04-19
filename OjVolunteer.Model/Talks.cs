@@ -21,16 +21,18 @@ namespace OjVolunteer.Model
         }
     
         public int TalkID { get; set; }
-        public int UserInfoID { get; set; }
+        public Nullable<int> UserInfoID { get; set; }
         public string TalkContent { get; set; }
-        public int TalkFavorsNum { get; set; }
+        public Nullable<int> TalkFavorsNum { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
         public short Status { get; set; }
+        public Nullable<int> OrganizeInfoID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favors> Favors { get; set; }
         public virtual UserInfo UserInfo { get; set; }
+        public virtual OrganizeInfo OrganizeInfo { get; set; }
     }
 }

@@ -1,0 +1,185 @@
+﻿
+@{
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserOfAuditing</title>
+    <!-- bst-->
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //初始化表格
+            initTable();
+            $("#btn_agrees").click(function () {
+                agreeSelectClickEvent();
+            });
+            $("#btn_removes").click(function () {
+                removeSelectClickEvent();
+            });
+
+        });
+
+        //初始化表格
+        function initTable(queryParam) {
+            $("#tb").bootstrapTable('destroy');
+            $('#tb').bootstrapTable({
+                contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
+                url: '/Major/GetAllMajor',         //请求后台的URL（*）
+                method: 'post',                      //请求方式（*）
+                toolbar: '#toolbar',
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                queryParams: queryParam,
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 10,                       //每页的记录行数（*）
+                pageList: [10, 20, 50, 100],        //可供选择的每页的行数（*）
+                smartDisplay: false,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,
+                uniqueId: "MajorID",                     //每一行的唯一标识，一般为主键列
+                columns: [
+                    {
+                        field: 'checked',
+                        checkbox: true,
+                        width:'5%'
+                    },
+                    {
+                        field: 'MajorID',
+                        title: '专业编号',
+                        width: '5%',
+                        visible: false,
+                        align: 'center',
+                    },
+                    {
+                        field: 'MajorName',
+                        title: '专业名称',
+                        visible: true,
+                        width: '10%',
+                        align: 'center',
+                        editable: {
+                            type: 'text',
+                            title: '专业名称',
+                            validate: function (v) {
+                                if (!v) return '专业名称不能为空';
+                            }
+                        }
+                    },
+                    {
+                        field: 'ModfiedOn',
+                        title: '更新时间',
+                        visible: true,
+                        width: '13%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            if (value == null)
+                                return null;
+                            else
+                                return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    }
+                ],
+                onEditableSave: function (field, row, oldValue, $el) {
+                    $.ajax({
+                        type: "post",
+                        url: "/Major/Edit",
+                        data: row,
+                        dataType: 'JSON',
+                        success: function (data, status) {
+                            if (status == "ok") {
+                                alert('修改成功');
+                            }
+                        },
+                        error: function () {
+                            initTable();
+                            alert('编辑失败');
+                        },
+                        complete: function () {
+
+                        }
+
+                    });
+                }
+            });
+        };
+
+
+
+        //单项通过事件
+        function addClickEvent(data) {
+            $.post("/Major/Add", { ids: data }, function (data) {
+                initTable();
+                if (data == "ok") {
+                    alert("通过成功");
+                } else if (data == "null") {
+                    alert("至少选择一列");
+                } else {
+                    alert("失败,请稍后再试");
+                }
+            });
+        }
+
+        //批量删除
+        function removeSelectClickEvent() {
+            var selectedRows = $('#tb').bootstrapTable('getSelections', function (row) {
+                return row;
+            });
+            if (selectedRows.length <= 0) {
+                alert("至少选中一个选项");
+            }
+            var ids = "";
+            for (var key in selectedRows) {
+                ids += selectedRows[key].MajorID + ",";
+            }
+            ids = ids.substr(0, ids.length - 1);
+            $.post("/Major/Delete", { ids, ids }, function (data) {
+                //初始化表格
+
+                if (data == "ok") {
+                    initTable();
+                    alert("删除成功");
+                } else if (data == "null") {
+                    alert("至少选择一列");
+                } else {
+                    alert("删除失败,请稍后再试");
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+    <div id="toolbar" class="btn-group">
+        <button id="btn_agrees" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <button id="btn_removes" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+        </button>
+    </div>
+    <div>
+        <table id="tb"></table>
+    </div>
+    <script type="text/javascript">
+
+    </script>
+</body>
+
+
+
+</html>
+
+

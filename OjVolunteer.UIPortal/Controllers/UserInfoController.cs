@@ -84,7 +84,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-
         #region Add
         public ActionResult Add()
         {
@@ -174,6 +173,13 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Content("ok");
             }
             #endregion
+        }
+        #endregion
+
+        #region 心得发布
+        public ActionResult WriteTalk()
+        {
+            return View();
         }
         #endregion
 

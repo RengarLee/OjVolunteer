@@ -17,6 +17,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserDurationService UserDurationService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
+        public IMajorService MajorService { get; set; }
         //跳转后台页面
         public ActionResult Index()
         {
@@ -250,6 +251,10 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 专业操作
+
+
+        #endregion
         #region 退出操作
         public ActionResult Exit()
         {

@@ -206,6 +206,12 @@
     <Content Include="Content\bootstrap-table.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap3-editable\css\bootstrap-editable.css" />
+    <Content Include="Content\bootstrap3-editable\img\clear.png" />
+    <Content Include="Content\bootstrap3-editable\img\loading.gif" />
+    <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
+    <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\bootstrap-table\bootstrap-table-editable.js" />
     <Content Include="Content\layui\css\layui.css" />
     <Content Include="Content\layui\css\layui.mobile.css" />
     <Content Include="Content\layui\css\modules\code.css" />
@@ -307,6 +313,11 @@
     <Content Include="Content\layui\lay\modules\tree.js" />
     <Content Include="Content\layui\lay\modules\upload.js" />
     <Content Include="Content\layui\lay\modules\util.js" />
+    <Content Include="Content\lrz\dist\1.chunk.js" />
+    <Content Include="Content\lrz\dist\2.chunk.js" />
+    <Content Include="Content\lrz\dist\lrz.all.bundle.js" />
+    <Content Include="Content\lrz\dist\lrz.bundle.js" />
+    <Content Include="Content\lrz\dist\那么多文件，应该引用哪个？.txt" />
     <Content Include="Content\oj\css\admin.css" />
     <Content Include="Content\oj\css\amazeui.min.css" />
     <Content Include="Content\oj\css\bootstrap.css" />
@@ -356,6 +367,10 @@
     <Content Include="Content\layui\font\iconfont.eot" />
     <Content Include="Content\layui\font\iconfont.ttf" />
     <Content Include="Content\layui\font\iconfont.woff" />
+    <Content Include="Content\lrz\dist\1.chunk.js.map" />
+    <Content Include="Content\lrz\dist\2.chunk.js.map" />
+    <Content Include="Content\lrz\dist\lrz.all.bundle.js.map" />
+    <Content Include="Content\lrz\dist\lrz.bundle.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\datapattern.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -394,16 +409,17 @@
     <Content Include="Views\OrganizeInfo\UserOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\AllOrganizeInfo.cshtml" />
     <Content Include="Views\UserInfo\GetSelf.cshtml" />
+    <Content Include="Views\UserInfo\WriteTalk.cshtml" />
+    <Content Include="Views\Major\AllMajor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\bootstraptable\css\" />
-    <Folder Include="Content\bootstraptable\js\" />
+    <Folder Include="Content\bootstrap-table\css\" />
+    <Folder Include="Content\bootstrap-table\js\" />
     <Folder Include="Models\" />
     <Folder Include="Views\ActivityType\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Department\" />
-    <Folder Include="Views\Major\" />
     <Folder Include="Views\Political\" />
     <Folder Include="Views\Talks\" />
   </ItemGroup>
