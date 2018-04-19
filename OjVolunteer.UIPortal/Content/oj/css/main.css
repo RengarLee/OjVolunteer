@@ -349,7 +349,7 @@ a:active{
 	}
 	/*退出按钮*/
 	.userout{
-		margin-top: 40px;
+		margin-top: 10px;
 		text-align: center;
 	}
 
@@ -582,6 +582,7 @@ a:active{
 		box-shadow: 0 0 3px #eee;
 		width: 96%;
 		border-radius: 3px;
+		position: relative;
 	}
 	/*心得第一行,用户头像、姓名、发布时间*/
 	.feel-item .feel-item-info{
@@ -604,37 +605,196 @@ a:active{
 	}
 	.feel-item .feel-item-info .info-name .feeltime{
 		color: #666;
-		font-size: 6px;
+		font-size: 10px;
+	}
+	.feel-item .layui-icon{
+		font-size: 1.5rem;
+		position: absolute;
+		right: 5%;
+		top: 20px;
+	}
+	.feel-item .layui-icon span{
+		color: #666;
+		padding-left: 3px;
 	}
 	/*心得内容*/
 	.fell-item-content{
-		padding: 0 6px;
-		padding-bottom: 6px;
+		padding: 10px;
 	}
 /*编写义工心得界面样式*/
-	.write{
-		margin-top: 50px;
-	}
-	.write .write-content{
-		height: 150px;
-		padding: 10px;
-		border-bottom: 1px solid #eee;
+	/*导航条部分-不固定*/
+	header .writertop{
 		width: 100%;
-	}
-	.write .iconbox{
-		height: 30px;
-		border-bottom: 1px solid #eee;
-	}
-	.write .write-send{
+		height: 50px;
+		background-color: rgb(198,47,47);
 		text-align: center;
+		line-height: 50px;
+	}
+	header .writertop p{
+		color: #fff;
+		font-size: 1.6rem;
+	}
+	.write-back{
+	display: block;
+	position: absolute;
+	top: 12px;
+	left: 15px;
+	z-index: 9999;
+}
+	.write-back span{
+	font-size: 20px;
+	color: #fff;
+}
+
+	.write{
+		margin-top: 5px;
+	}
+	.write-btn{
+		margin: 0 auto;
+		text-align: center;
+		margin-top: 30px;
+	}
+	.write-btn .layui-btn{
+		background-color: #C62F2F;
+		width: 250px;
+		border-radius: 3px;
+	}
+
+/*我的义工心得界面样式*/
+	.myfeel{
+		margin-top: 50px;
+		margin-bottom: 10px;
+	}
+	.myfeel .myfeel-list{
+		padding: 0;
+	}
+	/*每个用户的心得*/
+	.myfeel .myfeel-list .myfeel-item{
+		overflow: hidden;
+		margin: 10px auto;
+		padding: 0 10px;
+		padding-top: 10px;
+		border: 1px solid #eee;
+		background-color: #fff;
+		margin-bottom: 5px;
+		box-shadow: 0 0 3px #eee;
+		width: 96%;
+		border-radius: 3px;
+		position: relative;
+	}
+	/*心得第一行,用户头像、姓名、发布时间*/
+	.myfeel-item .feel-item-info{
+		text-align: center;
+		padding: 0 5px;
+	}
+	.myfeel-item .feel-item-info .info-img{
+		float: left;
+	}
+	.myfeel-item .feel-item-info .info-img img{
+		width: 50px;
+		border-radius: 50%;
+	}
+	.myfeel-item .feel-item-info .info-name{
+		color: #333;
+		float: left;
+	}
+	.myfeel-item .feel-item-info .info-name p{
 		margin-top: 10px;
 	}
-	.write .write-send .btn{
-		color: #fff;
-		background-color:#0E90D2;
+	.feel-item .feel-item-info .info-name .feeltime{
+		color: #666;
+		font-size: 10px;
 	}
+	.myfeel-item .layui-icon{
+		font-size: 1.5rem;
+		position: absolute;
+		right: 5%;
+		top: 20px;
+	}
+	.myfeel-item .layui-icon span{
+		color: #666;
+		padding-left: 3px;
+	}
+	/*心得内容*/
+	.fell-item-content{
+		padding: 10px;
+	}
+	
+/*发布活动界面*/
+.release{
+	margin: 0 auto;
+	margin-top: 60px;
+	width: 96%;
+}
+.release .btn-item{
+	margin-top: 20px;
+}
+.release .btn-item .lastbtn{
+	background-color: #C62F2F !important;
+}
+.release .btn-item .layui-btn-primary:hover{
+	border-color:#C62F2F ;
+}
+
+/*修改信息界面*/
+.reinfobox{
+	width: 96%;
+	margin: 0 auto;
+	margin-top: 10px;
+}
 
 
+	/* 我的活动列表部分*/
+	.myacbox{
+		margin-top: 50px;
+		text-align: center;
+	}
+	.ac-list .aclist-box{
+		width: 98%;
+		border:1px solid #eee;
+		margin:0 auto;
+		box-shadow: 0 0 3px #eee;
+		margin-bottom: 5px;
+	}
+	.ac-list .aclist-box a{
+		display: block;
+	}
+	.aclist-box-img{
+		float: left;
+		width: 40%;
+		margin-top: 20px;
+		margin-bottom: 0px;
+	}
+	.aclist-box-img img{
+		width: 130px;
+	}
+	.aclist-box-info{
+		float: left;
+		width: 60%;
+		text-align: left;
+		margin-bottom: 10px;
+	}
+	.aclist-box-info a{
+		font-weight: bold;
+		margin-top: 15px;
+	}
+	.aclist-box-info .actime,
+	.aclist-box-info .acendtime{
+		font-size: 12px;
+	}
+	.acbox-btn{
+		text-align: right;
+	}
+	.acbox-btn .btn{
+		background-color: #C62F2F;
+		color: #fff;
+		width: 80px;
+		margin-top: -30px;
+	}
+	.ac-bottom{
+		margin-top: -10px;
+		margin-bottom: 50px;
+	}
 
 
 

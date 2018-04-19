@@ -12,13 +12,17 @@ namespace OjVolunteer.UIPortal.Controllers
     public class UserInfoController : UserBaseController
     {
         short delNormal = (short)DelFlagEnum.Normal;
+        short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         public IUserInfoService UserInfoService { get; set; }
+        public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserDurationService UserDurationService { get; set; }
+        public IPoliticalService PoliticalService { get; set; }
+        public IMajorService MajorService { get; set; }
+        public IDepartmentService DepartmentService { get; set; }
         // GET: UserInfo
         public ActionResult Index()
         {
-            UserInfo user = LoginUser;
-            return View(user);
+            return View(LoginUser);
         }
 
         #region 获得用户信息
@@ -53,6 +57,30 @@ namespace OjVolunteer.UIPortal.Controllers
             }
         }
 
+        /// <summary>
+        /// 进入更多资料界面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetSelf()
+        {
+            var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).ToList();
+            ViewData["DepartmentID"] = (from u in allDepartment
+                                          select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
+
+            var allMajor = MajorService.GetEntities(u => u.Status == delNormal).ToList();
+            ViewData["MajorID"] = (from u in allMajor
+                                     select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
+
+            var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal ).ToList();
+            ViewData["UpdatePoliticalID"] = (from u in allPolitical
+                                         select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).ToList();
+            ViewData["OrganizeinfoID"] = (from u in allOrganizeInfo
+                                            select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
+
+            return View(LoginUser);
+        }
+
 
         #endregion
 
@@ -82,21 +110,42 @@ namespace OjVolunteer.UIPortal.Controllers
             UserInfo userInfo = UserInfoService.GetEntities(p => p.UserInfoID == id && p.Status == delNormal).FirstOrDefault();
             return View(userInfo);
         }
-
+        /// <summary>
+        /// 用户信息修改
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(UserInfo userInfo)
         {
-            //TODO:Test
+            
             string result = String.Empty;
+
+            userInfo.UserInfoPwd = LoginUser.UserInfoPwd;
+            userInfo.UserInfoTalkCount = LoginUser.UserInfoTalkCount;
+            userInfo.UserInfoIcon = LoginUser.UserInfoIcon;
+            userInfo.UserInfoTalkCount = LoginUser.UserInfoTalkCount;
+            userInfo.PoliticalID = LoginUser.PoliticalID;
+            userInfo.Remark = LoginUser.Remark;
+            userInfo.ModfiedOn = DateTime.Now;
+            if (userInfo.Political == userInfo.UpdatePolitical)
+            {
+                userInfo.Status = (short)Model.Enum.DelFlagEnum.Auditing;
+            }
+
             if (UserInfoService.Update(userInfo))
             {
-                result = "ok";
+                if (userInfo.Status == delAuditing)
+                {
+                    return Content("auditing");
+                }
+                return Content("ok");
             }
             else
             {
-                result = "error";
+                return Content("error");
             }
-            return Content(result);
+            
         }
         #endregion
 

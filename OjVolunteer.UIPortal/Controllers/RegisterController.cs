@@ -22,7 +22,7 @@ namespace OjVolunteer.UIPortal.Controllers
             var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).ToList();
             ViewData["PoliticalList"] = (from u in allPolitical
                                          select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
-            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal).ToList();
+            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).ToList();
             ViewData["OrganizeInfoList"] = (from u in allOrganizeInfo
                                             select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID+"" }).ToList();
             return View();

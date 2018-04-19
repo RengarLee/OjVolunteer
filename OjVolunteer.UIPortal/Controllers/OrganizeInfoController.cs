@@ -284,7 +284,6 @@ namespace OjVolunteer.UIPortal.Controllers
             OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(p => p.OrganizeInfoID == id && p.Status == delNormal).FirstOrDefault();
             return View(organizeInfo);
         }
-
         [HttpPost]
         public ActionResult Edit(OrganizeInfo organizeInfo)
         {

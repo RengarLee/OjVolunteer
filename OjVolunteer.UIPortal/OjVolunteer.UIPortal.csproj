@@ -393,6 +393,7 @@
     <Content Include="Views\OrganizeInfo\GetSelf.cshtml" />
     <Content Include="Views\OrganizeInfo\UserOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\AllOrganizeInfo.cshtml" />
+    <Content Include="Views\UserInfo\GetSelf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -403,7 +404,6 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Department\" />
     <Folder Include="Views\Major\" />
-    <Folder Include="Views\OrganizeBase\" />
     <Folder Include="Views\Political\" />
     <Folder Include="Views\Talks\" />
   </ItemGroup>

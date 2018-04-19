@@ -24,14 +24,14 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             String name = Request["LoginCode"];
             String pwd = Common.Encryption.MD5Helper.Get_MD5(Request["LoginPwd"]);
-            short delNormal = (short)DelFlagEnum.Normal;
-            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd && o.Status == delNormal).FirstOrDefault();
+            short delDeleted = (short)DelFlagEnum.Deleted;
+            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd && o.Status != delDeleted).FirstOrDefault();
             if (organizeInfo != null)
             {
                 UserToCache(organizeInfo);
                 return Content("OrganizeInfo");
             }
-            var userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status == delNormal).FirstOrDefault();
+            var userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status != delDeleted).FirstOrDefault();
             if (userInfo != null)
             {
                 UserToCache(userInfo);
