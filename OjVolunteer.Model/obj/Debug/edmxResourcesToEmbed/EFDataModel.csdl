@@ -230,7 +230,7 @@
     <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
     <NavigationProperty Name="AuditActivity" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
-    <Property Name="OrganizeInfoIcon" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="OrganizeInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
     <Property Name="OrganizeInfoLoginId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
     <Property Name="ActivityCount" Type="Int32" />
     <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_Talks_OrganizeInfo" FromRole="OrganizeInfo" ToRole="Talks" />
@@ -264,6 +264,7 @@
     <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="Talks" ToRole="UserInfo" />
     <Property Name="OrganizeInfoID" Type="Int32" />
     <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_Talks_OrganizeInfo" FromRole="Talks" ToRole="OrganizeInfo" />
+    <Property Name="TalkImagePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="UserDuration">
     <Key>
@@ -331,7 +332,7 @@
     <Property Name="Status" Nullable="false" Type="Int16" />
     <Property Name="UpdatePoliticalID" Type="Int32" />
     <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="UserInfo" ToRole="Department" />
-    <Property Name="UserInfoIcon" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="UserInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
     <Property Name="UserInfoTalkCount" Type="Int32" />
     <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserInfo" ToRole="UserDuration" />
     <NavigationProperty Name="UpdatePolitical" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="UserInfo" ToRole="Political" />

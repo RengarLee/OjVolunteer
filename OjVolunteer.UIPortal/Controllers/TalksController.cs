@@ -2,6 +2,7 @@
 using OjVolunteer.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,7 @@ namespace OjVolunteer.UIPortal.Controllers
     {
 
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+        short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         public ITalksService TalksService { get; set; }
         // GET: Talks
         public ActionResult Index()
@@ -40,8 +42,16 @@ namespace OjVolunteer.UIPortal.Controllers
             //TODO:Test
             talks.CreateTime = DateTime.Now;
             talks.ModfiedOn = DateTime.Now;
-            talks.Status = delNormal;
-            return Content("ok");
+            talks.Status = delAuditing;
+            talks.TalkFavorsNum = 0;
+            if (TalksService.Update(talks))
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("error");
+            }
         }
         #endregion
 
@@ -54,11 +64,15 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Edit(Talks talks)
         {
             //TODO:Test
+            var temp = TalksService.GetEntities(u => u.TalkID == talks.TalkID).FirstOrDefault();
+            temp.TalkContent = talks.TalkContent;
+            temp.Status = delAuditing;
             string result = String.Empty;
-            if (TalksService.Update(talks))
+            if (TalksService.Update(temp))
             {
                 result = "ok";
             }
@@ -71,7 +85,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region Delete
-        public ActionResult Delete(string ids)
+        public ActionResult Delete(String ids)
         {
             if (string.IsNullOrEmpty(ids))
             {
@@ -94,6 +108,33 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Content("error");             
             }
             #endregion
+        }
+        #endregion
+
+        #region 图片上传
+        public ActionResult UploadImage()
+        {
+            try
+            {
+                var file = Request.Files["file"];
+                int id = Convert.ToInt32(Request["id"]);
+                string path = "/Content/Upload/TalkImages/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + id+"/";
+                string dirPath = Request.MapPath(path);
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                    Talks talks = TalksService.GetEntities(u => u.TalkID == id).FirstOrDefault();
+                    talks.TalkImagePath = path;
+                    TalksService.Update(talks);
+                }
+                string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
+                file.SaveAs(Request.MapPath(fileName));
+                return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { msg = "error" }, JsonRequestBehavior.AllowGet);
+            }
         }
         #endregion
     }

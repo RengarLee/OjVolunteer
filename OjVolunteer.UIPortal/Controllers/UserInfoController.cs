@@ -14,12 +14,14 @@ namespace OjVolunteer.UIPortal.Controllers
     {
         short delNormal = (short)DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
+        short delDeleted = (short)Model.Enum.DelFlagEnum.Deleted;
         public IUserInfoService UserInfoService { get; set; }
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserDurationService UserDurationService { get; set; }
         public IPoliticalService PoliticalService { get; set; }
         public IMajorService MajorService { get; set; }
         public IDepartmentService DepartmentService { get; set; }
+        public ITalksService TalksService { get; set; }
         // GET: UserInfo
         public ActionResult Index()
         {
@@ -179,8 +181,19 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 心得发布
         public ActionResult WriteTalk()
-        {   
-
+        {
+            Talks talks = new Talks
+            {
+                CreateTime = DateTime.Now,
+                Status = delDeleted,
+                ModfiedOn = DateTime.Now,
+                TalkContent = "",
+                UserInfoID = LoginUser.UserInfoID,
+                OrganizeInfoID = LoginUser.OrganizeinfoID,
+                TalkFavorsNum = 0,
+            };
+            talks = TalksService.Add(talks);
+            ViewBag.TalkId = talks.TalkID;
             return View();
         }
 
@@ -231,7 +244,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
         }
         #endregion
-
 
     }
 }

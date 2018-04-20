@@ -18,9 +18,13 @@ namespace OjVolunteer.Model.Enum
         Deleted = 1,
         /// <summary>
         /// 待审核状态
+        /// 用途：义工更改政治面貌后 组织账号申请
         /// </summary>
         Auditing = 2,
-
-
+        /// <summary>
+        /// 草稿状态
+        /// 用途:心得创建却未发布或活动申请创建却未提交
+        /// </summary>
+        Draft = 3,
     }
 }

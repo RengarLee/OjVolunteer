@@ -118,7 +118,7 @@
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
     <Property Name="Status" Type="smallint" Nullable="false" />
-    <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="100" />
+    <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="200" />
     <Property Name="ActivityCount" Type="int" />
   </EntityType>
   <EntityType Name="Political">
@@ -145,6 +145,7 @@
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
     <Property Name="Status" Type="smallint" Nullable="false" />
     <Property Name="OrganizeInfoID" Type="int" />
+    <Property Name="TalkImagePath" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="UserDuration">
     <Key>
@@ -198,7 +199,7 @@
     <Property Name="ModfiedOn" Type="datetime" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
     <Property Name="Status" Type="smallint" Nullable="false" />
-    <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="200" />
     <Property Name="UserInfoTalkCount" Type="int" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">

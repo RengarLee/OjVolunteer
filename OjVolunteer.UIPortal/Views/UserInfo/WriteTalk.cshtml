@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>瓯江义工网</title>
+    <meta http-equiv="cache-control" content="no-store, must-revalidate" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
@@ -16,8 +17,23 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/main.js"></script>
-    <script src="~/Content/lrz/dist/lrz.bundle.js"></script>
-
+    <script src="~/Scripts/simple-ajax-form.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $.post("/Talks/Edit", {
+                    "TalkID": $("#TalkID").val(), "TalkContent": $("#TalkContent").val()
+                }, function (data) {
+                    if (data == "ok") {
+                        alert("心得发表成功！,请等待审核！");
+                    } else {
+                        alert("心得发表失败，请稍后再试！");
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -25,31 +41,46 @@
             <p>发布心得</p>
         </nav>
     </header>
-    <div class="write">
-        <textarea id="demo" style="display: none;"></textarea>
+    <form id="#form1">
+        <input type="hidden" id="TalkID" name="TalkID" value="@ViewBag.TalkId" />
+        <div class="write">
+            <textarea name="TalkContent" id="TalkContent"></textarea>
+        </div>
+        <div class="write-btn">
+            <input type="button" id="btnSubmit" value="发布" class="layui-btn" />
+        </div>
+    </form>
+    <div>
+        <img src="~/Content/Upload/Images/1.jpg" width="100px" height="100px" id="myimg" /><br />
     </div>
-    <div class="write-btn">
-        <input type="submit" value="发布" class="layui-btn" />
+    <div id="showImage">
 
     </div>
-
     <a href="javascript:history.go(-1)" class="write-back">
         <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
 
     <script type="text/javascript">
-        document.querySelector('#file').addEventListener('change', function () {
-            lrz(this.files[0])
-                .then(function (rst) {
-                    // 处理成功会执行
-                    console.log(rst);
-                })
-                .catch(function (err) {
-                    // 处理失败会执行
-                })
-                .always(function () {
-                    // 不管是成功失败，都会执行
-                });
+        layui.use('upload', function () {
+            var upload = layui.upload;
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#myimg' //绑定元素
+                , url: '/Talks/UploadImage' //上传接口
+                , accept: 'images'
+                , data: { id:@ViewBag.TalkId}
+                , done: function (res) {
+                    if (res["msg"] == "error") {
+                        alert("头像更新失败");
+                    } else {
+                        $("#showImage").append("<img src=" + res["src"] + " width='100px' height='100px'>");
+                        alert("头像更新成功");
+                    }
+                }
+                , error: function () {
+                    alert("头像更换失败，请稍后再试")
+                }
+            });
         });
     </script>
 </body>

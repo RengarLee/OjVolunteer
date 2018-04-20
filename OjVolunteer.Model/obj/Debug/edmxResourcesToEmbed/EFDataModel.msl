@@ -145,6 +145,7 @@
     <EntitySetMapping Name="Talks">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Talks)">
         <MappingFragment StoreEntitySet="Talks">
+          <ScalarProperty Name="TalkImagePath" ColumnName="TalkImagePath" />
           <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
           <ScalarProperty Name="TalkID" ColumnName="TalkID" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />

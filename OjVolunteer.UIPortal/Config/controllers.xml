@@ -12,6 +12,7 @@
     <property name="DepartmentService" ref="DepartmentService" ></property>
     <property name="MajorService" ref="MajorService" ></property>
     <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
+    <property name="TalksService" ref="TalksService" ></property>
   </object>
   
   <object type="OjVolunteer.UIPortal.Controllers.OrganizeInfoController, OjVolunteer.UIPortal" singleton="false" >
