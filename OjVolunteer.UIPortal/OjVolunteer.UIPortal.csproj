@@ -411,6 +411,8 @@
     <Content Include="Views\UserInfo\GetSelf.cshtml" />
     <Content Include="Views\UserInfo\WriteTalk.cshtml" />
     <Content Include="Views\Major\AllMajor.cshtml" />
+    <Content Include="Views\OrganizeInfo\UserInfoDetail.cshtml" />
+    <Content Include="Views\Talks\TalkDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -423,7 +425,6 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Department\" />
     <Folder Include="Views\Political\" />
-    <Folder Include="Views\Talks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

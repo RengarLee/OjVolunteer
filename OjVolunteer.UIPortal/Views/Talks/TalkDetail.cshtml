@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TalkDetail</title>
+</head>
+<body>
+    <div> 
+        @ViewBag.Content
+    </div>
+    <div>
+        @{ 
+            string path = ViewBag.ImgPath;
+            if (ViewBag.Images != null)
+            {
+                List<string> images = ViewBag.Images;
+                foreach (var image in images)
+                {
+                <img src="@path@image" width="100px" height="100px"/>
+                }
+            }
+        }
+
+    </div>
+</body>
+</html>

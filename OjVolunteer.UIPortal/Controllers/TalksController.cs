@@ -137,5 +137,51 @@ namespace OjVolunteer.UIPortal.Controllers
             }
         }
         #endregion
+
+        #region 通过Id获得用户已审核过的心得 
+        public ActionResult GetTalkByUserId()
+        {
+            var total = 0;
+            var s = Request["limit"];
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            if (String.IsNullOrEmpty(Request["userId"]))
+            {
+                return Json(new { total = 0,rows=""} , JsonRequestBehavior.AllowGet);
+            }
+            int userId = Convert.ToInt32(Request["userId"]);
+            var pageData = TalksService.GetPageEntities(pageSize, pageIndex, out total, u => u.UserInfoID == userId, u => u.TalkID, true).Select(n => new { n.TalkID, n.UserInfo.UserInfoShowName, n.TalkImagePath, n.TalkFavorsNum, n.TalkContent,n.Status,n.CreateTime,n.ModfiedOn }).ToList() ;
+
+            var data = new { total = total, rows = pageData };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        public ActionResult TalkDetail(int id)
+        {
+            Talks talks = TalksService.GetEntities(u => u.TalkID == id).FirstOrDefault();
+            List<String> imageList = new List<string>();
+            if (talks.TalkImagePath != null)
+            {
+                //DirectoryInfo directory = new DirectoryInfo(Request.MapPath(talks.TalkImagePath));
+                //var images = directory.GetFiles() ;
+                //foreach (FileInfo image in images)
+                //{
+                //    imageList.Add(image.FullName);  
+                //}
+                //ViewBag.Images = images.ToList();
+                var files = Directory.GetFiles(Request.MapPath(talks.TalkImagePath));
+                foreach (var file in files)
+                {
+                    int i = file.LastIndexOf("\\");
+                    imageList.Add(file.Substring(i+1));
+                }
+            }
+            ViewBag.ImgPath = talks.TalkImagePath;
+            ViewBag.Images = imageList;
+            ViewBag.Content = talks.TalkContent;
+            return View();
+        }
     }
 }

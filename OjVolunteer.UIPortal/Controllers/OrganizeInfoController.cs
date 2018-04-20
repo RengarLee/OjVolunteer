@@ -70,7 +70,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
         }
 
-
         /// <summary>
         /// 进入组织信息审核界面
         /// </summary>
@@ -95,6 +94,37 @@ namespace OjVolunteer.UIPortal.Controllers
             var data = new { total = total, rows=pageData };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 批量通过组织申请
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public ActionResult Agree(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            //批量处理
+            #region 批量处理
+            if (OrganizeInfoService.NormalListByULS(idList) > 0)
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("error");
+            }
+            #endregion
+        }
+
         #endregion
 
         #region 加载组织自身所有用户
@@ -215,6 +245,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             return View(LoginUser);
         }
+
         /// <summary>
         /// 加载政治面貌变更审核信息
         /// </summary>
@@ -249,18 +280,74 @@ namespace OjVolunteer.UIPortal.Controllers
             var data = new { total = total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        #endregion
-
-        #region 专业操作
 
 
-        #endregion
-        #region 退出操作
-        public ActionResult Exit()
+        /// <summary>
+        /// 同意用户转变政治面貌
+        /// </summary>
+        public ActionResult AgreeUser(string ids)
         {
-            LoginUser = null;
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            //批量处理
+            #region 批量处理
+            if (UserInfoService.ListUpdatePolical(idList) > 0)
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("error");
+            }
+            #endregion
+        }
 
-            return Redirect("/Login/index");
+        /// <summary>
+        /// 驳回用户转变政治面貌
+        /// </summary>
+        public ActionResult OpposeUser(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            //批量处理
+            #region 批量处理
+            if (UserInfoService.NormalListByULS(idList) > 0)
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("error");
+            }
+            #endregion 批量处理
+        }
+
+        /// <summary>
+        /// 用户的详细信息界面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult UserInfoDetail(int id)
+        {
+            UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
+            
+            return View(user);
         }
         #endregion
 
@@ -342,86 +429,33 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Agree
-        public ActionResult Agree(string ids)
+        #region 重置密码
+        [HttpPost]
+        public ActionResult ResetPwd(int id)
         {
-            if (string.IsNullOrEmpty(ids))
+            try
             {
-                return Content("null");
+                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
+                user.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5("000000");
+                UserInfoService.Update(user);
+                return Content("success");
             }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
+            catch (Exception e)
             {
-                idList.Add(int.Parse(strId));
+                return Content("fail");
             }
-            //批量处理
-            #region 批量处理
-            if (OrganizeInfoService.NormalListByULS(idList) > 0)
-            {
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");
-            }
-            #endregion
-        }
-
-        //同意用户转变政治面貌
-        public ActionResult AgreeUser(string ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            //批量处理
-            #region 批量处理
-            if (UserInfoService.ListUpdatePolical(idList) > 0)
-            {
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");
-            }
-            #endregion
         }
         #endregion
 
-        #region 驳回用户转变政治面貌
-        public ActionResult OpposeUser(string ids)
+        #region 退出操作
+        public ActionResult Exit()
         {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            //批量处理
-            #region 批量处理
-            if (UserInfoService.NormalListByULS(idList) > 0)
-            {
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");
-            }
-            #endregion 批量处理
+            LoginUser = null;
+
+            return Redirect("/Login/index");
         }
         #endregion
 
-
+        
     }
 }
