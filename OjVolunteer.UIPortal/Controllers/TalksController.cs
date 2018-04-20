@@ -87,11 +87,11 @@ namespace OjVolunteer.UIPortal.Controllers
             #region 逻辑删除
             if (TalksService.DeleteListByLogical(idList) > 0)
             {
-                return Content("error");
+                return Content("ok");
             }
             else
             {
-                return Content("ok");
+                return Content("error");             
             }
             #endregion
         }

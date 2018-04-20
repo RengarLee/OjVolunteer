@@ -416,6 +416,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\bootstrap-table\css\" />
     <Folder Include="Content\bootstrap-table\js\" />
+    <Folder Include="Content\Upload\Icon\" />
+    <Folder Include="Content\Upload\NewFolder2\" />
     <Folder Include="Models\" />
     <Folder Include="Views\ActivityType\" />
     <Folder Include="Views\Base\" />

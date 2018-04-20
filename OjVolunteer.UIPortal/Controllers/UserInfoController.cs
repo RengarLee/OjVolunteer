@@ -3,6 +3,7 @@ using OjVolunteer.Model;
 using OjVolunteer.Model.Enum;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -178,10 +179,59 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 心得发布
         public ActionResult WriteTalk()
+        {   
+
+            return View();
+        }
+
+        /// <summary>
+        /// 心得图片上传
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UploadImage()
         {
+            var file = Request.Files["file"];
+            var talkId = Request["id"];
+            string path = "/Content/Upload/TalkImage/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+            string dirPath = Request.MapPath(path);
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
+            file.SaveAs(Request.MapPath(fileName));
             return View();
         }
         #endregion
+        
+        #region 头像更换
+        public ActionResult UploadIcon()
+        {
+            var file = Request.Files["file"];
+            string path = "/Content/Upload/Icon/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+            string dirPath = Request.MapPath(path);
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
+            file.SaveAs(Request.MapPath(fileName));
+            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+            userInfo.UserInfoIcon = fileName;
+
+            if (UserInfoService.Update(userInfo))
+            {
+                LoginUser.UserInfoIcon = fileName;
+                return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "error" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        #endregion
+
 
     }
 }
