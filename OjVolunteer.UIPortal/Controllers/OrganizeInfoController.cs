@@ -71,6 +71,17 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
+        /// 查看组织详细页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult OrganizeDetail(int id)
+        {
+            ViewData.Model = OrganizeInfoService.GetEntities(o => o.OrganizeInfoID == id).FirstOrDefault();
+            return View() ;
+        }
+
+        /// <summary>
         /// 进入组织信息审核界面
         /// </summary>
         /// <returns></returns>
@@ -156,85 +167,34 @@ namespace OjVolunteer.UIPortal.Controllers
             userQueryParam.PageSize = pageSize;
             userQueryParam.PageIndex = pageIndex;
             userQueryParam.Total = 0;
-            
-            if (LoginUser.OrganizeInfoManageId == null)
+
+            var pageData = UserInfoService.LoadPageData(userQueryParam).Select(u => new
             {
-                //var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total, o => true, u => u.UserInfoID, true)
-                //               .Select(u => new
-                //               {
-                //                   u.UserInfoID,
-                //                   u.UserInfoLoginId,
-                //                   u.UserInfoShowName,
-                //                   u.Department.DepartmentName,
-                //                   u.OrganizeInfo.OrganizeInfoShowName,
-                //                   u.UserInfoEmail,
-                //                   u.Political.PoliticalName,
-                //                   u.Major.MajorName,
-                //                   u.UserInfoTalkCount,
-                //                   u.UserEnroll,
-                //                   u.UserInfoLastTime,
-                //                   u.UserInfoPhone,
-                //                   u.UserInfoStuId,
-                //                   u.Major,
-                //                   u.UserDuration.UserDurationNormalTotal,
-                //                   u.UserDuration.UserDurationPartyTotal,
-                //                   u.UserDuration.UserDurationPropartyTotal,
-                //                   u.Status,
-                //                   u.UserDuration.UserDurationTotal
-                //               }).ToList();
-                var pageData = UserInfoService.LoadPageData(userQueryParam)
-               .Select(u => new
-               {
-                   u.UserInfoID,
-                   u.UserInfoLoginId,
-                   u.UserInfoShowName,
-                   u.Department.DepartmentName,
-                   u.OrganizeInfo.OrganizeInfoShowName,
-                   u.UserInfoEmail,
-                   u.Political.PoliticalName,
-                   u.Major.MajorName,
-                   u.UserInfoTalkCount,
-                   u.UserEnroll,
-                   u.UserInfoLastTime,
-                   u.UserInfoPhone,
-                   u.UserInfoStuId,
-                   u.Major,
-                   u.UserDuration.UserDurationNormalTotal,
-                   u.UserDuration.UserDurationPartyTotal,
-                   u.UserDuration.UserDurationPropartyTotal,
-                   u.Status,
-                   u.UserDuration.UserDurationTotal
-               }).ToList();
-                var data = new { total = userQueryParam.Total, rows = pageData };
-                return Json(data, JsonRequestBehavior.AllowGet);
-            } else
+                u.UserInfoID,
+                u.UserInfoLoginId,
+                u.UserInfoShowName,
+                u.Department.DepartmentName,
+                u.OrganizeinfoID,
+                u.OrganizeInfo.OrganizeInfoShowName,
+                u.UserInfoEmail,
+                u.Political.PoliticalName,
+                u.Major.MajorName,
+                u.UserInfoTalkCount,
+                u.UserInfoLastTime,
+                u.UserInfoPhone,
+                u.UserInfoStuId,
+                u.UserDuration.UserDurationNormalTotal,
+                u.UserDuration.UserDurationPartyTotal,
+                u.UserDuration.UserDurationPropartyTotal,
+                u.UserDuration.UserDurationTotal,
+                u.Status,
+            }).AsQueryable();
+            if (LoginUser.OrganizeInfoManageId != null)
             {
-                var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total, o => o.OrganizeinfoID ==LoginUser.OrganizeInfoID, u => u.UserInfoID, true)
-                                .Select(u => new {
-                                    u.UserInfoID,
-                                    u.UserInfoLoginId,
-                                    u.UserInfoShowName,
-                                    u.Department.DepartmentName,
-                                    u.OrganizeInfo.OrganizeInfoShowName,
-                                    u.UserInfoEmail,
-                                    u.Political.PoliticalName,
-                                    u.Major.MajorName,
-                                    u.UserInfoTalkCount,
-                                    u.UserEnroll,
-                                    u.UserInfoLastTime,
-                                    u.UserInfoPhone,
-                                    u.UserInfoStuId,
-                                    u.Major,
-                                    u.UserDuration.UserDurationNormalTotal,
-                                    u.UserDuration.UserDurationPartyTotal,
-                                    u.UserDuration.UserDurationPropartyTotal,
-                                    u.Status,
-                                    u.UserDuration.UserDurationTotal
-                                }).ToList();
-                var data = new { total = total, rows = pageData };
-                return Json(data, JsonRequestBehavior.AllowGet);
+                pageData = pageData.Where(u => u.OrganizeinfoID == LoginUser.OrganizeInfoID).AsQueryable();
             }
-            
+            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -456,6 +416,5 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        
     }
 }

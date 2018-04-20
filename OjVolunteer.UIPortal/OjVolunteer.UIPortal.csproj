@@ -413,6 +413,7 @@
     <Content Include="Views\Major\AllMajor.cshtml" />
     <Content Include="Views\OrganizeInfo\UserInfoDetail.cshtml" />
     <Content Include="Views\Talks\TalkDetail.cshtml" />
+    <Content Include="Views\OrganizeInfo\OrganizeDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

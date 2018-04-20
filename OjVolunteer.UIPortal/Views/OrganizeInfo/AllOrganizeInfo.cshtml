@@ -179,6 +179,17 @@
                         return false;
                     });
                 },
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        type: 2,
+                        title: false,
+                        closeBtn: 0,
+                        maxmin: false,
+                        shadeClose: true,
+                        area: ['600px', '700px'],
+                        content: '/OrganizeInfo/OrganizeDetail/' + row["OrganizeInfoID"]
+                    });
+                }
             });
         };
         //生成操作框图标
