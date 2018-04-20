@@ -123,7 +123,7 @@
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
-          <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="200" />
           <Property Name="ActivityCount" Type="int" />
         </EntityType>
         <EntityType Name="Political">
@@ -150,6 +150,7 @@
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="OrganizeInfoID" Type="int" />
+          <Property Name="TalkImagePath" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="UserDuration">
           <Key>
@@ -203,7 +204,7 @@
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
-          <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="200" />
           <Property Name="UserInfoTalkCount" Type="int" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
@@ -775,7 +776,7 @@
           <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
           <NavigationProperty Name="AuditActivity" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
-          <Property Name="OrganizeInfoIcon" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="OrganizeInfoLoginId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="ActivityCount" Type="Int32" />
           <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_Talks_OrganizeInfo" FromRole="OrganizeInfo" ToRole="Talks" />
@@ -809,6 +810,7 @@
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="Talks" ToRole="UserInfo" />
           <Property Name="OrganizeInfoID" Type="Int32" />
           <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_Talks_OrganizeInfo" FromRole="Talks" ToRole="OrganizeInfo" />
+          <Property Name="TalkImagePath" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserDuration">
           <Key>
@@ -876,7 +878,7 @@
           <Property Name="Status" Nullable="false" Type="Int16" />
           <Property Name="UpdatePoliticalID" Type="Int32" />
           <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="UserInfo" ToRole="Department" />
-          <Property Name="UserInfoIcon" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="UserInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="UserInfoTalkCount" Type="Int32" />
           <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserInfo" ToRole="UserDuration" />
           <NavigationProperty Name="UpdatePolitical" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="UserInfo" ToRole="Political" />
@@ -1271,7 +1273,8 @@
     <EntitySetMapping Name="Talks">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Talks)">
         <MappingFragment StoreEntitySet="Talks">
-          <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
+          <ScalarProperty Name="TalkImagePath" ColumnName="TalkImagePath" />
+                <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
                 <ScalarProperty Name="TalkID" ColumnName="TalkID" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="TalkContent" ColumnName="TalkContent" />

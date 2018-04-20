@@ -29,6 +29,7 @@ namespace OjVolunteer.Model
         public string Remark { get; set; }
         public short Status { get; set; }
         public Nullable<int> OrganizeInfoID { get; set; }
+        public string TalkImagePath { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favors> Favors { get; set; }
