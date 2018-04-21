@@ -46,13 +46,29 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Major major)
+        public ActionResult Add(String name)
         {
             //TODO:Test
-            major.CreateTime = DateTime.Now;
-            major.ModfiedOn = DateTime.Now;
-            major.Status = delNormal;
-            return Content("ok");
+            Major major = MajorService.GetEntities(m => m.MajorName.Equals(name)).FirstOrDefault();
+            if (major != null)
+            {
+                return Content("exist");
+            }
+            major = new Major
+            {
+                MajorName = name,
+                CreateTime = DateTime.Now,
+                ModfiedOn = DateTime.Now,
+                Status = delNormal
+            };
+            if (MajorService.Add(major)!=null)
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
         }
         #endregion
 

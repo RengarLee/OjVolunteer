@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
-    public class DepartmentController : Controller
+    public class DepartmentController : OrganizeBaseController
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         public IDepartmentService DepartmentService { get; set; }
@@ -19,28 +19,53 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #region  加载所有院系
+        public ActionResult AllDepartment()
+        {
+            return View(LoginUser);
+        }
+
         public ActionResult GetAllDepartment()
         {
-            //TODO:分页使用  BS Table
-            return View();
+            var total = 0;
+            var s = Request["limit"];
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = DepartmentService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delNormal, u => u.DepartmentID, true).Select(u => new { u.DepartmentName, u.ModfiedOn, u.DepartmentID }).ToList();
+            var data = new { total = total, rows = pageData };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
         #region Add
         public ActionResult Add()
         {
-            //TODO:打开添加对话框
             return View();
         }
 
         [HttpPost]
-        public ActionResult Add(Department department)
+        public ActionResult Add(string name)
         {
-            //TODO:Test
-            department.CreateTime = DateTime.Now;
-            department.ModfiedOn = DateTime.Now;
-            department.Status = delNormal;
-            return Content("ok");
+            Department department = DepartmentService.GetEntities(p => p.DepartmentName.Equals(name)).FirstOrDefault();
+            if (department != null)
+            {
+                return Content("exist");
+            }
+            department = new Department
+            {
+                DepartmentName = name,
+                CreateTime = DateTime.Now,
+                ModfiedOn = DateTime.Now,
+                Status = delNormal
+            };
+            if (DepartmentService.Add(department) != null)
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
         }
         #endregion
 
@@ -74,7 +99,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             if (string.IsNullOrEmpty(ids))
             {
-                return Content("Please Select!");
+                return Content("null");
             }
             string[] strIds = Request["ids"].Split(',');
             List<int> idList = new List<int>();
@@ -86,11 +111,12 @@ namespace OjVolunteer.UIPortal.Controllers
             #region 逻辑删除
             if (DepartmentService.DeleteListByLogical(idList) > 0)
             {
-                return Content("error");
+                return Content("success");
             }
             else
             {
-                return Content("ok");
+                return Content("fail");
+                
             }
             #endregion
         }

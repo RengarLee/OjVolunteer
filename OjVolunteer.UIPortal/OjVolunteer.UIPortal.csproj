@@ -414,6 +414,9 @@
     <Content Include="Views\OrganizeInfo\UserInfoDetail.cshtml" />
     <Content Include="Views\Talks\TalkDetail.cshtml" />
     <Content Include="Views\OrganizeInfo\OrganizeDetail.cshtml" />
+    <Content Include="Views\Major\Add.cshtml" />
+    <Content Include="Views\Political\AllPolitical.cshtml" />
+    <Content Include="Views\Department\AllDepartment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -424,8 +427,6 @@
     <Folder Include="Models\" />
     <Folder Include="Views\ActivityType\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Department\" />
-    <Folder Include="Views\Political\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

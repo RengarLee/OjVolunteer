@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
-    public class PoliticalController : Controller
+    public class PoliticalController : OrganizeBaseController
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         public IPoliticalService PoliticalService { get; set; }
@@ -19,10 +19,22 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #region  加载所有政治面貌 
+        public ActionResult AllPolitical()
+        {
+            return View(LoginUser);
+        }
+
         public ActionResult GetAllPolitical()
         {
-            //TODO:分页使用  BS Table
-            return View();
+            var total = 0;
+            var s = Request["limit"];
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = PoliticalService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delNormal, u => u.PoliticalID, true).Select(u => new { u.PoliticalName, u.ModfiedOn, u.PoliticalID }).ToList();
+            var data = new { total = total, rows = pageData };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
         }
         #endregion
 
@@ -34,13 +46,28 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Political political)
+        public ActionResult Add(String name)
         {
-            //TODO:Test
-            political.CreateTime = DateTime.Now;
-            political.ModfiedOn = DateTime.Now;
-            political.Status = delNormal;
-            return Content("ok");
+            Political major = PoliticalService.GetEntities(p =>p.PoliticalName.Equals(name)).FirstOrDefault();
+            if (major != null)
+            {
+                return Content("exist");
+            }
+            major = new Political
+            {
+                PoliticalName = name,
+                CreateTime = DateTime.Now,
+                ModfiedOn = DateTime.Now,
+                Status = delNormal
+            };
+            if (PoliticalService.Add(major) != null)
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
         }
         #endregion
 
@@ -55,9 +82,12 @@ namespace OjVolunteer.UIPortal.Controllers
         [HttpPost]
         public ActionResult Edit(Political political)
         {
-            //TODO:Test
+
             string result = String.Empty;
-            if (PoliticalService.Update(political))
+            Political temp = PoliticalService.GetEntities(p => p.PoliticalID == political.PoliticalID).FirstOrDefault();
+            temp.PoliticalName = political.PoliticalName;
+            temp.ModfiedOn = DateTime.Now;
+            if (PoliticalService.Update(temp))
             {
                 result = "ok";
             }
@@ -86,11 +116,11 @@ namespace OjVolunteer.UIPortal.Controllers
             #region 逻辑删除
             if (PoliticalService.DeleteListByLogical(idList) > 0)
             {
-                return Content("error");
+                return Content("success");
             }
             else
             {
-                return Content("ok");
+                return Content("fail");
             }
             #endregion
         }

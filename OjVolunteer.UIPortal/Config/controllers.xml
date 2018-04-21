@@ -32,7 +32,7 @@
   </object>
   
   <object type="OjVolunteer.UIPortal.Controllers.DepartmentController, OjVolunteer.UIPortal" singleton="false" >
-    <property name="DepartmentService" ref="DepartmentService." ></property>
+    <property name="DepartmentService" ref="DepartmentService" ></property>
   </object>
   
   <object type="OjVolunteer.UIPortal.Controllers.ActivityTypeController, OjVolunteer.UIPortal" singleton="false" >

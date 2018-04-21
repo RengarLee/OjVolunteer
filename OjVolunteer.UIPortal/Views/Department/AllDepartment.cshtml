@@ -1,4 +1,5 @@
 ﻿
+
 @{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
@@ -21,7 +22,7 @@
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                $.post("/Major/Add", { name: $("#add").val() }, function (data) {
+                $.post("/Department/Add", { name: $("#add_department").val() }, function (data) {
                     if (data == "success") {
                         initTable();
                         alert("资料修改成功");
@@ -40,10 +41,10 @@
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb").bootstrapTable('destroy');
-            $('#tb').bootstrapTable({
+            $("#tb_department").bootstrapTable('destroy');
+            $('#tb_department').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
-                url: '/Major/GetAllMajor',         //请求后台的URL（*）
+                url: '/Department/GetAllDepartment',         //请求后台的URL（*）
                 method: 'post',                      //请求方式（*）
                 toolbar: '#toolbar',
                 striped: true,                      //是否显示行间隔色
@@ -59,7 +60,7 @@
                 showRefresh: true,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
                 clickToSelect: true,
-                uniqueId: "MajorID",                     //每一行的唯一标识，一般为主键列
+                uniqueId: "DepartmentID",                     //每一行的唯一标识，一般为主键列
                 columns: [
                     {
                         field: 'checked',
@@ -67,14 +68,14 @@
                         width:'5%'
                     },
                     {
-                        field: 'MajorID',
+                        field: 'DepartmentID',
                         title: '专业编号',
                         width: '5%',
                         visible: false,
                         align: 'center',
                     },
                     {
-                        field: 'MajorName',
+                        field: 'DepartmentName',
                         title: '专业名称',
                         visible: true,
                         width: '10%',
@@ -104,7 +105,7 @@
                 onEditableSave: function (field, row, oldValue, $el) {
                     $.ajax({
                         type: "post",
-                        url: "/Major/Edit",
+                        url: "/Department/Edit",
                         data: row,
                         dataType: 'JSON',
                         success: function (data, status) {
@@ -126,13 +127,10 @@
         };
 
         //单项通过事件
-        function addClickEvent(data) {
-            
-        }
 
         //批量删除
         function removeSelectClickEvent() {
-            var selectedRows = $('#tb').bootstrapTable('getSelections', function (row) {
+            var selectedRows = $('#tb_department').bootstrapTable('getSelections', function (row) {
                 return row;
             });
             if (selectedRows.length <= 0) {
@@ -140,13 +138,13 @@
             }
             var ids = "";
             for (var key in selectedRows) {
-                ids += selectedRows[key].MajorID + ",";
+                ids += selectedRows[key].DepartmentID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            $.post("/Major/Delete", { ids, ids }, function (data) {
+            $.post("/Department/Delete", { ids, ids }, function (data) {
                 //初始化表格
 
-                if (data == "ok") {
+                if (data == "success") {
                     initTable();
                     alert("删除成功");
                 } else if (data == "null") {
@@ -162,7 +160,7 @@
 </head>
 <body>
     <div id="toolbar" class="btn-group">
-        <input id="add" />
+        <input id="add_department" />
         <button id="btn_add" type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
         </button>
@@ -171,7 +169,7 @@
         </button>
     </div>
     <div>
-        <table id="tb"></table>
+        <table id="tb_department"></table>
     </div>
     <script type="text/javascript">
 
@@ -181,5 +179,6 @@
 
 
 </html>
+
 
 
