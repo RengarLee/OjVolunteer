@@ -1,4 +1,5 @@
-﻿using OjVolunteer.IBLL;
+﻿using OjVolunteer.BLL;
+using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.Model.Param;
 using System;
@@ -18,6 +19,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public IUserDurationService UserDurationService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
         public IMajorService MajorService { get; set; }
+        public ITalksService TalksService { get; set; }
         //跳转后台页面
         public ActionResult Index()
         {
@@ -416,5 +418,27 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 加载所有未审核的心得
+        public ActionResult TalksOfAuditing()
+        {
+            return View(LoginUser);
+        }
+
+        public ActionResult GetTalksOfAuditing()
+        {
+            var total = 0;
+            var s = Request["limit"];
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = TalksService.GetEntities(t => t.Status == delAuditing).Select(t => new {t.TalkID,t.UserInfoID ,t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status}).AsQueryable();
+            if (LoginUser.OrganizeInfoManageId != null)
+            {
+                pageData = pageData.Where(t => t.OrganizeInfoID == LoginUser.OrganizeInfoID && t.UserInfoID == null).AsQueryable();
+            }
+            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

@@ -19,6 +19,7 @@
     <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
     <property name="UserInfoService" ref="UserInfoService" ></property>
     <property name="UserDurationService" ref="UserDurationService" ></property>
+    <property name="TalksService" ref="TalksService" ></property>
   </object>
   
   <object type="OjVolunteer.UIPortal.Controllers.RegisterController, OjVolunteer.UIPortal" singleton="false" >

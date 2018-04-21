@@ -417,6 +417,7 @@
     <Content Include="Views\Major\Add.cshtml" />
     <Content Include="Views\Political\AllPolitical.cshtml" />
     <Content Include="Views\Department\AllDepartment.cshtml" />
+    <Content Include="Views\OrganizeInfo\TalksOfAuditing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

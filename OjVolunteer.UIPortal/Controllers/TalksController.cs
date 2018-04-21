@@ -183,5 +183,7 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewBag.Content = talks.TalkContent;
             return View();
         }
+
+
     }
 }
