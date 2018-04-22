@@ -36,7 +36,6 @@ namespace OjVolunteer.Model
         public Nullable<int> MajorID { get; set; }
         public Nullable<int> DepartmentID { get; set; }
         public Nullable<int> PoliticalID { get; set; }
-        public Nullable<int> OrganizeinfoID { get; set; }
         public Nullable<System.DateTime> UserInfoLastTime { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
@@ -45,6 +44,7 @@ namespace OjVolunteer.Model
         public Nullable<int> UpdatePoliticalID { get; set; }
         public string UserInfoIcon { get; set; }
         public Nullable<int> UserInfoTalkCount { get; set; }
+        public Nullable<int> OrganizeInfoID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> ApplyActivity { get; set; }
@@ -57,7 +57,6 @@ namespace OjVolunteer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Integrals> Integrals { get; set; }
         public virtual Major Major { get; set; }
-        public virtual OrganizeInfo OrganizeInfo { get; set; }
         public virtual Political Political { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Talks> Talks { get; set; }
@@ -66,5 +65,6 @@ namespace OjVolunteer.Model
         public virtual Department Department { get; set; }
         public virtual UserDuration UserDuration { get; set; }
         public virtual Political UpdatePolitical { get; set; }
+        public virtual OrganizeInfo OrganizeInfo { get; set; }
     }
 }

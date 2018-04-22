@@ -194,6 +194,7 @@
     <EntitySetMapping Name="UserInfo">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.UserInfo)">
         <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
           <ScalarProperty Name="UserInfoTalkCount" ColumnName="UserInfoTalkCount" />
           <ScalarProperty Name="UserInfoIcon" ColumnName="UserInfoIcon" />
           <ScalarProperty Name="UpdatePoliticalID" ColumnName="UpdatePoliticalID" />
@@ -207,7 +208,6 @@
           <ScalarProperty Name="MajorID" ColumnName="MajorID" />
           <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
           <ScalarProperty Name="PoliticalID" ColumnName="PoliticalID" />
-          <ScalarProperty Name="OrganizeinfoID" ColumnName="OrganizeinfoID" />
           <ScalarProperty Name="UserInfoLastTime" ColumnName="UserInfoLastTime" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="ModfiedOn" ColumnName="ModfiedOn" />

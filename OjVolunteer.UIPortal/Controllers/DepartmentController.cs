@@ -1,5 +1,6 @@
 ﻿using OjVolunteer.IBLL;
 using OjVolunteer.Model;
+using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,42 +9,53 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
-    public class DepartmentController : OrganizeBaseController
+    public class DepartmentController : BaseController
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         public IDepartmentService DepartmentService { get; set; }
-        // GET: Department
+
         public ActionResult Index()
         {
             return View();
         }
 
-        #region  加载所有院系
+        #region  Query
+
+        /// <summary>
+        /// 组织进入学院信息管理界面
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
         public ActionResult AllDepartment()
         {
-            return View(LoginUser);
+            return View(LoginOrganize);
         }
 
+        /// <summary>
+        /// 加载学院信息
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super =true)]
         public ActionResult GetAllDepartment()
-        {
-            var total = 0;
+        { 
             var s = Request["limit"];
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = DepartmentService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delNormal, u => u.DepartmentID, true).Select(u => new { u.DepartmentName, u.ModfiedOn, u.DepartmentID }).ToList();
+            var pageData = DepartmentService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delNormal, u => u.DepartmentID, true).Select(u => new { u.DepartmentName, u.ModfiedOn, u.DepartmentID }).ToList();
             var data = new { total = total, rows = pageData };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
         #region Add
-        public ActionResult Add()
-        {
-            return View();
-        }
 
+        /// <summary>
+        /// 添加学院信息
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public ActionResult Add(string name)
         {
             Department department = DepartmentService.GetEntities(p => p.DepartmentName.Equals(name)).FirstOrDefault();
@@ -70,32 +82,41 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region Edit
-        public ActionResult Edit(int id)
-        {
-            //TODO:加载编辑对话框
-            Department department = DepartmentService.GetEntities(p => p.DepartmentID == id && p.Status == delNormal).FirstOrDefault();
-            return View(department);
-        }
-
+        /// <summary>
+        /// 行内编辑学院名称
+        /// </summary>
+        /// <param name="department"></param>
+        /// <returns></returns>
         [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public ActionResult Edit(Department department)
         {
-            //TODO:Test
             string result = String.Empty;
-            if (DepartmentService.Update(department))
+            department.ModfiedOn = DateTime.Now;
+            Department temp = DepartmentService.GetEntities(d => d.DepartmentName.Equals(department.DepartmentName)&&d.Status==delNormal).FirstOrDefault();
+            if (temp != null)
             {
-                result = "ok";
+                result = ("exist");
             }
             else
             {
-                result = "error";
+                if (DepartmentService.Update(department))
+                {
+                    result = "success";
+                }
+                else
+                {
+                    result = "fail";
+                }
             }
-            return Content(result);
+            
+            return Json(new { result=result},JsonRequestBehavior.AllowGet);
         }
         #endregion
 
         #region Delete
-        public ActionResult Delete(string ids)
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
+        public ActionResult DeleteOfList(string ids)
         {
             if (string.IsNullOrEmpty(ids))
             {
@@ -107,18 +128,14 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            //批量删除
-            #region 逻辑删除
             if (DepartmentService.DeleteListByLogical(idList) > 0)
             {
                 return Content("success");
             }
             else
             {
-                return Content("fail");
-                
+                return Content("fail");           
             }
-            #endregion
         }
         #endregion
     }

@@ -3,20 +3,15 @@
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UserOfAuditing</title>
-    <!-- bst-->
+@section css{
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
-
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+}
+@section script{
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
     <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
-
+    <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化表格
@@ -31,10 +26,10 @@
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb").bootstrapTable('destroy');
-            $('#tb').bootstrapTable({
+            $("#tb_user").bootstrapTable('destroy');
+            $('#tb_user').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
-                url: '/OrganizeInfo/GetAllUserOfAuditing',         //请求后台的URL（*）
+                url: '/UserInfo/GetAllUserOfAuditing',         //请求后台的URL（*）
                 method: 'post',                      //请求方式（*）
                 toolbar: '#toolbar',
                 striped: true,                      //是否显示行间隔色
@@ -146,115 +141,108 @@
                 }
             });
         };
-
-        //批量通过
-        function agreeSelectClickEvent() {
-            var selectedRows = $('#tb').bootstrapTable('getSelections', function (row) {
-                return row;
-            });
-            if (selectedRows.length <= 0) {
-                alert("至少选中一个选项");
-            }
-            var ids = "";
-            for (var key in selectedRows) {
-                ids += selectedRows[key].UserInfoID + ",";
-            }
-            ids = ids.substr(0, ids.length - 1);
-            $.post("/OrganizeInfo/AgreeUser", { ids, ids }, function (data) {
-                //初始化表格
-                initTable();
-                if (data == "ok") {
-                    alert("通过成功");
-                } else if (data == "null") {
-                    alert("至少选择一列");
-                } else {
-                    alert("通过失败,请稍后再试");
-                }
-            });
-        }
-
-        //单项通过事件
-        function agreeClickEvent(data) {
-            $.post("/OrganizeInfo/AgreeUser", { ids: data }, function (data) {
-                initTable();
-                if (data == "ok") {
-                    alert("通过成功");
-                } else if (data == "null") {
-                    alert("至少选择一列");
-                } else {
-                    alert("删除失败,请稍后再试");
-                }
-            });
-        }
-
-        //批量删除
-        function opposeSelectClickEvent() {
-            var selectedRows = $('#tb').bootstrapTable('getSelections', function (row) {
-                return row;
-            });
-            if (selectedRows.length <= 0) {
-                alert("至少选中一个选项");
-            }
-            var ids = "";
-            for (var key in selectedRows) {
-                ids += selectedRows[key].UserInfoID + ",";
-            }
-            ids = ids.substr(0, ids.length - 1);
-            $.post("/OrganizeInfo/OpposeUser", { ids, ids }, function (data) {
-                //初始化表格
-                initTable();
-                if (data == "ok") {
-                    alert("驳回成功");
-                } else if (data == "null") {
-                    alert("至少选择一列");
-                } else {
-                    alert("驳回失败,请稍后再试");
-                }
-            });
-        }
-
-        //单项删除事件
-        function opposeClickEvent(data) {
-            $.post("/OrganizeInfo/OpposeUser", { ids: data }, function (data) {
-                initTable();
-                if (data == "ok") {
-                    alert("驳回成功");
-                } else if (data == "null") {
-                    alert("至少选择一列");
-                } else {
-                    alert("驳回失败,请稍后再试");
-                }
-            })
-        }
-
         //生成操作框图标
         function operateFormatter(value, row, index) {
             return [
                 '<a  href="javascript:void(0)" class="agreeLink" uid="' + row['UserInfoID'] + '">',
-                '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>通过</span>',
+                '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>操作</span>',
                 '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
                 '<a href="javascript:void(0)" class="opposeLink" uid="' + row['UserInfoID'] + '">',
-                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>驳回</span></a>',
+                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>操作</span></a>',
             ].join('');
         }
+
+        function agreeSelectClickEvent() {
+            var selectedRows = $('#tb_user').bootstrapTable('getSelections', function (row) {
+                return row;
+            });
+            if (selectedRows.length <= 0) {
+                alert("至少选中一个选项");
+            }
+            var ids = "";
+            for (var key in selectedRows) {
+                ids += selectedRows[key].UserInfoID + ",";
+            }
+            ids = ids.substr(0, ids.length - 1);
+            $.post("/UserInfo/EditOfList", { ids, ids }, function (data) {
+
+                if (data == "success") {
+                    initTable();
+                    alert("操作成功");
+                } else if (data == "null") {
+                    alert("至少选择一列");
+                } else {
+                    alert("操作失败,请稍后再试");
+                }
+            });
+        }
+
+        function agreeClickEvent(data) {
+            $.post("/UserInfo/EditOfList", { ids: data }, function (data) {
+                if (data == "success") {
+                    initTable();
+                    alert("操作成功");
+                } else if (data == "null") {
+                    alert("至少选择一列");
+                } else {
+                    alert("操作失败,请稍后再试");
+                }
+            });
+        }
+
+        function opposeSelectClickEvent() {
+            var selectedRows = $('#tb_user').bootstrapTable('getSelections', function (row) {
+                return row;
+            });
+            if (selectedRows.length <= 0) {
+                alert("至少选中一个选项");
+            }
+            var ids = "";
+            for (var key in selectedRows) {
+                ids += selectedRows[key].UserInfoID + ",";
+            }
+            ids = ids.substr(0, ids.length - 1);
+            $.post("/UserInfo/DeleteOfList", { ids, ids }, function (data) {
+                if (data == "success") {
+                    alert("操作成功");
+                    initTable();
+                } else if (data == "null") {
+                    alert("至少选择一列");
+                } else {
+                    alert("操作失败,请稍后再试");
+                }
+            });
+        }
+
+        //单项操作事件
+        function opposeClickEvent(data) {
+            $.post("/UserInfo/DeleteOfList", { ids: data }, function (data) {
+                if (data == "success") {
+                    alert("操作成功");
+                    initTable();
+                } else if (data == "null") {
+                    alert("至少选择一列");
+                } else {
+                    alert("操作失败,请稍后再试");
+                }
+            })
+        }
+
+
     </script>
-</head>
-<body>
+}
+
     <div id="toolbar" class="btn-group">
         <button id="btn_agrees" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>同意
         </button>
         <button id="btn_removes" type="button" class="btn btn-default">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>驳回
         </button>
     </div>
     <div>
-        <table id="tb"></table>
+        <table id="tb_user"></table>
     </div>
-</body>
 
-
-
-</html>
 
 

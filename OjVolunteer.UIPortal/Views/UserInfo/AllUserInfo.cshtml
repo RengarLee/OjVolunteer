@@ -1,24 +1,19 @@
 ﻿@{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>义工</title>
+@section css{
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table-filter-control.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table-filter-control.css" rel="stylesheet" />
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap-table.js"></script>
+}
+@section script{
 
-    @*layui冲突 <script src="~/Scripts/bootstrap.js"></script>*@
-    <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
-    <script src="~/Scripts/bootstrap-table-filter-control.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-filter-control.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -28,10 +23,10 @@
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb").bootstrapTable('destroy');
-            $('#tb').bootstrapTable({
+            $("#tb_user").bootstrapTable('destroy');
+            $('#tb_user').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
-                url: '/OrganizeInfo/GetAllUserInfo',
+                url: '/UserInfo/GetAllUserInfo',
                 method: 'post',
                 toolbar: '#toolbar',
                 striped: true,
@@ -260,7 +255,7 @@
                         maxmin: false,
                         shadeClose: true,
                         area: ['600px', '700px'],
-                        content: '/OrganizeInfo/UserInfoDetail/' + row["UserInfoID"]
+                        content: '/UserInfo/OrgEditUser/' + row["UserInfoID"]
                     });
                 }
             });
@@ -275,16 +270,12 @@
             ].join('');
         }
     </script>
-</head>
-<body>
-    <div>
-        <table id="tb" data-filter-control="true"></table>
-    </div>
+}
 
-
-</body>
+<div>
+    <table id="tb_user" data-filter-control="true"></table>
+</div>
 
 
 
-</html>
 

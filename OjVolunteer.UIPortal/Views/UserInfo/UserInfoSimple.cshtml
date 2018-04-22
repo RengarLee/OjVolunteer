@@ -1,0 +1,152 @@
+﻿@model OjVolunteer.Model.UserInfo
+@using OjVolunteer.Model
+
+@{
+    Layout = null;
+}
+
+
+<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oj义工</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="top">
+            <p>个人中心</p>
+        </nav>
+    </header>
+    <div class="usertitle clearfix">
+        <div class="info-img">
+            <img src="@Model.UserInfoIcon" @{ string Test = string.Empty; if (ViewBag.isSelf) { Test = "myimg"; } } id="@Html.Raw(Test)" name="UserInfoIcon">
+        </div>
+        <div class="info-name">
+            <h3>@Model.UserInfoShowName</h3>
+            <p>
+                所属院校：
+                <i>
+                    @{if (Model.DepartmentID == null)
+                        {
+                            <span>未填写</span>
+                        }
+                        else
+                        {
+                            @Model.Department.DepartmentName
+                        }
+                    }
+                </i>
+                <br>
+                义工时长：
+                <i>
+                    @{if (ViewData["UserDuration"] == null)
+                        {
+                            <span>未参加活动</span>
+                        }
+                        else
+                        {
+                            UserDuration userDuration = ViewData["UserDuration"] as UserDuration;
+                            @userDuration.UserDurationTotal
+                        }
+                    }
+                </i>
+            </p>
+        </div>
+    </div>
+
+    <div class="baseinfo">
+        <ul class="info-list">
+            @{
+                if (ViewBag.isSelf)
+                {
+                    <li class="info-item">
+                        <a href="#" class="clearfix">
+                            <img src="~/Content/oj/images/password.png">
+                            <span>义工时长详情</span>
+                        </a>
+                    </li>
+
+                    <li class="info-item">
+                        <a href="/UserInfo/UserEditUser/@Model.UserInfoID" class="clearfix">
+                            <img src="~/Content/oj/images/password.png">
+                            <span>编辑个人资料</span>
+                        </a>
+                    </li>
+
+                    <li class="info-item">
+                        <a href="#" class="clearfix">
+                            <img src="~/Content/oj/images/password.png">
+                            <span>修改密码</span>
+                        </a>
+                    </li>
+                }
+            }
+            <li class="info-item">
+                <a href="#" class="clearfix">
+                    <img src="~/Content/oj/images/password.png">
+                    <span>历史活动</span>
+                </a>
+            </li>
+
+            <li class="info-item">
+                <a href="#" class="clearfix">
+                    <img src="~/Content/oj/images/password.png">
+                    <span>历史心得</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 退出该帐号 -->
+    <div class="userout">
+        <a href="/Login/Index" class="btn btn-danger">退出</a>
+    </div>
+    <!-- 下边导航组件 -->
+    <nav class="navbt">
+        <a href="" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>义工榜</span></a>
+        <a href="" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>义工商城</span></a>
+        <a href="" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>首页</span></a>
+        <a href="" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>义工心得</span></a>
+        <a href="personal.html" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>个人中心</span></a>
+    </nav>
+    <!-- 返回上一层组件 -->
+    <a href="javascript:history.go(-1)" class="header-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script type="text/javascript">
+
+        layui.use('upload', function () {
+            var upload = layui.upload;
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#myimg' //绑定元素
+                , url: '/UserInfo/UploadImage' //上传接口
+                , accept: 'images'
+                , done: function (res) {
+                    if (res["msg"] == "error") {
+                        alert("头像更换失败，请稍后再试");
+                    } else {
+                        $("#myimg").attr("src", res["src"]);
+                        alert("头像更新成功");
+                    }
+                }
+                , error: function () {
+                    alert("头像更换失败，请稍后再试")
+                }
+            });
+        });
+
+
+    </script>
+</body>
+</html>

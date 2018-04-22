@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a5243fa8637648ecae7876874c0ba4dc" Name="Diagram1" ZoomLevel="77">
+      <Diagram DiagramId="a5243fa8637648ecae7876874c0ba4dc" Name="Diagram1" ZoomLevel="108">
         <EntityTypeShape EntityType="OjVolunteerModel.Activity" PointX="12" PointY="9.375" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.ActivityDetail" PointX="7" PointY="7.375" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.ActivityType" PointX="9.75" PointY="7.75" Width="1.5" />
@@ -30,7 +30,6 @@
         <AssociationConnector Association="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" />
         <AssociationConnector Association="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO" />
         <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" />
-        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" />
         <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" />
         <AssociationConnector Association="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" />
         <AssociationConnector Association="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" />
@@ -38,6 +37,7 @@
         <AssociationConnector Association="OjVolunteerModel.FK_UserDuration_UserInfo" />
         <AssociationConnector Association="OjVolunteerModel.FK_UserInfo_UpdatePolitical" />
         <AssociationConnector Association="OjVolunteerModel.FK_Talks_OrganizeInfo" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

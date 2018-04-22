@@ -5,17 +5,7 @@ layui.use('layer',function(){
 });
 
 //点击基本资料弹出表单页面
-$('#admininfo').on('click', function () {
-    var index = layer.open({
-        type: 2,
-        title: false,
-        closeBtn: 0,
-        maxmin: false,
-        shadeClose: true, //点击遮罩关闭层
-        area: ['600px', '700px'],
-        content: '/OrganizeInfo/GetSelf'
-    });
-});
+
 //点击确认键关闭弹出层 	
     $('#success').on('click', function(){
 	    	

@@ -1,12 +1,15 @@
 ﻿@model OjVolunteer.Model.OrganizeInfo
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>瓯江义工网</title>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+    @RenderSection("css",false)
 </head>
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
@@ -34,7 +37,7 @@
 
                         <a class="" href="javascript:;">信息设置</a>
                         <dl class="layui-nav-child">
-                            <dd class="vol-info"><a href="/OrganizeInfo/AllUserInfo">义工信息</a></dd>
+                            <dd class="vol-info"><a href="/UserInfo/AllUserInfo">义工信息</a></dd>
                             @if (Model.OrganizeInfoManageId == null)
                             {
                                 <dd><a href="/OrganizeInfo/AllOrganizeInfo">组织信息</a></dd>
@@ -51,10 +54,10 @@
                         <a href="javascript:;">审核</a>
                         <dl class="layui-nav-child">
                             <dd><a href="javascript:;">活动审核</a></dd>
-                            <dd><a href="/OrganizeInfo/TalksOfAuditing">心得审核</a></dd>
+                            <dd><a href="/Talks/TalksOfAuditing">心得审核</a></dd>
                             @if (Model.OrganizeInfoManageId == null)
                             {
-                                <dd><a href="/OrganizeInfo/UserOfAuditing">更改政治面貌审核</a></dd>
+                                <dd><a href="/UserInfo/UserOfAuditing">更改政治面貌审核</a></dd>
                                 <dd><a href="/OrganizeInfo/OrganizeOfAuditing">组织账号申请审核</a></dd>
                             }
                         </dl>
@@ -70,19 +73,33 @@
             © MIE DEMO工作室提供技术支持
         </div>
     </div>
+
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
-    <script src="~/Scripts/datapattern.js"></script>
     <script src="~/Scripts/bootstrap-table-filter-control.js"></script>
 
+    @*<script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>*@
 
-
-    <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>
-    <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/admin.js"></script>
+    <script type="text/javascript">
+        $('#admininfo').on('click', function () {
+            var index = layer.open({
+                type: 2,
+                title: false,
+                closeBtn: 0,
+                maxmin: false,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['600px', '700px'],
+                content: '/OrganizeInfo/Edit/@Model.OrganizeInfoID'
+            });
+        });
+
+    </script>
+    @RenderSection("script", false)
+
 </body>
 </html>

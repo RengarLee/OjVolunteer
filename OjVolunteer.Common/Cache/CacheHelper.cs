@@ -44,7 +44,7 @@ namespace OjVolunteer.Common.Cache
         }
         #endregion
 
-        #region 获得缓冲
+        #region 获得缓存
         public static object GetCache(string key)
         {
             return CacheWriter.GetCache(key);

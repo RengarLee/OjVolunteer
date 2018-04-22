@@ -1,22 +1,15 @@
 ﻿@{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>OrganizeOfAuditing</title>
-    <!-- bst-->
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap-table.js"></script>
-    @*<script src="~/Scripts/bootstrap.js"></script>*@
+@section css{
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+}
 
-    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
-    <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
+
+@section script{
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -33,8 +26,8 @@
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb").bootstrapTable('destroy');
-            $('#tb').bootstrapTable({
+            $("#tb_organize").bootstrapTable('destroy');
+            $('#tb_organize').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
                 url: '/OrganizeInfo/GetAllOrganizeOfAuditing',         //请求后台的URL（*）
                 method: 'post',                      //请求方式（*）
@@ -139,10 +132,20 @@
                 }
             });
         };
+        //生成操作框图标
+        function operateFormatter(value, row, index) {
+            return [
+                '<a  href="javascript:void(0)" class="agreeLink" uid="' + row['OrganizeInfoID'] + '">',
+                '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>通过</span>',
+                '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+                '<a href="javascript:void(0)" class="opposeLink" uid="' + row['OrganizeInfoID'] + '">',
+                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>删除</span></a>',
+            ].join('');
+        }
 
         //批量通过
         function agreeSelectClickEvent() {
-            var selectedRows = $('#tb').bootstrapTable('getSelections', function (row) {
+            var selectedRows = $('#tb_organize').bootstrapTable('getSelections', function (row) {
                 return row;
             });
             if (selectedRows.length <= 0) {
@@ -153,36 +156,35 @@
                 ids += selectedRows[key].OrganizeInfoID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            $.post("/OrganizeInfo/Agree", { ids, ids }, function (data) {
-                //初始化表格
-                initTable();
-                if (data == "ok") {
-                    alert("通过成功");
+            $.post("/OrganizeInfo/EditOfList", { ids, ids }, function (data) {
+                if (data == "success") {
+                    initTable();
+                    alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("删除失败,请稍后再试");
+                    alert("操作失败,请稍后再试");
                 }
             });
         }
 
         //单项通过事件
         function agreeClickEvent(data) {
-            $.post("/OrganizeInfo/Agree", { ids: data }, function (data) {
-                initTable();
-                if (data == "ok") {
-                    alert("通过成功");
+            $.post("/OrganizeInfo/EditOfList", { ids: data }, function (data) {
+                if (data == "success") {
+                    initTable();
+                    alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("删除失败,请稍后再试");
+                    alert("操作失败,请稍后再试");
                 }
             });
         }
 
         //批量删除
         function removeSelectClickEvent() {
-            var selectedRows = $('#tb').bootstrapTable('getSelections', function (row) {
+            var selectedRows = $('#tb_organize').bootstrapTable('getSelections', function (row) {
                 return row;
             });
             if (selectedRows.length <= 0) {
@@ -193,10 +195,10 @@
                 ids += selectedRows[key].OrganizeInfoID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            $.post("/OrganizeInfo/Delete", { ids, ids }, function (data) {
+            $.post("/OrganizeInfo/DeleteOfList", { ids, ids }, function (data) {
                 //初始化表格
                 initTable();
-                if (data == "ok") {
+                if (data == "success") {
                     alert("删除成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
@@ -208,9 +210,9 @@
 
         //单项删除事件
         function removeClickEvent(data) {
-            $.post("/OrganizeInfo/Delete", { ids: data }, function (data) {
+            $.post("/OrganizeInfo/DeleteOfList", { ids: data }, function (data) {
                 initTable();
-                if (data == "ok") {
+                if (data == "success") {
                     alert("删除成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
@@ -220,33 +222,21 @@
             })
         }
 
-        //生成操作框图标
-        function operateFormatter(value, row, index) {
-            return [
-                '<a  href="javascript:void(0)" class="agreeLink" uid="' + row['OrganizeInfoID'] + '">',
-                '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>通过</span>',
-                '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
-                '<a href="javascript:void(0)" class="opposeLink" uid="' + row['OrganizeInfoID'] + '">',
-                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>删除</span></a>',
-            ].join('');
-        }
+       
     </script>
-</head>
-<body>
-    <div id="toolbar" class="btn-group">
-        <button id="btn_agrees" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <div>
-        <table id="tb"></table>
-    </div>
-</body>
+}
 
 
+<div id="toolbar" class="btn-group">
+    <button id="btn_agrees" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
+    </button>
+    <button id="btn_removes" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+    </button>
+</div>
+<div>
+    <table id="tb_organize"></table>
+</div>
 
-</html>
 

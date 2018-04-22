@@ -39,7 +39,7 @@ namespace OjVolunteer.UIPortal.Controllers
                     UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd),
                     UserInfoShowName = nickname,
                     UserInfoPhone = phone,
-                    OrganizeinfoID = Convert.ToInt32(OrganizeInfoList),
+                    OrganizeInfoID = Convert.ToInt32(OrganizeInfoList),
                     UpdatePoliticalID = Convert.ToInt32(PoliticalList),
                     Status = delNormal,
                     ModfiedOn = DateTime.Now,

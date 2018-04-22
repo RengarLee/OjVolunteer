@@ -3,20 +3,20 @@
 @{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UserOfAuditing</title>
-    <!-- bst-->
+@section css{
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
-
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+}
+@section script{
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化表格
@@ -25,9 +25,9 @@
                 $.post("/Department/Add", { name: $("#add_department").val() }, function (data) {
                     if (data == "success") {
                         initTable();
-                        alert("资料修改成功");
+                        alert("操作成功");
                     } else if (data == "fail") {
-                        alert("修改失败");
+                        alert("操作失败");
                     } else if (data == "exist") {
                         alert("该专业名存在");
                     }
@@ -65,7 +65,7 @@
                     {
                         field: 'checked',
                         checkbox: true,
-                        width:'5%'
+                        width: '5%'
                     },
                     {
                         field: 'DepartmentID',
@@ -109,26 +109,28 @@
                         data: row,
                         dataType: 'JSON',
                         success: function (data, status) {
-                            if (status == "ok") {
-                                alert('修改成功');
+                            if (data["result"] == "success") {
+                                alert('操作成功');
+
+                            } else if (data["result"] == "fail") {
+                                alert("操作失败");
+
+                            } else if (data["result"] == "exist") {
+                                alert("已存在");
                             }
                         },
-                        error: function () {
-                            initTable();
-                            alert('编辑失败');
+                        error: function (data, status) {
+                            alert("操作失败")
                         },
                         complete: function () {
-
+                            initTable();
                         }
-
-                    });
+                    })
                 }
             });
         };
 
-        //单项通过事件
 
-        //批量删除
         function removeSelectClickEvent() {
             var selectedRows = $('#tb_department').bootstrapTable('getSelections', function (row) {
                 return row;
@@ -141,44 +143,36 @@
                 ids += selectedRows[key].DepartmentID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            $.post("/Department/Delete", { ids, ids }, function (data) {
+            $.post("/Department/DeleteOfList", { ids, ids }, function (data) {
                 //初始化表格
 
                 if (data == "success") {
                     initTable();
-                    alert("删除成功");
+                    alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("删除失败,请稍后再试");
+                    alert("操作失败,请稍后再试");
                 }
             });
         }
 
-
     </script>
-</head>
-<body>
-    <div id="toolbar" class="btn-group">
-        <input id="add_department" />
-        <button id="btn_add" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <div>
-        <table id="tb_department"></table>
-    </div>
-    <script type="text/javascript">
+}
 
-    </script>
-</body>
+<div id="toolbar" class="btn-group">
+    <input id="add_department" />
+    <button id="btn_add" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+    </button>
+    <button id="btn_removes" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+    </button>
+</div>
+<div>
+    <table id="tb_department"></table>
+</div>
 
-
-
-</html>
 
 
 

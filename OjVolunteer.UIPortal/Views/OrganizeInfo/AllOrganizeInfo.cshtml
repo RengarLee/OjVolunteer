@@ -1,36 +1,27 @@
 ﻿
-
 @{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AllOrganizeInfo</title>
+@section css{
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table-filter-control.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table-filter-control.css" rel="stylesheet" />
+}
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap-table.js"></script>
-
-    @*layui冲突 <script src="~/Scripts/bootstrap.js"></script>*@
-    <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
+@section script{
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-filter-control.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
-    <script src="~/Scripts/bootstrap-table-filter-control.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化表格
             initTable();
         });
-
         //初始化表格
         function initTable(queryParam) {
-            $("#tb").bootstrapTable('destroy');
-            $('#tb').bootstrapTable({
+            $("#tb_organize").bootstrapTable('destroy');
+            $('#tb_organize').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/OrganizeInfo/GetAllOrganizeInfo',
                 method: 'post',
@@ -53,41 +44,41 @@
                 uniqueId: "OrganizeInfoID",
                 columns: [
                     {
-                        field: 'OrganizeInfoID',//域值
-                        title: '组织编号',//标题
+                        field: 'OrganizeInfoID',
+                        title: '组织编号',
                         visible: false,
                         align: 'center',
                         width: '6%',
                         filterControl: 'input',
                     },
                     {
-                        field: 'OrganizeInfoLoginId',//域值
-                        title: '组织用户名',//标题
-                        visible: true,//false表示不显示
+                        field: 'OrganizeInfoLoginId',
+                        title: '组织用户名',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
                     },
                     {
-                        field: 'OrganizeInfoShowName',//域值
-                        title: '组织昵称',//标题
-                        visible: true,//false表示不显示
-                        width: '6%',
-                        align: 'center',                      
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'OrganizeInfoPeople',//域值
-                        title: '组织负责人',//标题
-                        visible: true,//false表示不显示
+                        field: 'OrganizeInfoShowName',
+                        title: '组织昵称',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
                     },
                     {
-                        field: 'OrganizeInfoPhone',//域值
-                        title: '手机号',//标题
-                        visible: true,//false表示不显示
+                        field: 'OrganizeInfoPeople',
+                        title: '组织负责人',
+                        visible: true,
+                        width: '6%',
+                        align: 'center',
+                        filterControl: 'input',
+                    },
+                    {
+                        field: 'OrganizeInfoPhone',
+                        title: '手机号',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -99,9 +90,9 @@
                         filterControl: 'input',
                     },
                     {
-                        field: 'OrganizeInfoEmail',//域值
-                        title: '邮箱',//标题
-                        visible: true,//false表示不显示
+                        field: 'OrganizeInfoEmail',
+                        title: '邮箱',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -113,9 +104,9 @@
                         filterControl: 'input',
                     },
                     {
-                        field: 'ActivityCount',//域值
-                        title: '义工活动数目',//标题
-                        visible: false,//false表示不显示
+                        field: 'ActivityCount',
+                        title: '义工活动数目',
+                        visible: false,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -127,9 +118,9 @@
                         filterControl: 'input',
                     },
                     {
-                        field: 'CreateTime',//域值
-                        title: '组织创建时间',//标题
-                        visible: false,//false表示不显示
+                        field: 'CreateTime',
+                        title: '组织创建时间',
+                        visible: false,
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
@@ -201,15 +192,9 @@
             ].join('');
         }
     </script>
-</head>
-<body>
-    <div>
-        <table id="tb" data-filter-control="true"></table>
-    </div>
+}
 
+<div>
+    <table id="tb_organize" data-filter-control="true"></table>
+</div>
 
-</body>
-
-
-
-</html>

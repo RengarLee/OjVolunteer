@@ -8,9 +8,7 @@ namespace OjVolunteer.UIPortal
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            //filters.Add(new HandleErrorAttribute());
-            
-           
+            //异常过滤
             filters.Add(new ExceptionLogFilterAttribute());
         }
     }

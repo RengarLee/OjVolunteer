@@ -1,0 +1,124 @@
+﻿@model OjVolunteer.Model.UserInfo
+
+@{
+    Layout = null;
+}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改信息</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $.post("/UserInfo/Edit", $("#form1").serializeArray(), function (data) {
+                    if (data == "ok") {
+                        alert("资料修改成功");
+                    } else if (data == "fail") {
+                        alert("资料修改出错，请稍后再试");
+                    } else if (data == "auditing") {
+                        alert("修改政治面貌后，需要组织审核通过后才可以正常参加义工活动")
+                    }
+
+                });
+            })
+
+        });
+
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="writertop">
+            <p>修改信息</p>
+        </nav>
+    </header>
+    <!-- 主要界面 -->
+    <div class="reinfobox">
+        <form class="layui-form layui-form-pane" id="form1">
+            @Html.HiddenFor(model => model.UserInfoID)
+            @Html.HiddenFor(model => model.UserInfoLoginId)
+            @Html.HiddenFor(model => model.UserInfoLastTime)
+            @Html.HiddenFor(model => model.CreateTime)
+            @Html.DisplayNameFor(model => model.Remark)
+            @Html.HiddenFor(model => model.Status)
+            @Html.DisplayFor(model => model.UpdatePoliticalID)
+            <div class="layui-form-item">
+                <label class="layui-form-label">义工用户名</label>
+                <div class="layui-input-block">
+                    @Html.TextBoxFor(Model => Model.UserInfoLoginId, new { @disabled = "", @autocomplete = "off", @class = "layui-input" })
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">义工昵称</label>
+                <div class="layui-input-block">
+                    @Html.TextBoxFor(Model => Model.UserInfoShowName, new { @autocomplete = "off", @class = "layui-input" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">学号</label>
+                <div class="layui-input-block">
+                    @Html.TextBoxFor(Model => Model.UserInfoStuId, new { @autocomplete = "off", @class = "layui-input" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-block">
+                    @Html.TextBoxFor(Model => Model.UserInfoPhone, new { @autocomplete = "off", @class = "layui-input" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电子邮箱</label>
+                <div class="layui-input-block">
+                    @Html.TextBoxFor(Model => Model.UserInfoEmail, new { @autocomplete = "off", @class = "layui-input" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">专业</label>
+                <div class="layui-input-block">
+                    @Html.DropDownList("MajorID", null, new { @class = "layui-input", @autocomplete = "off" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">二级学院</label>
+                <div class="layui-input-block">
+                    @Html.DropDownList("DepartmentID", null, new { @class = "layui-input", @autocomplete = "off" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所属组织</label>
+                <div class="layui-input-block">
+                    @Html.DropDownList("OrganizeinfoID", null, new { @class = "layui-input", @autocomplete = "off" })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">政治面貌</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-block">
+                        @Html.DropDownList("UpdatePoliticalID", null, new { @class = "layui-input", @autocomplete = "off" })
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="btnSubmit" value="提交">提交</button>
+        </form>
+    </div>
+
+    <dl class="dl-horizontal"></dl>
+
+    <a href="javascript:history.go(-1)" class="write-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+
+
+</body>
+</html>

@@ -19,8 +19,8 @@ namespace OjVolunteer.Model
         {
             this.ApplyActivity = new HashSet<Activity>();
             this.AuditActivity = new HashSet<Activity>();
-            this.UserInfo = new HashSet<UserInfo>();
             this.Talks = new HashSet<Talks>();
+            this.UserInfo = new HashSet<UserInfo>();
         }
     
         public int OrganizeInfoID { get; set; }
@@ -44,8 +44,8 @@ namespace OjVolunteer.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> AuditActivity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserInfo> UserInfo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Talks> Talks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserInfo> UserInfo { get; set; }
     }
 }

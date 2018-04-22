@@ -10,8 +10,6 @@ namespace OjVolunteer.UIPortal.OtherClass
     {
         public override void OnException(ExceptionContext filterContext)
         {
-            base.OnException(filterContext);
-
             Common.LogWriter.LogHelper.WriteLog(filterContext.Exception.ToString());
         }
     }

@@ -1,4 +1,5 @@
-﻿using OjVolunteer.IBLL;
+﻿using OjVolunteer.Common.Encryption;
+using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.Model.Enum;
 using System;
@@ -41,11 +42,11 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region UserToCache 将用户信息存储
-        public void UserToCache(Object user)
+        #region UserToCache 将登录的用户信息存入缓存
+        public void UserToCache(Object info)
         {
-            String userLoginId = new Guid().ToString();
-            Common.Cache.CacheHelper.AddCache(userLoginId, user);
+            String userLoginId = Guid.NewGuid().ToString();
+            Common.Cache.CacheHelper.AddCache(userLoginId,info, DateTime.Now.AddMinutes(20));
             Response.Cookies["userLoginId"].Value = userLoginId;
         }
         #endregion

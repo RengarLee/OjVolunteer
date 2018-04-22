@@ -193,7 +193,7 @@
     <Property Name="DepartmentID" Type="int" />
     <Property Name="PoliticalID" Type="int" />
     <Property Name="UpdatePoliticalID" Type="int" />
-    <Property Name="OrganizeinfoID" Type="int" />
+    <Property Name="OrganizeInfoID" Type="int" />
     <Property Name="UserInfoLastTime" Type="datetime" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="ModfiedOn" Type="datetime" />
@@ -414,7 +414,7 @@
         <PropertyRef Name="OrganizeInfoID" />
       </Principal>
       <Dependent Role="UserInfo">
-        <PropertyRef Name="OrganizeinfoID" />
+        <PropertyRef Name="OrganizeInfoID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

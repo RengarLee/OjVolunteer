@@ -16,6 +16,8 @@
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/admin.js"></script>
     <script src="~/Scripts/simple-ajax-form.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script type="text/javascript">
         $(function () {
             bindUpdateClick();
@@ -36,7 +38,7 @@
                 });
             });
         }
-        //图片上传
+                //图片上传
     </script>
 </head>
 <body>
@@ -47,13 +49,14 @@
     <div class="form-content">
         <form class="layui-form layui-form-pane" id="form1">
             @Html.HiddenFor(model => model.OrganizeInfoID)
+            @Html.ValidationSummary(true)
             <!--上传头像-->
             <div class="form-head clearfix">
                 <div class="layui-upload form-head-left">
                     @Html.HiddenFor(model => model.OrganizeInfoIcon)
                     <div class="layui-upload-list">
                         <img class="layui-upload-img" id="demo1" src="@Model.OrganizeInfoIcon" width="100px" height="120px">
-             
+
                         <button type="button" class="layui-btn" id="test1">更改头像</button>
                     </div>
                 </div>
@@ -69,6 +72,7 @@
                         <label class="layui-form-label">组织名称</label>
                         <div class="layui-input-block">
                             @Html.EditorFor(model => model.OrganizeInfoShowName, new { htmlAttributes = new { @class = "layui-input", type = "text", autocomplete = "off" } })
+                            @*@Html.ValidationMessageFor(Model=>Model.OrganizeInfoShowName)*@
                         </div>
                     </div>
 

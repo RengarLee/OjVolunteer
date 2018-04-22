@@ -2,6 +2,7 @@
 using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.Model.Param;
+using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,36 +11,44 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
-    public class OrganizeInfoController : OrganizeBaseController
+
+    public class OrganizeInfoController : BaseController
     {
-        // GET: OrganizeInfo
+        #region 存入缓存
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
+        #endregion
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserDurationService UserDurationService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
         public IMajorService MajorService { get; set; }
         public ITalksService TalksService { get; set; }
-        //跳转后台页面
+
+        /// <summary>
+        /// 跳转后台页面
+        /// </summary>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Index()
         {
-            return View(LoginUser);
+            return View(LoginOrganize);
         }
 
-        #region  加载所有组织 
+        #region  Query
         /// <summary>
         /// 进入组织信息管理界面
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
         public ActionResult AllOrganizeInfo()
         {
-            return View(LoginUser);
+            return View(LoginOrganize);
         }
 
         /// <summary>
         /// 加载组织信息
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize =true,AbleUser =false,Super = true)]
         public ActionResult GetAllOrganizeInfo()
         {
             int pageSize = int.Parse(Request["limit"] ?? "5");
@@ -53,7 +62,7 @@ namespace OjVolunteer.UIPortal.Controllers
             qrganizeQueryParam.PageSize = pageSize;
             qrganizeQueryParam.PageIndex = pageIndex;
             qrganizeQueryParam.Total = 0;
-            var pageData = OrganizeInfoService.LoadPageData(qrganizeQueryParam, LoginUser.OrganizeInfoID)
+            var pageData = OrganizeInfoService.LoadPageData(qrganizeQueryParam, LoginOrganize.OrganizeInfoID)
                             .Select(u => new
                             {
                                 u.OrganizeInfoID,
@@ -69,251 +78,50 @@ namespace OjVolunteer.UIPortal.Controllers
                             }).AsQueryable();
             var data = new { total = qrganizeQueryParam.Total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
-
         }
 
         /// <summary>
-        /// 查看组织详细页面
+        /// 查看组织详细页面,包括组织心得与组织活动
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public ActionResult OrganizeDetail(int id)
         {
             ViewData.Model = OrganizeInfoService.GetEntities(o => o.OrganizeInfoID == id).FirstOrDefault();
-            return View() ;
+            return View();
         }
 
         /// <summary>
         /// 进入组织信息审核界面
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
         public ActionResult OrganizeOfAuditing()
         {
-            return View(LoginUser);
+            return View(LoginOrganize);
         }
 
         /// <summary>
         /// 加载未审核的组织信息
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
         public ActionResult GetAllOrganizeOfAuditing()
         {
-            var total = 0;
             var s = Request["limit"];
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = OrganizeInfoService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delAuditing && o.OrganizeInfoManageId == LoginUser.OrganizeInfoID,u =>u.OrganizeInfoID ,true).Select(u=>new {u.OrganizeInfoID,u.OrganizeInfoPeople,u.OrganizeInfoPhone,u.OrganizeInfoShowName,u.CreateTime,u.OrganizeInfoLoginId}).ToList();
-            var data = new { total = total, rows=pageData };
+            var pageData = OrganizeInfoService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing && o.OrganizeInfoManageId == LoginOrganize.OrganizeInfoID,u =>u.OrganizeInfoID ,true).Select(u=>new {u.OrganizeInfoID,u.OrganizeInfoPeople,u.OrganizeInfoPhone,u.OrganizeInfoShowName,u.CreateTime,u.OrganizeInfoLoginId}).AsQueryable();
+            var data = new { total = total, rows=pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// 批量通过组织申请
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        public ActionResult Agree(string ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            //批量处理
-            #region 批量处理
-            if (OrganizeInfoService.NormalListByULS(idList) > 0)
-            {
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");
-            }
-            #endregion
-        }
-
-        #endregion
-
-        #region 加载组织自身所有用户
-        /// <summary>
-        /// 进入义工信息管理界面
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult AllUserInfo()
-        {
-            return View(LoginUser);
-        }
-
-        /// <summary>
-        /// 加载义工信息
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult GetAllUserInfo()
-        {
-            var total = 0;
-            var s = Request["limit"];
-            int pageSize = int.Parse(Request["limit"] ?? "5");
-            int offset = int.Parse(Request["offset"] ?? "0");
-            int pageIndex = (offset / pageSize) + 1;
-            UserQueryParam userQueryParam = new UserQueryParam();
-            if (!string.IsNullOrEmpty(Request["filter"]))
-            {
-                userQueryParam = Newtonsoft.Json.JsonConvert.DeserializeObject<UserQueryParam>(Request["filter"]);
-            }
-            userQueryParam.PageSize = pageSize;
-            userQueryParam.PageIndex = pageIndex;
-            userQueryParam.Total = 0;
-
-            var pageData = UserInfoService.LoadPageData(userQueryParam).Select(u => new
-            {
-                u.UserInfoID,
-                u.UserInfoLoginId,
-                u.UserInfoShowName,
-                u.Department.DepartmentName,
-                u.OrganizeinfoID,
-                u.OrganizeInfo.OrganizeInfoShowName,
-                u.UserInfoEmail,
-                u.Political.PoliticalName,
-                u.Major.MajorName,
-                u.UserInfoTalkCount,
-                u.UserInfoLastTime,
-                u.UserInfoPhone,
-                u.UserInfoStuId,
-                u.UserDuration.UserDurationNormalTotal,
-                u.UserDuration.UserDurationPartyTotal,
-                u.UserDuration.UserDurationPropartyTotal,
-                u.UserDuration.UserDurationTotal,
-                u.Status,
-            }).AsQueryable();
-            if (LoginUser.OrganizeInfoManageId != null)
-            {
-                pageData = pageData.Where(u => u.OrganizeinfoID == LoginUser.OrganizeInfoID).AsQueryable();
-            }
-            var data = new { total = pageData.Count(), rows = pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// 进入政治面貌变更审核界面
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult UserOfAuditing()
-        {
-            return View(LoginUser);
-        }
-
-        /// <summary>
-        /// 加载政治面貌变更审核信息
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult GetAllUserOfAuditing()
-        {
-            var total = 0;
-            var s = Request["limit"];
-            int pageSize = int.Parse(Request["limit"] ?? "5");
-            int offset = int.Parse(Request["offset"] ?? "0");
-            int pageIndex = (offset / pageSize) + 1;
-            var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out total, o => o.Status == delAuditing, u => u.UserInfoID, true)
-                .Select(u => new {
-                    u.UserInfoID,
-                    u.UserInfoShowName,
-                    u.UserInfoLoginId,
-                    u.OrganizeinfoID,
-                    u.PoliticalID,
-                    u.Political.PoliticalName,
-                    u.UpdatePoliticalID,
-                    u.OrganizeInfo.OrganizeInfoShowName,
-                    u.UserInfoPhone,UpdateName=u.UpdatePolitical.PoliticalName,
-                    u.Status,
-                    u.ModfiedOn});
-            if (LoginUser.OrganizeInfoManageId != null)
-            {
-                pageData = pageData.Where(u => u.OrganizeinfoID == LoginUser.OrganizeInfoID);
-                total = pageData.Count();
-            }
-
-            var data = new { total = total, rows = pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-
-        /// <summary>
-        /// 同意用户转变政治面貌
-        /// </summary>
-        public ActionResult AgreeUser(string ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            //批量处理
-            #region 批量处理
-            if (UserInfoService.ListUpdatePolical(idList) > 0)
-            {
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");
-            }
-            #endregion
-        }
-
-        /// <summary>
-        /// 驳回用户转变政治面貌
-        /// </summary>
-        public ActionResult OpposeUser(string ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            //批量处理
-            #region 批量处理
-            if (UserInfoService.NormalListByULS(idList) > 0)
-            {
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");
-            }
-            #endregion 批量处理
-        }
-
-        /// <summary>
-        /// 用户的详细信息界面
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult UserInfoDetail(int id)
-        {
-            UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
-            
-            return View(user);
-        }
         #endregion
 
         #region Add
+        
         public ActionResult Add()
         {
             //TODO:打开添加对话框
@@ -332,40 +140,59 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region Edit
+        /// <summary>
+        /// 打开编辑窗口
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Edit(int id)
         {
-            //TODO:加载编辑对话框
+            //非最高等级组织用户欲编辑其他用户信息
+            if(LoginOrganize.OrganizeInfoManageId!=null&&LoginOrganize.OrganizeInfoID != id)
+            {
+                return Redirect("/OrganizeInfo/Index");
+            }
             OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(p => p.OrganizeInfoID == id && p.Status == delNormal).FirstOrDefault();
+            if (organizeInfo == null)
+            {
+                return Redirect("/OrganizeInfo/Index");
+            }
             return View(organizeInfo);
-        }
-        [HttpPost]
-        public ActionResult Edit(OrganizeInfo organizeInfo)
-        {
-            organizeInfo.ModfiedOn = DateTime.Now;
-            organizeInfo.OrganizeInfoPwd = LoginUser.OrganizeInfoPwd;
-            if (OrganizeInfoService.Update(organizeInfo))
-            {
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");
-            }
         }
 
         /// <summary>
-        /// 获得自身组织信息
+        /// 提交编辑申请
         /// </summary>
+        /// <param name="organizeInfo"></param>
         /// <returns></returns>
-        public ActionResult GetSelf()
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult Edit(OrganizeInfo organizeInfo)
         {
-            OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginUser.OrganizeInfoID).FirstOrDefault();
-            return View(organizeInfo);
+            if (ModelState.IsValid)
+            {
+                organizeInfo.ModfiedOn = DateTime.Now;
+                organizeInfo.OrganizeInfoPwd = LoginOrganize.OrganizeInfoPwd;
+                if (OrganizeInfoService.Update(organizeInfo))
+                {
+                    return Content("ok");
+                }
+                else
+                {
+                    return Content("error");
+                }
+            }
+            return Content("error");
         }
-        #endregion
 
-        #region Delete
-        public ActionResult Delete(string ids)
+        /// <summary>
+        /// 批量通过组织申请
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
+        public ActionResult EditOfList(string ids)
         {
             if (string.IsNullOrEmpty(ids))
             {
@@ -377,68 +204,57 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            //批量删除
-            #region 逻辑删除
-            if (OrganizeInfoService.DeleteListByLogical(idList) > 0)
+            #region 批量处理
+            if (OrganizeInfoService.NormalListByULS(idList) > 0)
             {
-                return Content("ok");
+                return Content("success");
             }
             else
             {
-                return Content("error");
+                return Content("fail");
             }
             #endregion
         }
         #endregion
 
-        #region 重置密码
-        [HttpPost]
-        public ActionResult ResetPwd(int id)
+        #region Delete
+        /// <summary>
+        /// 批量删除申请的组织账号
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public ActionResult DeleteOfList(string ids)
         {
-            try
+            if (string.IsNullOrEmpty(ids))
             {
-                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
-                user.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5("000000");
-                UserInfoService.Update(user);
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            #region 逻辑删除
+            if (OrganizeInfoService.DeleteListByLogical(idList) > 0)
+            {
                 return Content("success");
             }
-            catch (Exception e)
+            else
             {
                 return Content("fail");
             }
+            #endregion
         }
         #endregion
 
         #region 退出操作
         public ActionResult Exit()
         {
-            LoginUser = null;
-
+            Response.Cookies["userLoginId"].Value = String.Empty;
             return Redirect("/Login/index");
         }
         #endregion
 
-        #region 加载所有未审核的心得
-        public ActionResult TalksOfAuditing()
-        {
-            return View(LoginUser);
-        }
-
-        public ActionResult GetTalksOfAuditing()
-        {
-            var total = 0;
-            var s = Request["limit"];
-            int pageSize = int.Parse(Request["limit"] ?? "5");
-            int offset = int.Parse(Request["offset"] ?? "0");
-            int pageIndex = (offset / pageSize) + 1;
-            var pageData = TalksService.GetEntities(t => t.Status == delAuditing).Select(t => new {t.TalkID,t.UserInfoID ,t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status}).AsQueryable();
-            if (LoginUser.OrganizeInfoManageId != null)
-            {
-                pageData = pageData.Where(t => t.OrganizeInfoID == LoginUser.OrganizeInfoID && t.UserInfoID == null).AsQueryable();
-            }
-            var data = new { total = pageData.Count(), rows = pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
     }
 }

@@ -28,14 +28,29 @@ namespace OjVolunteer.BLL
         #region 查询
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
-            return CurrentDal.GetEntities(whereLambda);
+            try
+            {
+                return CurrentDal.GetEntities(whereLambda);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
         public IQueryable<T> GetPageEntities<S>(int pageSize, int pageIndex, out int total,
                                             Expression<Func<T, bool>> whereLambda,
                                             Expression<Func<T, S>> orderByLambda,
                                             bool isAsc)
         {
-            return CurrentDal.GetPageEntities(pageSize, pageIndex, out total, whereLambda, orderByLambda, isAsc);      
+            try
+            {
+                return CurrentDal.GetPageEntities(pageSize, pageIndex, out total, whereLambda, orderByLambda, isAsc);
+            }
+            catch (Exception e)
+            {
+                total = 0;
+                return null;
+            }
         }
         #endregion
 

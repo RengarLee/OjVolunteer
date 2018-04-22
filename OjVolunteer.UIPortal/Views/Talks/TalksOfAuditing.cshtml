@@ -2,21 +2,15 @@
 @{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>UserOfAuditing</title>
-    <!-- bst-->
+@section css{
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+}
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap-table.js"></script>
-    <script src="~/Scripts/bootstrap-table-zh-CN.js"></script>
-
+@section script{
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化表格
@@ -31,10 +25,10 @@
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb").bootstrapTable('destroy');
-            $('#tb').bootstrapTable({
+            $("#tb_talks").bootstrapTable('destroy');
+            $('#tb_talks').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
-                url: '/OrganizeInfo/GetTalksOfAuditing',         //请求后台的URL（*）
+                url: '/Talks/GetTalksOfAuditing',         //请求后台的URL（*）
                 method: 'post',                      //请求方式（*）
                 toolbar: '#toolbar',
                 striped: true,                      //是否显示行间隔色
@@ -91,10 +85,10 @@
                         width: '13%',
                         align: 'center',
                         formatter: function (value, row, index) {
-                                if (value == null)
-                                    return null;
-                                else
-                                    return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                            if (value == null)
+                                return null;
+                            else
+                                return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
                         }
                     },
                     {
@@ -135,7 +129,7 @@
 
         //批量通过
         function agreeSelectClickEvent() {
-            var selectedRows = $('#tb').bootstrapTable('getSelections', function (row) {
+            var selectedRows = $('#tb_talks').bootstrapTable('getSelections', function (row) {
                 return row;
             });
             if (selectedRows.length <= 0) {
@@ -146,36 +140,36 @@
                 ids += selectedRows[key].UserInfoID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            $.post("/OrganizeInfo/AgreeUser", { ids, ids }, function (data) {
+            $.post("/Talks/EditOfList", { ids, ids }, function (data) {
                 //初始化表格
                 initTable();
                 if (data == "ok") {
-                    alert("通过成功");
+                    alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("通过失败,请稍后再试");
+                    alert("操作失败,请稍后再试");
                 }
             });
         }
 
         //单项通过事件
         function agreeClickEvent(data) {
-            $.post("/OrganizeInfo/AgreeUser", { ids: data }, function (data) {
+            $.post("/Talks/EditOfList", { ids: data }, function (data) {
                 initTable();
                 if (data == "ok") {
-                    alert("通过成功");
+                    alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("删除失败,请稍后再试");
+                    alert("操作失败,请稍后再试");
                 }
             });
         }
 
         //批量删除
         function opposeSelectClickEvent() {
-            var selectedRows = $('#tb').bootstrapTable('getSelections', function (row) {
+            var selectedRows = $('#tb_talks').bootstrapTable('getSelections', function (row) {
                 return row;
             });
             if (selectedRows.length <= 0) {
@@ -186,29 +180,29 @@
                 ids += selectedRows[key].UserInfoID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            $.post("/OrganizeInfo/OpposeUser", { ids, ids }, function (data) {
+            $.post("/Talks/DeleteOfList", { ids, ids }, function (data) {
                 //初始化表格
                 initTable();
                 if (data == "ok") {
-                    alert("驳回成功");
+                    alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("驳回失败,请稍后再试");
+                    alert("操作失败,请稍后再试");
                 }
             });
         }
 
         //单项删除事件
         function opposeClickEvent(data) {
-            $.post("/OrganizeInfo/OpposeUser", { ids: data }, function (data) {
+            $.post("/Talks/DeleteOfList", { ids: data }, function (data) {
                 initTable();
                 if (data == "ok") {
-                    alert("驳回成功");
+                    alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("驳回失败,请稍后再试");
+                    alert("操作失败,请稍后再试");
                 }
             })
         }
@@ -220,24 +214,25 @@
                 '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>通过</span>',
                 '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
                 '<a href="javascript:void(0)" class="opposeLink" uid="' + row['UserInfoID'] + '">',
-                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>驳回</span></a>',
+                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>操作</span></a>',
             ].join('');
         }
     </script>
-</head>
-<body>
-    <div id="toolbar" class="btn-group">
-        <button id="btn_agrees" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>驳回
-        </button>
-    </div>
-    <div>
-        <table id="tb"></table>
-    </div>
-</body>
+}
+
+
+<div id="toolbar" class="btn-group">
+    <button id="btn_agrees" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
+    </button>
+    <button id="btn_removes" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>操作
+    </button>
+</div>
+<div>
+    <table id="tb_talks"></table>
+</div>
+
 
 
 

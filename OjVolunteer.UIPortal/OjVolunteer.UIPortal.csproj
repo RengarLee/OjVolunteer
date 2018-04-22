@@ -181,29 +181,32 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActivityTypeController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\MajorController.cs" />
-    <Compile Include="Controllers\OrganizeBaseController.cs" />
     <Compile Include="Controllers\PoliticalController.cs" />
     <Compile Include="Controllers\TalksController.cs" />
-    <Compile Include="Controllers\UserBaseController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrganizeInfoController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Filters\ActionAuthenticationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="OtherClass\ExceptionLogFilterAttribute.cs" />
+    <Compile Include="Filters\ExceptionLogFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\common.xml" />
     <Content Include="Config\controllers.xml" />
     <Content Include="Config\services.xml" />
-    <Content Include="Content\bootstrap-table-filter-control.css" />
-    <Content Include="Content\bootstrap-table.css" />
+    <Content Include="Content\bootstrap-table\bootstrap-table-editable.js" />
+    <Content Include="Content\bootstrap-table\bootstrap-table-filter-control.css" />
+    <Content Include="Content\bootstrap-table\bootstrap-table-filter-control.js" />
+    <Content Include="Content\bootstrap-table\bootstrap-table-zh-CN.js" />
+    <Content Include="Content\bootstrap-table\bootstrap-table.css" />
+    <Content Include="Content\bootstrap-table\bootstrap-table.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap3-editable\css\bootstrap-editable.css" />
@@ -211,7 +214,6 @@
     <Content Include="Content\bootstrap3-editable\img\loading.gif" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
-    <Content Include="Content\bootstrap-table\bootstrap-table-editable.js" />
     <Content Include="Content\layui\css\layui.css" />
     <Content Include="Content\layui\css\layui.mobile.css" />
     <Content Include="Content\layui\css\modules\code.css" />
@@ -404,25 +406,24 @@
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\UserInfo\GetUser.cshtml" />
     <Content Include="Views\OrganizeInfo\OrganizeOfAuditing.cshtml" />
-    <Content Include="Views\OrganizeInfo\AllUserInfo.cshtml" />
-    <Content Include="Views\OrganizeInfo\GetSelf.cshtml" />
-    <Content Include="Views\OrganizeInfo\UserOfAuditing.cshtml" />
+    <Content Include="Views\UserInfo\AllUserInfo.cshtml" />
+    <Content Include="Views\UserInfo\UserOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\AllOrganizeInfo.cshtml" />
     <Content Include="Views\UserInfo\GetSelf.cshtml" />
-    <Content Include="Views\UserInfo\WriteTalk.cshtml" />
     <Content Include="Views\Major\AllMajor.cshtml" />
-    <Content Include="Views\OrganizeInfo\UserInfoDetail.cshtml" />
     <Content Include="Views\Talks\TalkDetail.cshtml" />
     <Content Include="Views\OrganizeInfo\OrganizeDetail.cshtml" />
-    <Content Include="Views\Major\Add.cshtml" />
     <Content Include="Views\Political\AllPolitical.cshtml" />
     <Content Include="Views\Department\AllDepartment.cshtml" />
-    <Content Include="Views\OrganizeInfo\TalksOfAuditing.cshtml" />
+    <Content Include="Views\Talks\TalksOfAuditing.cshtml" />
+    <Content Include="Views\OrganizeInfo\Edit.cshtml" />
+    <Content Include="Views\UserInfo\OrgEditUser.cshtml" />
+    <Content Include="Views\Talks\Add.cshtml" />
+    <Content Include="Views\UserInfo\UserInfoSimple.cshtml" />
+    <Content Include="Views\UserInfo\UserEditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\bootstrap-table\css\" />
-    <Folder Include="Content\bootstrap-table\js\" />
     <Folder Include="Content\Upload\Icon\" />
     <Folder Include="Content\Upload\TalkImages\" />
     <Folder Include="Models\" />

@@ -62,10 +62,6 @@
       <End EntitySet="Major" Role="Major" />
       <End EntitySet="UserInfo" Role="UserInfo" />
     </AssociationSet>
-    <AssociationSet Name="FK_USERINFO_REFERENCE_ORGANIZE" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE">
-      <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
-      <End EntitySet="UserInfo" Role="UserInfo" />
-    </AssociationSet>
     <AssociationSet Name="FK_USERINFO_REFERENCE_POLITICA" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA">
       <End EntitySet="Political" Role="Political" />
       <End EntitySet="UserInfo" Role="UserInfo" />
@@ -93,6 +89,10 @@
     <AssociationSet Name="FK_Talks_OrganizeInfo" Association="OjVolunteerModel.FK_Talks_OrganizeInfo">
       <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
       <End EntitySet="Talks" Role="Talks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USERINFO_REFERENCE_ORGANIZE" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE">
+      <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
+      <End Role="UserInfo" EntitySet="UserInfo" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Activity">
@@ -229,11 +229,11 @@
     <Property Name="Status" Nullable="false" Type="Int16" />
     <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
     <NavigationProperty Name="AuditActivity" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
-    <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
     <Property Name="OrganizeInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
     <Property Name="OrganizeInfoLoginId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
     <Property Name="ActivityCount" Type="Int32" />
     <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_Talks_OrganizeInfo" FromRole="OrganizeInfo" ToRole="Talks" />
+    <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
   </EntityType>
   <EntityType Name="Political">
     <Key>
@@ -314,7 +314,6 @@
     <Property Name="MajorID" Type="Int32" />
     <Property Name="DepartmentID" Type="Int32" />
     <Property Name="PoliticalID" Type="Int32" />
-    <Property Name="OrganizeinfoID" Type="Int32" />
     <Property Name="UserInfoLastTime" Precision="3" Type="DateTime" />
     <Property Name="CreateTime" Precision="3" Type="DateTime" />
     <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
@@ -325,7 +324,6 @@
     <NavigationProperty Name="Favors" Relationship="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Favors" />
     <NavigationProperty Name="Integrals" Relationship="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Integrals" />
     <NavigationProperty Name="Major" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" FromRole="UserInfo" ToRole="Major" />
-    <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="UserInfo" ToRole="OrganizeInfo" />
     <NavigationProperty Name="Political" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" FromRole="UserInfo" ToRole="Political" />
     <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_TALKS_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Talks" />
     <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="UserEnroll" />
@@ -336,6 +334,8 @@
     <Property Name="UserInfoTalkCount" Type="Int32" />
     <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserInfo" ToRole="UserDuration" />
     <NavigationProperty Name="UpdatePolitical" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="UserInfo" ToRole="Political" />
+    <Property Name="OrganizeInfoID" Type="Int32" />
+    <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="UserInfo" ToRole="OrganizeInfo" />
   </EntityType>
   <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
     <End Type="OjVolunteerModel.OrganizeInfo" Multiplicity="0..1" Role="OrganizeInfo" />
@@ -481,18 +481,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_USERINFO_REFERENCE_ORGANIZE">
-    <End Type="OjVolunteerModel.OrganizeInfo" Multiplicity="0..1" Role="OrganizeInfo" />
-    <End Type="OjVolunteerModel.UserInfo" Multiplicity="*" Role="UserInfo" />
-    <ReferentialConstraint>
-      <Principal Role="OrganizeInfo">
-        <PropertyRef Name="OrganizeInfoID" />
-      </Principal>
-      <Dependent Role="UserInfo">
-        <PropertyRef Name="OrganizeinfoID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_USERINFO_REFERENCE_POLITICA">
     <End Type="OjVolunteerModel.Political" Multiplicity="0..1" Role="Political" />
     <End Type="OjVolunteerModel.UserInfo" Multiplicity="*" Role="UserInfo" />
@@ -573,6 +561,18 @@
         <PropertyRef Name="OrganizeInfoID" />
       </Principal>
       <Dependent Role="Talks">
+        <PropertyRef Name="OrganizeInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USERINFO_REFERENCE_ORGANIZE">
+    <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
+    <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrganizeInfo">
+        <PropertyRef Name="OrganizeInfoID" />
+      </Principal>
+      <Dependent Role="UserInfo">
         <PropertyRef Name="OrganizeInfoID" />
       </Dependent>
     </ReferentialConstraint>

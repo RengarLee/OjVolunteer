@@ -1,6 +1,8 @@
 ﻿using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.Model.Enum;
+using OjVolunteer.Model.Param;
+using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,8 +12,9 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
-    public class UserInfoController : UserBaseController
+    public class UserInfoController : BaseController
     {
+        //TODO:缓存
         short delNormal = (short)DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         short delDeleted = (short)Model.Enum.DelFlagEnum.Deleted;
@@ -22,69 +25,147 @@ namespace OjVolunteer.UIPortal.Controllers
         public IMajorService MajorService { get; set; }
         public IDepartmentService DepartmentService { get; set; }
         public ITalksService TalksService { get; set; }
-        // GET: UserInfo
+
+
         public ActionResult Index()
         {
             return View(LoginUser);
         }
 
-        #region 获得用户信息
+        #region Query
         /// <summary>
-        /// 用户获得用户信息
+        /// 用户通过用户获得用户信息
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public ActionResult GetUser(int Id)
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult UserInfoSimple(int Id)
         {
-
-            bool isSelf = LoginUser.UserInfoID == Id ? true : false;
-            //ViewData["UserDuration"] = "";
-            UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
-            if (userDuration != null)
-            {
-                ViewData["UserDuration"] = userDuration;
-            }
-            ViewBag.isSelf = isSelf;
-            if(isSelf)
-            {
-                return View(LoginUser);
-            }
-            else
-            {
-                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == Id && u.Status == delNormal).FirstOrDefault();
-                if (user == null)
+                bool isSelf = LoginUser.UserInfoID == Id ? true : false;
+                UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
+                if (userDuration != null)
                 {
-                    return View("Shared/Error.cshtml");
+                    ViewData["UserDuration"] = userDuration;
                 }
-                return View(user);
-            }
+                ViewBag.isSelf = isSelf;
+                if (isSelf)
+                {
+                    return View(LoginUser);
+                }
+                else
+                {
+                    UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == Id && u.Status == delNormal).FirstOrDefault();
+                    if (user == null)
+                    {
+                        return View("Shared/Error.cshtml");
+                    }
+                    return View(user);
+                }
         }
 
         /// <summary>
-        /// 进入更多资料界面
+        /// 进入义工信息管理界面
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetSelf()
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult AllUserInfo()
         {
-            var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).ToList();
-            ViewData["DepartmentID"] = (from u in allDepartment
-                                          select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
-
-            var allMajor = MajorService.GetEntities(u => u.Status == delNormal).ToList();
-            ViewData["MajorID"] = (from u in allMajor
-                                     select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
-
-            var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal ).ToList();
-            ViewData["UpdatePoliticalID"] = (from u in allPolitical
-                                         select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
-            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).ToList();
-            ViewData["OrganizeinfoID"] = (from u in allOrganizeInfo
-                                            select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
-
-            return View(LoginUser);
+            return View(LoginOrganize);
         }
 
+        /// <summary>
+        /// 加载义工信息
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult GetAllUserInfo()
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            UserQueryParam userQueryParam = new UserQueryParam();
+            if (!string.IsNullOrEmpty(Request["filter"]))
+            {
+                userQueryParam = Newtonsoft.Json.JsonConvert.DeserializeObject<UserQueryParam>(Request["filter"]);
+            }
+            userQueryParam.PageSize = pageSize;
+            userQueryParam.PageIndex = pageIndex;
+            userQueryParam.Total = 0;
 
+            var pageData = UserInfoService.LoadPageData(userQueryParam).Select(u => new
+            {
+                u.UserInfoID,
+                u.UserInfoLoginId,
+                u.UserInfoShowName,
+                u.Department.DepartmentName,
+                u.OrganizeInfoID,
+                u.OrganizeInfo.OrganizeInfoShowName,
+                u.UserInfoEmail,
+                u.Political.PoliticalName,
+                u.Major.MajorName,
+                u.UserInfoTalkCount,
+                u.UserInfoLastTime,
+                u.UserInfoPhone,
+                u.UserInfoStuId,
+                u.UserDuration.UserDurationNormalTotal,
+                u.UserDuration.UserDurationPartyTotal,
+                u.UserDuration.UserDurationPropartyTotal,
+                u.UserDuration.UserDurationTotal,
+                u.Status,
+            }).AsQueryable();
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                pageData = pageData.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
+            }
+            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 组织进入义工政治面貌审核界面
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult UserOfAuditing()
+        {
+            return View(LoginOrganize);
+        }
+        /// <summary>
+        /// 加载政治面貌变更审核信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult GetAllUserOfAuditing()
+        {
+            
+            var s = Request["limit"];
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.UserInfoID, true)
+                .Select(u => new {
+                    u.UserInfoID,
+                    u.UserInfoShowName,
+                    u.UserInfoLoginId,
+                    u.OrganizeInfoID,
+                    u.PoliticalID,
+                    u.Political.PoliticalName,
+                    u.UpdatePoliticalID,
+                    u.OrganizeInfo.OrganizeInfoShowName,
+                    u.UserInfoPhone,
+                    UpdateName = u.UpdatePolitical.PoliticalName,
+                    u.Status,
+                    u.ModfiedOn
+                }).AsQueryable();
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                pageData = pageData.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
+                total = pageData.Count();
+            }
+            var data = new { total = total, rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region Add
@@ -106,58 +187,78 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region Edit
-        public ActionResult Edit(int id)
-        {
-            //TODO:加载编辑对话框
-            UserInfo userInfo = UserInfoService.GetEntities(p => p.UserInfoID == id && p.Status == delNormal).FirstOrDefault();
-            return View(userInfo);
-        }
+
         /// <summary>
-        /// 用户信息修改
+        /// 用户修改自身资料
         /// </summary>
-        /// <param name="userInfo"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult Edit(UserInfo userInfo)
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult UserEditUser(int id)
         {
-            
-            string result = String.Empty;
+            if(LoginUser.UserInfoID != id)
+            {
+                return Redirect("/UserInfo/Index");
+            }
+            var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).ToList();
+            ViewData["DepartmentID"] = (from u in allDepartment
+                                        select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
 
-            userInfo.UserInfoPwd = LoginUser.UserInfoPwd;
-            userInfo.UserInfoTalkCount = LoginUser.UserInfoTalkCount;
-            userInfo.UserInfoIcon = LoginUser.UserInfoIcon;
-            userInfo.UserInfoTalkCount = LoginUser.UserInfoTalkCount;
-            userInfo.PoliticalID = LoginUser.PoliticalID;
-            userInfo.Remark = LoginUser.Remark;
-            userInfo.ModfiedOn = DateTime.Now;
-            if (userInfo.Political == userInfo.UpdatePolitical)
-            {
-                userInfo.Status = (short)Model.Enum.DelFlagEnum.Auditing;
-            }
+            var allMajor = MajorService.GetEntities(u => u.Status == delNormal).ToList();
+            ViewData["MajorID"] = (from u in allMajor
+                                   select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
 
-            if (UserInfoService.Update(userInfo))
-            {
-                if (userInfo.Status == delAuditing)
-                {
-                    return Content("auditing");
-                }
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");
-            }
-            
+            var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).ToList();
+            ViewData["UpdatePoliticalID"] = (from u in allPolitical
+                                             select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).ToList();
+            ViewData["OrganizeinfoID"] = (from u in allOrganizeInfo
+                                          select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
+
+            return View(LoginUser);
         }
-        #endregion
 
-        #region Delete
-        public ActionResult Delete(string ids)
+        /// <summary>
+        /// 组织修改义工详细信息
+        /// </summary>
+        /// <param name="id">用户id</param>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult OrgEditUser(int id)
         {
-            //TODO:                                                                                                                                                                                                                                         
+
+            //var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).ToList();
+            //ViewData["DepartmentID"] = (from u in allDepartment
+            //                              select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
+
+            //var allMajor = MajorService.GetEntities(u => u.Status == delNormal).ToList();
+            //ViewData["MajorID"] = (from u in allMajor
+            //                         select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
+
+            //var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal ).ToList();
+            //ViewData["UpdatePoliticalID"] = (from u in allPolitical
+            //                             select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+            //var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).ToList();
+            //ViewData["OrganizeinfoID"] = (from u in allOrganizeInfo
+            //                                select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
+            UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
+            if (LoginOrganize.OrganizeInfoID!=user.OrganizeInfoID&& LoginOrganize.OrganizeInfoManageId!=null)
+            {
+                return Redirect("/OrganizeInfo/Index");
+            }
+            return View(user);
+        }
+
+        /// <summary>
+        /// 批量处理同意用户转变政治面貌
+        /// </summary>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult EditOfList(string ids)
+        {
             if (string.IsNullOrEmpty(ids))
             {
-                return Content("Please Select!");
+                return Content("null");
             }
             string[] strIds = Request["ids"].Split(',');
             List<int> idList = new List<int>();
@@ -165,58 +266,120 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            //批量删除
-            #region 逻辑删除
-            if (UserInfoService.DeleteListByLogical(idList) > 0)
+            if (UserInfoService.ListUpdatePolical(idList) > 0)
             {
-                return Content("error");
+                return Content("success");
             }
             else
             {
-                return Content("ok");
+                return Content("fail");
             }
-            #endregion
-        }
-        #endregion
-
-        #region 心得发布
-        public ActionResult WriteTalk()
-        {
-            Talks talks = new Talks
-            {
-                CreateTime = DateTime.Now,
-                Status = delDeleted,
-                ModfiedOn = DateTime.Now,
-                TalkContent = "",
-                UserInfoID = LoginUser.UserInfoID,
-                OrganizeInfoID = LoginUser.OrganizeinfoID,
-                TalkFavorsNum = 0,
-            };
-            talks = TalksService.Add(talks);
-            ViewBag.TalkId = talks.TalkID;
-            return View();
         }
 
         /// <summary>
-        /// 心得图片上传
+        /// 修改信息
         /// </summary>
+        /// <param name="userInfo"></param>
         /// <returns></returns>
-        public ActionResult UploadImage()
+        [HttpPost]
+        public ActionResult Edit(UserInfo userInfo)
         {
-            var file = Request.Files["file"];
-            var talkId = Request["id"];
-            string path = "/Content/Upload/TalkImage/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
-            string dirPath = Request.MapPath(path);
-            if (!Directory.Exists(dirPath))
+            UserInfo temp = UserInfoService.GetEntities(u => u.UserInfoID == userInfo.UserInfoID).FirstOrDefault();
+            if (temp == null)
             {
-                Directory.CreateDirectory(dirPath);
+                return Content("fail");
             }
-            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
-            file.SaveAs(Request.MapPath(fileName));
-            return View();
+            if (LoginUser != null)
+            {
+                if (temp.UpdatePoliticalID != userInfo.UpdatePoliticalID)
+                {
+                    temp.UpdatePoliticalID = userInfo.UpdatePoliticalID;
+                    temp.Status = (short)Model.Enum.DelFlagEnum.Auditing;
+                }
+            }
+            else
+            {
+                if (userInfo.OrganizeInfoID != LoginOrganize.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
+                {
+                    return Content("fail");
+                }
+            }
+
+            temp.UserInfoShowName = userInfo.UserInfoShowName;
+            temp.UserInfoStuId = userInfo.UserInfoStuId;
+            temp.UserInfoPhone = userInfo.UserInfoPhone;
+            temp.UserInfoEmail = userInfo.UserInfoEmail;
+            temp.MajorID = userInfo.MajorID;
+            temp.OrganizeInfoID = userInfo.OrganizeInfoID;
+            temp.ModfiedOn = DateTime.Now;
+            if (UserInfoService.Update(temp))
+            {
+                if (temp.Status == delAuditing)
+                {
+                    return Content("auditing");
+                }
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }     
+        }
+        #endregion
+
+        #region Delete
+        /// <summary>
+        /// 驳回义工更正政治面貌申请
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult DeleteOfList(string ids)
+        {
+            //TODO:                                                                                                                                                                                                                                         
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            if (UserInfoService.NormalListByULS(idList) > 0)
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+
+            }
         }
         #endregion
         
+        #region 重置密码
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult ResetPwd(int id)
+        {
+
+                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
+            //TODO:
+                user.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5("000000");
+                if(UserInfoService.Update(user))
+                {
+                    return Content("success");
+                }
+                else
+                {
+                    return Content("fail");
+                }
+        }
+        #endregion
+
         #region 头像更换
         public ActionResult UploadIcon()
         {
