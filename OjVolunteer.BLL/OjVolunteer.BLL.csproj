@@ -66,6 +66,10 @@
     <Compile Include="UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OjVolunteer.Common\OjVolunteer.Common.csproj">
+      <Project>{FE036E45-29DE-4BCD-9255-34DFCFD0FE78}</Project>
+      <Name>OjVolunteer.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OjVolunteer.DALFactory\OjVolunteer.DALFactory.csproj">
       <Project>{322af1c4-864c-4347-af27-8c31abb4e09d}</Project>
       <Name>OjVolunteer.DALFactory</Name>

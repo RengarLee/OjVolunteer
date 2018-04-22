@@ -1,4 +1,5 @@
-﻿using OjVolunteer.IBLL;
+﻿using OjVolunteer.Common.Cache;
+using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,8 @@ namespace OjVolunteer.BLL
 {
     public partial class MajorService : BaseService<Major>,IMajorService
     {
+        public void UpdateCache()
+        {
+        }
     }
 }

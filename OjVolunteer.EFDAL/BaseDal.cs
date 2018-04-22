@@ -136,7 +136,6 @@ namespace OjVolunteer.EFDAL
             return ids.Count;
         }
         #endregion
-
         
     }
 }
