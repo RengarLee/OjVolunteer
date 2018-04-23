@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8f1ab392acd040eda40894e30561cc10" Name="Diagram1">
+        <EntityTypeShape EntityType="OjVolunteerModel.Activity" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.ActivityDetail" Width="1.5" PointX="14.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.ActivityType" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Department" Width="1.5" PointX="6.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Favors" Width="1.5" PointX="14.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Integrals" Width="1.5" PointX="11.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Major" Width="1.5" PointX="6.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.OrganizeInfo" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Political" Width="1.5" PointX="6.75" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Talks" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserDuration" Width="1.5" PointX="11.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserEnroll" Width="1.5" PointX="14.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserInfo" Width="1.5" PointX="9" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_USERINFO" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_FAVORS_REFERENCE_TALKS" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_FAVORS_REFERENCE_USERINFO" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_INTEGRAL_REFERENCE_USERINFO" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_MAJOR" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_Talks_OrganizeInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_POLITICA" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_UserInfo_UpdatePolitical" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_Talks_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_UserDuration_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="OjVolunteerModel.FK_USERENRO_REFERENCE_USERINFO" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
