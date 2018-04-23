@@ -202,6 +202,7 @@
     <Content Include="Config\controllers.xml" />
     <Content Include="Config\services.xml" />
     <Content Include="Content\bootstrap-table\bootstrap-table-editable.js" />
+    <Content Include="Content\bootstrap-table\bootstrap-table-export.js" />
     <Content Include="Content\bootstrap-table\bootstrap-table-filter-control.css" />
     <Content Include="Content\bootstrap-table\bootstrap-table-filter-control.js" />
     <Content Include="Content\bootstrap-table\bootstrap-table-zh-CN.js" />
