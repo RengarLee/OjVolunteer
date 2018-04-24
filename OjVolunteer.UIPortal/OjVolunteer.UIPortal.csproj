@@ -208,6 +208,8 @@
     <Content Include="Content\bootstrap-table\bootstrap-table-zh-CN.js" />
     <Content Include="Content\bootstrap-table\bootstrap-table.css" />
     <Content Include="Content\bootstrap-table\bootstrap-table.js" />
+    <Content Include="Content\bootstrap-table\tableExport.js" />
+    <Content Include="Content\bootstrap-table\xlsx.full.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap3-editable\css\bootstrap-editable.css" />
@@ -215,6 +217,7 @@
     <Content Include="Content\bootstrap3-editable\img\loading.gif" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.js" />
     <Content Include="Content\bootstrap3-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\File\Text.txt" />
     <Content Include="Content\layui\css\layui.css" />
     <Content Include="Content\layui\css\layui.mobile.css" />
     <Content Include="Content\layui\css\modules\code.css" />

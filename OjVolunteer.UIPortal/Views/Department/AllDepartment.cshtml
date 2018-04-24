@@ -9,13 +9,15 @@
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
 }
 @section script{
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
-    <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>
+    <script src="~/Content/bootstrap-table/xlsx.full.min.js"></script>
+
+    <script src="~/Content/bootstrap-table/tableExport.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-export.js"></script>
+
+
+
     <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -56,10 +58,12 @@
                 pageSize: 10,                       //每页的记录行数（*）
                 pageList: [10, 20, 50, 100],        //可供选择的每页的行数（*）
                 smartDisplay: false,
-                showColumns: true,                  //是否显示所有的列
-                showRefresh: true,                  //是否显示刷新按钮
-                minimumCountColumns: 2,             //最少允许的列数
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 2,
                 clickToSelect: true,
+                showExport: true,
+                exportDataType: "all",
                 uniqueId: "DepartmentID",                     //每一行的唯一标识，一般为主键列
                 columns: [
                     {
@@ -160,15 +164,16 @@
     </script>
 }
 
-<div id="toolbar" class="btn-group">
-    <input id="add_department" />
-    <button id="btn_add" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-    </button>
-    <button id="btn_removes" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-    </button>
-</div>
+    <div id="toolbar" class="btn-group">
+        <input id="add_department" />
+        <button id="btn_add" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <button id="btn_removes" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+        </button>
+        <button type="button" id="download" style="margin-left:50px" id="btn_download" class="btn btn-primary" onClick="$('#tb_department').tableExport({ type: 'excel', escape: 'false' })">数据导出</button>
+    </div>
 <div>
     <table id="tb_department"></table>
 </div>

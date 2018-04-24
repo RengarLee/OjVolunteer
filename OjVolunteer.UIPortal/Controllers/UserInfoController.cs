@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -408,5 +409,15 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        public FileResult ExportExcel()
+        {
+            var sbHtml = new StringBuilder();
+            sbHtml.Append("TextText");
+            byte[] fileContents = Encoding.Default.GetBytes(sbHtml.ToString());
+            //var fileName = Server.MapPath("~/Content/File/Text.txt");
+
+            var fileStream = new MemoryStream(fileContents);
+            return File(UserInfoService.ExportToExecl(true,2), "application/vnd.ms-excel", DateTime.Now.ToString("yyyyMMdd") + ".xls");
+        }
     }
 }

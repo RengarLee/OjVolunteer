@@ -3,6 +3,7 @@ using OjVolunteer.Model;
 using OjVolunteer.Model.Param;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,76 @@ namespace OjVolunteer.BLL
 {
     public partial class UserInfoService :BaseService<UserInfo>, IUserInfoService
     {
+        #region Excel导出
+        public Stream ExportToExecl(bool isSuper,int orgId)
+        {
+            NPOI.HSSF.UserModel.HSSFWorkbook book = new NPOI.HSSF.UserModel.HSSFWorkbook();
+
+            NPOI.SS.UserModel.ISheet sheet1 = book.CreateSheet("Sheet1"); //添加一个sheet
+            var userData = CurrentDal.GetEntities(u => true).AsQueryable();//获取list数据，也可以分页获取数据，以获得更高效的性能
+            
+            //判断是否为最高权限用户
+            if (!isSuper)//不是
+            {
+                userData = userData.Where(u => u.OrganizeInfoID == orgId).AsQueryable();
+            }
+            var _data = userData.ToList(); 
+
+            //给sheet1添加第一行的头部标题
+
+            NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);
+            row1.CreateCell(0).SetCellValue("义工用户ID");
+            row1.CreateCell(1).SetCellValue("义工用户名");
+            row1.CreateCell(2).SetCellValue("义工昵称");
+            row1.CreateCell(3).SetCellValue("学号");
+            row1.CreateCell(4).SetCellValue("手机");
+            row1.CreateCell(5).SetCellValue("邮箱");
+            row1.CreateCell(6).SetCellValue("专业");
+            row1.CreateCell(6).SetCellValue("学院");
+            row1.CreateCell(7).SetCellValue("政治面貌");
+            row1.CreateCell(8).SetCellValue("组织名称");
+            row1.CreateCell(9).SetCellValue("发表心得数目");
+            row1.CreateCell(10).SetCellValue("创建时间");
+            row1.CreateCell(11).SetCellValue("最后登录时间");
+            row1.CreateCell(12).SetCellValue("义工用户状态");
+            //将数据逐步写入sheet1各个行
+
+            for (int i = 0; i < _data.Count; i++)
+
+            {
+                NPOI.SS.UserModel.IRow rowtemp = sheet1.CreateRow(i + 1);
+
+                rowtemp.CreateCell(0).SetCellValue(_data[i].UserInfoID);
+
+                rowtemp.CreateCell(1).SetCellValue(_data[i].UserInfoLoginId);
+
+                rowtemp.CreateCell(2).SetCellValue(_data[i].UserInfoShowName);
+                rowtemp.CreateCell(3).SetCellValue(_data[i].UserInfoStuId);
+                rowtemp.CreateCell(4).SetCellValue(_data[i].UserInfoPhone);
+                rowtemp.CreateCell(5).SetCellValue(_data[i].UserInfoEmail);
+                rowtemp.CreateCell(6).SetCellValue(_data[i].MajorID == null ? "无":_data[i].Major.MajorName);
+                rowtemp.CreateCell(7).SetCellValue(_data[i].Department == null ? "无" : _data[i].Department.DepartmentName);
+                rowtemp.CreateCell(8).SetCellValue(_data[i].OrganizeInfo == null ? "无" : _data[i].OrganizeInfo.OrganizeInfoShowName);
+                rowtemp.CreateCell(9).SetCellValue(_data[i].UserInfoTalkCount.ToString());
+                rowtemp.CreateCell(10).SetCellValue(_data[i].CreateTime.ToString());
+                rowtemp.CreateCell(11).SetCellValue(_data[i].UserInfoLastTime.ToString());
+                rowtemp.CreateCell(12).SetCellValue( _data[i].Status == 0 ? "正常": _data[i].Status == 1?"删除":"审核中");
+                //rowtemp.CreateCell(5).SetCellValue(string.IsNullOrEmpty(_data[i].Company) ? "无" : _data[i].Company);
+
+            }
+
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+
+            book.Write(ms);
+
+            ms.Seek(0, SeekOrigin.Begin);
+
+            return ms;
+        }
+
+
+        #endregion
+
         #region 多条件查询
         public IQueryable<UserInfo> LoadPageData(UserQueryParam userQueryParam)
         {
@@ -38,8 +109,6 @@ namespace OjVolunteer.BLL
                 temp = temp.Where(u => u.Status == delFlag);
             }
             #endregion
-
-
 
             //TODO:Test
             #region 用户编号

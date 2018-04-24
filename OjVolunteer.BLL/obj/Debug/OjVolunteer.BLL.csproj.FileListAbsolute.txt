@@ -34,3 +34,9 @@ E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\Common.Logging.dll
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\ICSharpCode.SharpZipLib.dll
 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\OjVolunteer.Common.pdb
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\OjVolunteer.BLL.dll.config
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\NPOI.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\NPOI.OOXML.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\NPOI.OpenXml4Net.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\NPOI.OpenXmlFormats.dll
+E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\bin\Debug\NPOI.xml

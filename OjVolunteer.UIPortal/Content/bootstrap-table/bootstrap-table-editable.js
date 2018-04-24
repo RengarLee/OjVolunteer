@@ -1,146 +1,168 @@
 /**
  * @author zhixin wen <wenzhixin2010@gmail.com>
- * extensions: https://github.com/vitalets/x-editable
+ * extensions: https://github.com/kayalshri/tableExport.jquery.plugin
  */
-
-(function($) {
-
+(function ($) {
     'use strict';
+    var sprintf = $.fn.bootstrapTable.utils.sprintf;
+
+    var TYPE_NAME = {
+        json: 'JSON',
+        xml: 'XML',
+        png: 'PNG',
+        csv: 'CSV',
+        txt: 'TXT',
+        sql: 'SQL',
+        doc: 'MS-Word',
+        excel: 'MS-Excel',
+        xlsx: 'MS-Excel (OpenXML)',
+        powerpoint: 'MS-Powerpoint',
+        pdf: 'PDF'
+    };
 
     $.extend($.fn.bootstrapTable.defaults, {
-        editable: true,
-        onEditableInit: function() {
-            return false;
-        },
-        onEditableSave: function(field, row, oldValue, $el) {
-            return false;
-        },
-        onEditableShown: function(field, row, $el, editable) {
-            return false;
-        },
-        onEditableHidden: function(field, row, $el, reason) {
-            return false;
-        }
+        showExport: false,
+        exportDataType: 'basic', // basic, all, selected
+        // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
+        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
+        exportOptions: {}
     });
 
-    $.extend($.fn.bootstrapTable.Constructor.EVENTS, {
-        'editable-init.bs.table': 'onEditableInit',
-        'editable-save.bs.table': 'onEditableSave',
-        'editable-shown.bs.table': 'onEditableShown',
-        'editable-hidden.bs.table': 'onEditableHidden'
+    $.extend($.fn.bootstrapTable.defaults.icons, {
+        export: 'glyphicon-export icon-share'
     });
+
+    $.extend($.fn.bootstrapTable.locales, {
+        formatExport: function () {
+            return 'Export data';
+        }
+    });
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initTable = BootstrapTable.prototype.initTable,
-        _initBody = BootstrapTable.prototype.initBody;
+        _initToolbar = BootstrapTable.prototype.initToolbar;
 
-    BootstrapTable.prototype.initTable = function() {
-        var that = this;
-        _initTable.apply(this, Array.prototype.slice.apply(arguments));
+    BootstrapTable.prototype.initToolbar = function () {
+        this.showToolbar = this.options.showExport;
 
-        if (!this.options.editable) {
-            return;
-        }
+        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
-        $.each(this.columns, function(i, column) {
-            if (!column.editable) {
-                return;
+        if (this.options.showExport) {
+            var that = this,
+                $btnGroup = this.$toolbar.find('>.btn-group'),
+                $export = $btnGroup.find('div.export');
+
+            if (!$export.length) {
+                $export = $([
+                    '<div class="export btn-group">',
+                    '<button class="btn' +
+                    sprintf(' btn-%s', this.options.buttonsClass) +
+                    sprintf(' btn-%s', this.options.iconSize) +
+                    ' dropdown-toggle" aria-label="export type" ' +
+                    'title="' + this.options.formatExport() + '" ' +
+                    'data-toggle="dropdown" type="button">',
+                    sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
+                    '<span class="caret"></span>',
+                    '</button>',
+                    '<ul class="dropdown-menu" role="menu">',
+                    '</ul>',
+                    '</div>'].join('')).appendTo($btnGroup);
+
+                var $menu = $export.find('.dropdown-menu'),
+                    exportTypes = this.options.exportTypes;
+
+                if (typeof this.options.exportTypes === 'string') {
+                    var types = this.options.exportTypes.slice(1, -1).replace(/ /g, '').split(',');
+
+                    exportTypes = [];
+                    $.each(types, function (i, value) {
+                        exportTypes.push(value.slice(1, -1));
+                    });
+                }
+                $.each(exportTypes, function (i, type) {
+                    if (TYPE_NAME.hasOwnProperty(type)) {
+                        $menu.append(['<li role="menuitem" data-type="' + type + '">',
+                            '<a href="javascript:void(0)">',
+                        TYPE_NAME[type],
+                            '</a>',
+                            '</li>'].join(''));
+                    }
+                });
+
+                $menu.find('li').click(function () {
+                    var type = $(this).data('type'),
+                        doExport = function () {
+                            that.$el.tableExport($.extend({}, that.options.exportOptions, {
+                                type: type,
+                                escape: false
+                            }));
+                        };
+
+                    if (that.options.exportDataType === 'all' && that.options.pagination) {
+                        that.$el.one(that.options.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', function () {
+                            doExport();
+                            that.togglePagination();
+                        });
+                        that.togglePagination();
+                    } else if (that.options.exportDataType === 'selected') {
+                        var data = that.getData(),
+                            selectedData = that.getAllSelections();
+
+                        // Quick fix #2220
+                        if (that.options.sidePagination === 'server') {
+                            data = { total: that.options.totalRows };
+                            data[that.options.dataField] = that.getData();
+
+                            selectedData = { total: that.options.totalRows };
+                            selectedData[that.options.dataField] = that.getAllSelections();
+                        }
+
+                        that.load(selectedData);
+                        doExport();
+                        that.load(data);
+                    } else {
+                        doExport();
+                    }
+                });
+
+                //自定义监听菜单,当对应ID的按钮被点击时候,会执行方法
+                $("#myExportData").click(function () {
+                    var type = $("#myExportData").val(),//导出文件类型,赋值在按钮标签上的value属性
+                        doExport = function () {
+                            that.$el.tableExport($.extend({}, that.options.exportOptions, {
+                                type: type,
+                                escape: false
+                            }));
+                        };
+
+                    if (that.options.exportDataType === 'all' && that.options.pagination) {
+                        that.$el.one(that.options.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', function () {
+                            doExport();
+                            that.togglePagination();
+                        });
+                        that.togglePagination();
+                    } else if (that.options.exportDataType === 'selected') {
+                        var data = that.getData(),
+                            selectedData = that.getAllSelections();
+
+                        // Quick fix #2220
+                        if (that.options.sidePagination === 'server') {
+                            data = { total: that.options.totalRows };
+                            data[that.options.dataField] = that.getData();
+
+                            selectedData = { total: that.options.totalRows };
+                            selectedData[that.options.dataField] = that.getAllSelections();
+                        }
+
+                        that.load(selectedData);
+                        doExport();
+                        that.load(data);
+                    } else {
+                        doExport();
+                    }
+                });
+
             }
-
-            var editableOptions = {},
-                editableDataMarkup = [],
-                editableDataPrefix = 'editable-';
-
-            var processDataOptions = function(key, value) {
-                // Replace camel case with dashes.
-                var dashKey = key.replace(/([A-Z])/g, function($1) {
-                    return "-" + $1.toLowerCase();
-                });
-                if (dashKey.slice(0, editableDataPrefix.length) == editableDataPrefix) {
-                    var dataKey = dashKey.replace(editableDataPrefix, 'data-');
-                    editableOptions[dataKey] = value;
-                }
-            };
-
-            $.each(that.options, processDataOptions);
-
-            column.formatter = column.formatter || function(value, row, index) {
-                return value;
-            };
-            column._formatter = column._formatter ? column._formatter : column.formatter;
-            column.formatter = function(value, row, index) {
-                var result = column._formatter ? column._formatter(value, row, index) : value;
-
-                $.each(column, processDataOptions);
-
-                $.each(editableOptions, function(key, value) {
-                    editableDataMarkup.push(' ' + key + '="' + value + '"');
-                });
-
-                var _dont_edit_formatter = false;
-                if (column.editable.hasOwnProperty('noeditFormatter')) {
-                    _dont_edit_formatter = column.editable.noeditFormatter(value, row, index);
-                }
-
-                if (_dont_edit_formatter === false) {
-                    return ['<a href="javascript:void(0)"',
-                        ' data-name="' + column.field + '"',
-                        ' data-pk="' + row[that.options.idField] + '"',
-                        ' data-value="' + result + '"',
-                        editableDataMarkup.join(''),
-                        '>' + '</a>'
-                    ].join('');
-                } else {
-                    return _dont_edit_formatter;
-                }
-
-            };
-        });
-    };
-
-    BootstrapTable.prototype.initBody = function() {
-        var that = this;
-        _initBody.apply(this, Array.prototype.slice.apply(arguments));
-
-        if (!this.options.editable) {
-            return;
         }
-
-        $.each(this.columns, function(i, column) {
-            if (!column.editable) {
-                return;
-            }
-
-            that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
-                .off('save').on('save', function(e, params) {
-                    var data = that.getData(),
-                        index = $(this).parents('tr[data-index]').data('index'),
-                        row = data[index],
-                        oldValue = row[column.field];
-
-                    $(this).data('value', params.submitValue);
-                    row[column.field] = params.submitValue;
-                    that.trigger('editable-save', column.field, row, oldValue, $(this));
-                    that.resetFooter();
-                });
-            that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
-                .off('shown').on('shown', function(e, editable) {
-                    var data = that.getData(),
-                        index = $(this).parents('tr[data-index]').data('index'),
-                        row = data[index];
-
-                    that.trigger('editable-shown', column.field, row, $(this), editable);
-                });
-            that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
-                .off('hidden').on('hidden', function(e, reason) {
-                    var data = that.getData(),
-                        index = $(this).parents('tr[data-index]').data('index'),
-                        row = data[index];
-
-                    that.trigger('editable-hidden', column.field, row, $(this), reason);
-                });
-        });
-        this.trigger('editable-init');
     };
-
 })(jQuery);
