@@ -2,6 +2,7 @@
 using OjVolunteer.Model.Param;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,6 +12,7 @@ namespace OjVolunteer.IBLL
 {
     public partial interface IOrganizeInfoService : IBaseService<OrganizeInfo>
     {
+        Stream ExportToExecl();
         IQueryable<OrganizeInfo> LoadPageData(OrganizeQueryParam organizeQueryParam ,int loginUserId);
     }
 }

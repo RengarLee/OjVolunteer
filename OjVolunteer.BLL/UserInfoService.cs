@@ -26,9 +26,6 @@ namespace OjVolunteer.BLL
                 userData = userData.Where(u => u.OrganizeInfoID == orgId).AsQueryable();
             }
             var _data = userData.ToList(); 
-
-            //给sheet1添加第一行的头部标题
-
             NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);
             row1.CreateCell(0).SetCellValue("义工用户ID");
             row1.CreateCell(1).SetCellValue("义工用户名");
@@ -56,9 +53,9 @@ namespace OjVolunteer.BLL
                 rowtemp.CreateCell(1).SetCellValue(_data[i].UserInfoLoginId);
 
                 rowtemp.CreateCell(2).SetCellValue(_data[i].UserInfoShowName);
-                rowtemp.CreateCell(3).SetCellValue(_data[i].UserInfoStuId);
-                rowtemp.CreateCell(4).SetCellValue(_data[i].UserInfoPhone);
-                rowtemp.CreateCell(5).SetCellValue(_data[i].UserInfoEmail);
+                rowtemp.CreateCell(3).SetCellValue(string.IsNullOrEmpty(_data[i].UserInfoStuId) ? "无" : _data[i].UserInfoStuId);
+                rowtemp.CreateCell(4).SetCellValue(string.IsNullOrEmpty(_data[i].UserInfoPhone) ? "无" : _data[i].UserInfoPhone);
+                rowtemp.CreateCell(5).SetCellValue(string.IsNullOrEmpty(_data[i].UserInfoEmail) ? "无": _data[i].UserInfoEmail);
                 rowtemp.CreateCell(6).SetCellValue(_data[i].MajorID == null ? "无":_data[i].Major.MajorName);
                 rowtemp.CreateCell(7).SetCellValue(_data[i].Department == null ? "无" : _data[i].Department.DepartmentName);
                 rowtemp.CreateCell(8).SetCellValue(_data[i].OrganizeInfo == null ? "无" : _data[i].OrganizeInfo.OrganizeInfoShowName);
@@ -66,8 +63,6 @@ namespace OjVolunteer.BLL
                 rowtemp.CreateCell(10).SetCellValue(_data[i].CreateTime.ToString());
                 rowtemp.CreateCell(11).SetCellValue(_data[i].UserInfoLastTime.ToString());
                 rowtemp.CreateCell(12).SetCellValue( _data[i].Status == 0 ? "正常": _data[i].Status == 1?"删除":"审核中");
-                //rowtemp.CreateCell(5).SetCellValue(string.IsNullOrEmpty(_data[i].Company) ? "无" : _data[i].Company);
-
             }
 
             System.IO.MemoryStream ms = new System.IO.MemoryStream();

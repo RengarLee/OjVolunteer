@@ -409,15 +409,12 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 导出Excel文件
         public FileResult ExportExcel()
         {
-            var sbHtml = new StringBuilder();
-            sbHtml.Append("TextText");
-            byte[] fileContents = Encoding.Default.GetBytes(sbHtml.ToString());
-            //var fileName = Server.MapPath("~/Content/File/Text.txt");
-
-            var fileStream = new MemoryStream(fileContents);
-            return File(UserInfoService.ExportToExecl(true,2), "application/vnd.ms-excel", DateTime.Now.ToString("yyyyMMdd") + ".xls");
+            return File(UserInfoService.ExportToExecl(true, 2), "application/vnd.ms-excel", DateTime.Now.ToString("yyyyMMdd") + ".xls");
         }
+        #endregion
+
     }
 }

@@ -13,7 +13,8 @@ namespace OjVolunteer.Model.Enum
         /// </summary>
         Normal = 0,
         /// <summary>
-        /// 删除状态
+        /// 删除状态 
+        /// 用途:由正常状态被删除
         /// </summary>
         Deleted = 1,
         /// <summary>
@@ -22,9 +23,9 @@ namespace OjVolunteer.Model.Enum
         /// </summary>
         Auditing = 2,
         /// <summary>
-        /// 草稿状态
-        /// 用途:心得创建却未发布或活动申请创建却未提交
+        /// 无效状态
+        /// 用途:申请未通过
         /// </summary>
-        Draft = 3,
+        Invalid = 3,
     }
 }

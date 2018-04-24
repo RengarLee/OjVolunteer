@@ -5,6 +5,7 @@ using OjVolunteer.Model.Param;
 using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -253,6 +254,13 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             Response.Cookies["userLoginId"].Value = String.Empty;
             return Redirect("/Login/index");
+        }
+        #endregion
+
+        #region 导出Excel文件
+        public FileResult ExportExcel()
+        { 
+            return File(OrganizeInfoService.ExportToExecl(), "application/vnd.ms-excel", DateTime.Now.ToString("yyyyMMdd") + ".xls");
         }
         #endregion
 

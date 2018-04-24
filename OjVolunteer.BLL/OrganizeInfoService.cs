@@ -91,5 +91,55 @@ namespace OjVolunteer.BLL
         }
         #endregion
 
+        #region Excel导出
+        public Stream ExportToExecl()
+        {
+            NPOI.HSSF.UserModel.HSSFWorkbook book = new NPOI.HSSF.UserModel.HSSFWorkbook();
+
+            NPOI.SS.UserModel.ISheet sheet1 = book.CreateSheet("Sheet1"); //添加一个sheet
+            var orgData = CurrentDal.GetEntities(u => u.OrganizeInfoManageId!=null).AsQueryable();//获取list数据，也可以分页获取数据，以获得更高效的性能
+
+            var _data = orgData.ToList();
+            NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);
+            row1.CreateCell(0).SetCellValue("义工组织ID");
+            row1.CreateCell(1).SetCellValue("组织登录名");
+            row1.CreateCell(2).SetCellValue("组织昵称");
+            row1.CreateCell(3).SetCellValue("负责人");
+            row1.CreateCell(4).SetCellValue("联系方式");
+            row1.CreateCell(5).SetCellValue("邮箱");
+            row1.CreateCell(6).SetCellValue("活动数目");
+            row1.CreateCell(7).SetCellValue("创建时间");
+            row1.CreateCell(8).SetCellValue("最后登录时间");
+            row1.CreateCell(9).SetCellValue("组织状态");
+            //将数据逐步写入sheet1各个行
+
+            for (int i = 0; i < _data.Count; i++)
+
+            {
+                NPOI.SS.UserModel.IRow rowtemp = sheet1.CreateRow(i + 1);
+
+                rowtemp.CreateCell(0).SetCellValue(_data[i].OrganizeInfoID);
+
+                rowtemp.CreateCell(1).SetCellValue(_data[i].OrganizeInfoLoginId);
+
+                rowtemp.CreateCell(2).SetCellValue(_data[i].OrganizeInfoShowName);
+                rowtemp.CreateCell(3).SetCellValue(_data[i].OrganizeInfoPeople);
+                rowtemp.CreateCell(4).SetCellValue(_data[i].OrganizeInfoPhone);
+                rowtemp.CreateCell(5).SetCellValue(string.IsNullOrEmpty(_data[i].OrganizeInfoEmail) ? "无" : _data[i].OrganizeInfoEmail);
+                rowtemp.CreateCell(6).SetCellValue(_data[i].ActivityCount.ToString());
+                rowtemp.CreateCell(7).SetCellValue(_data[i].CreateTime.ToString());
+                rowtemp.CreateCell(8).SetCellValue(_data[i].OrganizeInfoLastTime.ToString());
+                rowtemp.CreateCell(9).SetCellValue(_data[i].Status == 0 ? "正常" : _data[i].Status == 1 ? "删除" :  _data[i].Status == 2 ?"审核中": "无效");
+            }
+
+            System.IO.MemoryStream ms = new System.IO.MemoryStream();
+
+            book.Write(ms);
+
+            ms.Seek(0, SeekOrigin.Begin);
+
+            return ms;
+        }
+        #endregion
     }
 }
