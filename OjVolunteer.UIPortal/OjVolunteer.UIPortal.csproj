@@ -425,6 +425,7 @@
     <Content Include="Views\Talks\Add.cshtml" />
     <Content Include="Views\UserInfo\UserInfoSimple.cshtml" />
     <Content Include="Views\UserInfo\UserEditUser.cshtml" />
+    <Content Include="Views\OrganizeInfo\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

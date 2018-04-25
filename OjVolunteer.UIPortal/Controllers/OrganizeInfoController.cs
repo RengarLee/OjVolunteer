@@ -1,4 +1,5 @@
 ﻿using OjVolunteer.BLL;
+using OjVolunteer.Common.Encryption;
 using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.Model.Param;
@@ -121,22 +122,37 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region Add
-        
-        public ActionResult Add()
+        #region Create
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
+        public ActionResult Create()
         {
-            //TODO:打开添加对话框
             return View();
         }
 
         [HttpPost]
-        public ActionResult Add(OrganizeInfo organizeInfo)
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
+        public ActionResult Create(OrganizeInfo organizeInfo)
         {
-            //TODO:Test
-            organizeInfo.CreateTime = DateTime.Now;
-            organizeInfo.ModfiedOn = DateTime.Now;
-            organizeInfo.Status = delNormal;
-            return Content("ok");
+            if (ModelState.IsValid)
+            {
+                if (organizeInfo.OrganizeInfoIcon == "")
+                {
+                    organizeInfo.OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+                }
+                organizeInfo.OrganizeInfoPwd = MD5Helper.Get_MD5(organizeInfo.OrganizeInfoPwd);
+                organizeInfo.OrganizeInfoManageId = LoginOrganize.OrganizeInfoID;
+                organizeInfo.ActivityCount = 0;
+                organizeInfo.CreateTime = DateTime.Now;
+                organizeInfo.ModfiedOn = organizeInfo.CreateTime;
+                organizeInfo.OrganizeInfoLastTime = organizeInfo.CreateTime;
+                organizeInfo.Status = delNormal;
+                OrganizeInfoService.Add(organizeInfo);
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
         }
         #endregion
 
@@ -250,6 +266,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 退出操作
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Exit()
         {
             Response.Cookies["userLoginId"].Value = String.Empty;
@@ -258,6 +275,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 导出Excel文件
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public FileResult ExportExcel()
         { 
             return File(OrganizeInfoService.ExportToExecl(), "application/vnd.ms-excel", DateTime.Now.ToString("yyyyMMdd") + ".xls");
