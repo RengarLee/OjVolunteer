@@ -191,21 +191,21 @@
           <Property Name="UserInfoLoginId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserInfoStuId" Type="nvarchar" MaxLength="20" />
-          <Property Name="UserInfoShowName" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserInfoShowName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="UserInfoPhone" Type="nvarchar" MaxLength="20" />
           <Property Name="UserInfoEmail" Type="nvarchar" MaxLength="20" />
           <Property Name="MajorID" Type="int" />
           <Property Name="DepartmentID" Type="int" />
-          <Property Name="PoliticalID" Type="int" />
+          <Property Name="PoliticalID" Type="int" Nullable="false" />
           <Property Name="UpdatePoliticalID" Type="int" />
-          <Property Name="OrganizeInfoID" Type="int" />
-          <Property Name="UserInfoLastTime" Type="datetime" />
-          <Property Name="CreateTime" Type="datetime" />
-          <Property Name="ModfiedOn" Type="datetime" />
+          <Property Name="OrganizeInfoID" Type="int" Nullable="false" />
+          <Property Name="UserInfoLastTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
-          <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="200" />
-          <Property Name="UserInfoTalkCount" Type="int" />
+          <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserInfoTalkCount" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
@@ -412,7 +412,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_ORGANIZE">
-          <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
+          <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="1" />
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrganizeInfo">
@@ -424,7 +424,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_POLITICA">
-          <End Role="Political" Type="Self.Political" Multiplicity="0..1" />
+          <End Role="Political" Type="Self.Political" Multiplicity="1" />
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Political">
@@ -854,15 +854,15 @@
           <Property Name="UserInfoLoginId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="UserInfoPwd" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="UserInfoStuId" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="UserInfoShowName" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="UserInfoShowName" MaxLength="20" FixedLength="false" Unicode="true" Type="String" Nullable="false" />
           <Property Name="UserInfoPhone" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="UserInfoEmail" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="MajorID" Type="Int32" />
           <Property Name="DepartmentID" Type="Int32" />
-          <Property Name="PoliticalID" Type="Int32" />
-          <Property Name="UserInfoLastTime" Precision="3" Type="DateTime" />
-          <Property Name="CreateTime" Precision="3" Type="DateTime" />
-          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="PoliticalID" Type="Int32" Nullable="false" />
+          <Property Name="UserInfoLastTime" Precision="3" Type="DateTime" Nullable="false" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" Nullable="false" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" Nullable="false" />
           <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
           <NavigationProperty Name="ManagerActivity" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="UserInfo" ToRole="Activity" />
@@ -876,11 +876,11 @@
           <Property Name="Status" Nullable="false" Type="Int16" />
           <Property Name="UpdatePoliticalID" Type="Int32" />
           <NavigationProperty Name="Department" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="UserInfo" ToRole="Department" />
-          <Property Name="UserInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="UserInfoTalkCount" Type="Int32" />
+          <Property Name="UserInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" Nullable="false" />
+          <Property Name="UserInfoTalkCount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserDuration" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserInfo" ToRole="UserDuration" />
           <NavigationProperty Name="UpdatePolitical" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="UserInfo" ToRole="Political" />
-          <Property Name="OrganizeInfoID" Type="Int32" />
+          <Property Name="OrganizeInfoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="UserInfo" ToRole="OrganizeInfo" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
@@ -1028,7 +1028,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_POLITICA">
-          <End Type="OjVolunteerModel.Political" Multiplicity="0..1" Role="Political" />
+          <End Type="OjVolunteerModel.Political" Multiplicity="1" Role="Political" />
           <End Type="OjVolunteerModel.UserInfo" Multiplicity="*" Role="UserInfo" />
           <ReferentialConstraint>
             <Principal Role="Political">
@@ -1112,7 +1112,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_ORGANIZE">
-          <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="0..1" />
+          <End Type="OjVolunteerModel.OrganizeInfo" Role="OrganizeInfo" Multiplicity="1" />
           <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrganizeInfo">

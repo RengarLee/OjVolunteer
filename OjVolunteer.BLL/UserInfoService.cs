@@ -230,7 +230,10 @@ namespace OjVolunteer.BLL
             foreach(int id in ids)
             {
                 var user = CurrentDal.GetEntities(u => u.UserInfoID == id).First();
-                user.PoliticalID = user.UpdatePoliticalID;   
+                if (user.UpdatePoliticalID != null)
+                {
+                    user.PoliticalID = (int)user.UpdatePoliticalID;
+                }             
             }
             return NormalListByULS(ids);
         }

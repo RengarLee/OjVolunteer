@@ -408,12 +408,10 @@
     <Content Include="Views\OrganizeInfo\Index.cshtml" />
     <Content Include="Views\UserInfo\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
-    <Content Include="Views\UserInfo\GetUser.cshtml" />
     <Content Include="Views\OrganizeInfo\OrganizeOfAuditing.cshtml" />
     <Content Include="Views\UserInfo\AllUserInfo.cshtml" />
     <Content Include="Views\UserInfo\UserOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\AllOrganizeInfo.cshtml" />
-    <Content Include="Views\UserInfo\GetSelf.cshtml" />
     <Content Include="Views\Major\AllMajor.cshtml" />
     <Content Include="Views\Talks\TalkDetail.cshtml" />
     <Content Include="Views\OrganizeInfo\OrganizeDetail.cshtml" />
@@ -426,6 +424,7 @@
     <Content Include="Views\UserInfo\UserInfoSimple.cshtml" />
     <Content Include="Views\UserInfo\UserEditUser.cshtml" />
     <Content Include="Views\OrganizeInfo\Create.cshtml" />
+    <Content Include="Views\UserInfo\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

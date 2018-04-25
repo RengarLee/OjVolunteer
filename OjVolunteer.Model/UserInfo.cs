@@ -35,16 +35,16 @@ namespace OjVolunteer.Model
         public string UserInfoEmail { get; set; }
         public Nullable<int> MajorID { get; set; }
         public Nullable<int> DepartmentID { get; set; }
-        public Nullable<int> PoliticalID { get; set; }
-        public Nullable<System.DateTime> UserInfoLastTime { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public int PoliticalID { get; set; }
+        public System.DateTime UserInfoLastTime { get; set; }
+        public System.DateTime CreateTime { get; set; }
+        public System.DateTime ModfiedOn { get; set; }
         public string Remark { get; set; }
         public short Status { get; set; }
         public Nullable<int> UpdatePoliticalID { get; set; }
         public string UserInfoIcon { get; set; }
-        public Nullable<int> UserInfoTalkCount { get; set; }
-        public Nullable<int> OrganizeInfoID { get; set; }
+        public int UserInfoTalkCount { get; set; }
+        public int OrganizeInfoID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> ApplyActivity { get; set; }

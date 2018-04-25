@@ -169,21 +169,39 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Add
-        public ActionResult Add()
+        #region Create
+        public ActionResult Create()
         {
-            //TODO:打开添加对话框
+            var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewBag.Major = (from u in allMajor select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
+            var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewBag.PoliticalID = (from u in allPolitical select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+            var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewBag.DepartmentID = (from u in allDepartment select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
+            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).AsQueryable();
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                allOrganizeInfo = allOrganizeInfo.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable() ;
+            }
+            ViewBag.OrganizeInfoID = (from u in allOrganizeInfo  select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
             return View();
         }
 
+
         [HttpPost]
-        public ActionResult Add(UserInfo userInfo)
+        public ActionResult Create(UserInfo userInfo)
         {
-            //TODO:Test
-            userInfo.CreateTime = DateTime.Now;
-            userInfo.ModfiedOn = DateTime.Now;
-            userInfo.Status = delNormal;
-            return Content("ok");
+            if (!ModelState.IsValid)
+            {
+                userInfo.UserInfoTalkCount = 0;
+                userInfo.CreateTime = DateTime.Now;
+                userInfo.ModfiedOn = userInfo.CreateTime;
+                userInfo.UserInfoLastTime = userInfo.CreateTime;
+                userInfo.Status = delAuditing;
+                UserInfoService.Add(userInfo);
+                return Content("success");
+            }
+            return Content("fail");
         }
         #endregion
 
@@ -413,6 +431,14 @@ namespace OjVolunteer.UIPortal.Controllers
         public FileResult ExportExcel()
         {
             return File(UserInfoService.ExportToExecl(true, 2), "application/vnd.ms-excel", DateTime.Now.ToString("yyyyMMdd") + ".xls");
+        }
+        #endregion
+
+        #region 检查登录名是否存在
+        public JsonResult CheckUserName(string username)
+        {
+            var reslut = UserInfoService.GetEntities(u => u.UserInfoLoginId.Equals(username)).AsQueryable().Count() == 0;
+            return Json(reslut, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

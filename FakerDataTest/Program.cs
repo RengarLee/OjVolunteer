@@ -183,8 +183,8 @@ namespace FakerDataTest
                 user.UserInfoTalkCount = new Random().Next(100);
                 user.UserInfoIcon = "/Content/Upload/images/1.jpg";
                 user.UserInfoLastTime = Convert.ToDateTime(Faker.Business.CreditCardExpiryDate());
-                user.CreateTime = user.UserInfoLastTime.Value.AddMonths(-10);
-                user.ModfiedOn = user.UserInfoLastTime.Value.AddMonths(-4);
+                user.CreateTime = user.UserInfoLastTime.AddMonths(-10);
+                user.ModfiedOn = user.UserInfoLastTime.AddMonths(-4);
                 user.Status = (short)((new Random().Next(9)) % 3);
                 dal.Add(user);
 

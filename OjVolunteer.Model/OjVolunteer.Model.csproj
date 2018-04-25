@@ -90,6 +90,7 @@
       <DependentUpon>EFDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="EFModelValidate\OrganizeInfoValidate.cs" />
+    <Compile Include="EFModelValidate\UserInfoValidate.cs" />
     <Compile Include="Enum\DelFlagEnum.cs" />
     <Compile Include="Favors.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
