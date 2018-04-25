@@ -1,8 +1,0 @@
-E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\FakerDate\bin\Debug\netcoreapp2.0\FakerDate.deps.json
-E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\FakerDate\bin\Debug\netcoreapp2.0\FakerDate.runtimeconfig.json
-E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\FakerDate\bin\Debug\netcoreapp2.0\FakerDate.runtimeconfig.dev.json
-E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\FakerDate\bin\Debug\netcoreapp2.0\FakerDate.dll
-E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\FakerDate\obj\Debug\netcoreapp2.0\FakerDate.csprojResolveAssemblyReference.cache
-E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\FakerDate\obj\Debug\netcoreapp2.0\FakerDate.csproj.CoreCompileInputs.cache
-E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\FakerDate\obj\Debug\netcoreapp2.0\FakerDate.AssemblyInfoInputs.cache
-E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\FakerDate\obj\Debug\netcoreapp2.0\FakerDate.AssemblyInfo.cs
