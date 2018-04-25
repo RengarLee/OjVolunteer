@@ -1,0 +1,249 @@
+
+----------------------header--------------------------
+2018-04-25 14:24:59,934 [8] ERROR OjVolunteer - System.Data.Entity.Validation.DbEntityValidationException: 对一个或多个实体的验证失败。有关详细信息，请参阅“EntityValidationErrors”属性。
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 OjVolunteer.EFDAL.BaseDal`1.Add(T entity) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.EFDAL\BaseDal.cs:行号 64
+   在 OjVolunteer.BLL.BaseService`1.Add(T entity) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\BaseService.cs:行号 60
+   在 OjVolunteer.UIPortal.Controllers.OrganizeInfoController.Create(OrganizeInfo organizeInfo) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Controllers\OrganizeInfoController.cs:行号 149
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+2018-04-25 14:28:53,976 [13] ERROR OjVolunteer - System.ArgumentNullException: String 引用没有设置为 String 的实例。
+参数名: s
+   在 System.Text.Encoding.GetBytes(String s)
+   在 OjVolunteer.Common.Encryption.MD5Helper.Get_MD5(String strSource) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\Encryption\MD5Helper.cs:行号 13
+   在 OjVolunteer.UIPortal.Controllers.OrganizeInfoController.Create(OrganizeInfo organizeInfo) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Controllers\OrganizeInfoController.cs:行号 144
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2018-04-25 14:29:52,865 [13] ERROR OjVolunteer - System.ArgumentNullException: String 引用没有设置为 String 的实例。
+参数名: s
+   在 System.Text.Encoding.GetBytes(String s)
+   在 OjVolunteer.Common.Encryption.MD5Helper.Get_MD5(String strSource) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\Encryption\MD5Helper.cs:行号 13
+   在 OjVolunteer.UIPortal.Controllers.OrganizeInfoController.Create(OrganizeInfo organizeInfo) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Controllers\OrganizeInfoController.cs:行号 144
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2018-04-25 14:29:53,166 [13] ERROR OjVolunteer - System.ArgumentNullException: String 引用没有设置为 String 的实例。
+参数名: s
+   在 System.Text.Encoding.GetBytes(String s)
+   在 OjVolunteer.Common.Encryption.MD5Helper.Get_MD5(String strSource) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\Encryption\MD5Helper.cs:行号 13
+   在 OjVolunteer.UIPortal.Controllers.OrganizeInfoController.Create(OrganizeInfo organizeInfo) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Controllers\OrganizeInfoController.cs:行号 144
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+2018-04-25 14:31:17,290 [43] ERROR OjVolunteer - System.ArgumentNullException: String 引用没有设置为 String 的实例。
+参数名: s
+   在 System.Text.Encoding.GetBytes(String s)
+   在 OjVolunteer.Common.Encryption.MD5Helper.Get_MD5(String strSource) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.Common\Encryption\MD5Helper.cs:行号 13
+   在 OjVolunteer.UIPortal.Controllers.OrganizeInfoController.Create(OrganizeInfo organizeInfo) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Controllers\OrganizeInfoController.cs:行号 144
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+2018-04-25 14:37:12,609 [54] ERROR OjVolunteer - System.InvalidOperationException: 类型“OjVolunteer.Model.OrganizeInfo”的关联元数据类型包含以下未知属性或字段: TPwd。请确保这些成员的名称与主类型上的属性的名称匹配。
+   在 System.ComponentModel.DataAnnotations.AssociatedMetadataTypeTypeDescriptor.TypeDescriptorCache.CheckAssociatedMetadataType(Type mainType, Type associatedMetadataType)
+   在 System.ComponentModel.DataAnnotations.AssociatedMetadataTypeTypeDescriptor.TypeDescriptorCache.ValidateMetadataType(Type type, Type associatedType)
+   在 System.ComponentModel.DataAnnotations.AssociatedMetadataTypeTypeDescriptor..ctor(ICustomTypeDescriptor parent, Type type, Type associatedMetadataType)
+   在 System.ComponentModel.DataAnnotations.AssociatedMetadataTypeTypeDescriptionProvider.GetTypeDescriptor(Type objectType, Object instance)
+   在 System.Web.Mvc.AssociatedMetadataProvider.GetTypeDescriptor(Type type)
+   在 System.Web.Mvc.AssociatedMetadataProvider.GetMetadataForProperty(Func`1 modelAccessor, Type containerType, String propertyName)
+   在 System.Web.Mvc.CachedAssociatedMetadataProvider`1.GetMetadataForProperty(Func`1 modelAccessor, Type containerType, String propertyName)
+   在 System.Web.Mvc.ModelMetadata.GetMetadataFromProvider(Func`1 modelAccessor, Type modelType, String propertyName, Object container, Type containerType, ModelMetadataProvider metadataProvider)
+   在 System.Web.Mvc.ModelMetadata.FromLambdaExpression[TParameter,TValue](Expression`1 expression, ViewDataDictionary`1 viewData, ModelMetadataProvider metadataProvider)
+   在 System.Web.Mvc.Html.LabelExtensions.LabelFor[TModel,TValue](HtmlHelper`1 html, Expression`1 expression, String labelText, IDictionary`2 htmlAttributes, ModelMetadataProvider metadataProvider)
+   在 System.Web.Mvc.Html.LabelExtensions.LabelFor[TModel,TValue](HtmlHelper`1 html, Expression`1 expression, String labelText, Object htmlAttributes, ModelMetadataProvider metadataProvider)
+   在 System.Web.Mvc.Html.LabelExtensions.LabelFor[TModel,TValue](HtmlHelper`1 html, Expression`1 expression, Object htmlAttributes)
+   在 ASP._Page_Views_OrganizeInfo_Create_cshtml.Execute() 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Views\OrganizeInfo\Create.cshtml:行号 24
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.StartPage.RunPage()
+   在 System.Web.WebPages.StartPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+2018-04-25 14:38:45,394 [53] ERROR OjVolunteer - System.Data.Entity.Validation.DbEntityValidationException: 对一个或多个实体的验证失败。有关详细信息，请参阅“EntityValidationErrors”属性。
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 OjVolunteer.EFDAL.BaseDal`1.Add(T entity) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.EFDAL\BaseDal.cs:行号 64
+   在 OjVolunteer.BLL.BaseService`1.Add(T entity) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\BaseService.cs:行号 60
+   在 OjVolunteer.UIPortal.Controllers.OrganizeInfoController.Create(OrganizeInfo organizeInfo) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Controllers\OrganizeInfoController.cs:行号 151
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+2018-04-25 14:41:43,663 [53] ERROR OjVolunteer - System.Data.Entity.Validation.DbEntityValidationException: 对一个或多个实体的验证失败。有关详细信息，请参阅“EntityValidationErrors”属性。
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 OjVolunteer.EFDAL.BaseDal`1.Add(T entity) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.EFDAL\BaseDal.cs:行号 64
+   在 OjVolunteer.BLL.BaseService`1.Add(T entity) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\BaseService.cs:行号 60
+   在 OjVolunteer.UIPortal.Controllers.OrganizeInfoController.Create(OrganizeInfo organizeInfo) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Controllers\OrganizeInfoController.cs:行号 151
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+2018-04-25 14:53:55,565 [71] ERROR OjVolunteer - System.Data.Entity.Validation.DbEntityValidationException: 对一个或多个实体的验证失败。有关详细信息，请参阅“EntityValidationErrors”属性。
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 OjVolunteer.DALFactory.DbSession.SaveChanges() 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.DALFactory\DbSession.cs:行号 15
+   在 OjVolunteer.BLL.BaseService`1.Add(T entity) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.BLL\BaseService.cs:行号 61
+   在 OjVolunteer.UIPortal.Controllers.OrganizeInfoController.Create(OrganizeInfo organizeInfo) 位置 E:\RengarLee\MyCode\C#\Source\OjVolunteer\OjVolunteer\OjVolunteer.UIPortal\Controllers\OrganizeInfoController.cs:行号 151
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------

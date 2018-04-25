@@ -153,8 +153,8 @@ namespace FakerDataTest
                 organize.OrganizeInfoManageId = 2;
                 
                 organize.OrganizeInfoLastTime = Convert.ToDateTime(Faker.Business.CreditCardExpiryDate());
-                organize.CreateTime = organize.OrganizeInfoLastTime.Value.AddMonths(-10);
-                organize.ModfiedOn = organize.OrganizeInfoLastTime.Value.AddMonths(-4);
+                organize.CreateTime = organize.OrganizeInfoLastTime.AddMonths(-10);
+                organize.ModfiedOn = organize.OrganizeInfoLastTime.AddMonths(-4);
                 organize.OrganizeInfoIcon = "/Content/Upload/images/1.jpg";
                 organize.ActivityCount = 0;
                 organize.Status = (short)((new Random().Next(9)) % 3);

@@ -2,6 +2,7 @@
 using OjVolunteer.IDAL;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,14 @@ namespace OjVolunteer.DALFactory
     {
         public int SaveChanges()
         {
-            return DbContextFactory.GetCurrentDbContext().SaveChanges();
+            try
+            {
+                return DbContextFactory.GetCurrentDbContext().SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                throw;
+            }
         }
     }
 }

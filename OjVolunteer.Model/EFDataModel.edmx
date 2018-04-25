@@ -112,19 +112,19 @@
           </Key>
           <Property Name="OrganizeInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrganizeInfoLoginId" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="OrganizeInfoShowName" Type="nvarchar" MaxLength="20" />
+          <Property Name="OrganizeInfoShowName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="OrganizeInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="OrganizeInfoPeople" Type="nvarchar" MaxLength="20" />
-          <Property Name="OrganizeInfoPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="OrganizeInfoPeople" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizeInfoPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="OrganizeInfoEmail" Type="nvarchar" MaxLength="20" />
           <Property Name="OrganizeInfoManageId" Type="int" />
-          <Property Name="OrganizeInfoLastTime" Type="datetime" />
-          <Property Name="CreateTime" Type="datetime" />
-          <Property Name="ModfiedOn" Type="datetime" />
+          <Property Name="OrganizeInfoLastTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
-          <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="200" />
-          <Property Name="ActivityCount" Type="int" />
+          <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ActivityCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Political">
           <Key>
@@ -762,22 +762,22 @@
             <PropertyRef Name="OrganizeInfoID" />
           </Key>
           <Property Name="OrganizeInfoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="OrganizeInfoShowName" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoShowName" MaxLength="20" FixedLength="false" Unicode="true" Type="String" Nullable="false" />
           <Property Name="OrganizeInfoPwd" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="OrganizeInfoPeople" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="OrganizeInfoPhone" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoPeople" MaxLength="20" FixedLength="false" Unicode="true" Type="String" Nullable="false" />
+          <Property Name="OrganizeInfoPhone" MaxLength="20" FixedLength="false" Unicode="true" Type="String" Nullable="false" />
           <Property Name="OrganizeInfoEmail" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="OrganizeInfoManageId" Type="Int32" />
-          <Property Name="OrganizeInfoLastTime" Precision="3" Type="DateTime" />
-          <Property Name="CreateTime" Precision="3" Type="DateTime" />
-          <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
+          <Property Name="OrganizeInfoLastTime" Precision="3" Type="DateTime" Nullable="false" />
+          <Property Name="CreateTime" Precision="3" Type="DateTime" Nullable="false" />
+          <Property Name="ModfiedOn" Precision="3" Type="DateTime" Nullable="false" />
           <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
           <NavigationProperty Name="AuditActivity" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
-          <Property Name="OrganizeInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="OrganizeInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" Nullable="false" />
           <Property Name="OrganizeInfoLoginId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="ActivityCount" Type="Int32" />
+          <Property Name="ActivityCount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Talks" Relationship="OjVolunteerModel.FK_Talks_OrganizeInfo" FromRole="OrganizeInfo" ToRole="Talks" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="UserInfo" />
         </EntityType>

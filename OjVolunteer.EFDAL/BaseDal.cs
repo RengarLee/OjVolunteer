@@ -61,7 +61,6 @@ namespace OjVolunteer.EFDAL
         public T Add(T entity)
         {
             Db.Set<T>().Add(entity);
-            Db.SaveChanges();
             return entity;
         }
         #endregion

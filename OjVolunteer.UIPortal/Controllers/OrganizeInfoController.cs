@@ -104,6 +104,8 @@ namespace OjVolunteer.UIPortal.Controllers
             return View(LoginOrganize);
         }
 
+        
+
         /// <summary>
         /// 加载未审核的组织信息
         /// </summary>
@@ -135,11 +137,13 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (organizeInfo.OrganizeInfoIcon == "")
+                if (String.IsNullOrEmpty(organizeInfo.OrganizeInfoIcon))
                 {
+                    String Test = System.Configuration.ConfigurationManager.AppSettings["DalAssemblyName"];
+                    String iconPath = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
                     organizeInfo.OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
                 }
-                organizeInfo.OrganizeInfoPwd = MD5Helper.Get_MD5(organizeInfo.OrganizeInfoPwd);
+                //organizeInfo.OrganizeInfoPwd = MD5Helper.Get_MD5(organizeInfo.OrganizeInfoPwd);
                 organizeInfo.OrganizeInfoManageId = LoginOrganize.OrganizeInfoID;
                 organizeInfo.ActivityCount = 0;
                 organizeInfo.CreateTime = DateTime.Now;
@@ -279,6 +283,14 @@ namespace OjVolunteer.UIPortal.Controllers
         public FileResult ExportExcel()
         { 
             return File(OrganizeInfoService.ExportToExecl(), "application/vnd.ms-excel", DateTime.Now.ToString("yyyyMMdd") + ".xls");
+        }
+        #endregion
+
+        #region 检查登录名是否存在
+        public JsonResult CheckUserName(string username)
+        {
+            var reslut = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId.Equals(username)).AsQueryable().Count() == 0;
+            return Json(reslut, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
