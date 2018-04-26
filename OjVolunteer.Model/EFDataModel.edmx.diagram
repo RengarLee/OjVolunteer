@@ -5,19 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a5243fa8637648ecae7876874c0ba4dc" Name="Diagram1" ZoomLevel="108">
-        <EntityTypeShape EntityType="OjVolunteerModel.Activity" PointX="12" PointY="9.375" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.ActivityDetail" PointX="7" PointY="7.375" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.ActivityType" PointX="9.75" PointY="7.75" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.Department" PointX="2.5" PointY="16.75" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.Favors" PointX="9.25" PointY="11.5" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.Integrals" PointX="7" PointY="24.75" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.Major" PointX="2.5" PointY="19.875" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.OrganizeInfo" PointX="0.75" PointY="10.625" Width="3.25" />
-        <EntityTypeShape EntityType="OjVolunteerModel.Political" PointX="2.5" PointY="6.5" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.Talks" PointX="7.75" PointY="10.875" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.UserDuration" PointX="7" PointY="16.125" Width="1.5" />
-        <EntityTypeShape EntityType="OjVolunteerModel.UserEnroll" PointX="14.25" PointY="11.25" Width="2.375" />
-        <EntityTypeShape EntityType="OjVolunteerModel.UserInfo" PointX="4.75" PointY="9.375" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Activity" PointX="7" PointY="5.625" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.ActivityDetail" PointX="7" PointY="13.5" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.ActivityType" PointX="4.75" PointY="7.75" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Department" PointX="2.5" PointY="17.875" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Favors" PointX="12.25" PointY="13.625" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Integrals" PointX="7" PointY="34.625" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Major" PointX="2.5" PointY="20.875" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.OrganizeInfo" PointX="0.75" PointY="12.75" Width="3.25" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Political" PointX="2.5" PointY="8.625" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Talks" PointX="10" PointY="13.25" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserDuration" PointX="7" PointY="30.625" Width="1.5" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserEnroll" PointX="9.25" PointY="8.375" Width="2.375" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserInfo" PointX="4.75" PointY="11.5" Width="1.5" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" />

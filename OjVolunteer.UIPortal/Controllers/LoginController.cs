@@ -24,7 +24,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult ProcessLogin()
         {
             String name = Request["LoginCode"];
-            String pwd = Common.Encryption.MD5Helper.Get_MD5(Request["LoginPwd"]);
+            String pwd = MD5Helper.Get_MD5(Request["LoginPwd"]);
             short delDeleted = (short)DelFlagEnum.Deleted;
             var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd && o.Status != delDeleted).FirstOrDefault();
             if (organizeInfo != null)

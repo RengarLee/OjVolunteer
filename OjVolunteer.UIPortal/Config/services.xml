@@ -12,6 +12,8 @@
   </object>
   <object name="ActivityTypeService" type="OjVolunteer.BLL.ActivityTypeService, OjVolunteer.BLL" singleton="false" >
   </object>
+  <object name="ActivityService" type="OjVolunteer.BLL.ActivityService, OjVolunteer.BLL" singleton="false" >
+  </object>
   <object name="MajorService" type="OjVolunteer.BLL.MajorService, OjVolunteer.BLL" singleton="false" >
   </object>
   <object name="TalksService" type="OjVolunteer.BLL.TalksService, OjVolunteer.BLL" singleton="false" >
