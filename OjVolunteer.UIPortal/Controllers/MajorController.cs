@@ -13,10 +13,10 @@ namespace OjVolunteer.UIPortal.Controllers
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         public IMajorService MajorService { get; set; }
-        // GET: Major
+
         public ActionResult Index()
         {
-            return View();
+            return View(LoginOrganize);
         }
 
         #region Query
@@ -40,33 +40,27 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Add
+        #region Create
 
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true , Super = true)]
-        public ActionResult Add(String name)
+        public ActionResult Create(Major major)
         {
-
-            Major major = MajorService.GetEntities(m => m.MajorName.Equals(name)).FirstOrDefault();
-            if (major != null)
+            if (ModelState.IsValid)
             {
-                return Content("exist");
+                if (MajorService.GetEntities(m => m.MajorName.Equals(major.MajorName) && m.Status == delNormal).Count() > 0)
+                {
+                    return Content("exist");
+                }
+                major.CreateTime = DateTime.Now;
+                major.ModfiedOn = DateTime.Now;
+                major.Status = delNormal;
+                if (MajorService.Add(major) != null)
+                {
+                    return Content("success");
+                }
             }
-            major = new Major
-            {
-                MajorName = name,
-                CreateTime = DateTime.Now,
-                ModfiedOn = DateTime.Now,
-                Status = delNormal
-            };
-            if (MajorService.Add(major)!=null)
-            {
-                return Content("success");
-            }
-            else
-            {
-                return Content("fail");
-            }
+            return Content("fail");
         }
         #endregion
 

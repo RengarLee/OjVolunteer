@@ -23,10 +23,11 @@
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                $.post("/Major/Add", { name: $("#add").val() }, function (data) {
+                $.post("/Major/Create", { name: $("#add").val() }, function (data) {
                     if (data == "success") {
                         initTable();
                         alert("资料修改成功");
+                        $("#add").val("");
                     } else if (data == "fail") {
                         alert("修改失败");
                     } else if (data == "exist") {
@@ -158,18 +159,18 @@
         }
     </script>
 }
-    <div id="toolbar" class="btn-group">
-        <input id="add" />
-        <button id="btn_add" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <div>
-        <table id="tb_major"></table>
-    </div>
+<div id="toolbar" class="btn-group">
+    <input id="add" />
+    <button id="btn_add" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+    </button>
+    <button id="btn_removes" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+    </button>
+</div>
+<div>
+    <table id="tb_major"></table>
+</div>
 
 
 

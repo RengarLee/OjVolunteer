@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="EFModelValidate\ActivityTypeValidate.cs" />
     <Compile Include="EFModelValidate\ActivityValidate.cs" />
+    <Compile Include="EFModelValidate\MajorValidate.cs" />
     <Compile Include="EFModelValidate\OrganizeInfoValidate.cs" />
     <Compile Include="EFModelValidate\UserInfoValidate.cs" />
     <Compile Include="Enum\DelFlagEnum.cs" />
