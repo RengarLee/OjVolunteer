@@ -14,17 +14,14 @@ namespace OjVolunteer.UIPortal.Controllers
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         public IMajorService MajorService { get; set; }
 
+
+        [ActionAuthentication(AbleOrganize = true, Super = true)]
         public ActionResult Index()
         {
             return View(LoginOrganize);
         }
 
         #region Query
-        [ActionAuthentication(AbleOrganize = true, Super = true)]
-        public ActionResult AllMajor()
-        {
-            return View(LoginOrganize);
-        }
 
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, Super =true)]
