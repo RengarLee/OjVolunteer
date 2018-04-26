@@ -427,13 +427,13 @@
     <Content Include="Views\OrganizeInfo\Create.cshtml" />
     <Content Include="Views\UserInfo\Create.cshtml" />
     <Content Include="Views\Activity\OrgCreate.cshtml" />
+    <Content Include="Views\ActivityType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\Icon\" />
     <Folder Include="Content\Upload\TalkImages\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\ActivityType\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
