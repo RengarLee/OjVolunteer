@@ -1,5 +1,4 @@
 ﻿
-
 @{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
@@ -18,15 +17,17 @@
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
+
     <script type="text/javascript">
         $(function () {
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                $.post("/Political/Add", { name: $("#add_political").val() }, function (data) {
+                $.post("/Major/Create", { MajorName: $("#add").val() }, function (data) {
                     if (data == "success") {
                         initTable();
                         alert("资料修改成功");
+                        $("#add").val("");
                     } else if (data == "fail") {
                         alert("修改失败");
                     } else if (data == "exist") {
@@ -42,10 +43,10 @@
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb_political").bootstrapTable('destroy');
-            $('#tb_political').bootstrapTable({
+            $("#tb_major").bootstrapTable('destroy');
+            $('#tb_major').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
-                url: '/Political/GetAllPolitical',         //请求后台的URL（*）
+                url: '/Major/GetAllMajor',         //请求后台的URL（*）
                 method: 'post',                      //请求方式（*）
                 toolbar: '#toolbar',
                 striped: true,                      //是否显示行间隔色
@@ -61,7 +62,7 @@
                 showRefresh: true,                  //是否显示刷新按钮
                 minimumCountColumns: 2,             //最少允许的列数
                 clickToSelect: true,
-                uniqueId: "PoliticalID",                     //每一行的唯一标识，一般为主键列
+                uniqueId: "MajorID",                     //每一行的唯一标识，一般为主键列
                 columns: [
                     {
                         field: 'checked',
@@ -69,14 +70,14 @@
                         width: '5%'
                     },
                     {
-                        field: 'PoliticalID',
+                        field: 'MajorID',
                         title: '专业编号',
                         width: '5%',
                         visible: false,
                         align: 'center',
                     },
                     {
-                        field: 'PoliticalName',
+                        field: 'MajorName',
                         title: '专业名称',
                         visible: true,
                         width: '10%',
@@ -106,7 +107,7 @@
                 onEditableSave: function (field, row, oldValue, $el) {
                     $.ajax({
                         type: "post",
-                        url: "/Political/Edit",
+                        url: "/Major/Edit",
                         data: row,
                         dataType: 'JSON',
                         success: function (data, status) {
@@ -126,14 +127,15 @@
                         complete: function () {
                             initTable();
                         }
-
                     });
                 }
             });
         };
 
+
+        //批量删除
         function removeSelectClickEvent() {
-            var selectedRows = $('#tb_political').bootstrapTable('getSelections', function (row) {
+            var selectedRows = $('#tb_major').bootstrapTable('getSelections', function (row) {
                 return row;
             });
             if (selectedRows.length <= 0) {
@@ -141,39 +143,34 @@
             }
             var ids = "";
             for (var key in selectedRows) {
-                ids += selectedRows[key].PoliticalID + ",";
+                ids += selectedRows[key].MajorID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            $.post("/Political/DeleteOfList", { ids, ids }, function (data) {
-                //初始化表格
-
+            $.post("/Major/DeleteOfList", { ids, ids }, function (data) {
                 if (data == "success") {
                     initTable();
-                    alert("操作成功");
+                    alert("删除成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("删操作失败,请稍后再试");
+                    alert("删除失败,请稍后再试");
                 }
             });
         }
-
-
     </script>
-    }
-
-    <div id="toolbar" class="btn-group">
-        <input id="add_political" />
-        <button id="btn_add" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <div>
-        <table id="tb_political"></table>
-    </div>
+}
+<div id="toolbar" class="btn-group">
+    <input id="add" />
+    <button id="btn_add" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+    </button>
+    <button id="btn_removes" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+    </button>
+</div>
+<div>
+    <table id="tb_major"></table>
+</div>
 
 
 

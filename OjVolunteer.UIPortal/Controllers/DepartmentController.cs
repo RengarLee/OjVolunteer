@@ -14,22 +14,13 @@ namespace OjVolunteer.UIPortal.Controllers
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         public IDepartmentService DepartmentService { get; set; }
 
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        #region  Query
-
-        /// <summary>
-        /// 组织进入学院信息管理界面
-        /// </summary>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
-        public ActionResult AllDepartment()
         {
             return View(LoginOrganize);
         }
+
+        #region  Query
 
         /// <summary>
         /// 加载学院信息
@@ -48,7 +39,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Add
+        #region Create
 
         /// <summary>
         /// 添加学院信息
@@ -56,28 +47,25 @@ namespace OjVolunteer.UIPortal.Controllers
         /// <returns></returns>
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
-        public ActionResult Add(string name)
+        public ActionResult Create(Department department)
         {
-            Department department = DepartmentService.GetEntities(p => p.DepartmentName.Equals(name)).FirstOrDefault();
-            if (department != null)
+            if (ModelState.IsValid)
             {
-                return Content("exist");
+                if (DepartmentService.GetEntities(p => p.DepartmentName.Equals(department.DepartmentName)&&p.Status == delNormal).Count() > 0)
+                {
+                    return Content("exist");
+                }
+
+                department.CreateTime = DateTime.Now;
+                department.ModfiedOn = DateTime.Now;
+                department.Status = delNormal;
+
+                if (DepartmentService.Add(department) != null)
+                {
+                    return Content("success");
+                }
             }
-            department = new Department
-            {
-                DepartmentName = name,
-                CreateTime = DateTime.Now,
-                ModfiedOn = DateTime.Now,
-                Status = delNormal
-            };
-            if (DepartmentService.Add(department) != null)
-            {
-                return Content("success");
-            }
-            else
-            {
-                return Content("fail");
-            }
+            return Content("fail");
         }
         #endregion
 

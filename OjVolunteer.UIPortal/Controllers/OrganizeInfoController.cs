@@ -104,8 +104,6 @@ namespace OjVolunteer.UIPortal.Controllers
             return View(LoginOrganize);
         }
 
-        
-
         /// <summary>
         /// 加载未审核的组织信息
         /// </summary>
@@ -139,9 +137,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 if (String.IsNullOrEmpty(organizeInfo.OrganizeInfoIcon))
                 {
-                    String Test = System.Configuration.ConfigurationManager.AppSettings["DalAssemblyName"];
-                    String iconPath = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
-                    organizeInfo.OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+                     organizeInfo.OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
                 }
                 //organizeInfo.OrganizeInfoPwd = MD5Helper.Get_MD5(organizeInfo.OrganizeInfoPwd);
                 organizeInfo.OrganizeInfoManageId = LoginOrganize.OrganizeInfoID;

@@ -22,8 +22,8 @@ namespace OjVolunteer.Model
     
         public int ActivityTypeID { get; set; }
         public string ActivityTypeName { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<System.DateTime> ModfiedOn { get; set; }
+        public System.DateTime CreateTime { get; set; }
+        public System.DateTime ModfiedOn { get; set; }
         public string Remark { get; set; }
         public short Status { get; set; }
     

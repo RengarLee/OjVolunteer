@@ -191,8 +191,12 @@ namespace OjVolunteer.UIPortal.Controllers
         [HttpPost]
         public ActionResult Create(UserInfo userInfo)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                if (String.IsNullOrEmpty(userInfo.UserInfoIcon))
+                {
+                    userInfo.UserInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+                }
                 userInfo.UserInfoTalkCount = 0;
                 userInfo.CreateTime = DateTime.Now;
                 userInfo.ModfiedOn = userInfo.CreateTime;

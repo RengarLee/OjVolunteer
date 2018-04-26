@@ -1,34 +1,35 @@
 ﻿
+
 @{
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
-
 @section css{
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
 }
 @section script{
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
-    <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>
-    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Content/bootstrap-table/xlsx.full.min.js"></script>
 
+    <script src="~/Content/bootstrap-table/tableExport.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-export.js"></script>
+
+
+
+    <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                $.post("/Major/Add", { name: $("#add").val() }, function (data) {
+                $.post("/Department/Create", { DepartmentName: $("#add_department").val() }, function (data) {
                     if (data == "success") {
                         initTable();
-                        alert("资料修改成功");
+                        alert("操作成功");
                     } else if (data == "fail") {
-                        alert("修改失败");
+                        alert("操作失败");
                     } else if (data == "exist") {
                         alert("该专业名存在");
                     }
@@ -42,10 +43,10 @@
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb_major").bootstrapTable('destroy');
-            $('#tb_major').bootstrapTable({
+            $("#tb_department").bootstrapTable('destroy');
+            $('#tb_department').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
-                url: '/Major/GetAllMajor',         //请求后台的URL（*）
+                url: '/Department/GetAllDepartment',         //请求后台的URL（*）
                 method: 'post',                      //请求方式（*）
                 toolbar: '#toolbar',
                 striped: true,                      //是否显示行间隔色
@@ -57,11 +58,13 @@
                 pageSize: 10,                       //每页的记录行数（*）
                 pageList: [10, 20, 50, 100],        //可供选择的每页的行数（*）
                 smartDisplay: false,
-                showColumns: true,                  //是否显示所有的列
-                showRefresh: true,                  //是否显示刷新按钮
-                minimumCountColumns: 2,             //最少允许的列数
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 2,
                 clickToSelect: true,
-                uniqueId: "MajorID",                     //每一行的唯一标识，一般为主键列
+                showExport: true,
+                exportDataType: "all",
+                uniqueId: "DepartmentID",                     //每一行的唯一标识，一般为主键列
                 columns: [
                     {
                         field: 'checked',
@@ -69,14 +72,14 @@
                         width: '5%'
                     },
                     {
-                        field: 'MajorID',
+                        field: 'DepartmentID',
                         title: '专业编号',
                         width: '5%',
                         visible: false,
                         align: 'center',
                     },
                     {
-                        field: 'MajorName',
+                        field: 'DepartmentName',
                         title: '专业名称',
                         visible: true,
                         width: '10%',
@@ -106,7 +109,7 @@
                 onEditableSave: function (field, row, oldValue, $el) {
                     $.ajax({
                         type: "post",
-                        url: "/Major/Edit",
+                        url: "/Department/Edit",
                         data: row,
                         dataType: 'JSON',
                         success: function (data, status) {
@@ -126,15 +129,14 @@
                         complete: function () {
                             initTable();
                         }
-                    });
+                    })
                 }
             });
         };
 
 
-        //批量删除
         function removeSelectClickEvent() {
-            var selectedRows = $('#tb_major').bootstrapTable('getSelections', function (row) {
+            var selectedRows = $('#tb_department').bootstrapTable('getSelections', function (row) {
                 return row;
             });
             if (selectedRows.length <= 0) {
@@ -142,34 +144,40 @@
             }
             var ids = "";
             for (var key in selectedRows) {
-                ids += selectedRows[key].MajorID + ",";
+                ids += selectedRows[key].DepartmentID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            $.post("/Major/DeleteOfList", { ids, ids }, function (data) {
+            $.post("/Department/DeleteOfList", { ids, ids }, function (data) {
+                //初始化表格
+
                 if (data == "success") {
                     initTable();
-                    alert("删除成功");
+                    alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
-                    alert("删除失败,请稍后再试");
+                    alert("操作失败,请稍后再试");
                 }
             });
         }
+
     </script>
 }
-    <div id="toolbar" class="btn-group">
-        <input id="add" />
-        <button id="btn_add" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <div>
-        <table id="tb_major"></table>
-    </div>
+
+<div id="toolbar" class="btn-group">
+    <input id="add_department" />
+    <button id="btn_add" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+    </button>
+    <button id="btn_removes" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+    </button>
+    <button type="button" id="download" style="margin-left:50px" id="btn_download" class="btn btn-primary" onClick="$('#tb_department').tableExport({ type: 'excel', escape: 'false' })">数据导出</button>
+</div>
+<div>
+    <table id="tb_department"></table>
+</div>
+
 
 
 

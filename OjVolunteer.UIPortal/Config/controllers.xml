@@ -48,4 +48,11 @@
   <object type="OjVolunteer.UIPortal.Controllers.TalksController, OjVolunteer.UIPortal" singleton="false" >
     <property name="TalksService" ref="TalksService" ></property>
   </object>
+
+  <object type="OjVolunteer.UIPortal.Controllers.ActivityController, OjVolunteer.UIPortal" singleton="false" >
+    <property name="ActivityService" ref="ActivityService" ></property>
+    <property name="ActivityTypeService" ref="ActivityTypeService" ></property>
+    <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
+    <property name="MajorService" ref="MajorService" ></property>
+  </object>
 </objects>

@@ -17,7 +17,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return View(LoginOrganize);
         }
 
         #region  Query
@@ -46,32 +46,28 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Add
+        #region Create
 
         [HttpPost]
-        public ActionResult Add(String name)
+        public ActionResult Create(Political political)
         {
-            Political political = PoliticalService.GetEntities(p =>p.PoliticalName.Equals(name)).FirstOrDefault();
-            if (political != null)
+            if (ModelState.IsValid)
             {
-                return Content("exist");
+                if (PoliticalService.GetEntities(p => p.PoliticalName.Equals(political.PoliticalName)&& p.Status == delNormal).Count() > 0)
+                {
+                    return Content("exist");
+                }
+                political.CreateTime = DateTime.Now;
+                political.ModfiedOn = DateTime.Now;
+                political.Status = delNormal;
+                if (PoliticalService.Add(political) != null)
+                {
+                    return Content("success");
+                }
             }
-            political = new Political
-            {
-                PoliticalName = name,
-                CreateTime = DateTime.Now,
-                ModfiedOn = DateTime.Now,
-                Status = delNormal
-            };
-            if (PoliticalService.Add(political) != null)
-            {
-                return Content("success");
-            }
-            else
-            {
-                return Content("fail");
-            }
+            return Content("fail");
         }
+         
         #endregion
 
         #region Edit

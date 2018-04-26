@@ -180,6 +180,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\ActivityTypeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -412,11 +413,8 @@
     <Content Include="Views\UserInfo\AllUserInfo.cshtml" />
     <Content Include="Views\UserInfo\UserOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\AllOrganizeInfo.cshtml" />
-    <Content Include="Views\Major\AllMajor.cshtml" />
     <Content Include="Views\Talks\TalkDetail.cshtml" />
     <Content Include="Views\OrganizeInfo\OrganizeDetail.cshtml" />
-    <Content Include="Views\Political\AllPolitical.cshtml" />
-    <Content Include="Views\Department\AllDepartment.cshtml" />
     <Content Include="Views\Talks\TalksOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\Edit.cshtml" />
     <Content Include="Views\UserInfo\OrgEditUser.cshtml" />
@@ -425,13 +423,17 @@
     <Content Include="Views\UserInfo\UserEditUser.cshtml" />
     <Content Include="Views\OrganizeInfo\Create.cshtml" />
     <Content Include="Views\UserInfo\Create.cshtml" />
+    <Content Include="Views\Activity\OrgCreate.cshtml" />
+    <Content Include="Views\ActivityType\Index.cshtml" />
+    <Content Include="Views\Major\Index.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Political\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\Icon\" />
     <Folder Include="Content\Upload\TalkImages\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\ActivityType\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
