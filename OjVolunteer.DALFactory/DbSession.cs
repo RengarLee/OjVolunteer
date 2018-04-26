@@ -19,6 +19,7 @@ namespace OjVolunteer.DALFactory
             }
             catch (DbEntityValidationException dbEx)
             {
+                return 0;
                 throw;
             }
         }

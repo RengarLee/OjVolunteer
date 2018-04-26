@@ -4,212 +4,211 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="OjVolunteerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008">
+    <Schema Namespace="OjVolunteerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityID" />
           </Key>
-          <Property Name="ActivityID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="ActivityName" Nullable="false" MaxLength="20" Type="nvarchar" />
-          <Property Name="ActivityIcon" Nullable="false" MaxLength="100" Type="nvarchar" />
-          <Property Name="ActivityTypeID" Nullable="false" Type="int" />
-          <Property Name="ActivityAddress" Nullable="false" MaxLength="100" Type="nvarchar" />
-          <Property Name="ActivityAddressX" Nullable="false" Precision="10" Scale="6" Type="decimal" />
-          <Property Name="ActivityAddressY" Nullable="false" Precision="10" Scale="6" Type="decimal" />
-          <Property Name="ActivityContent" Nullable="false" MaxLength="500" Type="nvarchar" />
-          <Property Name="ActivityPrediNum" Nullable="false" Type="int" />
-          <Property Name="ActivityManagerID" Nullable="false" Type="int" />
+          <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ActivityIcon" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActivityTypeID" Type="int" Nullable="false" />
+          <Property Name="ActivityAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActivityAddressX" Type="decimal" Precision="10" Scale="10" />
+          <Property Name="ActivityAddressY" Type="decimal" Precision="10" Scale="10" />
+          <Property Name="ActivityContent" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ActivityPrediNum" Type="int" Nullable="false" />
+          <Property Name="ActivityManagerID" Type="int" Nullable="false" />
           <Property Name="ActivityApplyUserInfoID" Type="int" />
           <Property Name="ActivityApplyOrganizeID" Type="int" />
-          <Property Name="AuditOrganizeInfoID" Nullable="false" Type="int" />
-          <Property Name="ActivityClicks" Nullable="false" Type="int" />
-          <Property Name="ActivityEnrollEnd" Nullable="false" Type="datetime" />
-          <Property Name="ActivityEnrollStart" Nullable="false" Type="datetime" />
-          <Property Name="ActivityStart" Nullable="false" Type="datetime" />
-          <Property Name="ActivityEnd" Nullable="false" Type="datetime" />
-          <Property Name="ActivityPolitical" Nullable="false" MaxLength="50" Type="nvarchar" />
-          <Property Name="ActivityMajor" Nullable="false" MaxLength="50" Type="nvarchar" />
-          <Property Name="ActivityDepartment" Nullable="false" MaxLength="50" Type="nvarchar" />
+          <Property Name="ActivityClicks" Type="int" Nullable="false" />
+          <Property Name="ActivityEnrollEnd" Type="datetime" Nullable="false" />
+          <Property Name="ActivityEnrollStart" Type="datetime" Nullable="false" />
+          <Property Name="ActivityStart" Type="datetime" />
+          <Property Name="ActivityEnd" Type="datetime" />
+          <Property Name="ActivityPolitical" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ActivityMajor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ActivityDepartment" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="ActivityDetail">
           <Key>
             <PropertyRef Name="ActivityDetailID" />
           </Key>
-          <Property Name="ActivityDetailID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="UserInfoId" Nullable="false" Type="int" />
+          <Property Name="ActivityDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserInfoId" Type="int" Nullable="false" />
           <Property Name="ActivityID" Type="int" />
-          <Property Name="ActivityDetailTime" Nullable="false" Precision="10" Scale="2" Type="decimal" />
+          <Property Name="ActivityDetailTime" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="ActivityType">
           <Key>
             <PropertyRef Name="ActivityTypeID" />
           </Key>
-          <Property Name="ActivityTypeID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="ActivityTypeName" Nullable="false" MaxLength="20" Type="nvarchar" />
-          <Property Name="CreateTime" Nullable="false" Type="datetime" />
-          <Property Name="ModfiedOn" Nullable="false" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="ActivityTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityTypeName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentID" />
           </Key>
-          <Property Name="DepartmentID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="DepartmentName" Nullable="false" MaxLength="20" Type="nvarchar" />
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Favors">
           <Key>
             <PropertyRef Name="FavorID" />
           </Key>
-          <Property Name="FavorID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="TalkID" Nullable="false" Type="int" />
-          <Property Name="UserInfoID" Nullable="false" Type="int" />
+          <Property Name="FavorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TalkID" Type="int" Nullable="false" />
+          <Property Name="UserInfoID" Type="int" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Integrals">
           <Key>
             <PropertyRef Name="IntegralID" />
           </Key>
-          <Property Name="IntegralID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="UserInfoID" Nullable="false" Type="int" />
-          <Property Name="IntegralNum" Nullable="false" Type="int" />
-          <Property Name="IntegralIndex" Precision="5" Scale="2" Type="decimal" />
+          <Property Name="IntegralID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserInfoID" Type="int" Nullable="false" />
+          <Property Name="IntegralNum" Type="int" Nullable="false" />
+          <Property Name="IntegralIndex" Type="decimal" Precision="5" Scale="2" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Major">
           <Key>
             <PropertyRef Name="MajorID" />
           </Key>
-          <Property Name="MajorID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="MajorName" Nullable="false" MaxLength="50" Type="nvarchar" />
+          <Property Name="MajorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MajorName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="OrganizeInfo">
           <Key>
             <PropertyRef Name="OrganizeInfoID" />
           </Key>
-          <Property Name="OrganizeInfoID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="OrganizeInfoLoginId" Nullable="false" MaxLength="20" Type="nvarchar" />
-          <Property Name="OrganizeInfoShowName" Nullable="false" MaxLength="20" Type="nvarchar" />
-          <Property Name="OrganizeInfoPwd" Nullable="false" MaxLength="50" Type="nvarchar" />
-          <Property Name="OrganizeInfoPeople" Nullable="false" MaxLength="20" Type="nvarchar" />
-          <Property Name="OrganizeInfoPhone" Nullable="false" MaxLength="20" Type="nvarchar" />
-          <Property Name="OrganizeInfoEmail" MaxLength="20" Type="nvarchar" />
+          <Property Name="OrganizeInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrganizeInfoLoginId" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizeInfoShowName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizeInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrganizeInfoPeople" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizeInfoPhone" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OrganizeInfoEmail" Type="nvarchar" MaxLength="20" />
           <Property Name="OrganizeInfoManageId" Type="int" />
-          <Property Name="OrganizeInfoLastTime" Nullable="false" Type="datetime" />
-          <Property Name="CreateTime" Nullable="false" Type="datetime" />
-          <Property Name="ModfiedOn" Nullable="false" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
-          <Property Name="OrganizeInfoIcon" Nullable="false" MaxLength="200" Type="nvarchar" />
-          <Property Name="ActivityCount" Nullable="false" Type="int" />
+          <Property Name="OrganizeInfoLastTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="OrganizeInfoIcon" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ActivityCount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Political">
           <Key>
             <PropertyRef Name="PoliticalID" />
           </Key>
-          <Property Name="PoliticalID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="PoliticalName" Nullable="false" MaxLength="20" Type="nvarchar" />
+          <Property Name="PoliticalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PoliticalName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="Talks">
           <Key>
             <PropertyRef Name="TalkID" />
           </Key>
-          <Property Name="TalkID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="TalkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserInfoID" Type="int" />
-          <Property Name="TalkContent" Nullable="false" MaxLength="500" Type="nvarchar" />
+          <Property Name="TalkContent" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="TalkFavorsNum" Type="int" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="OrganizeInfoID" Type="int" />
-          <Property Name="TalkImagePath" MaxLength="200" Type="nvarchar" />
+          <Property Name="TalkImagePath" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="UserDuration">
           <Key>
             <PropertyRef Name="UserDurationID" />
           </Key>
-          <Property Name="UserDurationID" Nullable="false" Type="int" />
-          <Property Name="UserDurationTotal" Precision="10" Scale="2" Type="decimal" />
-          <Property Name="UserDurationPropartyTotal" Precision="10" Scale="2" Type="decimal" />
-          <Property Name="UserDurationPartyTotal" Precision="10" Scale="2" Type="decimal" />
+          <Property Name="UserDurationID" Type="int" Nullable="false" />
+          <Property Name="UserDurationTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationPropartyTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UserDurationPartyTotal" Type="decimal" Precision="10" Scale="2" />
           <Property Name="UserDurationPropartyTime" Type="datetime" />
           <Property Name="UserDurationPartyTime" Type="datetime" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
-          <Property Name="UserDurationNormalTotal" Precision="10" Scale="2" Type="decimal" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="UserDurationNormalTotal" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="UserEnroll">
           <Key>
             <PropertyRef Name="UserEnrollID" />
           </Key>
-          <Property Name="UserEnrollID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="ActivityID" Nullable="false" Type="int" />
-          <Property Name="UserInfoID" Nullable="false" Type="int" />
+          <Property Name="UserEnrollID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityID" Type="int" Nullable="false" />
+          <Property Name="UserInfoID" Type="int" Nullable="false" />
           <Property Name="UserEnrollStart" Type="datetime" />
-          <Property Name="UserEnrollActivityStart" Nullable="false" Type="datetime" />
-          <Property Name="UserEnrollActivityEnd" Nullable="false" Type="datetime" />
+          <Property Name="UserEnrollActivityStart" Type="datetime" Nullable="false" />
+          <Property Name="UserEnrollActivityEnd" Type="datetime" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInfo">
           <Key>
             <PropertyRef Name="UserInfoID" />
           </Key>
-          <Property Name="UserInfoID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-          <Property Name="UserInfoLoginId" Nullable="false" MaxLength="50" Type="nvarchar" />
-          <Property Name="UserInfoPwd" Nullable="false" MaxLength="50" Type="nvarchar" />
-          <Property Name="UserInfoStuId" MaxLength="20" Type="nvarchar" />
-          <Property Name="UserInfoShowName" Nullable="false" MaxLength="20" Type="nvarchar" />
-          <Property Name="UserInfoPhone" MaxLength="20" Type="nvarchar" />
-          <Property Name="UserInfoEmail" MaxLength="20" Type="nvarchar" />
+          <Property Name="UserInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserInfoLoginId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserInfoPwd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserInfoStuId" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserInfoShowName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserInfoPhone" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserInfoEmail" Type="nvarchar" MaxLength="20" />
           <Property Name="MajorID" Type="int" />
           <Property Name="DepartmentID" Type="int" />
-          <Property Name="PoliticalID" Nullable="false" Type="int" />
+          <Property Name="PoliticalID" Type="int" Nullable="false" />
           <Property Name="UpdatePoliticalID" Type="int" />
-          <Property Name="OrganizeInfoID" Nullable="false" Type="int" />
-          <Property Name="UserInfoLastTime" Nullable="false" Type="datetime" />
-          <Property Name="CreateTime" Nullable="false" Type="datetime" />
-          <Property Name="ModfiedOn" Nullable="false" Type="datetime" />
-          <Property Name="Remark" MaxLength="100" Type="nvarchar" />
-          <Property Name="Status" Nullable="false" Type="smallint" />
-          <Property Name="UserInfoIcon" Nullable="false" MaxLength="200" Type="nvarchar" />
-          <Property Name="UserInfoTalkCount" Nullable="false" Type="int" />
+          <Property Name="OrganizeInfoID" Type="int" Nullable="false" />
+          <Property Name="UserInfoLastTime" Type="datetime" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="ModfiedOn" Type="datetime" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserInfoTalkCount" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
-          <End Type="Self.OrganizeInfo" Multiplicity="0..1" Role="OrganizeInfo" />
-          <End Type="Self.Activity" Multiplicity="*" Role="Activity" />
+          <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrganizeInfo">
               <PropertyRef Name="OrganizeInfoID" />
@@ -220,8 +219,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITY_REFERENCE_USERINFO">
-          <End Type="Self.UserInfo" Multiplicity="0..1" Role="UserInfo" />
-          <End Type="Self.Activity" Multiplicity="*" Role="Activity" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -231,21 +230,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE">
-          <End Type="Self.OrganizeInfo" Multiplicity="1" Role="OrganizeInfo" />
-          <End Type="Self.Activity" Multiplicity="*" Role="Activity" />
-          <ReferentialConstraint>
-            <Principal Role="OrganizeInfo">
-              <PropertyRef Name="OrganizeInfoID" />
-            </Principal>
-            <Dependent Role="Activity">
-              <PropertyRef Name="AuditOrganizeInfoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY">
-          <End Type="Self.Activity" Multiplicity="0..1" Role="Activity" />
-          <End Type="Self.ActivityDetail" Multiplicity="*" Role="ActivityDetail" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="0..1" />
+          <End Role="ActivityDetail" Type="Self.ActivityDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Activity">
               <PropertyRef Name="ActivityID" />
@@ -256,8 +243,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITYDETAIL_REFERENCE_USERINFO">
-          <End Type="Self.UserInfo" Multiplicity="1" Role="UserInfo" />
-          <End Type="Self.ActivityDetail" Multiplicity="*" Role="ActivityDetail" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="ActivityDetail" Type="Self.ActivityDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -268,8 +255,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITYMANAGER_REFERENCE_USERINFO">
-          <End Type="Self.UserInfo" Multiplicity="1" Role="UserInfo" />
-          <End Type="Self.Activity" Multiplicity="*" Role="Activity" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -280,8 +267,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ACTIVITYTYPE_REFERENCE_ACTIVITY">
-          <End Type="Self.ActivityType" Multiplicity="1" Role="ActivityType" />
-          <End Type="Self.Activity" Multiplicity="*" Role="Activity" />
+          <End Role="ActivityType" Type="Self.ActivityType" Multiplicity="1" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ActivityType">
               <PropertyRef Name="ActivityTypeID" />
@@ -292,8 +279,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FAVORS_REFERENCE_TALKS">
-          <End Type="Self.Talks" Multiplicity="1" Role="Talks" />
-          <End Type="Self.Favors" Multiplicity="*" Role="Favors" />
+          <End Role="Talks" Type="Self.Talks" Multiplicity="1" />
+          <End Role="Favors" Type="Self.Favors" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Talks">
               <PropertyRef Name="TalkID" />
@@ -304,8 +291,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FAVORS_REFERENCE_USERINFO">
-          <End Type="Self.UserInfo" Multiplicity="1" Role="UserInfo" />
-          <End Type="Self.Favors" Multiplicity="*" Role="Favors" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Favors" Type="Self.Favors" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -316,8 +303,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_INTEGRAL_REFERENCE_USERINFO">
-          <End Type="Self.UserInfo" Multiplicity="1" Role="UserInfo" />
-          <End Type="Self.Integrals" Multiplicity="*" Role="Integrals" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Integrals" Type="Self.Integrals" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -328,8 +315,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Talks_OrganizeInfo">
-          <End Type="Self.OrganizeInfo" Multiplicity="0..1" Role="OrganizeInfo" />
-          <End Type="Self.Talks" Multiplicity="*" Role="Talks" />
+          <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
+          <End Role="Talks" Type="Self.Talks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrganizeInfo">
               <PropertyRef Name="OrganizeInfoID" />
@@ -340,8 +327,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Talks_UserInfo">
-          <End Type="Self.UserInfo" Multiplicity="0..1" Role="UserInfo" />
-          <End Type="Self.Talks" Multiplicity="*" Role="Talks" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="Talks" Type="Self.Talks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -352,8 +339,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserDuration_UserInfo">
-          <End Type="Self.UserInfo" Multiplicity="1" Role="UserInfo" />
-          <End Type="Self.UserDuration" Multiplicity="0..1" Role="UserDuration" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserDuration" Type="Self.UserDuration" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -364,8 +351,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERENRO_REFERENCE_ACTIVITY">
-          <End Type="Self.Activity" Multiplicity="1" Role="Activity" />
-          <End Type="Self.UserEnroll" Multiplicity="*" Role="UserEnroll" />
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+          <End Role="UserEnroll" Type="Self.UserEnroll" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Activity">
               <PropertyRef Name="ActivityID" />
@@ -376,8 +363,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERENRO_REFERENCE_USERINFO">
-          <End Type="Self.UserInfo" Multiplicity="1" Role="UserInfo" />
-          <End Type="Self.UserEnroll" Multiplicity="*" Role="UserEnroll" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserEnroll" Type="Self.UserEnroll" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserInfo">
               <PropertyRef Name="UserInfoID" />
@@ -388,8 +375,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_DEPARTME">
-          <End Type="Self.Department" Multiplicity="0..1" Role="Department" />
-          <End Type="Self.UserInfo" Multiplicity="*" Role="UserInfo" />
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Department">
               <PropertyRef Name="DepartmentID" />
@@ -400,8 +387,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_MAJOR">
-          <End Type="Self.Major" Multiplicity="0..1" Role="Major" />
-          <End Type="Self.UserInfo" Multiplicity="*" Role="UserInfo" />
+          <End Role="Major" Type="Self.Major" Multiplicity="0..1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Major">
               <PropertyRef Name="MajorID" />
@@ -412,8 +399,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_ORGANIZE">
-          <End Type="Self.OrganizeInfo" Multiplicity="1" Role="OrganizeInfo" />
-          <End Type="Self.UserInfo" Multiplicity="*" Role="UserInfo" />
+          <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrganizeInfo">
               <PropertyRef Name="OrganizeInfoID" />
@@ -424,8 +411,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USERINFO_REFERENCE_POLITICA">
-          <End Type="Self.Political" Multiplicity="1" Role="Political" />
-          <End Type="Self.UserInfo" Multiplicity="*" Role="UserInfo" />
+          <End Role="Political" Type="Self.Political" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Political">
               <PropertyRef Name="PoliticalID" />
@@ -436,8 +423,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserInfo_UpdatePolitical">
-          <End Type="Self.Political" Multiplicity="0..1" Role="Political" />
-          <End Type="Self.UserInfo" Multiplicity="*" Role="UserInfo" />
+          <End Role="Political" Type="Self.Political" Multiplicity="0..1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Political">
               <PropertyRef Name="PoliticalID" />
@@ -462,84 +449,80 @@
           <EntitySet Name="UserEnroll" EntityType="Self.UserEnroll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ACTIVITY_REFERENCE_ORGANIZE" Association="Self.FK_ACTIVITY_REFERENCE_ORGANIZE">
-            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
-            <End EntitySet="Activity" Role="Activity" />
+            <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
+            <End Role="Activity" EntitySet="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITY_REFERENCE_USERINFO" Association="Self.FK_ACTIVITY_REFERENCE_USERINFO">
-            <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="Activity" Role="Activity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" Association="Self.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE">
-            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
-            <End EntitySet="Activity" Role="Activity" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Activity" EntitySet="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" Association="Self.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY">
-            <End EntitySet="Activity" Role="Activity" />
-            <End EntitySet="ActivityDetail" Role="ActivityDetail" />
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="ActivityDetail" EntitySet="ActivityDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYDETAIL_REFERENCE_USERINFO" Association="Self.FK_ACTIVITYDETAIL_REFERENCE_USERINFO">
-            <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="ActivityDetail" Role="ActivityDetail" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="ActivityDetail" EntitySet="ActivityDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYMANAGER_REFERENCE_USERINFO" Association="Self.FK_ACTIVITYMANAGER_REFERENCE_USERINFO">
-            <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="Activity" Role="Activity" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Activity" EntitySet="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" Association="Self.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY">
-            <End EntitySet="ActivityType" Role="ActivityType" />
-            <End EntitySet="Activity" Role="Activity" />
+            <End Role="ActivityType" EntitySet="ActivityType" />
+            <End Role="Activity" EntitySet="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_FAVORS_REFERENCE_TALKS" Association="Self.FK_FAVORS_REFERENCE_TALKS">
-            <End EntitySet="Talks" Role="Talks" />
-            <End EntitySet="Favors" Role="Favors" />
+            <End Role="Talks" EntitySet="Talks" />
+            <End Role="Favors" EntitySet="Favors" />
           </AssociationSet>
           <AssociationSet Name="FK_FAVORS_REFERENCE_USERINFO" Association="Self.FK_FAVORS_REFERENCE_USERINFO">
-            <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="Favors" Role="Favors" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Favors" EntitySet="Favors" />
           </AssociationSet>
           <AssociationSet Name="FK_INTEGRAL_REFERENCE_USERINFO" Association="Self.FK_INTEGRAL_REFERENCE_USERINFO">
-            <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="Integrals" Role="Integrals" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Integrals" EntitySet="Integrals" />
           </AssociationSet>
           <AssociationSet Name="FK_Talks_OrganizeInfo" Association="Self.FK_Talks_OrganizeInfo">
-            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
-            <End EntitySet="Talks" Role="Talks" />
+            <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
+            <End Role="Talks" EntitySet="Talks" />
           </AssociationSet>
           <AssociationSet Name="FK_Talks_UserInfo" Association="Self.FK_Talks_UserInfo">
-            <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="Talks" Role="Talks" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Talks" EntitySet="Talks" />
           </AssociationSet>
           <AssociationSet Name="FK_UserDuration_UserInfo" Association="Self.FK_UserDuration_UserInfo">
-            <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="UserDuration" Role="UserDuration" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserDuration" EntitySet="UserDuration" />
           </AssociationSet>
           <AssociationSet Name="FK_USERENRO_REFERENCE_ACTIVITY" Association="Self.FK_USERENRO_REFERENCE_ACTIVITY">
-            <End EntitySet="Activity" Role="Activity" />
-            <End EntitySet="UserEnroll" Role="UserEnroll" />
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="UserEnroll" EntitySet="UserEnroll" />
           </AssociationSet>
           <AssociationSet Name="FK_USERENRO_REFERENCE_USERINFO" Association="Self.FK_USERENRO_REFERENCE_USERINFO">
-            <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="UserEnroll" Role="UserEnroll" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserEnroll" EntitySet="UserEnroll" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_DEPARTME" Association="Self.FK_USERINFO_REFERENCE_DEPARTME">
-            <End EntitySet="Department" Role="Department" />
-            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End Role="Department" EntitySet="Department" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_MAJOR" Association="Self.FK_USERINFO_REFERENCE_MAJOR">
-            <End EntitySet="Major" Role="Major" />
-            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End Role="Major" EntitySet="Major" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_ORGANIZE" Association="Self.FK_USERINFO_REFERENCE_ORGANIZE">
-            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
-            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_USERINFO_REFERENCE_POLITICA" Association="Self.FK_USERINFO_REFERENCE_POLITICA">
-            <End EntitySet="Political" Role="Political" />
-            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End Role="Political" EntitySet="Political" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_UserInfo_UpdatePolitical" Association="Self.FK_UserInfo_UpdatePolitical">
-            <End EntitySet="Political" Role="Political" />
-            <End EntitySet="UserInfo" Role="UserInfo" />
+            <End Role="Political" EntitySet="Political" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -566,10 +549,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITY_REFERENCE_USERINFO" Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO">
             <End EntitySet="UserInfo" Role="UserInfo" />
-            <End EntitySet="Activity" Role="Activity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" Association="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE">
-            <End EntitySet="OrganizeInfo" Role="OrganizeInfo" />
             <End EntitySet="Activity" Role="Activity" />
           </AssociationSet>
           <AssociationSet Name="FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" Association="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY">
@@ -650,19 +629,18 @@
           <Property Name="ActivityIcon" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="ActivityTypeID" Nullable="false" Type="Int32" />
           <Property Name="ActivityAddress" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="ActivityAddressX" Precision="10" Scale="6" Type="Decimal" Nullable="false" />
-          <Property Name="ActivityAddressY" Precision="10" Scale="6" Type="Decimal" Nullable="false" />
+          <Property Name="ActivityAddressX" Precision="10" Scale="10" Type="Decimal" />
+          <Property Name="ActivityAddressY" Precision="10" Scale="10" Type="Decimal" />
           <Property Name="ActivityContent" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="ActivityPrediNum" Nullable="false" Type="Int32" />
           <Property Name="ActivityManagerID" Nullable="false" Type="Int32" />
           <Property Name="ActivityApplyUserInfoID" Type="Int32" />
           <Property Name="ActivityApplyOrganizeID" Type="Int32" />
-          <Property Name="AuditOrganizeInfoID" Nullable="false" Type="Int32" />
           <Property Name="ActivityClicks" Nullable="false" Type="Int32" />
           <Property Name="ActivityEnrollEnd" Nullable="false" Precision="3" Type="DateTime" />
           <Property Name="ActivityEnrollStart" Nullable="false" Precision="3" Type="DateTime" />
-          <Property Name="ActivityStart" Nullable="false" Precision="3" Type="DateTime" />
-          <Property Name="ActivityEnd" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="ActivityStart" Precision="3" Type="DateTime" />
+          <Property Name="ActivityEnd" Precision="3" Type="DateTime" />
           <Property Name="ActivityPolitical" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="ActivityMajor" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="ActivityDepartment" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
@@ -672,7 +650,6 @@
           <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="ApplyOrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
           <NavigationProperty Name="ApplyUserInfo" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
-          <NavigationProperty Name="AuditOrganizeInfo" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="Activity" ToRole="OrganizeInfo" />
           <NavigationProperty Name="ActivityDetail" Relationship="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="ActivityDetail" />
           <NavigationProperty Name="ManagerUserInfo" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
           <NavigationProperty Name="ActivityType" Relationship="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="ActivityType" />
@@ -774,7 +751,6 @@
           <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="Status" Nullable="false" Type="Int16" />
           <NavigationProperty Name="ApplyActivity" Relationship="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
-          <NavigationProperty Name="AuditActivity" Relationship="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" FromRole="OrganizeInfo" ToRole="Activity" />
           <Property Name="OrganizeInfoIcon" MaxLength="200" FixedLength="false" Unicode="true" Type="String" Nullable="false" />
           <Property Name="OrganizeInfoLoginId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="ActivityCount" Type="Int32" Nullable="false" />
@@ -904,18 +880,6 @@
             </Principal>
             <Dependent Role="Activity">
               <PropertyRef Name="ActivityApplyUserInfoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE">
-          <End Type="OjVolunteerModel.OrganizeInfo" Multiplicity="1" Role="OrganizeInfo" />
-          <End Type="OjVolunteerModel.Activity" Multiplicity="*" Role="Activity" />
-          <ReferentialConstraint>
-            <Principal Role="OrganizeInfo">
-              <PropertyRef Name="OrganizeInfoID" />
-            </Principal>
-            <Dependent Role="Activity">
-              <PropertyRef Name="AuditOrganizeInfoID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1144,7 +1108,6 @@
           <ScalarProperty Name="ActivityManagerID" ColumnName="ActivityManagerID" />
           <ScalarProperty Name="ActivityApplyUserInfoID" ColumnName="ActivityApplyUserInfoID" />
           <ScalarProperty Name="ActivityApplyOrganizeID" ColumnName="ActivityApplyOrganizeID" />
-          <ScalarProperty Name="AuditOrganizeInfoID" ColumnName="AuditOrganizeInfoID" />
           <ScalarProperty Name="ActivityClicks" ColumnName="ActivityClicks" />
           <ScalarProperty Name="ActivityEnrollEnd" ColumnName="ActivityEnrollEnd" />
           <ScalarProperty Name="ActivityEnrollStart" ColumnName="ActivityEnrollStart" />

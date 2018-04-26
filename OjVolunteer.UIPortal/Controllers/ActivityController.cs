@@ -46,9 +46,9 @@ namespace OjVolunteer.UIPortal.Controllers
             if (ModelState.IsValid)
             {
                 //添加活动条件
-                activity.ActivityPolitical = Request["politicalIds"];
-                activity.ActivityMajor = Request["majorIds"];
-                activity.ActivityDepartment = Request["departmentIds"];
+                activity.ActivityPolitical = Request["politicalIds"] ?? "";
+                activity.ActivityMajor = Request["majorIds"] ?? "";
+                activity.ActivityDepartment = Request["departmentIds"] ?? "";
                 if (string.IsNullOrEmpty(activity.ActivityIcon))
                 {
                     activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];

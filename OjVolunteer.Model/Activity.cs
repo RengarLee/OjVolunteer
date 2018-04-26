@@ -26,19 +26,18 @@ namespace OjVolunteer.Model
         public string ActivityIcon { get; set; }
         public int ActivityTypeID { get; set; }
         public string ActivityAddress { get; set; }
-        public decimal ActivityAddressX { get; set; }
-        public decimal ActivityAddressY { get; set; }
+        public Nullable<decimal> ActivityAddressX { get; set; }
+        public Nullable<decimal> ActivityAddressY { get; set; }
         public string ActivityContent { get; set; }
         public int ActivityPrediNum { get; set; }
         public int ActivityManagerID { get; set; }
         public Nullable<int> ActivityApplyUserInfoID { get; set; }
         public Nullable<int> ActivityApplyOrganizeID { get; set; }
-        public int AuditOrganizeInfoID { get; set; }
         public int ActivityClicks { get; set; }
         public System.DateTime ActivityEnrollEnd { get; set; }
         public System.DateTime ActivityEnrollStart { get; set; }
-        public System.DateTime ActivityStart { get; set; }
-        public System.DateTime ActivityEnd { get; set; }
+        public Nullable<System.DateTime> ActivityStart { get; set; }
+        public Nullable<System.DateTime> ActivityEnd { get; set; }
         public string ActivityPolitical { get; set; }
         public string ActivityMajor { get; set; }
         public string ActivityDepartment { get; set; }
@@ -49,7 +48,6 @@ namespace OjVolunteer.Model
     
         public virtual OrganizeInfo ApplyOrganizeInfo { get; set; }
         public virtual UserInfo ApplyUserInfo { get; set; }
-        public virtual OrganizeInfo AuditOrganizeInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActivityDetail> ActivityDetail { get; set; }
         public virtual UserInfo ManagerUserInfo { get; set; }

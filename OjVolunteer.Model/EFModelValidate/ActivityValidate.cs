@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OjVolunteer.Model.EFModelValidate
+namespace OjVolunteer.Model
 {
     [MetadataType(typeof(ActivityValidate))]
-    public partial class UserInfo
+    public partial class Activity
     { }
 
     public class ActivityValidate

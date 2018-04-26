@@ -20,7 +20,6 @@
         <EntityTypeShape EntityType="OjVolunteerModel.UserInfo" PointX="4.75" PointY="11.5" Width="1.5" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_ORGANIZE" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITY_REFERENCE_USERINFO" />
-        <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYAUDIT_REFERENCE_ORGANIZE" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYDETAIL_REFERENCE_ACTIVITY" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" />
         <AssociationConnector Association="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" />
