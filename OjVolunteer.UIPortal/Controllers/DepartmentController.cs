@@ -51,7 +51,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (DepartmentService.GetEntities(p => p.DepartmentName.Equals(department.DepartmentName)).Count() > 0)
+                if (DepartmentService.GetEntities(p => p.DepartmentName.Equals(department.DepartmentName)&&p.Status == delNormal).Count() > 0)
                 {
                     return Content("exist");
                 }

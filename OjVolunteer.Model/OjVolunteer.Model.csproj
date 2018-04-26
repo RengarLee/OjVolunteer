@@ -94,6 +94,7 @@
     <Compile Include="EFModelValidate\DepartmentValidate.cs" />
     <Compile Include="EFModelValidate\MajorValidate.cs" />
     <Compile Include="EFModelValidate\OrganizeInfoValidate.cs" />
+    <Compile Include="EFModelValidate\PoliticalValidate.cs" />
     <Compile Include="EFModelValidate\UserInfoValidate.cs" />
     <Compile Include="Enum\DelFlagEnum.cs" />
     <Compile Include="Favors.cs">

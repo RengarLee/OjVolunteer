@@ -23,7 +23,7 @@
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                $.post("/Political/Add", { name: $("#add_political").val() }, function (data) {
+                $.post("/Political/Create", { PoliticalName: $("#add_political").val() }, function (data) {
                     if (data == "success") {
                         initTable();
                         alert("资料修改成功");
@@ -160,20 +160,20 @@
 
 
     </script>
-    }
+}
 
-    <div id="toolbar" class="btn-group">
-        <input id="add_political" />
-        <button id="btn_add" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <div>
-        <table id="tb_political"></table>
-    </div>
+<div id="toolbar" class="btn-group">
+    <input id="add_political" />
+    <button id="btn_add" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+    </button>
+    <button id="btn_removes" type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+    </button>
+</div>
+<div>
+    <table id="tb_political"></table>
+</div>
 
 
 

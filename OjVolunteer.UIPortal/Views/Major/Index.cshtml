@@ -23,7 +23,7 @@
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                $.post("/Major/Create", { name: $("#add").val() }, function (data) {
+                $.post("/Major/Create", { MajorName: $("#add").val() }, function (data) {
                     if (data == "success") {
                         initTable();
                         alert("资料修改成功");

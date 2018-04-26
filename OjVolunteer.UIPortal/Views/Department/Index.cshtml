@@ -24,7 +24,7 @@
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                $.post("/Department/Create", { name: $("#add_department").val() }, function (data) {
+                $.post("/Department/Create", { DepartmentName: $("#add_department").val() }, function (data) {
                     if (data == "success") {
                         initTable();
                         alert("操作成功");
