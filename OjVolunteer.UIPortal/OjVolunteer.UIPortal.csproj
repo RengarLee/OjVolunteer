@@ -416,7 +416,6 @@
     <Content Include="Views\Talks\TalkDetail.cshtml" />
     <Content Include="Views\OrganizeInfo\OrganizeDetail.cshtml" />
     <Content Include="Views\Political\AllPolitical.cshtml" />
-    <Content Include="Views\Department\AllDepartment.cshtml" />
     <Content Include="Views\Talks\TalksOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\Edit.cshtml" />
     <Content Include="Views\UserInfo\OrgEditUser.cshtml" />
@@ -428,6 +427,7 @@
     <Content Include="Views\Activity\OrgCreate.cshtml" />
     <Content Include="Views\ActivityType\Index.cshtml" />
     <Content Include="Views\Major\Index.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
