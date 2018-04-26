@@ -57,9 +57,16 @@ namespace OjVolunteer.BLL
         #region 添加
         public T Add(T entity)
         {
-            CurrentDal.Add(entity);
-            DbSession.SaveChanges();
-            return entity;
+            try
+            {
+                CurrentDal.Add(entity);
+                DbSession.SaveChanges();
+                return entity;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         #endregion
@@ -67,14 +74,29 @@ namespace OjVolunteer.BLL
         #region 更新
         public bool Update(T entity)
         {
-            CurrentDal.Update(entity);
-            return DbSession.SaveChanges() > 0;
+            try
+            {
+                CurrentDal.Update(entity);
+                return DbSession.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+                       
         }
 
-        public int UpdateListStatus(List<int> ids, short delFlag)
+        public bool UpdateListStatus(List<int> ids, short delFlag)
         {
-            CurrentDal.UpdateListStatus(ids, delFlag);
-            return DbSession.SaveChanges();
+            try
+            {
+                CurrentDal.UpdateListStatus(ids, delFlag);
+                return DbSession.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -82,10 +104,35 @@ namespace OjVolunteer.BLL
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int NormalListByULS(List<int> ids)
+        public bool NormalListByULS(List<int> ids)
         {
-            CurrentDal.UpdateListStatus(ids, (short)Model.Enum.DelFlagEnum.Normal);
-            return DbSession.SaveChanges();
+            try
+            {
+                CurrentDal.UpdateListStatus(ids, (short)Model.Enum.DelFlagEnum.Normal);
+                return DbSession.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 更新列表数据的Status,使其为无效
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public bool InvalidListByULS(List<int> ids)
+        {
+            try
+            {
+                CurrentDal.UpdateListStatus(ids, (short)Model.Enum.DelFlagEnum.Invalid);
+                return DbSession.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         #endregion
@@ -93,28 +140,59 @@ namespace OjVolunteer.BLL
         #region 删除
         public bool Delete(T entity)
         {
-            CurrentDal.Delete(entity);
-            return DbSession.SaveChanges()>0;
+            try
+            {
+                CurrentDal.Delete(entity);
+                return DbSession.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }  
         }
 
         public bool Delete(int id)
         {
-            CurrentDal.Delete(id);
-            return DbSession.SaveChanges()>0;
+            try
+            {
+                CurrentDal.Delete(id);
+                return DbSession.SaveChanges() > 0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public int DeleteListByLogical(List<int> ids)
+        public bool DeleteListByLogical(List<int> ids)
         {
-            CurrentDal.DeleteListByLogical(ids);
-            return DbSession.SaveChanges();
+
+            try
+            {
+                CurrentDal.DeleteListByLogical(ids);
+                return DbSession.SaveChanges()>0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public int DeleteListByULS(List<int> ids)
+        public bool DeleteListByULS(List<int> ids)
         {
-            CurrentDal.UpdateListStatus(ids, (short)Model.Enum.DelFlagEnum.Deleted);
-            return DbSession.SaveChanges();
+            try
+            {
+                CurrentDal.UpdateListStatus(ids, (short)Model.Enum.DelFlagEnum.Deleted);
+                return DbSession.SaveChanges()>0;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
         #endregion
+
+
 
     }
 }

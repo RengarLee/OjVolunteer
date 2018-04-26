@@ -289,7 +289,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (UserInfoService.ListUpdatePolical(idList) > 0)
+            if (UserInfoService.ListUpdatePolical(idList))
             {
                 return Content("success");
             }
@@ -371,7 +371,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (UserInfoService.NormalListByULS(idList) > 0)
+            if (UserInfoService.NormalListByULS(idList))
             {
                 return Content("success");
             }

@@ -16,6 +16,8 @@ namespace OjVolunteer.UIPortal.Controllers
         public IActivityService ActivityService { get; set; }
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IMajorService MajorService { get; set; }
+        public IPoliticalService PoliticalService { get; set; }
+        public IDepartmentService DepartmentService { get; set; }
         public ActionResult Index()
         {
             return View();
@@ -31,10 +33,9 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             var allActivityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewBag.ActivityTypeID = (from u  in allActivityType select new SelectListItem() { Selected = false, Text = u.ActivityTypeName, Value = u.ActivityTypeID + "" }).ToList();
-            var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            Dictionary<int, string> dict = allMajor.ToDictionary(u => u.MajorID, u => u.MajorName);
-            ViewBag.MajorDict = dict;
-
+            ViewBag.MajorDict = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.MajorID, u => u.MajorName);
+            ViewBag.PoliticalDict = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.PoliticalID, u => u.PoliticalName);
+            ViewBag.DepartmentDict = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.DepartmentID, u => u.DepartmentName); 
             return View();
         }
 
@@ -58,8 +59,12 @@ namespace OjVolunteer.UIPortal.Controllers
                 activity.CreateTime = DateTime.Now;
                 activity.ModfiedOn = activity.CreateTime;
                 activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delNormal : delDelete;
+                if (ActivityService.Add(activity) != null)
+                {
+                    return Content("success");
+                }
             }
-            return View();
+            return Content("fail");
         }
         #endregion
 

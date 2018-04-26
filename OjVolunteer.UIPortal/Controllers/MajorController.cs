@@ -109,7 +109,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (MajorService.DeleteListByLogical(idList) > 0)
+            if (MajorService.DeleteListByLogical(idList))
             {
                 return Content("success");
             }

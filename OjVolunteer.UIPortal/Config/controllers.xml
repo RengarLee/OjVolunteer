@@ -54,5 +54,7 @@
     <property name="ActivityTypeService" ref="ActivityTypeService" ></property>
     <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
     <property name="MajorService" ref="MajorService" ></property>
+    <property name="DepartmentService" ref="DepartmentService" ></property>
+    <property name="PoliticalService" ref="PoliticalService" ></property>
   </object>
 </objects>

@@ -222,7 +222,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 idList.Add(int.Parse(strId));
             }
             #region 批量处理
-            if (OrganizeInfoService.NormalListByULS(idList) > 0)
+            if (OrganizeInfoService.NormalListByULS(idList))
             {
                 return Content("success");
             }
@@ -253,7 +253,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 idList.Add(int.Parse(strId));
             }
             #region 逻辑删除
-            if (OrganizeInfoService.DeleteListByLogical(idList) > 0)
+            if (OrganizeInfoService.InvalidListByULS(idList))
             {
                 return Content("success");
             }

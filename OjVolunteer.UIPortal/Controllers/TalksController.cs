@@ -171,7 +171,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (TalksService.NormalListByULS(idList) > 0)
+            if (TalksService.NormalListByULS(idList))
             {
                 return Content("success");
             }
@@ -223,7 +223,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (TalksService.DeleteListByLogical(idList) > 0)
+            if (TalksService.InvalidListByULS(idList))
             {
                 return Content("ok");
             }

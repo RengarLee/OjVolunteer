@@ -13,6 +13,6 @@ namespace OjVolunteer.IBLL
     {
         Stream ExportToExecl(bool isSuper, int orgId);
         IQueryable<UserInfo> LoadPageData(UserQueryParam userQueryParam);
-        int ListUpdatePolical(List<int> ids);
+        bool ListUpdatePolical(List<int> ids);
     }
 }
