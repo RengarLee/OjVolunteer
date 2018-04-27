@@ -15,7 +15,7 @@ namespace OjVolunteer.UIPortal.Controllers
 {
     public class UserInfoController : BaseController
     {
-        //TODO:缓存
+
         short delNormal = (short)DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         short delDeleted = (short)Model.Enum.DelFlagEnum.Deleted;
@@ -28,6 +28,8 @@ namespace OjVolunteer.UIPortal.Controllers
         public ITalksService TalksService { get; set; }
 
 
+
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Index()
         {
             return View(LoginUser);
