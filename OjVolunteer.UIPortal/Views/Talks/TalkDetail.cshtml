@@ -9,24 +9,75 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>TalkDetail</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
 </head>
 <body>
-    <div> 
-        @ViewBag.Content
-    </div>
-    <div>
-        @{ 
-            string path = ViewBag.ImgPath;
-            if (ViewBag.Images != null)
-            {
-                List<string> images = ViewBag.Images;
-                foreach (var image in images)
+    @*<div>
+            @ViewBag.Content
+        </div>
+        <div>
+            @{
+                string path = ViewBag.ImgPath;
+                if (ViewBag.Images != null)
                 {
-                <img src="@path@image" width="100px" height="100px"/>
+                    List<string> images = ViewBag.Images;
+                    foreach (var image in images)
+                    {
+                    <img src="@path@image" width="100px" height="100px"/>
+                    }
                 }
             }
-        }
+
+        </div>*@
+    <div class="talk-box">
+        <div class="talk-box-title">
+            <fieldset class="layui-elem-field ">
+                <legend>义工心得</legend>
+                <div class="layui-field-box">
+                    <p class="layui-text"> @ViewBag.Content</p>
+                </div>
+            </fieldset>
+        </div>
 
     </div>
+
+    <div class="am-avg-sm-3 boxes" id="weibo-img">
+        <li class="box">
+            <img src="images/1.jpg" width="130px" height="130px" class="img-item" layer-src="images/1.jpg">
+        </li>
+        <li class="box">
+            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
+        </li>
+        <li class="box">
+            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
+        </li>
+        <li class="box">
+            <img src="images/66763879_p0.jpg" width="130px" height="130px" class="img-item">
+        </li>
+        <li class="box">
+            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
+        </li>
+        <li class="box">
+            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
+        </li>
+        <li class="box">
+            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
+        </li>
+        <li class="box">
+            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
+        </li>
+        <li class="box">
+            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
+        </li>
+    </div>
+    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <script type="text/javascript">
+		layer.photos({
+		photos: '#weibo-img'
+		,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+});
+    </script>
+    <script src="~/Content/layui/layui.all.js"></script>
 </body>
 </html>

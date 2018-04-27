@@ -60,6 +60,120 @@
 }*/
 
 
+.talk-box {
+    margin: 0 auto;
+}
+
+.talk-box .talk-box-title {
+        padding: 0 20px;
+        margin-top: 20px;
+    }
+
+.talk-box .talk-box-title p {
+            font-size: 14px;
+        }
+
+
+
+
+.talk-box .talk-box-img {
+        width: 300px;
+    }
+
+.talk-box .talk-box-img .img-item {
+            display: block;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+
+
+.boxes {
+    width: 400px;
+    margin: 0 auto !important;
+}
+
+.boxes .box {
+        height: 130px;
+        line-height: 130px;
+        text-align: center;
+    }
+
+
+/*-------*/
+.stuInfo-form {
+    margin: 10px auto;
+    width: 600px;
+    border: 1px solid black;
+}
+
+    .stuInfo-form .header {
+        overflow: hidden;
+    }
+
+        .stuInfo-form .header .header-left {
+            float: left;
+            width: 30%;
+            height: 100px;
+            text-align: center;
+        }
+
+        .stuInfo-form .header .header-right {
+            float: right;
+            width: 70%;
+            height: 100px;
+        }
+
+.header-right .layui-form-item {
+    width: 400px;
+    margin: 0 auto;
+    height: 60px;
+}
+
+
+
+/*中间每行2个的样式*/
+.stuInfo-form .content {
+    margin-top: 20px;
+}
+
+    .stuInfo-form .content .content-left {
+        float: left;
+        width: 50%;
+    }
+
+    .stuInfo-form .content .content-right {
+        float: left;
+        width: 50%;
+    }
+
+.content-left .layui-form-item,
+.content-right .layui-form-item {
+    width: 280px;
+    margin: 0 auto;
+    height: 50px;
+}
+/*中间后半段长输入框样式*/
+.stuInfo-form .content .content-footer {
+    width: 580px;
+    margin: 0 auto;
+}
+/*表单最后的保存*/
+.footer {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+    .footer .layui-btn {
+        width: 150px;
+        background-color: #C62F2F;
+    }
+
+.layui-form-select dl dd.layui-this {
+    background-color: #C62F2F !important;
+}
+
 
 
 
