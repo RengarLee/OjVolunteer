@@ -270,3 +270,4 @@ __pycache__/
 *.pdb
 *.cache
 /.vs/
+!/packages/
