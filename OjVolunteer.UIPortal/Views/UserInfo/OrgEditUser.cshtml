@@ -14,6 +14,7 @@
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/simple-ajax-form.js"></script>
@@ -21,6 +22,7 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
+
     <script type="text/javascript">
         $(function () {
             $("#resetPwd").click(function () {
@@ -178,140 +180,26 @@
             @Html.HiddenFor(model => model.UserInfoPwd, new { htmlAttributes = new { @class = "form-control" } })
             @Html.HiddenFor(model => model.UpdatePoliticalID, new { htmlAttributes = new { @class = "form-control" } })
             @Html.HiddenFor(model => model.UserInfoIcon, new { htmlAttributes = new { @class = "form-control" } })
-
-            @*<img width="100px" height="100px" src="@Model.UserInfoIcon" />
-            <button type="button" id="resetPwd">嗲你</button>
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoLoginId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoLoginId, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoStuId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoStuId, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoShowName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoShowName, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoPhone, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoEmail, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.MajorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MajorID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MajorID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.DepartmentID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DepartmentID, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.PoliticalID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PoliticalID, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.OrganizeInfoID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.OrganizeInfoID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.OrganizeInfoID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoLastTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoLastTime, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserInfoLastTime, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.CreateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CreateTime, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.ModfiedOn, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ModfiedOn, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ModfiedOn, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div>
-                @Html.LabelFor(model => model.UserInfoTalkCount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoTalkCount, new { htmlAttributes = new { @class = "form-control" } })
-
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>*@
         </div>
     }
 
     <form class="layui-form layui-form-pane stuInfo-form">
         <div class="header clearfix">
             <div class="header-left">
-                <img src="image/1.jpg" width="100px" height="100px">
+                <img src="@Model.UserInfoIcon" width="100px" height="100px">
             </div>
             <div class="header-right">
-
-                <!-- 每一个item代表一行 -->
                 <div class="layui-form-item">
                     <label class="layui-form-label">登录ID</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        @Html.EditorFor(Model=>Model.UserInfoLoginId,new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">学号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
 
@@ -323,7 +211,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        @Html.EditorFor(Model => Model.UserInfoShowName, new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
 
@@ -331,28 +219,21 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label" lay-verify="email">邮箱</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        @Html.EditorFor(Model => Model.UserInfoEmail, new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    
                     <label class="layui-form-label">学院</label>
                     <div class="layui-input-block">
-                        <select name="city" lay-verify="required">
-                            <option value=""></option>
-                            <option value="0">数信学院</option>
-                            <option value="1">文法学院</option>
-                            <option value="2">社会服务</option>
-                        </select>
+
+                        @Html.DropDownList("DepartmentID", null,new { htmlAttributes = new { @lay_verify = "required" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">组织名称</label>
                     <div class="layui-input-block">
-                        <select name="city" lay-verify="required">
-                            <option value="">小红帽</option>
-                            <option value="0">小喇叭</option>
-                            <option value="1">xxxx</option>
-                        </select>
+                        @Html.DropDownList("OrganizeInfoID", null, new { htmlAttributes = new { @lay_verify = "required" } })
                     </div>
                 </div>
             </div>
@@ -361,29 +242,25 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label" lay-verify="phone">手机号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        @Html.EditorFor(Model => Model.UserInfoPhone, new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">专业</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        @Html.DropDownList("MajorID", null, new { htmlAttributes = new { @lay_verify = "required" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">政治面貌</label>
                     <div class="layui-input-block">
-                        <select name="city" lay-verify="required">
-                            <option value="">党员</option>
-                            <option value="0">团员</option>
-                            <option value="1">群众</option>
-                        </select>
+                        @Html.DropDownList("PoliticalID", null, new { htmlAttributes = new { @lay_verify = "required" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">ID</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        @Html.EditorFor(Model => Model.UserInfoID, new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
             </div>
@@ -391,19 +268,19 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">注册时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input">
+                        @Html.EditorFor(Model => Model.CreateTime, new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">最近登录</label>
+                    <label class="layui-form-label">个人资料最近修改时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input">
+                        @Html.EditorFor(Model => Model.ModfiedOn, new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">最后登录</label>
+                    <label class="layui-form-label">最后登录时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input">
+                        @Html.EditorFor(Model => Model.UserInfoLastTime, new { htmlAttributes = new { autocomplete = "off", placeholder = "", @class = "layui-input" } })
                     </div>
                 </div>
             </div>
@@ -413,11 +290,6 @@
             <button class="layui-btn layui-btn-normal" lay-submit>save</button>
         </div>
     </form>
-
-
-
-
-
 
     <div>
         <div>
