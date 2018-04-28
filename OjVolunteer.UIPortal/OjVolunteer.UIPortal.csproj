@@ -18,8 +18,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -345,6 +344,7 @@
     <Content Include="Content\oj\js\amazeui.min.js" />
     <Content Include="Content\oj\js\bootstrap.js" />
     <Content Include="Content\oj\js\bootstrap.min.js" />
+    <Content Include="Content\oj\js\check.js" />
     <Content Include="Content\oj\js\jquery-1.12.4.js" />
     <Content Include="Content\oj\js\main.js" />
     <Content Include="Content\oj\js\npm.js" />
