@@ -163,11 +163,11 @@
     text-align: center;
     margin-top: 10px;
 }
+.footer .red-btn {
+    background-color: #C62F2F;
+}
 
-    .footer .layui-btn {
-        width: 150px;
-        background-color: #C62F2F;
-    }
+
 
 .layui-form-select dl dd.layui-this {
     background-color: #C62F2F !important;
