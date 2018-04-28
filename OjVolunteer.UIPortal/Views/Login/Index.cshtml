@@ -1,7 +1,8 @@
 ﻿@{
     Layout = null;
 }
-<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,11 +19,11 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
         function afterLogin(data) {
-            if (data == "UserInfo") {
+            if (data == "userinfo") {
                 window.top.location.href = "/UserInfo/Index";
             } else if (data == "OrganizeInfo") {
                 window.top.location.href = "/OrganizeInfo/Index";
-            } else if (data == "Error") {
+            } else if (data == "fail") {
                 alert("密码错误，请重新输入！");
             }
         }

@@ -26,19 +26,20 @@ namespace OjVolunteer.UIPortal.Controllers
             String name = Request["LoginCode"];
             String pwd = MD5Helper.Get_MD5(Request["LoginPwd"]);
             short delDeleted = (short)DelFlagEnum.Deleted;
-            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd && o.Status != delDeleted).FirstOrDefault();
+            short delInvalid = (short)DelFlagEnum.Invalid;
+            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd && o.Status != delDeleted && o.Status != delInvalid).FirstOrDefault();
             if (organizeInfo != null)
             {
                 UserToCache(organizeInfo);
                 return Content("OrganizeInfo");
             }
-            var userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status != delDeleted).FirstOrDefault();
+            var userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status != delDeleted&&u.Status != delInvalid).FirstOrDefault();
             if (userInfo != null)
             {
                 UserToCache(userInfo);
-                return Content("UserInfo");
+                return Content("userinfo");
             }
-            return Content("Error");
+            return Content("fail");
         }
         #endregion
 
