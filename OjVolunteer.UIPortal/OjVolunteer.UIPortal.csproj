@@ -18,7 +18,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -190,6 +191,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrganizeInfoController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\UserEnrollController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Filters\ActionAuthenticationAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -445,6 +447,7 @@
     <Folder Include="Content\Upload\Icon\" />
     <Folder Include="Content\Upload\TalkImages\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\UserEnroll\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

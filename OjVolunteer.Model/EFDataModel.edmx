@@ -175,8 +175,8 @@
           <Property Name="ActivityID" Type="int" Nullable="false" />
           <Property Name="UserInfoID" Type="int" Nullable="false" />
           <Property Name="UserEnrollStart" Type="datetime" />
-          <Property Name="UserEnrollActivityStart" Type="datetime" Nullable="false" />
-          <Property Name="UserEnrollActivityEnd" Type="datetime" Nullable="false" />
+          <Property Name="UserEnrollActivityStart" Type="datetime" />
+          <Property Name="UserEnrollActivityEnd" Type="datetime" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
@@ -813,8 +813,8 @@
           <Property Name="ActivityID" Nullable="false" Type="Int32" />
           <Property Name="UserInfoID" Nullable="false" Type="Int32" />
           <Property Name="UserEnrollStart" Precision="3" Type="DateTime" />
-          <Property Name="UserEnrollActivityStart" Nullable="false" Precision="3" Type="DateTime" />
-          <Property Name="UserEnrollActivityEnd" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="UserEnrollActivityStart" Precision="3" Type="DateTime" />
+          <Property Name="UserEnrollActivityEnd" Precision="3" Type="DateTime" />
           <Property Name="CreateTime" Precision="3" Type="DateTime" />
           <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
           <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />

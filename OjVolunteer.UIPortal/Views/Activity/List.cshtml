@@ -1,4 +1,4 @@
-﻿@Model IEnumerable<OjVolunteer.Model.Activity>
+﻿@model IEnumerable<OjVolunteer.Model.Activity>
 
     @{
         Layout = null;
@@ -44,7 +44,23 @@
                         }
                     });
                 });
+
+               
+                $(".btnEnroll").click(function () {
+                    var activityId = $(this).attr("activity");
+                    $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
+                        alert(data["msg"]);
+                    });
+                });
             });
+                //$(".btnEnroll").each(function () {
+                //    $(this).click(function () {
+                //        var activityId = this.atts("activity");
+                //        $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
+                //            alert(data["msg"]);
+                //        });
+                //    });
+                //});
         </script>
 
     </head>
@@ -79,7 +95,7 @@
                                 </span>
                             </div>
                             <div class="acbox-btn">
-                                <button class="btn">我要报名</button>
+                                <button class="btnEnroll" activity="@item.ActivityID">我要报名</button>
                             </div>
                         </li>
                     }
