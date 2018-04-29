@@ -9,7 +9,9 @@
 	cursor: pointer;
 }
 
-
+a:hover {
+    text-decoration: none !important;
+}
 /*更改个人信息界面*/
 /*标题部分*/
 .form-title{

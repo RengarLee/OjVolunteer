@@ -7,6 +7,12 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <style>
+        a:hover,
+        a:focus {
+            text-decoration: none;
+        }
+    </style>
 }
 @section script{
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
@@ -50,7 +56,7 @@
                 method: 'post',                      //请求方式（*）
                 toolbar: '#toolbar',
                 striped: true,                      //是否显示行间隔色
-                cache: false,                       
+                cache: false,
                 pagination: true,                   //是否显示分页（*）
                 queryParams: queryParam,
                 sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
