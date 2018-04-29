@@ -19,8 +19,6 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>OrganizeInfo</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.OrganizeInfoID)
 
@@ -128,16 +126,16 @@
 
                 <!-- 每一个item代表一行 -->
                 <div class="layui-form-item">
-                    <label class="layui-form-label">登录ID</label>
+                    <label class="layui-form-label">登录帐号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        <input type="text" name="title" autocomplete="off"class="layui-input" disabled lay_verify = "required">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">学号</label>
+                    <label class="layui-form-label">负责人</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        <input type="text" name="title" autocomplete="off" class="layui-input" lay-verify="required|username" value="陈浩强">
                     </div>
                 </div>
 
@@ -147,69 +145,36 @@
             <div class="content-left">
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">姓名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
-                    </div>
-                </div>
-
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label" lay-verify="email">邮箱</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">学院</label>
-                    <div class="layui-input-block">
-                        <select name="city" lay-verify="required">
-                            <option value=""></option>
-                            <option value="0">数信学院</option>
-                            <option value="1">文法学院</option>
-                            <option value="2">社会服务</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label">组织名称</label>
                     <div class="layui-input-block">
-                        <select name="city" lay-verify="required">
-                            <option value="">小红帽</option>
-                            <option value="0">小喇叭</option>
-                            <option value="1">xxxx</option>
-                        </select>
+                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input" lay-verify="required|orgname" value="红话筒支队">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" lay-verify="required|email" class="layui-input" value="823182092@qq.com">
                     </div>
                 </div>
             </div>
             <div class="content-right">
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label" lay-verify="phone">手机号</label>
+                    <label class="layui-form-label">手机号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
+                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input" lay-verify="required|phone" value="18958858318">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">专业</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">政治面貌</label>
+                    <label class="layui-form-label">分院</label>
                     <div class="layui-input-block">
                         <select name="city" lay-verify="required">
-                            <option value="">党员</option>
-                            <option value="0">团员</option>
-                            <option value="1">群众</option>
+                            <option value="0">数信</option>
+                            <option value="1">经管</option>
+                            <option value="2">文法</option>
                         </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">ID</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -217,29 +182,33 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">注册时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input">
+                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input" disabled>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">最近登录</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input">
+                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input" disabled>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">最后登录</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input">
+                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input" disabled>
                     </div>
                 </div>
             </div>
 
         </div>
         <div class="footer">
-            <button class="layui-btn layui-btn-normal" lay-submit>确定更改</button>
+            <div class="layui-form-item">
+                <button class="layui-btn red-btn" lay-submit>确定修改</button>
+                <button type="reset" class="layui-btn layui-btn-primary">取消修改</button>
+            </div>
         </div>
     </form>
 
     <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
 </body>
 </html>
