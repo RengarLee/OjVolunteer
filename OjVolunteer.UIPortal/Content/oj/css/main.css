@@ -114,13 +114,13 @@ a:active{
 	header .ad{
 		width: 96%;
 		height: 200px;
-		background-color: #5ac8fa;
-		margin: 10px auto;
-		margin-top: 60px;
+		margin: 0px auto;
+		margin-top: 50px;
 	}
 	/*图标导航部分*/
 	header .icons{
 		padding: 10px 15px 10px;
+        margin-bottom:20px;
 	}
 	header .icons .icons-row{
 		margin: 0 auto;
@@ -140,10 +140,14 @@ a:active{
 		line-height: 55px;
 		display: block;
 	}
-	header .icons .icons-row li a img{
-		width: 45px;
-		height: 45px;
-	}
+
+    .icon-huodong,
+    .icon-paixingbang,
+    .icon-scanning {
+        font-size: 40px;
+        color: #C62F2F;
+        vertical-align: middle;
+    }
 	header .icons .icons-row li span{
 		display: block;
 		width: 100%;
@@ -165,7 +169,7 @@ a:active{
 		border: 1px solid rgb(242,242,242);
 		box-shadow: 0 0 20px rgb(242,242,242);
 		margin: 0 auto;
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 		padding:10px 15px;
 	}
 	/*头像和用户名样式*/
@@ -223,11 +227,18 @@ a:active{
 		align-items: center;
 		color: #333;
 	}
-	.navbt .btBar img{
-		width: 30px;
-		height: 30px;
-		margin-top: 5px;
+	.navbt .btBar .icon-paixingbang,
+	.navbt .btBar .icon-compass,
+	.navbt .btBar .icon-edit,
+	.navbt .btBar .icon-zhuye,
+	.navbt .btBar .icon-account
+	{
+		font-size: 25px;
+		color: #000000;
 	}
+    .this-icon {
+    color: #C62F2F !important;
+    }
 	.navbt .btBar span{
 		margin-top: 5px;
 		margin-bottom: 5px;
@@ -375,9 +386,6 @@ a:active{
 		color: #C62F2F;
 	}
 	/*非第一名样式*/
-	.untop{
-
-	}
 	.untop .untop-item{
 		padding-top: 5px;
 		padding-left: 10px;
@@ -804,19 +812,21 @@ a:active{
 /*返回顶部组件*/
 .topback{
 	position: fixed;
-	bottom: 70px;
-	right: 20px;
+	bottom: 60px;
+	right: 10px;
 }
-.topback img{
-	width: 30px;
-}
+.topback .icon-less {
+        color: #fff;
+        font-size: 32px;
+        background-color: rgba(0,0,0,0.2);
+    }
 /*返回上一页组件*/
-.header-back{
-	display: block;
-	position: fixed;
-	top: 12px;
-	left: 15px;
-	z-index: 9999;
+.header-back {
+    display: block;
+    position: fixed;
+    top: 12px;
+    left: 15px;
+    z-index: 9999;
 }
 .header-back span{
 	font-size: 20px;

@@ -18,8 +18,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -331,6 +330,7 @@
     <Content Include="Content\oj\css\amazeui.min.css" />
     <Content Include="Content\oj\css\bootstrap.css" />
     <Content Include="Content\oj\css\bootstrap.min.css" />
+    <Content Include="Content\oj\css\iconfont.css" />
     <Content Include="Content\oj\css\main.css" />
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\oj\images\1.jpg" />

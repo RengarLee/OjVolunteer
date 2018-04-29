@@ -8,6 +8,8 @@
     <title>瓯江义工网</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/iconfont.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
 </head>
 <body>
@@ -16,44 +18,48 @@
         <nav class="top">
             <p>首页</p>
         </nav>
+        <!--轮播图-->>
         <nav class="ad clearfix">
-
+            <div class="layui-carousel" id="ad-img">
+                <div carousel-item>
+                    <div>这里用一个img放第一个图</div>
+                    <div>这里用一个img放第二个图</div>
+                    <div>这里用一个img放第三个图</div>
+                </div>
+            </div>
         </nav>
         <div class="icons clearfix">
             <ul class="icons-row">
                 <li>
-                    <a href="~/Activity/List"></a><img src="~/Content/Upload/Images/icon1.png" /><span>查看活动列表</span>
+                    <a href="~/Activity/List"><i class="iconfont icon-huodong"></i></a><span>查看活动</span>
                 </li>
                 <li>
-                    <a href="#"></a><img src="~/Content/Upload/Images/icon1.png" /><span>发起活动</span>
+                    <a href="#"><i class="iconfont icon-paixingbang"></i></a><span>发起活动</span>
                 </li>
                 <li>
-                    <a href="#"></a><img src="~/Content/Upload/Images/icon1.png" /><span>发起活动</span>
+                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
                 </li>
                 <li>
-                    <a href="#"></a><img src="~/Content/Upload/Images/icon1.png" /><span>发起活动</span>
+                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
                 </li>
                 <li>
-                    <a href="#"></a><img src="~/Content/Upload/Images/icon1.png" /><span>发起活动</span>
+                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
                 </li>
                 <li>
-                    <a href="#"></a><img src="~/Content/Upload/Images/icon1.png" /><span>发起活动</span>
+                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
                 </li>
                 <li>
-                    <a href="#"></a><img src="~/Content/Upload/Images/icon1.png" /><span>发起活动</span>
+                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
                 </li>
                 <li>
-                    <a href="#"></a><img src="~/Content/Upload/Images/icon1.png" /><span>发起活动</span>
+                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
                 </li>
-                
+
             </ul>
         </div>
     </header>
     <!-- 首页的主要内容 -->
     <div class="hot-action">
-        <div class="kinds">
-            <img src=""><p>热门活动</p>
-        </div>
         <section class="action clearfix">
             <!-- 清除了浮动 -->
             <div class="userinfo">
@@ -133,19 +139,33 @@
     <footer></footer>
     <!-- 下边导航组件 -->
     <nav class="navbt">
-        <a href="" class="btBar"><img src="images/icon1.png"><span>义工榜</span></a>
-        <a href="" class="btBar"><img src="images/icon1.png"><span>义工商城</span></a>
-        <a href="" class="btBar"><img src="images/icon1.png"><span>首页</span></a>
-        <a href="" class="btBar"><img src="images/icon1.png"><span>义工心得</span></a>
-        <a href="personal.html" class="btBar"><img src="images/icon1.png"><span>个人中心</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span>首页</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
+        <a href="personal.html" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
     </nav>
     <!-- 侧边栏组件 -->
     <div class="topback" id="topback">
-        <img src="images/topback.png">
+        <i class="iconfont icon-less"></i>
     </div>
-
-    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-</body>
-</html>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script>
+        layui.use('carousel', function () {
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#ad-img'
+                , width: '100%' //设置容器宽度
+                , arrow: 'always' //始终显示箭头
+                , height: '200px'  //设置高度
+                , arrow: 'always'  //两个圆形箭头一直存在
+                , indicator: 'none'  //去掉了下面的圆点
+            });
+    });
+    </script>
+</body >
+</html >
