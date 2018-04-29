@@ -169,6 +169,14 @@ namespace OjVolunteer.BLL
             }
             #endregion
             //TODO:Test
+
+            #region 组织ID
+            if (!userQueryParam.isSuper)
+            {
+                temp = temp.Where(u => u.OrganizeInfoID==userQueryParam.OrganizeInfoID).AsQueryable();
+            }
+            #endregion
+
             #region 组织名称
             if (!String.IsNullOrEmpty(userQueryParam.OrganizeInfoShowName))
             {

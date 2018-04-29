@@ -47,6 +47,15 @@ namespace OjVolunteer.Model.Param
         /// 学院名称
         /// </summary>
         public String DepartmentName { get; set; }
+
+        /// <summary>
+        /// 组织昵ID
+        /// </summary>
+        public int OrganizeInfoID { get; set; }
+        /// <summary>
+        /// 是否为最大组织
+        /// </summary>
+        public bool isSuper { get; set; }
         /// <summary>
         /// 组织昵称
         /// </summary>

@@ -107,7 +107,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
         public ActionResult OrganizeOfAuditing()
         {
-            return View(LoginOrganize);
+            return View();
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
         public ActionResult GetAllOrganizeOfAuditing()
         {
-            var s = Request["limit"];
+
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;

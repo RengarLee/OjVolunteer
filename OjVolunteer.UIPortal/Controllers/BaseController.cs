@@ -14,7 +14,6 @@ namespace OjVolunteer.UIPortal.Controllers
         public OrganizeInfo LoginOrganize { get; set; }
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
             if (boolCheckLogin)
             {
                 if (Request.Cookies["userLoginId"] == null)
@@ -45,11 +44,11 @@ namespace OjVolunteer.UIPortal.Controllers
                 }
                 if (LoginUser != null)
                 {
-                    Common.Cache.CacheHelper.SetCache(userLoginId, LoginUser, DateTime.Now.AddMinutes(20));
+                    Common.Cache.CacheHelper.SetCache(userLoginId, LoginUser, DateTime.Now.AddMinutes(40));
                 }
                 else
                 {
-                    Common.Cache.CacheHelper.SetCache(userLoginId, LoginOrganize, DateTime.Now.AddMinutes(20));
+                    Common.Cache.CacheHelper.SetCache(userLoginId, LoginOrganize, DateTime.Now.AddMinutes(40));
                 }
                 base.OnActionExecuting(filterContext);
                 return;
