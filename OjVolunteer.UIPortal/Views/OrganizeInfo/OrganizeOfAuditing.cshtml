@@ -1,13 +1,20 @@
-﻿@{
-    Layout = "~/Views/Shared/Admin_Layout.cshtml";
-}
-@section css{
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
-}
 
 
-@section script{
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
     <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
@@ -222,21 +229,24 @@
             })
         }
 
-       
+
     </script>
-}
+</head>
+<body>
 
 
-<div id="toolbar" class="btn-group">
-    <button id="btn_agrees" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
-    </button>
-    <button id="btn_removes" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-    </button>
-</div>
-<div>
-    <table id="tb_organize"></table>
-</div>
+    <div id="toolbar" class="btn-group">
+        <button id="btn_agrees" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
+        </button>
+        <button id="btn_removes" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+        </button>
+    </div>
+    <div>
+        <table id="tb_organize"></table>
+    </div>
 
 
+</body>
+</html>

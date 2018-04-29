@@ -18,7 +18,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, Super = true)]
         public ActionResult Index()
         {
-            return View(LoginOrganize);
+            return View();
         }
 
         #region Query

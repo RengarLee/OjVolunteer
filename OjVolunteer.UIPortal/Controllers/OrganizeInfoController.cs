@@ -26,6 +26,12 @@ namespace OjVolunteer.UIPortal.Controllers
         public IMajorService MajorService { get; set; }
         public ITalksService TalksService { get; set; }
 
+
+        public ActionResult Welcome()
+        {
+            return View();
+        }
+
         /// <summary>
         /// 跳转后台页面
         /// </summary>

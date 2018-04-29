@@ -1,21 +1,13 @@
-﻿
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>义工系统管理首页</title>
 
-@{
-    Layout = "~/Views/Shared/Admin_Layout.cshtml";
-}
-
-@section css{
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
-    <style>
-        a:hover,
-        a:focus {
-            text-decoration: none;
-        }
-    </style>
-}
-@section script{
+
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
@@ -166,20 +158,22 @@
 
 
     </script>
-}
+</head>
+<body>
 
-<div id="toolbar" class="btn-group">
-    <input id="add_political" />
-    <button id="btn_add" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-    </button>
-    <button id="btn_removes" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-    </button>
-</div>
-<div>
-    <table id="tb_political"></table>
-</div>
-
+    <div id="toolbar" class="btn-group">
+        <input id="add_political" />
+        <button id="btn_add" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <button id="btn_removes" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+        </button>
+    </div>
+    <div>
+        <table id="tb_political"></table>
+    </div>
+</body>
+</html>
 
 
