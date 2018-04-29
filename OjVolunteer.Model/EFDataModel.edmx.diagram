@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a5243fa8637648ecae7876874c0ba4dc" Name="Diagram1" ZoomLevel="108">
+      <Diagram DiagramId="a5243fa8637648ecae7876874c0ba4dc" Name="Diagram1" ZoomLevel="106">
         <EntityTypeShape EntityType="OjVolunteerModel.Activity" PointX="7" PointY="5.625" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.ActivityDetail" PointX="7" PointY="13.5" Width="1.5" />
         <EntityTypeShape EntityType="OjVolunteerModel.ActivityType" PointX="4.75" PointY="7.75" Width="1.5" />

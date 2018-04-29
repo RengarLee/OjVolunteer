@@ -18,8 +18,8 @@ namespace OjVolunteer.Model
         public int ActivityID { get; set; }
         public int UserInfoID { get; set; }
         public Nullable<System.DateTime> UserEnrollStart { get; set; }
-        public System.DateTime UserEnrollActivityStart { get; set; }
-        public System.DateTime UserEnrollActivityEnd { get; set; }
+        public Nullable<System.DateTime> UserEnrollActivityStart { get; set; }
+        public Nullable<System.DateTime> UserEnrollActivityEnd { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }

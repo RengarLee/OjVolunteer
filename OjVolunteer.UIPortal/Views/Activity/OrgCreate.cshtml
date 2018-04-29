@@ -19,7 +19,7 @@
                 //        majorIds = majorIds + this.value + ",";
                 //    }
                 //});    
-                //majorIds = majorIds.substr(0, majorIds.length - 1);
+                ///*majorIds = majorIds.substr(0, majorIds.length - 1);*/
                 //alert(majorIds);
                 $.post("/Activity/Create/", $("#form1").serializeArray(), function (data) {
                     if (data == "success") {
@@ -58,7 +58,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ActivityTypeID, "活动类型", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("ActivityTypeID");
+                    @Html.DropDownList("ActivityTypeID","");
                     @Html.ValidationMessageFor(model => model.ActivityTypeID, "", new { @class = "text-danger" })
                 </div>
             </div>
