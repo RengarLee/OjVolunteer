@@ -18,6 +18,9 @@
     <script src="~/Content/oj/js/check.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
+        if (window.parent.window != window) {
+            window.top.location.href = "/Login/Index";
+        }
         function afterLogin(data) {
             if (data == "userinfo") {
                 window.top.location.href = "/UserInfo/Index";
