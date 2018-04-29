@@ -1,0 +1,111 @@
+﻿@Model IEnumerable<OjVolunteer.Model.Activity>
+
+    @{
+        Layout = null;
+    }
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>瓯江义工网</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/oj/css/amazeui.min.css" rel="stylesheet" />
+        <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+        <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+        <script src="~/Content/oj/js/bootstrap.min.js"></script>
+        <script src="~/Content/oj/js/amazeui.min.js"></script>
+        <script src="~/Content/oj/js/main.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                $("#btnevent").click(function () {
+                    var pageIndex = parseInt($("#btnevent").attr("pageIndex"));
+                    var pageSize = 5;
+                    var typeId = $("#ActivityTypeID").val();
+                    $.post("/Activity/GetListData", { pageIndex: pageIndex, pageSize: pageSize, typeId: typeId }, function (data) {
+                        if (data["msg"] == "success") {
+                            pageIndex = pageIndex + 1;
+                            var buffer = "";
+                            var s = data["data"];
+                            var i = 0;
+                            for (i; i < s.length; i++) {
+                                buffer = buffer + "<li class='aclist-box clearfix'> <a href='#' class='aclist-box-img'><img src='" + s[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href=''>" + s[i].ActivityName + "</a><span class='actime'>时间:" + s[i].ActivityStart + "-" + s[i].ActivityEnd + "</span><br> <span class='acendtime'>截止: " + s[i].ActivityEnrollEnd + "</span></div><div class='acbox-btn'><button class='btn'>我要报名</button> </div></li>";
+                            }
+                            buffer = buffer + "<input type='button' id='btnevent' pageIndex='";
+                            buffer = buffer + pageIndex + "' value='查看更多'/>";
+                            $("#btnevent").remove();
+                            $("#list").append(buffer);
+                        } else {
+                            $("#btnevent").remove();
+                            var buffer = "<p> 无更多活动</p>"
+                            $("#list").append(buffer);
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </head>
+    <body>
+        <header>
+            <nav class="top">
+                <p>活动</p>
+            </nav>
+        </header>
+        <nav class="classnav">
+            @Html.DropDownList("ActivityTypeID", null, "全部活动", new { htmlAttributes = new { @class = "data-am-selected" } })
+        </nav>
+
+        <div class="acbox">
+            <ul class="ac-list" id="list">
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <li class="aclist-box clearfix">
+                            <a href="#" class="aclist-box-img">
+                                <img src="@item.ActivityIcon">
+                            </a>
+                            <div class="aclist-box-info">
+                                <a href="">@item.ActivityName</a>
+                                <span class="actime">
+                                    时间: @item.ActivityStart - @item.ActivityEnd
+                                </span>
+                                <br>
+                                <span class="acendtime">
+                                    截止: @item.ActivityEnrollEnd
+                                </span>
+                            </div>
+                            <div class="acbox-btn">
+                                <button class="btn">我要报名</button>
+                            </div>
+                        </li>
+                    }
+                    <input type="button" id="btnevent" pageIndex="2" value="查看更多"/>
+                }
+                else
+                {<li><p>无活动</p></li>}
+
+            </ul>
+        </div>
+
+
+        <!-- 翻页组件 -->
+
+        <!-- 下边导航组件 -->
+        <nav class="navbt">
+            <a href="" class="btBar"><img src="images/icon1.png"><span>义工榜</span></a>
+            <a href="" class="btBar"><img src="images/icon1.png"><span>义工商城</span></a>
+            <a href="" class="btBar"><img src="images/icon1.png"><span>首页</span></a>
+            <a href="" class="btBar"><img src="images/icon1.png"><span>义工心得</span></a>
+            <a href="personal.html" class="btBar"><img src="images/icon1.png"><span>个人中心</span></a>
+        </nav>
+        <!-- 返回上一层组件 -->
+        <a href="javascript:history.go(-1)" class="header-back">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+
+    </body>
+</html>
