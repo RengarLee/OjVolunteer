@@ -332,6 +332,8 @@
     <Content Include="Content\oj\css\bootstrap.min.css" />
     <Content Include="Content\oj\css\iconfont.css" />
     <Content Include="Content\oj\css\main.css" />
+    <Content Include="Content\oj\css\style.css" />
+    <Content Include="Content\oj\css\toast.style.min.css" />
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\oj\images\1.jpg" />
     <Content Include="Content\oj\images\66763879_p0.jpg" />
@@ -349,7 +351,9 @@
     <Content Include="Content\oj\js\check.js" />
     <Content Include="Content\oj\js\jquery-1.12.4.js" />
     <Content Include="Content\oj\js\main.js" />
+    <Content Include="Content\oj\js\notification.js" />
     <Content Include="Content\oj\js\npm.js" />
+    <Content Include="Content\oj\js\toast.script.js" />
     <Content Include="Content\Upload\Images\1.jpg" />
     <Content Include="Content\Upload\Images\66763879_p0.jpg" />
     <Content Include="Content\Upload\Images\acimg.png" />
@@ -441,6 +445,7 @@
     <Content Include="Views\Political\Index.cshtml" />
     <Content Include="Views\Activity\ActivityOfAuditing.cshtml" />
     <Content Include="Views\Activity\List.cshtml" />
+    <Content Include="Views\OrganizeInfo\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

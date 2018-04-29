@@ -1,29 +1,18 @@
-﻿
-@{
-    Layout = "~/Views/Shared/Admin_Layout.cshtml";
-}
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>义工系统管理首页</title>
 
-@section css{
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
-    <style>
-        a:hover,
-        a:focus{
-            text-decoration: none;
-        }
-    </style>
-}
-@section script{
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
-    <script src="~/Content/layui/layui.all.js"></script>
-    <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>
-    <script src="~/Scripts/datapattern.js"></script>
 
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Content/oj/js/bootstrap.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化表格
@@ -65,7 +54,7 @@
                 pageList: [10, 20, 50, 100],        //可供选择的每页的行数（*）
                 smartDisplay: false,
                 showColumns: true,                  //是否显示所有的列
-                showRefresh: true,                  //是否显示刷新按钮
+                showRefresh: true,                  
                 minimumCountColumns: 2,             //最少允许的列数
                 clickToSelect: true,
                 uniqueId: "MajorID",                     //每一行的唯一标识，一般为主键列
@@ -138,7 +127,6 @@
             });
         };
 
-
         //批量删除
         function removeSelectClickEvent() {
             var selectedRows = $('#tb_major').bootstrapTable('getSelections', function (row) {
@@ -164,19 +152,30 @@
             });
         }
     </script>
-}
-<div id="toolbar" class="btn-group">
-    <input id="add" />
-    <button id="btn_add" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-    </button>
-    <button id="btn_removes" type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-    </button>
-</div>
-<div>
-    <table id="tb_major"></table>
-</div>
+</head>
+
+<body>
+    <div id="toolbar" class="btn-group">
+        <input id="add" />
+        <button id="btn_add" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <button id="btn_removes" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+        </button>
+    </div>
+    <div>
+        <table id="tb_major"></table>
+    </div>
+
+  
+
+   
+</body>
+
+</html>
+
+
 
 
 

@@ -1,20 +1,34 @@
 ﻿
-@{
-    Layout = "~/Views/Shared/Admin_Layout.cshtml";
-}
-@section css{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table-filter-control.css" rel="stylesheet" />
-    <style>
-        a:hover,
-        a:focus {
-            text-decoration: none;
-        }
-    </style>
-}
 
-@section script{
+
+</head>
+
+
+<body>
+
+    <div>
+        <table id="tb_organize" data-filter-control="true"></table>
+    </div>
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-filter-control.js"></script>
@@ -199,9 +213,9 @@
             ].join('');
         }
     </script>
-}
+</body>
+</html>
 
-<div>
-    <table id="tb_organize" data-filter-control="true"></table>
-</div>
+
+
 

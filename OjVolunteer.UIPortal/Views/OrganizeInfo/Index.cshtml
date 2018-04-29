@@ -1,34 +1,240 @@
-﻿
-@{
-    Layout = "~/Views/Shared/Admin_Layout.cshtml";
-}
-
-<!DOCTYPE html>
-
-<html>
+﻿<!DOCTYPE html>
+<html lang="zh">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>义工系统管理首页</title>
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/style.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/toast.style.min.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+    <script src="~/Content/oj/js/notification.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
 </head>
 <body>
-    <div>
-        <a href="/OrganizeInfo/OrganizeOfAuditing">审核组织</a>
-        <a href="/OrganizeInfo/AllUserInfo">所有用户信息(包括审核的)</a><br />
-        <a href="/OrganizeInfo/UserInfoDetail/3">用户详细信息</a><br />
-        <a href="/UserInfo/ExportExcel">义工文件导出</a>
-        <a href="/OrganizeInfo/ExportExcel">组织文件导出</a>
-        <a href="/OrganizeInfo/Create/">Create 组织</a>
-        <a href="/UserInfo/Create/">Create 用户</a>
-        <a href="/ActivityType/Index">活动类型</a>
-        <a href="/Activity/OrgCreate/">活动申请 </a>
-        Test
+    <div class="layui-layout layui-layout-admin">
 
-        Test
-        balabala
-        Test
-        组织组织
+        <div class="layui-header">
+            <div class="layui-logo">义工后台管理系统</div>
+            <ul class="layui-nav layui-layout-left">
+                <li top-bar top-id="1" class="layui-nav-item layui-this"><a href="javascript:;"></a></li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="@Model.OrganizeInfoIcon " class="layui-nav-img" />
+                        @Model.OrganizeInfoShowName
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd id="Info"><a>基本资料</a></dd>
+                        <dd><a href="">更改密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="/OrganizeInfo/Exit">退出</a></li>
+            </ul>
+        </div>
+        <!-- 侧边栏 -->
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 控制台的 -->
+                <ul left-bar left-id="1" class="layui-nav layui-nav-tree" lay-filter="left-nav" style="border-radius: 0;">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-url="/OrganizeInfo/Welcome" data-id="11" tab-item>
+                            欢迎
+                        </a>
+                    </li>
+
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">
+                            信息管理
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/UserInfo/AllUserInfo" data-id="1" tab-item>
+                                    义工信息
+                                </a>
+                            </dd>
+                            @if (Model.OrganizeInfoManageId == null)
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/OrganizeInfo/AllOrganizeInfo" data-id="2" tab-item>
+                                        组织信息
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="javascript:;" data-url="/Major/" data-id="3" tab-item>
+                                        专业信息
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="javascript:;" data-url="/Department/" data-id="4" tab-item>
+                                        学院信息
+                                    </a>
+                                </dd>
+                                <dd>
+                                    <a href="javascript:;" data-url="/Political/" data-id="6" tab-item>
+                                        政治面貌信息
+                                    </a>
+                                </dd>
+                            }
+                            else { }
+
+                        </dl>
+                    </li>
+
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;">
+                            信息审核
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="/UserInfo/UserOfAuditing" data-id="7" tab-item>
+                                    政治面貌更改审核
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Talks/TalksOfAuditing" data-id="9" tab-item>
+                                    心得审核
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Activity/ActivityOfAuditing" data-id="10" tab-item>
+                                    活动申请审核
+                                </a>
+                            </dd>
+                            @if (Model.OrganizeInfoManageId == null)
+                            {
+                                <dd>
+                                    <a href="javascript:;" data-url="/OrganizeInfo/OrganizeOfAuditing" data-id="8" tab-item>
+                                        组织账号申请审核
+                                    </a>
+                                </dd>
+                            }
+                            else { }
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 主体 -->
+        <div class="layui-body">
+            <!-- 顶部切换卡 -->
+            <div class="layui-tab layui-tab-brief" lay-filter="top-tab" lay-allowClose="true" style="margin: 0;">
+                <ul class="layui-tab-title"></ul>
+                <div class="layui-tab-content" style="padding: 0;"></div>
+            </div>
+        </div>
+        <!-- 底部 -->
+        <div class="layui-footer" style="text-align: center; line-height: 44px;">
+            Copyright © 2017 <a href="http://mumbai.cat" target="_blank">Benthink</a> Powered by Dust
+        </div>
     </div>
+
+
+    <script type="text/javascript">
+
+        // iframe切换动画
+        function ani(id) {
+            $("[iframe-id=" + id + "]").hide();
+            $("[iframe-id=" + id + "]").fadeIn(127);
+        }
+
+        layui.use(['element'], function () {
+            var element = layui.element;
+            var layer = layui.layer;
+
+            var tabfilter = 'top-tab';
+            var tab = $('.layui-tab[lay-filter=' + tabfilter + ']').eq(0);
+            var tabcontent = tab.children('.layui-tab-content').eq(0);
+            var tabtitle = tab.children('.layui-tab-title').eq(0);
+
+            /**
+             * iframe自适应
+             */
+            $(window).resize(function () {
+                //设置顶部切换卡容器度
+                tabcontent.height($(this).height() - 60 - 41 - 44); //头部高度 顶部切换卡高度 底部高度
+                //设置顶部切换卡容器内每个iframe高度
+                tabcontent.find('iframe').each(function () {
+                    $(this).height(tabcontent.height());
+                });
+            }).resize();
+
+            // 监听Tab切换，以改变地址hash值
+            element.on('tab(' + tabfilter + ')', function () {
+                try {
+                    var id = this.getAttribute('lay-id');
+                } catch (e) {
+                    var id = null;
+                }
+                if (id != null) {
+                    location.hash = tabfilter + '=' + id;
+                    ani(id);
+                }
+            });
+
+            // 点击左侧链接的时候
+            $('[tab-item]').bind('click', function () {
+                var id = $(this).attr('data-id');
+                var title = $(this).text();
+                var url = $(this).attr('data-url');
+
+                var iframes = $("[lay-id=" + id + "]").length;
+                if (iframes == 0) {
+                    // 不存在的情况
+                    var iframe = '<iframe';
+                    iframe += ' src="' + url + '" iframe-id="' + id + '"';
+                    iframe += ' style="width: 100%; height: ' + tabcontent.height() + 'px; border: 0px;"';
+                    iframe += '></iframe>';
+                    //顶部切换卡新增一个卡片
+                    element.tabAdd(tabfilter, { 'title': title, 'content': iframe, 'id': id });
+                    ani(id);
+                }
+                // 添加记录
+                location.hash = tabfilter + '=' + id;
+                // 改变tab
+                element.tabChange(tabfilter, id);
+            });
+
+            // 顶部导航选择时
+            $('[top-bar]').bind('click', function () {
+                var id = $(this).attr('top-id');
+                var lefts = $("[left-bar][left-id='" + id + "']").length;
+                if (lefts != 0) {
+                    // top-bar有对应的left-bar的情况下
+                    $("[left-bar]").hide();
+                    $("[left-bar][left-id='" + id + "']").fadeIn(500);
+                }
+            });
+
+            /**
+             * 初始化点击侧边栏导航
+             */
+            var layid = location.hash.replace(/^#top-tab=/, '');
+            // layui-this
+            if (layid) {
+                $('.layui-side-scroll').find('[data-id=' + layid + ']').eq(0).click();    // 根据传入的ID跳转
+            } else {
+                $('.layui-side-scroll').find('[data-url][data-id]').eq(0).click();    // 点击第一个
+            }
+
+        });
+
+        $('#Info').on('click', function () {
+            var index = layer.open({
+                type: 2,
+                title: false,
+                closeBtn: 0,
+                maxmin: false,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['600px', '700px'],
+                content: '/OrganizeInfo/Edit/@Model.OrganizeInfoID'
+            });
+        });
+    </script>
+
 </body>
 </html>

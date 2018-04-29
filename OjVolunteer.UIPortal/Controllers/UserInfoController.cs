@@ -32,7 +32,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Index()
         {
-            return View(LoginUser);
+            return View();
         }
 
         #region Query
@@ -73,7 +73,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult AllUserInfo()
         {
-            return View(LoginOrganize);
+            return View();
         }
 
         /// <summary>
@@ -93,6 +93,14 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             userQueryParam.PageSize = pageSize;
             userQueryParam.PageIndex = pageIndex;
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                userQueryParam.OrganizeInfoID = LoginOrganize.OrganizeInfoID;
+                userQueryParam.isSuper = false;
+            }
+            else {
+                userQueryParam.isSuper = true;
+            }
             userQueryParam.Total = 0;
 
             var pageData = UserInfoService.LoadPageData(userQueryParam).Select(u => new
@@ -116,11 +124,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 u.UserDuration.UserDurationTotal,
                 u.Status,
             }).AsQueryable();
-            if (LoginOrganize.OrganizeInfoManageId != null)
-            {
-                pageData = pageData.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
-            }
-            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            var data = new { total = userQueryParam.Total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
