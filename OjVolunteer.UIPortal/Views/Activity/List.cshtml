@@ -1,127 +1,161 @@
 ﻿@model IEnumerable<OjVolunteer.Model.Activity>
 
-    @{
-        Layout = null;
-    }
+@{
+    Layout = null;
+}
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>瓯江义工网</title>
-        <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="~/Content/oj/css/amazeui.min.css" rel="stylesheet" />
-        <link href="~/Content/oj/css/main.css" rel="stylesheet" />
-        <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
-        <script src="~/Content/oj/js/bootstrap.min.js"></script>
-        <script src="~/Content/oj/js/amazeui.min.js"></script>
-        <script src="~/Content/oj/js/main.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/oj/js/amazeui.min.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            GetActivityData(1, 5);
+            $("#ActivityTypeID").change(
+                function () {
+                    $("#list").empty();
+                    GetActivityData(1, 5, $(this).children('option:selected').val());
+                }
+                //SelectEvent($(this).children('option:selected').val())
+            )
+        });
 
-        <script type="text/javascript">
-            $(function () {
-                $("#btnevent").click(function () {
-                    var pageIndex = parseInt($("#btnevent").attr("pageIndex"));
-                    var pageSize = 5;
-                    var typeId = $("#ActivityTypeID").val();
-                    $.post("/Activity/GetListData", { pageIndex: pageIndex, pageSize: pageSize, typeId: typeId }, function (data) {
-                        if (data["msg"] == "success") {
-                            pageIndex = pageIndex + 1;
-                            var buffer = "";
-                            var s = data["data"];
-                            var i = 0;
-                            for (i; i < s.length; i++) {
-                                buffer = buffer + "<li class='aclist-box clearfix'> <a href='#' class='aclist-box-img'><img src='" + s[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href=''>" + s[i].ActivityName + "</a><span class='actime'>时间:" + s[i].ActivityStart + "-" + s[i].ActivityEnd + "</span><br> <span class='acendtime'>截止: " + s[i].ActivityEnrollEnd + "</span></div><div class='acbox-btn'><button class='btn'>我要报名</button> </div></li>";
-                            }
-                            buffer = buffer + "<input type='button' id='btnevent' pageIndex='";
-                            buffer = buffer + pageIndex + "' value='查看更多'/>";
-                            $("#btnevent").remove();
-                            $("#list").append(buffer);
-                        } else {
-                            $("#btnevent").remove();
-                            var buffer = "<p> 无更多活动</p>"
-                            $("#list").append(buffer);
-                        }
-                    });
-                });
+        function SelectEvent(value) {
+            alert(value)
+            //
+            //GetActivityData(1, 5,this);
+        }
 
-               
-                $(".btnEnroll").click(function () {
-                    var activityId = $(this).attr("activity");
-                    $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
-                        alert(data["msg"]);
-                    });
+        //加载活动数据
+        function GetActivityData(pageIndex, pageSize, typeId) {
+            $.post("/Activity/GetListData", { pageIndex: pageIndex, pageSize: pageSize, typeId: typeId }, function (data) {
+                if (data["msg"] == "success") {
+                    pageIndex = pageIndex;
+                    var buffer = "";
+                    var item = data["data"];
+                    for (var i = 0; i < item.length; i++) {
+                        /**/
+                        buffer = buffer + "<li class='aclist-box clearfix'> <a href='#' class='aclist-box-img'><img src='" + item[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href=''>" + item[i].ActivityName + "</a><span class='actime'>时间:" + TimeFormat(item[i].ActivityStart) + "-" + TimeFormat(item[i].ActivityEnd) + "</span><br> <span class='acendtime'>截止: " + TimeFormat(item[i].ActivityEnrollEnd) + "</span></div><div class='acbox-btn'><button  class='btnEnroll' activity=" + item[i].ActivityID + ">我要报名</button> </div></li>";
+                        /**/
+                    }
+                    buffer = buffer + "<input type='button' id='btnevent' pageIndex='";
+                    buffer = buffer + pageIndex + "' value='查看更多'/>";
+                    $("#btnevent").remove();
+                    $("#list").append(buffer);
+                    BindEnrollClickEvent();
+                    BindActivtyListClickEvent();
+                } else {
+                    $("#btnevent").remove();
+                    var buffer = "<p> 无更多活动</p>"
+                    $("#list").append(buffer);
+                }
+            });
+
+        }
+
+        //查看更多活动按钮绑定
+        function BindActivtyListClickEvent() {
+            $("#btnevent").click(function () {
+                var pageIndex = parseInt($("#btnevent").attr("pageIndex"));
+                var pageSize = 5;
+                var typeId = $("#ActivityTypeID").val();
+                GetActivityData(pageIndex, pageSize, typeId);
+            });
+        }
+
+        //报名按钮绑定事件
+        function BindEnrollClickEvent() {
+            $(".btnEnroll").click(function () {
+                var activityId = $(this).attr("activity");
+                $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
+                    alert(data["msg"]);
                 });
             });
-                //$(".btnEnroll").each(function () {
-                //    $(this).click(function () {
-                //        var activityId = this.atts("activity");
-                //        $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
-                //            alert(data["msg"]);
-                //        });
-                //    });
-                //});
-        </script>
+        }
+        //$(".btnEnroll").each(function () {
+        //    $(this).click(function () {
+        //        var activityId = this.atts("activity");
+        //        $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
+        //            alert(data["msg"]);
+        //        });
+        //    });
+        //});
 
-    </head>
-    <body>
-        <header>
-            <nav class="top">
-                <p>活动</p>
-            </nav>
-        </header>
-        <nav class="classnav">
-            @Html.DropDownList("ActivityTypeID", null, "全部活动", new { htmlAttributes = new { @class = "data-am-selected" } })
+        //时间戳转为时间
+        function TimeFormat(value) {
+            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+        }
+    </script>
+
+</head>
+<body>
+    <header>
+        <nav class="top">
+            <p>活动</p>
         </nav>
+    </header>
+    <nav class="classnav">
+        @Html.DropDownList("ActivityTypeID", null, "全部活动", new { htmlAttributes = new { @class = "data-am-selected" } })
+    </nav>
 
-        <div class="acbox">
-            <ul class="ac-list" id="list">
-                @if (Model != null)
+    <div class="acbox">
+        <ul class="ac-list" id="list">
+            @*@if (Model != null)
+            {
+                foreach (var item in Model)
                 {
-                    foreach (var item in Model)
-                    {
-                        <li class="aclist-box clearfix">
-                            <a href="#" class="aclist-box-img">
-                                <img src="@item.ActivityIcon">
-                            </a>
-                            <div class="aclist-box-info">
-                                <a href="">@item.ActivityName</a>
-                                <span class="actime">
-                                    时间: @item.ActivityStart - @item.ActivityEnd
-                                </span>
-                                <br>
-                                <span class="acendtime">
-                                    截止: @item.ActivityEnrollEnd
-                                </span>
-                            </div>
-                            <div class="acbox-btn">
-                                <button class="btnEnroll" activity="@item.ActivityID">我要报名</button>
-                            </div>
-                        </li>
-                    }
-                    <input type="button" id="btnevent" pageIndex="2" value="查看更多"/>
+                    <li class="aclist-box clearfix">
+                        <a href="#" class="aclist-box-img">
+                            <img src="@item.ActivityIcon">
+                        </a>
+                        <div class="aclist-box-info">
+                            <a href="">@item.ActivityName</a>
+                            <span class="actime">
+                                时间: @item.ActivityStart - @item.ActivityEnd
+                            </span>
+                            <br>
+                            <span class="acendtime">
+                                截止: @item.ActivityEnrollEnd
+                            </span>
+                        </div>
+                        <div class="acbox-btn">
+                            <button class="btnEnroll" activity="@item.ActivityID">我要报名</button>
+                        </div>
+                    </li>
                 }
-                else
-                {<li><p>无活动</p></li>}
+                <input type="button" id="btnevent" pageIndex="1" value="查看更多" />
+            }
+            else
+            {
+                <li><p>无活动</p></li>}*@
 
-            </ul>
-        </div>
+        </ul>
+    </div>
 
 
-        <!-- 翻页组件 -->
+    <!-- 翻页组件 -->
+    <!-- 下边导航组件 -->
+    <nav class="navbt">
+        <a href="" class="btBar"><img src="images/icon1.png"><span>义工榜</span></a>
+        <a href="" class="btBar"><img src="images/icon1.png"><span>义工商城</span></a>
+        <a href="" class="btBar"><img src="images/icon1.png"><span>首页</span></a>
+        <a href="" class="btBar"><img src="images/icon1.png"><span>义工心得</span></a>
+        <a href="personal.html" class="btBar"><img src="images/icon1.png"><span>个人中心</span></a>
+    </nav>
+    <!-- 返回上一层组件 -->
+    <a href="javascript:history.go(-1)" class="header-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
 
-        <!-- 下边导航组件 -->
-        <nav class="navbt">
-            <a href="" class="btBar"><img src="images/icon1.png"><span>义工榜</span></a>
-            <a href="" class="btBar"><img src="images/icon1.png"><span>义工商城</span></a>
-            <a href="" class="btBar"><img src="images/icon1.png"><span>首页</span></a>
-            <a href="" class="btBar"><img src="images/icon1.png"><span>义工心得</span></a>
-            <a href="personal.html" class="btBar"><img src="images/icon1.png"><span>个人中心</span></a>
-        </nav>
-        <!-- 返回上一层组件 -->
-        <a href="javascript:history.go(-1)" class="header-back">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-
-    </body>
+</body>
 </html>
