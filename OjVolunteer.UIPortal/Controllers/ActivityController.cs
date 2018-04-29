@@ -52,11 +52,12 @@ namespace OjVolunteer.UIPortal.Controllers
             var PageData = GetActivityData(pageSize, pageIndex);
             if (!String.IsNullOrEmpty(Request["typeId"]))
             {
-                PageData = PageData.Where(u => u.ActivityTypeID == int.Parse(Request["typeId"])).AsQueryable();
+                int typeId = int.Parse(Request["typeId"]);
+                PageData = PageData.Where(u => u.ActivityTypeID == typeId).AsQueryable();
             }
             if (PageData.Count() > 0)
             {
-                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd }).ToList() }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID }).ToList() }, JsonRequestBehavior.AllowGet);
             }
             else
             {
