@@ -120,6 +120,24 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [ActionAuthentication(AbleOrganize = true, AbleUser = true)]
+        public ActionResult GetTalkByOrgId()
+        {
+            var s = Request["limit"];
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            if (String.IsNullOrEmpty(Request["orgId"]))
+            {
+                return Json(new { total = 0, rows = "" }, JsonRequestBehavior.AllowGet);
+            }
+            int orgId = Convert.ToInt32(Request["orgId"]);
+            var pageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.OrganizeInfoID == orgId, u => u.TalkID, true).Select(n => new { n.TalkID, n.UserInfo.UserInfoShowName, n.TalkImagePath, n.TalkFavorsNum, n.TalkContent, n.Status, n.CreateTime, n.ModfiedOn }).ToList();
+
+            var data = new { total = total, rows = pageData };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 根据心得ID查看心得详情
         /// </summary>

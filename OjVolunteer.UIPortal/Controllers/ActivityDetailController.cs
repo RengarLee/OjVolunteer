@@ -35,6 +35,23 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
   
         }
+
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public JsonResult GetActivityDetailByOrgId()
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            if (String.IsNullOrEmpty(Request["userId"]))
+            {
+                return Json(new { total = 0, rows = "" }, JsonRequestBehavior.AllowGet);
+            }
+            int orgId = Convert.ToInt32(Request["orgId"]);
+            var pageData = ActivityDetailService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == orgId, u => u.ActivityID, true).Select(n => new { n.ActivityID, n.ActivityDetailTime, n.Activity.ActivityName, n.Activity.ActivityStart, n.Activity.ActivityEnd }).ToList();
+            var data = new { total = total, rows = pageData };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
         #endregion
 
     }
