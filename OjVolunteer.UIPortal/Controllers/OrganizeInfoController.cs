@@ -193,10 +193,11 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Edit(OrganizeInfo organizeInfo)
         {
+            
             if (ModelState.IsValid)
             {
+                organizeInfo.OrganizeInfoLoginId = LoginOrganize.OrganizeInfoLoginId;
                 organizeInfo.ModfiedOn = DateTime.Now;
-                organizeInfo.OrganizeInfoPwd = LoginOrganize.OrganizeInfoPwd;
                 if (OrganizeInfoService.Update(organizeInfo))
                 {
                     return Content("ok");
@@ -293,6 +294,34 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             var reslut = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId.Equals(username)).AsQueryable().Count() == 0;
             return Json(reslut, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 头像更换
+        public ActionResult UploadIcon()
+        {
+            var file = Request.Files["file"];
+            string path = "/Content/Upload/Icon/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+            string dirPath = Request.MapPath(path);
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
+           
+            file.SaveAs(Request.MapPath(fileName));
+            OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).FirstOrDefault();
+            organizeInfo.OrganizeInfoIcon = fileName;
+            if (OrganizeInfoService.Update(organizeInfo))
+            {
+                LoginUser.UserInfoIcon = fileName;
+                return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "error" }, JsonRequestBehavior.AllowGet);
+            }
+
         }
         #endregion
 

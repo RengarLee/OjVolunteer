@@ -38,7 +38,8 @@
                 });
             });
         }
-                //图片上传
+
+
     </script>
 </head>
 <body>
@@ -50,14 +51,11 @@
         <form class="layui-form layui-form-pane" id="form1">
             @Html.HiddenFor(model => model.OrganizeInfoID)
             @Html.ValidationSummary(true)
-            <!--上传头像-->
             <div class="form-head clearfix">
                 <div class="layui-upload form-head-left">
                     @Html.HiddenFor(model => model.OrganizeInfoIcon)
                     <div class="layui-upload-list">
-                        <img class="layui-upload-img" id="demo1" src="@Model.OrganizeInfoIcon" width="100px" height="120px">
-
-                        <button type="button" class="layui-btn" id="test1">更改头像</button>
+                        <img class="layui-upload-img" src="@Model.OrganizeInfoIcon" id="myimg" name="UserInfoIcon" width="100px" height="120px">
                     </div>
                 </div>
                 <!--右半边-部分信息更改-->
@@ -105,6 +103,7 @@
             @Html.HiddenFor(model => model.CreateTime)
             @Html.HiddenFor(model => model.Remark)
             @Html.HiddenFor(model => model.Status)
+            @Html.HiddenFor(model => model.OrganizeInfoPwd)
             <div class="form-btns">
                 <button type="button" class="layui-btn" id="btnUpdate">确定</button>
                 <button class="layui-btn" id="cancel" type="button">取消</button>
@@ -112,6 +111,31 @@
         </form>
     </div>
 
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script>
+        layui.use('upload', function () {
+            var upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '#myimg'
+                , url: '/OrganizeInfo/UploadIcon' //上传接口
+                , accept: 'images'
+                , done: function (res) {
+                    if (res["msg"] == "error") {
+                        alert("头像更换失败，请稍后再试");
+                    } else {
+                        $("#myimg").attr("src", res["src"]);
+                        alert("头像更新成功");
+                    }
+                }
+                , error: function () {
+                    alert("头像更换失败，请稍后再试")
+                }
+            });
+        });
+
+    </script>
 
 
 </body>
