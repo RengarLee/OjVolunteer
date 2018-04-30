@@ -61,7 +61,7 @@
                 <!--右半边-部分信息更改-->
                 <div class="form-head-right">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">登录名</label>
+                        <label class="layui-form-label">登录帐号</label>
                         <div class="layui-input-block">
                             @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { @class = "layui-input", type = "text", autocomplete = "off" } })
                         </div>
@@ -134,6 +134,23 @@
                 }
             });
         });
+
+        var layer;
+        layui.use('layer', function () {
+            var layer = layui.layer;
+        });
+        //点击确认键关闭弹出层 	
+        $('#btnUpdate').on('click', function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        });
+        //	点击退出关闭弹出层
+        $('#cancel').on('click', function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        });
+
+
 
     </script>
 
