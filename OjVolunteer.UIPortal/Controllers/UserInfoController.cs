@@ -274,7 +274,9 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Redirect("/OrganizeInfo/Index");
             }
-            return View(user);
+            ViewBag.Status = user.Status;
+            ViewData.Model = user;
+            return View();
         }
 
         [HttpPost]

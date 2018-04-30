@@ -17,7 +17,7 @@ namespace OjVolunteer.Model
         /// <summary>
         /// 义工登录名
         /// </summary>
-        [RegularExpression("^\\w{6,18}$", ErrorMessage = "用户名长度为6到18位只能由数字，字符，下划线组成")]
+        //[RegularExpression("^\\w{6,18}$", ErrorMessage = "用户名长度为6到18位只能由数字，字符，下划线组成")]
         [Required(ErrorMessage = "用户名不为空")]
         public string UserInfoLoginId { get; set; }
 
@@ -38,7 +38,7 @@ namespace OjVolunteer.Model
         /// <summary>
         /// 义工昵称
         /// </summary>
-        [RegularExpression("^\\w{6,18}$", ErrorMessage = "用户名长度为6到18位只能由数字，字符，下划线组成")]
+        //[RegularExpression("^\\w{6,18}$", ErrorMessage = "用户名长度为6到18位只能由数字，字符，下划线组成")]
         [Required(ErrorMessage = "用户昵称不为空")]
         public string UserInfoShowName { get; set; }
 
