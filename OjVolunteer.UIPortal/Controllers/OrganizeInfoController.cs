@@ -49,7 +49,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
         public ActionResult AllOrganizeInfo()
         {
-            return View(LoginOrganize);
+            return View();
         }
 
         /// <summary>
@@ -192,22 +192,21 @@ namespace OjVolunteer.UIPortal.Controllers
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Edit(OrganizeInfo organizeInfo)
-        {
-            
+        {  
             if (ModelState.IsValid)
             {
-                organizeInfo.OrganizeInfoLoginId = LoginOrganize.OrganizeInfoLoginId;
+
                 organizeInfo.ModfiedOn = DateTime.Now;
                 if (OrganizeInfoService.Update(organizeInfo))
                 {
-                    return Content("ok");
+                    return Content("success");
                 }
                 else
                 {
-                    return Content("error");
+                    return Content("fail");
                 }
             }
-            return Content("error");
+            return Content("fail");
         }
 
         /// <summary>
