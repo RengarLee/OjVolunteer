@@ -128,17 +128,16 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">登录帐号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off"class="layui-input" disabled lay_verify = "required">
+                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new {  autocomplete = "off",@class="layui-input",disabled="",lay_verify = "required" } })
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">负责人</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" class="layui-input" lay-verify="required|username" value="陈浩强">
+                        @Html.EditorFor(model => model.OrganizeInfoPeople, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|username" } })
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="content clearfix">
@@ -147,7 +146,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">组织名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input" lay-verify="required|orgname" value="红话筒支队">
+                        @Html.EditorFor(model => model.OrganizeInfoShowName, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|orgname" } })
                     </div>
                 </div>
 
@@ -155,7 +154,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" lay-verify="required|email" class="layui-input" value="823182092@qq.com">
+                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|email" } })
                     </div>
                 </div>
             </div>
@@ -164,7 +163,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">手机号</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="（不可改）" class="layui-input" lay-verify="required|phone" value="18958858318">
+                        @Html.EditorFor(model => model.OrganizeInfoPhone, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|phone" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -182,19 +181,14 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">注册时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input" disabled>
+                        @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled="" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">最近登录</label>
+                    <label class="layui-form-label">最后登录时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input" disabled>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">最后登录</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" autocomplete="off" placeholder="2018/4/14 10:10:51（不可改）" class="layui-input" disabled>
+                        @Html.EditorFor(model => model.OrganizeInfoLastTime, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "" } })
+
                     </div>
                 </div>
             </div>
