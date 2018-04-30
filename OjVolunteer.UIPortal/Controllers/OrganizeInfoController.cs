@@ -306,14 +306,14 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 Directory.CreateDirectory(dirPath);
             }
-            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
+            string fileName = path + Guid.NewGuid().ToString().Substring(1, 10)+".jpg";
            
             file.SaveAs(Request.MapPath(fileName));
             OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).FirstOrDefault();
             organizeInfo.OrganizeInfoIcon = fileName;
             if (OrganizeInfoService.Update(organizeInfo))
             {
-                LoginUser.UserInfoIcon = fileName;
+                LoginOrganize.OrganizeInfoIcon = fileName;
                 return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
             }
             else
