@@ -74,7 +74,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|email" } })
+                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "email" } })
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@
         <div class="footer">
             <div class="layui-form-item">
                 <button class="layui-btn red-btn" lay-submit>确定修改</button>
-                <button type="reset" class="layui-btn layui-btn-primary">取消修改</button>
+                <button type="reset" class="layui-btn layui-btn-primary" id="orgcancel">取消修改</button>
             </div>
         </div>
     }

@@ -6,16 +6,6 @@ layui.use('layer',function(){
 
 //点击基本资料弹出表单页面
 
-//点击确认键关闭弹出层 	
-    $('#success').on('click', function(){
-	    	
-	});
-//	点击退出关闭弹出层
-	$('#cancel').on('click', function(){
-	    	var index = parent.layer.getFrameIndex(window.name);
-	    	parent.layer.close(index);
-	});
-	
 
 
 

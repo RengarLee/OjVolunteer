@@ -39,8 +39,8 @@
         <p class="lg-title">登录</p>
         @using (Ajax.BeginForm("ProcessLogin", "Login", new AjaxOptions() { OnSuccess = "afterLogin" },new { @class = "layui-form" }))
         {
-            <input type="text" name="LoginCode" class="forminput clearfix" placeholder="请输入帐号"  lay-verify="required|userID">
-            <input type="password" name="LoginPwd" class="forminput clearfix" placeholder="请输入密码（6-18位）"   lay-verify="required|pass">
+            <input type="text" name="LoginCode" class="forminput clearfix" placeholder="请输入帐号"  lay-verify="required">
+            <input type="password" name="LoginPwd" class="forminput clearfix" placeholder="请输入密码（6-18位）"   lay-verify="required">
             <button type="submit" class="btn btn-success" id="loginbtn" lay-submit>登录</button>
             <a href="register.html">快速注册></a>
         }
