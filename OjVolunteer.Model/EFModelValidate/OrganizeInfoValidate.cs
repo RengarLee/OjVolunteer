@@ -32,8 +32,8 @@ namespace OjVolunteer.Model
         /// 组织密码
         /// </summary>
         //[RegularExpression("^\\w{6,18}$", ErrorMessage = "密码长度为6到18位只能由数字，字符，下划线组成")]
-        [Required(ErrorMessage = "用户密码不能为空")]
-        public string OrganizeInfoPwd { get; set; }
+        //[Required(ErrorMessage = "用户密码不能为空")]
+        //public string OrganizeInfoPwd { get; set; }
 
         /// <summary>
         /// 组织联系人

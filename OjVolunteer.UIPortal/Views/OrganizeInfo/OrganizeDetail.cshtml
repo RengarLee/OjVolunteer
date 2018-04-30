@@ -12,115 +12,35 @@
     <title>OrganizeDetail</title>
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function afterSubmit(data) {
+            if (data == "success") {
+                alert("修改成功");
+            } else {
+                alert("修改失败请稍后再试!");
+            }
+        }
+    </script>
 </head>
 <body>
-    @using (Html.BeginForm())
+    @using (Ajax.BeginForm("Edit", "OrganizeDetail", new AjaxOptions() { OnSuccess = "afterSubmit" }, new { @class = "layui-form layui-form-pane stuInfo-form" }))
     {
-        @Html.AntiForgeryToken()
-
         <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
             @Html.HiddenFor(model => model.OrganizeInfoID)
+            @Html.HiddenFor(model => model.OrganizeInfoManageId)
+            @Html.HiddenFor(model => model.OrganizeInfoLastTime)
+            @Html.HiddenFor(model => model.CreateTime)
+            @Html.HiddenFor(model => model.Remark)
+            @Html.HiddenFor(model => model.OrganizeInfoPwd)
+            @Html.HiddenFor(model => model.OrganizeInfoLoginId)
 
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.OrganizeInfoShowName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.OrganizeInfoShowName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.OrganizeInfoShowName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-                        @Html.HiddenFor(model => model.OrganizeInfoPwd, new { htmlAttributes = new { @class = "form-control" } })
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OrganizeInfoPeople, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.OrganizeInfoPeople, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OrganizeInfoPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.OrganizeInfoPhone, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OrganizeInfoEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-
-                    @Html.HiddenFor(model => model.OrganizeInfoManageId, htmlAttributes: new { @class = "control-label col-md-2" })
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OrganizeInfoLastTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.OrganizeInfoLastTime, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.CreateTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ModfiedOn, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ModfiedOn, new { htmlAttributes = new { @class = "form-control" } })
-
-                    </div>
-                </div>
-
-                        @Html.HiddenFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
-
-
-
-                        @Html.HiddenFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OrganizeInfoIcon, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.OrganizeInfoIcon, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.OrganizeInfoIcon, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.OrganizeInfoLoginId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.OrganizeInfoLoginId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ActivityCount, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ActivityCount, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ActivityCount, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
-            
         </div>
-    }
-    <form class="layui-form layui-form-pane stuInfo-form">
+
         <div class="header clearfix">
             <div class="header-left">
-                <img src="image/1.jpg" width="100px" height="100px">
+                @Html.HiddenFor(model => model.OrganizeInfoIcon)
+                <img src="@Model.OrganizeInfoIcon" width="100px" height="100px">
             </div>
             <div class="header-right">
 
@@ -128,7 +48,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">登录帐号</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new {  autocomplete = "off",@class="layui-input",disabled="",lay_verify = "required" } })
+                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "", lay_verify = "required" } })
                     </div>
                 </div>
 
@@ -167,12 +87,24 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">分院</label>
+                    <label class="layui-form-label">状态</label>
                     <div class="layui-input-block">
-                        <select name="city" lay-verify="required">
-                            <option value="0">数信</option>
-                            <option value="1">经管</option>
-                            <option value="2">文法</option>
+                        <select name="Status" lay-verify="required">
+                            @{
+                                if (Model.Status == 0)
+                                {
+                                    <option value="0" selected>正常</option>
+                                    <option value="1">已删除</option>
+                                }
+                                else if (Model.Status == 1)
+                                {
+
+                                    <option value="0">正常</option>
+                                    <option value="1" selected>已删除</option>
+                                }
+                            }
+
+
                         </select>
                     </div>
                 </div>
@@ -181,7 +113,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">注册时间</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled="" } })
+                        @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -200,7 +132,7 @@
                 <button type="reset" class="layui-btn layui-btn-primary">取消修改</button>
             </div>
         </div>
-    </form>
+    }
 
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/check.js"></script>
