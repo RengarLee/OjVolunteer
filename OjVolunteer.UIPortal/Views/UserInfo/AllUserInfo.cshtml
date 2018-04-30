@@ -58,6 +58,19 @@
                 minimumCountColumns: 3,
                 clickToSelect: true,
                 uniqueId: "UserInfoID",
+                rowStyle: function (row, index) {
+                    var strclass = "";
+                    if (row.ORDER_STATUS == "2") {
+                        strclass = 'warning';//还有一个active
+                    }
+                    else if (row.ORDER_STATUS == "1") {
+                        strclass = 'danger';
+                    }
+                    else {
+                        return {};
+                    }
+                    return { classes: strclass }
+                },
                 columns: [
                     {
                         field: 'UserInfoID',//域值
