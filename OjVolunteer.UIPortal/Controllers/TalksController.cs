@@ -23,9 +23,57 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #region  Query
+
+        public ActionResult AllTalks()
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            TalkQueryParam userQueryParam = new TalkQueryParam();
+            if (!string.IsNullOrEmpty(Request["filter"]))
+            {
+                userQueryParam = Newtonsoft.Json.JsonConvert.DeserializeObject<UserQueryParam>(Request["filter"]);
+            }
+            userQueryParam.PageSize = pageSize;
+            userQueryParam.PageIndex = pageIndex;
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                userQueryParam.OrganizeInfoID = LoginOrganize.OrganizeInfoID;
+                userQueryParam.isSuper = false;
+            }
+            else
+            {
+                userQueryParam.isSuper = true;
+            }
+            userQueryParam.Total = 0;
+
+            var pageData = UserInfoService.LoadPageData(userQueryParam).Select(u => new
+            {
+                u.UserInfoID,
+                u.UserInfoLoginId,
+                u.UserInfoShowName,
+                u.Department.DepartmentName,
+                u.OrganizeInfoID,
+                u.OrganizeInfo.OrganizeInfoShowName,
+                u.UserInfoEmail,
+                u.Political.PoliticalName,
+                u.Major.MajorName,
+                u.UserInfoTalkCount,
+                u.UserInfoLastTime,
+                u.UserInfoPhone,
+                u.UserInfoStuId,
+                u.UserDuration.UserDurationNormalTotal,
+                u.UserDuration.UserDurationPartyTotal,
+                u.UserDuration.UserDurationPropartyTotal,
+                u.UserDuration.UserDurationTotal,
+                u.Status,
+            }).AsQueryable();
+            var data = new { total = userQueryParam.Total, rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetAllTalks()
         {
-            //TODO:分页使用  BS Table
             return View();
         }
 
