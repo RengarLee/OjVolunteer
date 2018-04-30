@@ -57,30 +57,40 @@
                                     义工信息
                                 </a>
                             </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Talks/AllTalks" data-id="10" tab-item>
+                                    心得信息
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/UserInfo/AllUserInfo" data-id="12" tab-item>
+                                    活动信息
+                                </a>
+                            </dd>
                             @if (Model.OrganizeInfoManageId == null)
-                            {
-                                <dd>
-                                    <a href="javascript:;" data-url="/OrganizeInfo/AllOrganizeInfo" data-id="2" tab-item>
-                                        组织信息
-                                    </a>
-                                </dd>
-                                <dd>
-                                    <a href="javascript:;" data-url="/Major/" data-id="3" tab-item>
-                                        专业信息
-                                    </a>
-                                </dd>
-                                <dd>
-                                    <a href="javascript:;" data-url="/Department/" data-id="4" tab-item>
-                                        学院信息
-                                    </a>
-                                </dd>
-                                <dd>
-                                    <a href="javascript:;" data-url="/Political/" data-id="6" tab-item>
-                                        政治面貌信息
-                                    </a>
-                                </dd>
-                            }
-                            else { }
+    {
+                        <dd>
+                            <a href="javascript:;" data-url="/OrganizeInfo/AllOrganizeInfo" data-id="2" tab-item>
+                                组织信息
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="/Major/" data-id="3" tab-item>
+                                专业信息
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="/Department/" data-id="4" tab-item>
+                                学院信息
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="/Political/" data-id="6" tab-item>
+                                政治面貌信息
+                            </a>
+                        </dd>
+}
+else { }
 
                         </dl>
                     </li>

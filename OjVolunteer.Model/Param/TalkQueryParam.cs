@@ -9,12 +9,10 @@ namespace OjVolunteer.Model.Param
     public class TalkQueryParam:BaseParam
     {
         public int TalkID { get; set; }
-        public String UserInfoName { get; set; }
-        public String OrganizeInfoName { get; set; }
-        public Nullable<int> TalkFavorsNum { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-
-
+        public String UserInfoShowName { get; set; }
+        public String OrganizeInfoShowName { get; set; }
+        public String TalkFavorsNum { get; set; }
+        public String CreateTime { get; set; }
         /// <summary>
         /// 组织ID
         /// </summary>

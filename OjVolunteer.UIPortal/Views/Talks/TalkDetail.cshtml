@@ -15,22 +15,22 @@
 </head>
 <body>
     @*<div>
-        @ViewBag.Content
-    </div>
-    <div>
-        @{
-            string path = ViewBag.ImgPath;
-            if (ViewBag.Images != null)
-            {
-                List<string> images = ViewBag.Images;
-                foreach (var image in images)
+            @ViewBag.Content
+        </div>
+        <div>
+            @{
+                string path = ViewBag.ImgPath;
+                if (ViewBag.Images != null)
                 {
-                    <img src="@path@image" width="100px" height="100px" />
+                    List<string> images = ViewBag.Images;
+                    foreach (var image in images)
+                    {
+                        <img src="@path@image" width="100px" height="100px" />
+                    }
                 }
             }
-        }
 
-    </div>*@
+        </div>*@
     <div class="talk-box">
         <div class="talk-box-title">
             <fieldset class="layui-elem-field ">
@@ -44,41 +44,26 @@
     </div>
 
     <div class="am-avg-sm-3 boxes" id="weibo-img">
-        <li class="box">
-            <img src="" width="130px" height="130px" class="img-item" layer-src="">
-        </li>
-        <li class="box">
-            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
-        </li>
-        <li class="box">
-            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
-        </li>
-        <li class="box">
-            <img src="images/66763879_p0.jpg" width="130px" height="130px" class="img-item">
-        </li>
-        <li class="box">
-            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
-        </li>
-        <li class="box">
-            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
-        </li>
-        <li class="box">
-            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
-        </li>
-        <li class="box">
-            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
-        </li>
-        <li class="box">
-            <img src="images/1.jpg" width="130px" height="130px" class="img-item">
-        </li>
+        @{
+            string path = ViewBag.ImgPath;
+            if (ViewBag.Images != null)
+            {
+                List<string> images = ViewBag.Images;
+                foreach (var image in images)
+                {
+                    <li class="box">
+                        <img src="@path@image" width="130px" height="130px" class="img-item" layer-src="@path@image">
+                    </li>
+                }
+            }
+        }
     </div>
-    <script type="text/javascript" src="layui/layui.all.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
     <script type="text/javascript">
         layer.photos({
             photos: '#weibo-img'
             , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
         });
     </script>
-    <script src="~/Content/layui/layui.all.js"></script>
 </body>
 </html>

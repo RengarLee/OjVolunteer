@@ -15,7 +15,7 @@
 </head>
 <body>
     <div>
-        <table id="tb_user" data-filter-control="true"></table>
+        <table id="tb_talk" data-filter-control="true"></table>
     </div>
 
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
@@ -36,10 +36,10 @@
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb_user").bootstrapTable('destroy');
-            $('#tb_user').bootstrapTable({
+            $("#tb_talk").bootstrapTable('destroy');
+            $('#tb_talk').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
-                url: '/UserInfo/GetAllUserInfo',
+                url: '/Talks/GetAllTalks',
                 method: 'post',
                 toolbar: '#toolbar',
                 striped: true,
@@ -57,23 +57,11 @@
                 showRefresh: true,
                 minimumCountColumns: 3,
                 clickToSelect: true,
-                uniqueId: "UserInfoID",
-                rowStyle: function (row, index) {
-                    var strclass = "";
-                    if (row.ORDER_STATUS == "2") {
-                        strclass = 'warning';//还有一个active
-                    }
-                    else if (row.ORDER_STATUS == "1") {
-                        strclass = 'danger';
-                    }
-                    else {
-                        return {};
-                    }
-                    return { classes: strclass }
-                },
+                uniqueId: "TalkID",
+
                 columns: [
                     {
-                        field: 'UserInfoID',//域值
+                        field: 'TalkID',//域值
                         title: 'Id',//标题
                         visible: false,
                         align: 'center',
@@ -81,39 +69,33 @@
                         filterControl: 'input',
                     },
                     {
-                        field: 'UserInfoLoginId',//域值
-                        title: '登录ID',//标题
-                        visible: true,//false表示不显示
-                        width: '6%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserInfoStuId',//域值
-                        title: '学号',//标题
-                        visible: false,//false表示不显示
-                        width: '6%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["UserInfoStuId"] == null) {
-                                return '未填写';
-                            }
-                            return value;
-                        },
-                        filterControl: 'input',
-                    },
-                    {
                         field: 'UserInfoShowName',//域值
-                        title: '用户名称',//标题
+                        title: '义工名称',//标题
                         visible: true,//false表示不显示
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
                     },
                     {
-                        field: 'UserInfoPhone',//域值
-                        title: '手机号',//标题
-                        visible: false,//false表示不显示
+                        field: 'OrganizeInfoShowName',//域值
+                        title: '组织名称',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                        filterControl: 'input',
+                    },
+                    {
+                        field: 'TalkFavorsNum',//域值
+                        title: '点赞数',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                        filterControl: 'input',
+                    },
+                    {
+                        field: 'CreateTime',//域值
+                        title: '创建时间',//标题
+                        visible: true,//false表示不显示
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -125,124 +107,6 @@
                         filterControl: 'input',
                     },
                     {
-                        field: 'UserInfoEmail',//域值
-                        title: '邮箱',//标题
-                        visible: false,//false表示不显示
-                        width: '6%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["UserInfoEmail"] == null) {
-                                return '未填写';
-                            }
-                            return value;
-                        },
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'PoliticalName',//域值
-                        title: '政治面貌',//标题
-                        visible: false,//false表示不显示
-                        width: '6%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'MajorName',//域值
-                        title: '专业',//标题
-                        visible: false,//false表示不显示
-                        width: '10%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["MajorName"] == null) {
-                                return '未填写';
-                            }
-                            return value;
-                        },
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'DepartmentName',//域值
-                        title: '所属学院',//标题
-                        visible: false,//false表示不显示
-                        width: '6%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["DepartmentName"] == null) {
-                                return '未填写';
-                            }
-                            return value;
-                        },
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserInfoTalkCount',//域值
-                        title: '心得数目',//标题
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
-                        width: '4%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["UserInfoTalkCount"] == null) {
-                                return '0';
-                            }
-                            return value;
-                        },
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'OrganizeInfoShowName',//域值
-                        title: '所属组织',//标题
-                        visible: false,//false表示不显示
-                        width: '6%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserDurationNormalTotal',//域值
-                        title: '普通活动时长',//标题
-                        visible: false,//false表示不显示
-                        sortable: true,//启用排序
-                        width: '10%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserDurationPropartyTotal',//域值
-                        title: '预备党员时长',//标题
-                        visible: false,//false表示不显示
-                        sortable: true,//启用排序
-                        width: '10%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserDurationPartyTotal',//域值
-                        title: '党员时长',//标题
-                        visible: false,
-                        sortable: true,
-                        width: '10%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserDurationTotal',//域值
-                        title: '义工活动总时长',//标题
-                        visible: true,
-                        sortable: true,
-                        width: '10%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserInfoLastTime',//域值
-                        title: '最后登录时间',//内容
-                        visible: false,//false表示不显示
-                        sortable: true,//启用排序
-                        width: '6%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
                         field: 'Status',//域值
                         title: '状态',//内容
                         visible: true,//false表示不显示
@@ -251,11 +115,11 @@
                         align: 'center',
                         formatter: function (value, row, index) {
                             if (row["Status"] == 2) {
-                                return '未审核';
+                                return '待审核';
                             } else if (row["Status"] == 1) {
                                 return '已删除';
                             } else if (row["Status"] == 0) {
-                                return '正常'
+                                return '正常';
                             }
                         },
                         filterControl: 'input',
@@ -275,7 +139,7 @@
                         maxmin: false,
                         shadeClose: true,
                         area: ['600px', '700px'],
-                        content: '/UserInfo/OrgEditUser/' + row["UserInfoID"]
+                        content: '/Talks/TalkDetail/' + row["TalkID"]
                     });
                 }
             });

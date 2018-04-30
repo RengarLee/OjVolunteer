@@ -1,5 +1,6 @@
 ﻿using OjVolunteer.IBLL;
 using OjVolunteer.Model;
+using OjVolunteer.Model.Param;
 using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace OjVolunteer.UIPortal.Controllers
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         short delDeleted = (short)Model.Enum.DelFlagEnum.Deleted;
+        short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
         public ITalksService TalksService { get; set; }
         public ActionResult Index()
         {
@@ -24,57 +26,45 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region  Query
 
-        //public ActionResult AllTalks()
-        //{
-        //    int pageSize = int.Parse(Request["limit"] ?? "5");
-        //    int offset = int.Parse(Request["offset"] ?? "0");
-        //    int pageIndex = (offset / pageSize) + 1;
-        //    TalkQueryParam userQueryParam = new TalkQueryParam();
-        //    if (!string.IsNullOrEmpty(Request["filter"]))
-        //    {
-        //        userQueryParam = Newtonsoft.Json.JsonConvert.DeserializeObject<UserQueryParam>(Request["filter"]);
-        //    }
-        //    userQueryParam.PageSize = pageSize;
-        //    userQueryParam.PageIndex = pageIndex;
-        //    if (LoginOrganize.OrganizeInfoManageId != null)
-        //    {
-        //        userQueryParam.OrganizeInfoID = LoginOrganize.OrganizeInfoID;
-        //        userQueryParam.isSuper = false;
-        //    }
-        //    else
-        //    {
-        //        userQueryParam.isSuper = true;
-        //    }
-        //    userQueryParam.Total = 0;
-
-        //    var pageData = UserInfoService.LoadPageData(userQueryParam).Select(u => new
-        //    {
-        //        u.UserInfoID,
-        //        u.UserInfoLoginId,
-        //        u.UserInfoShowName,
-        //        u.Department.DepartmentName,
-        //        u.OrganizeInfoID,
-        //        u.OrganizeInfo.OrganizeInfoShowName,
-        //        u.UserInfoEmail,
-        //        u.Political.PoliticalName,
-        //        u.Major.MajorName,
-        //        u.UserInfoTalkCount,
-        //        u.UserInfoLastTime,
-        //        u.UserInfoPhone,
-        //        u.UserInfoStuId,
-        //        u.UserDuration.UserDurationNormalTotal,
-        //        u.UserDuration.UserDurationPartyTotal,
-        //        u.UserDuration.UserDurationPropartyTotal,
-        //        u.UserDuration.UserDurationTotal,
-        //        u.Status,
-        //    }).AsQueryable();
-        //    var data = new { total = userQueryParam.Total, rows = pageData.ToList() };
-        //    return Json(data, JsonRequestBehavior.AllowGet);
-        //}
+        public ActionResult AllTalks()
+        {
+            return View();
+        }
 
         public ActionResult GetAllTalks()
         {
-            return View();
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            TalkQueryParam talkQueryParam = new TalkQueryParam();
+            if (!string.IsNullOrEmpty(Request["filter"]))
+            {
+                talkQueryParam = Newtonsoft.Json.JsonConvert.DeserializeObject<TalkQueryParam>(Request["filter"]);
+            }
+            talkQueryParam.PageSize = pageSize;
+            talkQueryParam.PageIndex = pageIndex;
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                talkQueryParam.OrganizeInfoID = LoginOrganize.OrganizeInfoID;
+                talkQueryParam.isSuper = false;
+            }
+            else
+            {
+                talkQueryParam.isSuper = true;
+            }
+            talkQueryParam.Total = 0;
+
+            var pageData = TalksService.LoadPageData(talkQueryParam).Select(u => new
+            {
+                u.TalkID,
+                u.UserInfo.UserInfoShowName,
+                u.OrganizeInfo.OrganizeInfoShowName,
+                u.TalkFavorsNum,
+                u.CreateTime,
+                u.Status
+            }).AsQueryable();
+            var data = new { total = talkQueryParam.Total, rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -162,11 +152,12 @@ namespace OjVolunteer.UIPortal.Controllers
             Talks talks = new Talks
             {
                 CreateTime = DateTime.Now,
-                Status = delDeleted,
+                Status = delInvalid,
                 ModfiedOn = DateTime.Now,
                 TalkContent = "",
                 UserInfoID = LoginUser.UserInfoID,
                 OrganizeInfoID = LoginUser.OrganizeInfoID,
+                
                 TalkFavorsNum = 0,
             };
             talks = TalksService.Add(talks);
