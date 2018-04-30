@@ -30,12 +30,16 @@ namespace OjVolunteer.UIPortal.Controllers
             var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd && o.Status != delDeleted && o.Status != delInvalid).FirstOrDefault();
             if (organizeInfo != null)
             {
+                organizeInfo.OrganizeInfoLastTime = DateTime.Now;
+                OrganizeInfoService.Update(organizeInfo);
                 UserToCache(organizeInfo);
                 return Content("OrganizeInfo");
             }
             var userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status != delDeleted&&u.Status != delInvalid).FirstOrDefault();
             if (userInfo != null)
             {
+                userInfo.UserInfoLastTime = DateTime.Now;
+                UserInfoService.Update(userInfo);
                 UserToCache(userInfo);
                 return Content("userinfo");
             }

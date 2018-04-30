@@ -14,11 +14,11 @@
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
     <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
 
-        function registerAfter(data)
-        {
-            if (data == "ok")
+        function registerAfter(data) {
+            if (data == "success")
                 alert("注册成功！")
             else
                 alert("注册失败，请稍后再试！")
@@ -28,8 +28,8 @@
             $("#username").blur(function () {
                 str = $("#username").val();
                 $.post("/Register/ValidateName", { "name": str, "usertype": "0" }, function (data) {
-                    if (data == "ok")
-                        alert("ok");
+                    if (data == "success")
+                        alert("success");
                     else
                         alert("error");
                 });
@@ -37,8 +37,8 @@
             $("#teamname").blur(function () {
                 str = $("#teamname").val();
                 $.post("Register/ValidateName", { "name": str, "usertype": "1" }, function (data) {
-                    if (data == "ok")
-                        alert("ok");
+                    if (data == "success")
+                        alert("success");
                     else
                         alert("error");
                 });

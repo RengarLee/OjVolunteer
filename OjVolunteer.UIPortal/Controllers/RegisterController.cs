@@ -56,31 +56,29 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region OrganizeRegiste 组织用户注册
+
         public ActionResult OrganizeRegister(string loginname, string pwd, string nickname, string people, string phone)
         {
-            try
-            {
                 OrganizeInfo organize = new OrganizeInfo
                 {
+                    
                     OrganizeInfoLoginId = loginname,
                     OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd),
                     OrganizeInfoShowName = nickname,
                     OrganizeInfoPeople = people,
                     OrganizeInfoPhone = phone,
-                    //需要通过上层组织审核才能登录
                     Status = (short)Model.Enum.DelFlagEnum.Auditing,
+
                     ModfiedOn = DateTime.Now,
                     CreateTime = DateTime.Now,
-                    //TODO:发布前需要更改
-                    OrganizeInfoManageId = 2,
+                    OrganizeInfoLastTime = DateTime.Now,
+                    OrganizeInfoManageId = OrganizeInfoService.GetEntities(u=>u.OrganizeInfoManageId == null).FirstOrDefault().OrganizeInfoID,
+                    OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"],
                 };
-                OrganizeInfoService.Add(organize);
-                return Content("ok");
-            }
-            catch (Exception e)
-            {
-                return Content("error");
-            }
+                if(OrganizeInfoService.Add(organize)!=null)
+                    return Content("success");
+                else
+                    return Content("fail");
         }
         #endregion
 
