@@ -171,7 +171,7 @@
     </script>
 </head>
 <body>
-    @using (Html.BeginForm())
+    @using (Ajax.BeginForm("OrgEditUser", "UserInfo", FormMethod.Post,new AjaxOptions() { }, new { @class = "layui-form layui-form-pane stuInfo-form" }))
     {
         <div class="form-horizontal">
             @Html.HiddenFor(model => model.UserInfoID)
@@ -179,130 +179,142 @@
             @Html.HiddenFor(model => model.UpdatePoliticalID, new { htmlAttributes = new { @class = "form-control" } })
             @Html.HiddenFor(model => model.UserInfoIcon, new { htmlAttributes = new { @class = "form-control" } })
         </div>
+
+        <form class="">
+            <div class="header clearfix">
+                <div class="header-left">
+                    <img src="@Model.UserInfoIcon" width="100px" height="100px">
+                </div>
+                <div class="header-right">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">登录帐号</label>
+                        <div class="layui-input-block">
+                            @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", disabled = "", lay_verify = "required", @class = "layui-input" } })
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学号</label>
+                        <div class="layui-input-block">
+                            @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off",  @class = "layui-input" } })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content clearfix">
+                <div class="content-left">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block">
+                            @Html.EditorFor(Model => Model.UserInfoShowName, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|username", @class = "layui-input" } })
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-block">
+                            @Html.EditorFor(Model => Model.UserInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+
+                        <label class="layui-form-label">学院</label>
+                        <div class="layui-input-block">
+
+                            @Html.DropDownList("DepartmentID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">组织名称</label>
+                        <div class="layui-input-block">
+                            @Html.DropDownList("OrganizeInfoID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="content-right">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">手机号</label>
+                        <div class="layui-input-block">
+                            @Html.EditorFor(Model => Model.UserInfoPhone, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|phone", @class = "layui-input" } })
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">专业</label>
+                        <div class="layui-input-block">
+                            @Html.DropDownList("MajorID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">政治面貌</label>
+                        <div class="layui-input-block">
+                            @Html.DropDownList("PoliticalID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">
+                            <select name="Status" lay-verify="required">
+                                @{
+                                    if (Model.Status == 0)
+                                    {
+                                        <option value="0" selected>正常</option>
+                                        <option value="1">已删除</option>
+                                    }
+                                    else if (Model.Status == 1)
+                                    {
+
+                                        <option value="0">正常</option>
+                                        <option value="1" selected>已删除</option>
+                                    }
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="content-footer">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">注册时间</label>
+                        <div class="layui-input-block">
+                            @Html.EditorFor(Model => Model.CreateTime, new { htmlAttributes = new { autocomplete = "off", disabled = "", @class = "layui-input" } })
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">最后登录时间</label>
+                        <div class="layui-input-block">
+                            @Html.EditorFor(Model => Model.UserInfoLastTime, new { htmlAttributes = new { autocomplete = "off", disabled = "", @class = "layui-input" } })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="footer">
+                <div class="layui-form-item">
+                    <button class="layui-btn red-btn" lay-submit>确定更改</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">取消更改</button>
+                </div>
+            </div>
+        </form>
+
+        <div>
+            <div>
+                <table id="tb_talks"></table>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <table id="tb_activity"></table>
+            </div>
+        </div>
+
     }
 
-    <form class="layui-form layui-form-pane stuInfo-form">
-        <div class="header clearfix">
-            <div class="header-left">
-                <img src="@Model.UserInfoIcon" width="100px" height="100px">
-            </div>
-            <div class="header-right">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">登录帐号</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model=>Model.UserInfoLoginId,new { htmlAttributes = new { autocomplete = "off",disabled="",lay_verify = "required" ,@class = "layui-input" } })
-                    </div>
-                </div>
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label">学号</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off",lay_verify = "required|studentNumber", @class = "layui-input" } })
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="content clearfix">
-            <div class="content-left">
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">姓名</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoShowName, new { htmlAttributes = new { autocomplete = "off",lay_verify = "required|username", @class = "layui-input" } })
-                    </div>
-                </div>
-
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoEmail, new { htmlAttributes = new { autocomplete = "off",lay_verify = "required|email" ,@class = "layui-input" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    
-                    <label class="layui-form-label">学院</label>
-                    <div class="layui-input-block">
-
-                        @Html.DropDownList("DepartmentID", null,new { htmlAttributes = new { @lay_verify = "required" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">组织名称</label>
-                    <div class="layui-input-block">
-                        @Html.DropDownList("OrganizeInfoID", null, new { htmlAttributes = new { @lay_verify = "required" } })
-                    </div>
-                </div>
-            </div>
-            <div class="content-right">
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">手机号</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoPhone, new { htmlAttributes = new { autocomplete = "off",lay_verify = "required|phone", @class = "layui-input" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">专业</label>
-                    <div class="layui-input-block">
-                        @Html.DropDownList("MajorID", null, new { htmlAttributes = new { @lay_verify = "required" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">政治面貌</label>
-                    <div class="layui-input-block">
-                        @Html.DropDownList("PoliticalID", null, new { htmlAttributes = new { @lay_verify = "required" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">ID</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoID, new { htmlAttributes = new { autocomplete = "off", disabled="",@class = "layui-input" } })
-                    </div>
-                </div>
-            </div>
-            <div class="content-footer">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">注册时间</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.CreateTime, new { htmlAttributes = new { autocomplete = "off",disabled = "", @class = "layui-input" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">个人资料最近修改时间</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.ModfiedOn, new { htmlAttributes = new { autocomplete = "off",disabled = "", @class = "layui-input" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">最后登录时间</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoLastTime, new { htmlAttributes = new { autocomplete = "off",disabled = "",@class = "layui-input" } })
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="footer">
-            <div class="layui-form-item">
-                <button class="layui-btn red-btn" lay-submit>确定更改</button>
-                <button type="reset" class="layui-btn layui-btn-primary">取消更改</button>
-            </div>
-        </div>
-    </form>
-
-    <div>
-        <div>
-            <table id="tb_talks"></table>
-        </div>
-    </div>
-
-    <div>
-        <div>
-            <table id="tb_activity"></table>
-        </div>
-    </div>
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/check.js"></script>
 </body>

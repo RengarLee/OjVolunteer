@@ -12,10 +12,14 @@
     <title>OrganizeDetail</title>
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
         function afterSubmit(data) {
             if (data == "success") {
                 alert("修改成功");
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
             } else {
                 alert("修改失败请稍后再试!");
             }

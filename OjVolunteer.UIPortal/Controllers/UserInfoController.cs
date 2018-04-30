@@ -277,6 +277,21 @@ namespace OjVolunteer.UIPortal.Controllers
             return View(user);
         }
 
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult OrgEditUser(UserInfo userInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                userInfo.ModfiedOn = DateTime.Now;
+                if (UserInfoService.Update(userInfo))
+                {
+                    return Content("success");
+                }
+            }
+            return Content("fail");
+        }
+
         /// <summary>
         /// 批量处理同意用户转变政治面貌
         /// </summary>
