@@ -146,8 +146,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult GetAllUserOfAuditing()
         {
-            
-            var s = Request["limit"];
+           
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
