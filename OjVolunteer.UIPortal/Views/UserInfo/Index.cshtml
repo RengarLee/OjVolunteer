@@ -1,4 +1,6 @@
-﻿@{
+﻿@model OjVolunteer.Model.UserInfo
+
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -141,9 +143,9 @@
     <nav class="navbt">
         <a href="" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
         <a href="" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
-        <a href="" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span>首页</span></a>
+        <a href="/UserInfo/Index" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span>首页</span></a>
         <a href="" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
-        <a href="personal.html" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
+        <a href="/UserInfo/UserInfoSimple/@Model.UserInfoID" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
     </nav>
     <!-- 侧边栏组件 -->
     <div class="topback" id="topback">
@@ -165,7 +167,7 @@
                 , arrow: 'always'  //两个圆形箭头一直存在
                 , indicator: 'none'  //去掉了下面的圆点
             });
-    });
+        });
     </script>
-</body >
-</html >
+</body>
+</html>
