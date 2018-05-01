@@ -199,6 +199,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Filters\ExceptionLogFilterAttribute.cs" />
+    <Compile Include="Models\TalkViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -356,11 +357,6 @@
     <Content Include="Content\oj\js\notification.js" />
     <Content Include="Content\oj\js\npm.js" />
     <Content Include="Content\oj\js\toast.script.js" />
-    <Content Include="Content\Selectivity\css\selectivity-jquery.css" />
-    <Content Include="Content\Selectivity\css\stylesheet.css" />
-    <Content Include="Content\Selectivity\js\jquery.min.js" />
-    <Content Include="Content\Selectivity\js\main.js" />
-    <Content Include="Content\Selectivity\js\selectivity-jquery.js" />
     <Content Include="Content\Upload\Icon\1.jpg" />
     <Content Include="Content\Upload\Images\1.jpg" />
     <Content Include="Content\Upload\Images\66763879_p0.jpg" />
@@ -455,11 +451,11 @@
     <Content Include="Views\Activity\List.cshtml" />
     <Content Include="Views\OrganizeInfo\Welcome.cshtml" />
     <Content Include="Views\Talks\AllTalks.cshtml" />
+    <Content Include="Views\Talks\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\TalkImages\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\ActivityDetail\" />
     <Folder Include="Views\UserEnroll\" />
   </ItemGroup>

@@ -174,7 +174,7 @@
 
     </form>
 
-    <input name="ActivityManagerID" id="managerid" type="text"/> <button type="button" id="btnSer" name="btnSer" value="查找"/>
+    <input name="ActivityManagerID" id="managerid" type="text" /> <button type="button" id="btnSer" name="btnSer" value="查找" />
     <div id="manager"></div>
 
     <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
@@ -187,8 +187,7 @@
         $(function () {
             BindSearchKey();
         });
-        function BindSearchKey()
-        {
+        function BindSearchKey() {
             $('#btnSer').click(function () {
                 $.post("/UserInfo/SearchActivityPeople", { key: $("#managerid").val() }, function (data) {
                     var buffer = "登录名" + data["login"] + "真实姓名" + data["showname"];
@@ -196,7 +195,7 @@
                 });
             });
         }
-    </script>
+    </script>data.TalkImagePath
 </body>
 </html>
 <script type="text/javascript">
