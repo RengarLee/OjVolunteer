@@ -65,8 +65,6 @@ namespace OjVolunteer.UIPortal.Controllers
             }
         }
 
-       
-
         /// <summary>
         /// 加载列表数据
         /// </summary>

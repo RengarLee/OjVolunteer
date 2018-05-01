@@ -19,7 +19,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #region 用户活动详情
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = true)]
         public JsonResult GetActivityDetailByUserId()
         {
             int pageSize = int.Parse(Request["limit"] ?? "5");
@@ -33,7 +33,6 @@ namespace OjVolunteer.UIPortal.Controllers
             var pageData = ActivityDetailService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoId == userId, u => u.ActivityID, true).Select(n => new { n.ActivityID, n.ActivityDetailTime, n.Activity.ActivityName,n.Activity.ActivityStart,n.Activity.ActivityEnd}).ToList();
             var data = new { total = total, rows = pageData };
             return Json(data, JsonRequestBehavior.AllowGet);
-  
         }
 
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
