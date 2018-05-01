@@ -31,12 +31,20 @@ namespace OjVolunteer.UIPortal.Controllers
 
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Index()
-        {
-            
+        { 
             return View(LoginUser);
         }
 
         #region Query
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public JsonResult SearchActivityPeople()
+        {
+            int key = int.Parse(Request["key"]);
+            var user =UserInfoService.GetEntities(u => u.UserInfoID == key).FirstOrDefault();
+
+            return Json(new { login=user.UserInfoLoginId, showname = user.UserInfoShowName }, JsonRequestBehavior.AllowGet);
+        }
+
         /// <summary>
         /// 用户通过用户获得用户信息
         /// </summary>

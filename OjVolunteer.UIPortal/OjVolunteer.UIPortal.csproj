@@ -356,6 +356,11 @@
     <Content Include="Content\oj\js\notification.js" />
     <Content Include="Content\oj\js\npm.js" />
     <Content Include="Content\oj\js\toast.script.js" />
+    <Content Include="Content\Selectivity\css\selectivity-jquery.css" />
+    <Content Include="Content\Selectivity\css\stylesheet.css" />
+    <Content Include="Content\Selectivity\js\jquery.min.js" />
+    <Content Include="Content\Selectivity\js\main.js" />
+    <Content Include="Content\Selectivity\js\selectivity-jquery.js" />
     <Content Include="Content\Upload\Icon\1.jpg" />
     <Content Include="Content\Upload\Images\1.jpg" />
     <Content Include="Content\Upload\Images\66763879_p0.jpg" />

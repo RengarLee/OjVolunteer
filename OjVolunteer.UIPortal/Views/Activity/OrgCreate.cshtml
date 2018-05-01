@@ -29,7 +29,9 @@
     </style>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=HisYFGGE2IDgsNH7xUAEQfExLIxpWwDh"></script>
     <title>OrgCreate</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.js"></script>
+
     <script type="text/javascript">
         $(function () {
             $("#btn").click(function () {
@@ -172,13 +174,29 @@
 
     </form>
 
-
-
+    <input name="ActivityManagerID" id="managerid" type="text"/> <button type="button" id="btnSer" name="btnSer" value="查找"/>
+    <div id="manager"></div>
 
     <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
     <div id="address"></div>
     <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
     <div id="l-map"></div>
+
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script>
+        $(function () {
+            BindSearchKey();
+        });
+        function BindSearchKey()
+        {
+            $('#btnSer').click(function () {
+                $.post("/UserInfo/SearchActivityPeople", { key: $("#managerid").val() }, function (data) {
+                    var buffer = "登录名" + data["login"] + "真实姓名" + data["showname"];
+                    $("#manager").append(buffer);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
 <script type="text/javascript">
