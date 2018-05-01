@@ -21,7 +21,33 @@ namespace OjVolunteer.BLL
         /// <returns></returns>
         public IQueryable<OrganizeInfo> LoadPageData(OrganizeQueryParam organizeQueryParam, int loginUserId)
         {
-            var temp = CurrentDal.GetEntities(u => u.Status == 0 || u.Status == 1).AsQueryable();
+            short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
+
+            var temp = CurrentDal.GetEntities(u=>u.Status != delInvalid).AsQueryable();
+
+            #region 状态
+            short delFlag = -1;
+            if (!String.IsNullOrEmpty(organizeQueryParam.Status))
+            {
+                if (("正常").Contains(organizeQueryParam.Status))
+                {
+                    delFlag = 0;
+                }
+                else if (("待审核").Contains(organizeQueryParam.Status))
+                {
+                    delFlag = 2;
+                }
+                else if (("删除").Contains(organizeQueryParam.Status))
+                {
+                    delFlag = 1;
+                }
+            }
+            if (delFlag > -1)
+            {
+                temp = temp.Where(u => u.Status == delFlag);
+            }
+            #endregion
+
 
             #region OrganizeInfoID
             if (!String.IsNullOrEmpty(organizeQueryParam.OrganizeInfoID))
