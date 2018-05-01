@@ -230,20 +230,20 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Redirect("/UserInfo/Index");
             }
-            var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).ToList();
-            ViewData["DepartmentID"] = (from u in allDepartment
-                                        select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
+            var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewData["DepartmentList"] = (from u in allDepartment
+                                        select new SelectListItem() { Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
 
-            var allMajor = MajorService.GetEntities(u => u.Status == delNormal).ToList();
-            ViewData["MajorID"] = (from u in allMajor
-                                   select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
+            var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewData["MajorList"] = (from u in allMajor
+                                   select new SelectListItem() {  Text = u.MajorName, Value = u.MajorID + "" }).ToList();
 
-            var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).ToList();
-            ViewData["UpdatePoliticalID"] = (from u in allPolitical
-                                             select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
-            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).ToList();
-            ViewData["OrganizeinfoID"] = (from u in allOrganizeInfo
-                                          select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
+            var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewData["UpdatePoliticalList"] = (from u in allPolitical
+                                             select new SelectListItem() {  Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).AsQueryable();
+            ViewData["OrganizeinfoList"] = (from u in allOrganizeInfo
+                                          select new SelectListItem() {  Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + ""}).ToList();
 
             return View(LoginUser);
         }
@@ -262,7 +262,7 @@ namespace OjVolunteer.UIPortal.Controllers
             var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewBag.MajorID = (from u in allMajor select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
             var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.PoliticalID = (from u in allPolitical select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+            ViewBag.PoliticalID = (from u in allPolitical select new SelectListItem() { Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
             var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewBag.DepartmentID = (from u in allDepartment select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
             var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).AsQueryable();
@@ -357,6 +357,7 @@ namespace OjVolunteer.UIPortal.Controllers
             temp.UserInfoEmail = userInfo.UserInfoEmail;
             temp.MajorID = userInfo.MajorID;
             temp.OrganizeInfoID = userInfo.OrganizeInfoID;
+            temp.DepartmentID = userInfo.DepartmentID;
             temp.ModfiedOn = DateTime.Now;
             if (UserInfoService.Update(temp))
             {

@@ -86,26 +86,26 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">专业</label>
                 <div class="layui-input-block">
-                    @Html.DropDownList("MajorID", null, new { @class = "layui-input", @autocomplete = "off" })
+                    @Html.DropDownListFor(Model => Model.MajorID, ViewBag.MajorList as IEnumerable<SelectListItem>,new { @class = "layui-input", @autocomplete = "off" })
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">二级学院</label>
                 <div class="layui-input-block">
-                    @Html.DropDownList("DepartmentID", null, new { @class = "layui-input", @autocomplete = "off" })
+                    @Html.DropDownListFor(Model => Model.DepartmentID, ViewData["DepartmentList"] as IEnumerable<SelectListItem>, new { @class = "layui-input", @autocomplete = "off" })
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">所属组织</label>
                 <div class="layui-input-block">
-                    @Html.DropDownList("OrganizeinfoID", null, new { @class = "layui-input", @autocomplete = "off" })
+                    @Html.DropDownListFor(Model=>Model.OrganizeInfoID, ViewBag.OrganizeinfoList as IEnumerable<SelectListItem>, new { @class = "layui-input", @autocomplete = "off" })
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">政治面貌</label>
                 <div class="layui-input-block">
                     <div class="layui-input-block">
-                        @Html.DropDownList("UpdatePoliticalID", null, new { @class = "layui-input", @autocomplete = "off" })
+                        @Html.DropDownListFor(Model=>Model.UpdatePoliticalID, ViewBag.UpdatePoliticalList as  IEnumerable<SelectListItem>, new { @class = "layui-input", @autocomplete = "off" })
                     </div>
                 </div>
             </div>
