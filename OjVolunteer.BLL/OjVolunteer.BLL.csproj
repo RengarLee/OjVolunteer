@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityDetailService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="MajorService.cs" />
     <Compile Include="OrganizeInfoService.cs" />

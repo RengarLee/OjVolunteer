@@ -129,6 +129,7 @@
     <Compile Include="UserInfo.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\TopView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

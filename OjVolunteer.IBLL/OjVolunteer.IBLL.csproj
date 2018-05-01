@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IActivityDetailService.cs" />
     <Compile Include="IBaseService.cs" />
     <Compile Include="IMajorService.cs" />
     <Compile Include="IOrganizeInfoService.cs" />
