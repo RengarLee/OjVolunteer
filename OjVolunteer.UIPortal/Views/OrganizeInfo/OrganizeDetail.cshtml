@@ -10,12 +10,243 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>OrganizeDetail</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/simple-ajax-form.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
+
+         $(function () {
+            $("#resetPwd").click(function () {
+                $.post("/UserInfo/ResetPwd", { "id": $("#UserInfoID").val() }, function (data) {
+                    if (data == "success") {
+                        alert("密码重置为000000");
+                    } else {
+                        alert("重置失败,请稍后再试");
+                    }
+                })
+
+            });
+            initTable_talk();
+            initTable_activity();
+        });
+
+        function initTable_talk(queryParam) {
+            $("#tb_talks").bootstrapTable('destroy');
+            $('#tb_talks').bootstrapTable({
+                contentType: "application/x-www-form-urlencoded",
+                url: '/Talks/GetTalkByOrgId',
+                method: 'post',
+                toolbar: '#toolbar',
+                striped: true,
+                cache: false,
+                pagination: true,
+                queryParams: function (param) {
+                    var temp = {
+                        limit: param.limit,
+                        offset: param.offset,
+                        orgId: @Model.OrganizeInfoID,
+                    };
+                    return temp;
+                },
+                sidePagination: "server",
+                pageNumber: 1,
+                pageSize: 5,
+                pageList: [5, 10, 20, 50],
+                smartDisplay: false,
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 3,
+                clickToSelect: true,
+                uniqueId: "TalkID",
+                columns: [
+                    {
+                        field: 'TalkID',//域值
+                        title: 'Id',//标题
+                        visible: false,
+                        align: 'center',
+                        width: '6%',
+
+                    },
+                    {
+                        field: 'TalkFavorsNum',//域值
+                        title: '点赞数',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                    },
+                    {
+                        field: 'TalkContent',//域值
+                        title: '心得内容',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            var s = String(value).substr(0,20)+"...";
+                            return s;
+                        }
+                    },
+                    {
+                        field: 'TalkFavorsNum',//域值
+                        title: '点赞数',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+
+                    },
+                    {
+                        field: 'CreateTime',//域值
+                        title: '创建时间',//标题
+                        visible: false,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'ModfiedOn',//域值
+                        title: '最后更新时间',//标题
+                        visible: false,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'Status',
+                        title: '状态',
+                        visible: true,
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            if (row["Status"] == 2) {
+                                return '未审核';
+                            } else if (row["Status"] == 1) {
+                                return '已删除';
+                            } else if (row["Status"] == 0) {
+                                return '正常'
+                            }
+                        },
+                        filterControl: 'input',
+                    }
+                ],
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        type: 2,
+                        title: false,
+                        closeBtn: 0,
+                        maxmin: false,
+                        shadeClose: true,
+                        area: ['600px', '700px'],
+                        content: '/Talks/TalkDetail/' + row["TalkID"]
+                    });
+                }
+            });
+        };
+
+         function initTable_activity(queryParam) {
+            $("#tb_activitys").bootstrapTable('destroy');
+            $('#tb_activitys').bootstrapTable({
+                contentType: "application/x-www-form-urlencoded",
+                url: '/ActivityDetail/GetActivityDetailByOrgId',
+                method: 'post',
+                toolbar: '#toolbar',
+                striped: true,
+                cache: false,
+                pagination: true,
+                queryParams: function (param) {
+                    var temp = {
+                        limit: param.limit,
+                        offset: param.offset,
+                        orgId: @Model.OrganizeInfoID,
+                    };
+                    return temp;
+                },
+                sidePagination: "server",
+                pageNumber: 1,
+                pageSize: 5,
+                pageList: [5, 10, 20, 50],
+                smartDisplay: false,
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 3,
+                clickToSelect: true,
+                uniqueId: "ActivityID",
+                columns: [
+                    {
+                        field: 'ActivityID',//域值
+                        title: 'Id',//标题
+                        visible: false,
+                        align: 'center',
+                        width: '6%',
+
+                    },
+                    {
+                        field: 'ActivityName',//域值
+                        title: '活动名称',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                    },
+                    {
+                        field: 'ActivityStart',//域值
+                        title: '活动开始时间',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'ActivityEnd',//域值
+                        title: '活动结束时间',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'ActivityDetailTime',//域值
+                        title: '义工时长',//标题
+                        visible: true,//false表示不显示
+                        width: '6%',
+                        align: 'center',
+
+                    },
+                ],
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        type: 2,
+                        title: false,
+                        closeBtn: 0,
+                        maxmin: false,
+                        shadeClose: true,
+                        area: ['600px', '700px'],
+                        content: '/Activity/ActivityDetail/' + row["ActivityID"]
+                    });
+                }
+
+
+            });
+        };
         function afterSubmit(data) {
             if (data == "success") {
                 alert("修改成功");
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
             } else {
                 alert("修改失败请稍后再试!");
             }
@@ -133,6 +364,17 @@
             </div>
         </div>
     }
+    <div>
+        <div>
+            <table id="tb_talks"></table>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <table id="tb_activitys"></table>
+        </div>
+    </div>
 
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/check.js"></script>

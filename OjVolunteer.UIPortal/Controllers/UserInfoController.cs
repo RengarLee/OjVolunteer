@@ -274,7 +274,24 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Redirect("/OrganizeInfo/Index");
             }
-            return View(user);
+            ViewBag.Status = user.Status;
+            ViewData.Model = user;
+            return View();
+        }
+
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult OrgEditUser(UserInfo userInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                userInfo.ModfiedOn = DateTime.Now;
+                if (UserInfoService.Update(userInfo))
+                {
+                    return Content("success");
+                }
+            }
+            return Content("fail");
         }
 
         /// <summary>

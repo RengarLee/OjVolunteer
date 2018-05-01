@@ -80,7 +80,8 @@ namespace OjVolunteer.BLL
         #region 多条件查询
         public IQueryable<UserInfo> LoadPageData(UserQueryParam userQueryParam)
         {
-            var temp = DbSession.UserInfoDal.GetEntities(u => true);
+            short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
+            var temp = DbSession.UserInfoDal.GetEntities(u => u.Status != delInvalid).AsQueryable();
 
             #region 状态
             short delFlag = -1;
@@ -90,7 +91,7 @@ namespace OjVolunteer.BLL
                 {
                     delFlag = 0;
                 }
-                else if (("审核中").Contains(userQueryParam.Status))
+                else if (("待审核").Contains(userQueryParam.Status))
                 {
                     delFlag = 2;
                 }

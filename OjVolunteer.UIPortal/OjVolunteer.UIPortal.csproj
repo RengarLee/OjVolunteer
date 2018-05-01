@@ -182,6 +182,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\ActivityDetailController.cs" />
     <Compile Include="Controllers\ActivityTypeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -454,6 +455,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\TalkImages\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\ActivityDetail\" />
     <Folder Include="Views\UserEnroll\" />
   </ItemGroup>
   <ItemGroup>
