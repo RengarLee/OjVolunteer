@@ -107,11 +107,11 @@
     </div>
     <!-- 下边导航组件 -->
     <nav class="navbt">
-        <a href="" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>义工榜</span></a>
-        <a href="" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>义工商城</span></a>
-        <a href="" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>首页</span></a>
-        <a href="" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>义工心得</span></a>
-        <a href="personal.html" class="btBar"><img src="~/Content/oj/images/icon1.png"><span>个人中心</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
+        <a href="/UserInfo/Index" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span>首页</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
+        <a href="/UserInfo/UserInfoSimple/@Model.UserInfoID" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
     </nav>
     <!-- 返回上一层组件 -->
     <a href="javascript:history.go(-1)" class="header-back">
@@ -124,13 +124,12 @@
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
     <script src="~/Content/oj/js/main.js"></script>
     <script type="text/javascript">
-
         layui.use('upload', function () {
             var upload = layui.upload;
             //执行实例
             var uploadInst = upload.render({
                 elem: '#myimg' //绑定元素
-                , url: '/UserInfo/UploadImage' //上传接口
+                , url: '/UserInfo/UploadIcon' //上传接口
                 , accept: 'images'
                 , done: function (res) {
                     if (res["msg"] == "error") {
@@ -145,8 +144,6 @@
                 }
             });
         });
-
-
     </script>
 </body>
 </html>

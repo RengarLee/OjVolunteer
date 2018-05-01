@@ -74,7 +74,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult TalksOfAuditing()
         {
-            return View(LoginOrganize);
+            return View();
         }
 
         /// <summary>
@@ -85,14 +85,13 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult GetTalksOfAuditing()
         {
-            var s = Request["limit"];
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
             var pageData = TalksService.GetEntities(t => t.Status == delAuditing).Select(t => new {t.TalkID,t.UserInfoID ,t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status}).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                pageData = pageData.Where(t => t.OrganizeInfoID == LoginOrganize.OrganizeInfoID && t.UserInfoID == null).AsQueryable();
+                pageData = pageData.Where(t => t.OrganizeInfoID == LoginOrganize.OrganizeInfoID && t.UserInfoID != null).AsQueryable();
             }
             var data = new { total = pageData.Count(), rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -174,8 +173,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 ModfiedOn = DateTime.Now,
                 TalkContent = "",
                 UserInfoID = LoginUser.UserInfoID,
-                OrganizeInfoID = LoginUser.OrganizeInfoID,
-                
+                OrganizeInfoID = LoginUser.OrganizeInfoID,             
                 TalkFavorsNum = 0,
             };
             talks = TalksService.Add(talks);
@@ -196,7 +194,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             else
             {
-                return Content("ok");
+                return Content("fail");
             }
         }
         #endregion

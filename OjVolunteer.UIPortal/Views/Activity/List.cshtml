@@ -26,21 +26,14 @@
                     $("#list").empty();
                     GetActivityData(1, 5, $(this).children('option:selected').val());
                 }
-                //SelectEvent($(this).children('option:selected').val())
             )
         });
-
-        function SelectEvent(value) {
-            alert(value)
-            //
-            //GetActivityData(1, 5,this);
-        }
 
         //加载活动数据
         function GetActivityData(pageIndex, pageSize, typeId) {
             $.post("/Activity/GetListData", { pageIndex: pageIndex, pageSize: pageSize, typeId: typeId }, function (data) {
                 if (data["msg"] == "success") {
-                    pageIndex = pageIndex;
+                    pageIndex = pageIndex+1;
                     var buffer = "";
                     var item = data["data"];
                     for (var i = 0; i < item.length; i++) {
@@ -82,14 +75,6 @@
                 });
             });
         }
-        //$(".btnEnroll").each(function () {
-        //    $(this).click(function () {
-        //        var activityId = this.atts("activity");
-        //        $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
-        //            alert(data["msg"]);
-        //        });
-        //    });
-        //});
 
         //时间戳转为时间
         function TimeFormat(value) {

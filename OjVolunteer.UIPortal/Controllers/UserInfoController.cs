@@ -32,7 +32,8 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Index()
         {
-            return View();
+            
+            return View(LoginUser);
         }
 
         #region Query

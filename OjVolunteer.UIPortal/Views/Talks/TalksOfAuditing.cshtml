@@ -55,6 +55,7 @@
                     {
                         field: 'checked',
                         checkbox: true,
+                        width: '10%',
                     },
                     {
                         field: 'TalkID',
@@ -73,13 +74,6 @@
                     {
                         field: 'OrganizeInfoShowName',
                         title: '组织昵称',
-                        visible: true,
-                        width: '10%',
-                        align: 'center',
-                    },
-                    {
-                        field: 'TalkContent',
-                        title: '心得内容',
                         visible: true,
                         width: '10%',
                         align: 'center',
@@ -129,6 +123,17 @@
                         opposeClickEvent($(this).attr("uid"));
                         return false;
                     })
+                },
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        type: 2,
+                        title: false,
+                        closeBtn: 0,
+                        maxmin: false,
+                        shadeClose: true,
+                        area: ['600px', '700px'],
+                        content: '/Talks/TalkDetail/' + row["TalkID"]
+                    });
                 }
             });
         };
@@ -220,7 +225,7 @@
                 '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>通过</span>',
                 '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
                 '<a href="javascript:void(0)" class="opposeLink" uid="' + row['UserInfoID'] + '">',
-                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>操作</span></a>',
+                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>驳回</span></a>',
             ].join('');
         }
     </script>
@@ -233,7 +238,7 @@
             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
         </button>
         <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>操作
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>驳回
         </button>
     </div>
     <div>
@@ -241,6 +246,6 @@
     </div>
 
 
-
+    <script src="~/Content/layui/layui.all.js"></script>
 </body>
 </html>
