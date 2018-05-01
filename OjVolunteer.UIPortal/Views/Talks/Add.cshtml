@@ -27,6 +27,7 @@
                 }, function (data) {
                     if (data == "ok") {
                         alert("心得发表成功！,请等待审核！");
+                        window.location.href = "/UserInfo/Index"; 
                     } else {
                         alert("心得发表失败，请稍后再试！");
                     }
@@ -71,14 +72,14 @@
                 , data: { id:@ViewBag.TalkId}
                 , done: function (res) {
                     if (res["msg"] == "error") {
-                        alert("头像更新失败");
+                        alert("图片上传失败");
                     } else {
                         $("#showImage").append("<img src=" + res["src"] + " width='100px' height='100px'>");
-                        alert("头像更新成功");
+                        alert("图片上传失败");
                     }
                 }
                 , error: function () {
-                    alert("头像更换失败，请稍后再试")
+                    alert("图片上传失败，请稍后再试")
                 }
             });
         });
