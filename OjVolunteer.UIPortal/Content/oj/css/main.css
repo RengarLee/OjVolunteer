@@ -280,6 +280,11 @@ a:active{
 		margin-bottom: 20px;
 		display: block;
 	}
+    .select-item {
+        margin: 0 auto;
+        width: 250px;
+        margin-bottom: 20px;
+    }
 	.btn{
 		width: 250px;
 	}
@@ -289,13 +294,6 @@ a:active{
 	}
 	.tips{
 		margin-left: -200px;
-	}
-	/*这里发现注册表单项之间太近了，单独写个负margin*/
-	.login-content .item{
-		margin-bottom: -10px;
-	}
-	#rebtn{
-		margin-top: 20px;
 	}
 
 /*个人中心界面样式*/

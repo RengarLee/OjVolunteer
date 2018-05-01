@@ -11,10 +11,23 @@ layui.use(['form','layer'],function(){
 		    if(/^\d+\d+\d$/.test(value)){
 		      return '登录帐号不能全为数字';
 		    }
-		    if(! /{6,18}$/.test(value)){
+            if (! /^.{6,18}$/.test(value)) {
 		    	return '登录帐号必须在6到18位之间'
 		    }
-		  }
+            }
+
+            ,repass: function (value) {
+                var passvalue = document.getElementById("userpass").value;
+                if (value != passvalue) {
+                    return '两次密码输入不一致';
+                }
+            }
+            ,orgrepass: function (value) {
+                var orgpassvalue = document.getElementById("orgpass").value;
+                if (value != orgpassvalue) {
+                    return '两次密码输入不一致';
+                }
+            }
 		  //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
 		  ,pass: [
 		    /^[\S]{6,18}$/
