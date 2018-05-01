@@ -92,7 +92,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == loginId).FirstOrDefault();
                 if (userInfo == null)
                 {
-                    return Content("ok");
+                    return Content("success");
                 }
             }
             if (usertype == 1)
@@ -100,10 +100,10 @@ namespace OjVolunteer.UIPortal.Controllers
                 OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId == loginId).FirstOrDefault();
                 if (organizeInfo == null)
                 {
-                    return Content("ok");
+                    return Content("success");
                 }
             }
-            return Content("error");
+            return Content("fail");
         }
         #endregion
 
