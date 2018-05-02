@@ -37,19 +37,11 @@ namespace OjVolunteer.UIPortal.Controllers
                 ModfiedOn = DateTime.Now,
                 Status = (short)Model.Enum.DelFlagEnum.Normal,
             };
-
-            if (FavorsService.Add(favors) != null)
+            Talks talks = TalksService.GetEntities(u => u.TalkID == talkId).FirstOrDefault();
+            talks.TalkFavorsNum = talks.TalkFavorsNum + 1;
+            if (FavorsService.Add(favors) != null&& TalksService.Update(talks))
             {
-                Talks talks =  TalksService.GetEntities(u => u.TalkID == talkId).FirstOrDefault();
-                talks.TalkFavorsNum = talks.TalkFavorsNum + 1;
-                if (TalksService.Update(talks))
-                {
-                    return Json(new { msg = "success",num=talks.TalkFavorsNum }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
-                }
+                return Json(new { msg = "success",num=talks.TalkFavorsNum }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
         }
