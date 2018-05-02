@@ -186,6 +186,7 @@
     <Compile Include="Controllers\ActivityTypeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\FavorsController.cs" />
     <Compile Include="Controllers\MajorController.cs" />
     <Compile Include="Controllers\PoliticalController.cs" />
     <Compile Include="Controllers\TalksController.cs" />
@@ -457,6 +458,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\TalkImages\" />
     <Folder Include="Views\ActivityDetail\" />
+    <Folder Include="Views\Favors\" />
     <Folder Include="Views\UserEnroll\" />
   </ItemGroup>
   <ItemGroup>

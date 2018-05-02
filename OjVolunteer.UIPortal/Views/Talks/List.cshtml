@@ -43,7 +43,7 @@
                         for (var j = 0; j < imagelist.length; j++) {
                             bufferImage = bufferImage + "<img width='100px' height='100px' src='" + imagelist[j] + "'>";
                         }
-                        buffer = buffer + "<li class='myfeel-item'><div class='feel-item-info clearfix' ><a class='info-img' href='#'><img width='10%' height='10%' src='" + item[i].Icon + "'></a > <div class='info-name'><a href = '#' >" + item[i].ShowName + "</a><p><span class='feeltime'>" + TimeFormat(item[i].CreateTime) + "</span></p></div><i class='layui-icon' favors='" + item[i].TalkID + "'>&#xe6c6;<span>" + item[i].TalkFavorsNum + "</span></i></div><div class='fell-item-content'><p>" + item[i].TalkContent + "</p></div><div>" + bufferImage+ "</div></li>";
+                        buffer = buffer + "<li class='myfeel-item'><div class='feel-item-info clearfix' ><a class='info-img' href='#'><img width='10%' height='10%' src='" + item[i].Icon + "'></a > <div class='info-name'><a href = '#' >" + item[i].ShowName + "</a><p><span class='feeltime'>" + TimeFormat(item[i].CreateTime) + "</span></p></div><a class='btnFavor' favors='" + item[i].TalkID + "'><i class='layui-icon'>&#xe6c6;<span>" + item[i].TalkFavorsNum + "</span></i></a></div><div class='fell-item-content'><p>" + item[i].TalkContent + "</p></div><div>" + bufferImage+ "</div></li>";
                     }
                     buffer = buffer + "<li><input type='button' id='btnevent' pageIndex='";
                     buffer = buffer + pageIndex + "' value='查看更多'/></li>";
@@ -71,10 +71,14 @@
 
         //点赞按钮绑定事件
         function BindEnrollClickEvent() {
-            $(".btnEnroll").click(function () {
-                var activityId = $(this).attr("activity");
-                $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
-                    alert(data["msg"]);
+            $(".btnFavor").click(function () {
+                var s = $(this);
+                var talkId = $(this).attr("favors");
+                $.post("/Favors/Create/", { talkId: talkId }, function (data) {
+                    if (data["msg"] == "success") {
+                        s.children("i").children("span").empty().html(data["num"]);
+                    }
+
                 });
             });
         }

@@ -22,4 +22,6 @@
   </object>
   <object name="UserEnrollService" type="OjVolunteer.BLL.UserEnrollService, OjVolunteer.BLL" singleton="false" >
   </object>
+  <object name="FavorsService" type="OjVolunteer.BLL.FavorsService, OjVolunteer.BLL" singleton="false" >
+  </object>
 </objects>
