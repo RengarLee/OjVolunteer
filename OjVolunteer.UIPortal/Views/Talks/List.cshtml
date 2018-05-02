@@ -38,12 +38,15 @@
                     var buffer = "";
                     var item = data["data"];
                     for (var i = 0; i < item.length; i++) {
-                        /**/
-                        buffer = buffer + "<li class='aclist-box clearfix'> <a href='#' class='aclist-box-img'><img src='" + item[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href=''>" + item[i].ActivityName + "</a><span class='actime'>时间:" + TimeFormat(item[i].ActivityStart) + "-" + TimeFormat(item[i].ActivityEnd) + "</span><br> <span class='acendtime'>截止: " + TimeFormat(item[i].ActivityEnrollEnd) + "</span></div><div class='acbox-btn'><button  class='btnEnroll' activity=" + item[i].ActivityID + ">我要报名</button> </div></li>";
-                        /**/
+                        bufferImage = "";
+                        var imagelist = item[i]["ImagePath"];
+                        for (var j = 0; j < imagelist.length; j++) {
+                            bufferImage = bufferImage + "<img width='100px' height='100px' src='" + imagelist[j] + "'>";
+                        }
+                        buffer = buffer + "<li class='myfeel-item'><div class='feel-item-info clearfix' ><a class='info-img' href='#'><img width='10%' height='10%' src='" + item[i].Icon + "'></a > <div class='info-name'><a href = '#' >" + item[i].ShowName + "</a><p><span class='feeltime'>" + TimeFormat(item[i].CreateTime) + "</span></p></div><i class='layui-icon' favors='" + item[i].TalkID + "'>&#xe6c6;<span>" + item[i].TalkFavorsNum + "</span></i></div><div class='fell-item-content'><p>" + item[i].TalkContent + "</p></div><div>" + bufferImage+ "</div></li>";
                     }
-                    buffer = buffer + "<input type='button' id='btnevent' pageIndex='";
-                    buffer = buffer + pageIndex + "' value='查看更多'/>";
+                    buffer = buffer + "<li><input type='button' id='btnevent' pageIndex='";
+                    buffer = buffer + pageIndex + "' value='查看更多'/></li>";
                     $("#btnevent").remove();
                     $("#list").append(buffer);
                     BindEnrollClickEvent();
@@ -91,70 +94,8 @@
     </header>
 
     <div class="myfeel">
-        <ul class="myfeel-list">
-
-            <li class="myfeel-item">
-                <div class="feel-item-info clearfix">
-                    <a class="info-img" href="#">
-                        <img src="images/1.jpg">
-                    </a>
-                    <div class="info-name">
-                        <a href="#">李华伟</a>
-                        <p>
-                            <span class="feeltime">
-                                今天13:41
-                            </span>
-                        </p>
-                    </div>
-                    <i class="layui-icon">&#xe6c6;<span>1</span></i>
-                </div>
-                <div class="fell-item-content">
-                    <p>1日周日是我第一次参加医学组的活动，地点市立医院东区，之前都在导乘组参加的活动多一点，不管在哪里活动，宗旨就是为服务他人。心得：热心帮助别人的感觉真好，虽然有时会有些累，但是为了别人付出，看到别人满意的笑容很值得。伙伴们辛苦了，希望以后有时间会多参加医学组的活动，帮助到更多的人！</p>
-                </div>
-            </li>
-            <li class="myfeel-item">
-                <div class="feel-item-info clearfix">
-                    <!-- 点击头像可以进入个人空间 -->
-                    <a class="info-img" href="#">
-                        <img src="images/1.jpg">
-                    </a>
-                    <div class="info-name">
-                        <!-- 点击姓名可以进入个人空间 -->
-                        <a href="#">李华伟</a>
-                        <p>
-                            <span class="feeltime">
-                                今天13:41
-                            </span>
-                        </p>
-                    </div>
-                    <i class="layui-icon">&#xe6c6;<span>1</span></i>
-                </div>
-                <div class="fell-item-content">
-                    <p>1日周日是我第一次参加医学组的活动，地点市立医院东区，之前都在导乘组参加的活动多一点，不管在哪里活动，宗旨就是为服务他人。心得：热心帮助别人的感觉真好，虽然有时会有些累，但是为了别人付出，看到别人满意的笑容很值得。伙伴们辛苦了，希望以后有时间会多参加医学组的活动，帮助到更多的人！</p>
-                </div>
-            </li>
-            <li class="myfeel-item">
-                <div class="feel-item-info clearfix">
-                    <!-- 点击头像可以进入个人空间 -->
-                    <a class="info-img" href="#">
-                        <img src="images/1.jpg">
-                    </a>
-                    <div class="info-name">
-                        <!-- 点击姓名可以进入个人空间 -->
-                        <a href="#">李华伟</a>
-                        <p>
-                            <span class="feeltime">
-                                今天13:41
-                            </span>
-                        </p>
-                    </div>
-                    <i class="layui-icon">&#xe6c6;<span>1</span></i>
-                </div>
-                <div class="fell-item-content">
-                    <p>1日周日是我第一次参加医学组的活动，地点市立医院东区，之前都在导乘组参加的活动多一点，不管在哪里活动，宗旨就是为服务他人。心得：热心帮助别人的感觉真好，虽然有时会有些累，但是为了别人付出，看到别人满意的笑容很值得。伙伴们辛苦了，希望以后有时间会多参加医学组的活动，帮助到更多的人！</p>
-                </div>
-            </li>
-
+        <ul class="myfeel-list" id="list">
+            
         </ul>
     </div>
     <!-- 侧边栏组件 -->

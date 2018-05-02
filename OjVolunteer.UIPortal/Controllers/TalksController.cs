@@ -91,12 +91,19 @@ namespace OjVolunteer.UIPortal.Controllers
                 {
                     TalkViewModel talk = new TalkViewModel();
                     talk.TalkID = data.TalkID;
+
                     talk.TalkFavorsNum = (int)data.TalkFavorsNum;
                     talk.CreateTime = (DateTime)data.CreateTime;
-                    talk.OrganizeInfoShowName = data.OrganizeInfo.OrganizeInfoShowName;
-                    talk.OrganizeInfoIcon = data.OrganizeInfo.OrganizeInfoIcon;
-                    talk.UserInfoShowName = data.UserInfo.UserInfoShowName;
-                    talk.UserInfoIcon = data.UserInfo.UserInfoIcon;
+                    if (data.UserInfo != null)
+                    {
+                        talk.ShowName = data.UserInfo.UserInfoShowName;
+                        talk.Icon = data.UserInfo.UserInfoIcon;
+                    }
+                    else
+                    {
+                        talk.ShowName = data.OrganizeInfo.OrganizeInfoShowName;
+                        talk.Icon = data.OrganizeInfo.OrganizeInfoIcon;
+                    }
                     talk.TalkContent = data.TalkContent;
 
                     if (data.TalkImagePath != null)
@@ -106,7 +113,7 @@ namespace OjVolunteer.UIPortal.Controllers
                         foreach (var file in files)
                         {
                             int i = file.LastIndexOf("\\");
-                            pathlist.Add(file.Substring(i + 1));
+                            pathlist.Add(data.TalkImagePath+file.Substring(i + 1));
                         }
                         talk.ImagePath = pathlist;
                     }
