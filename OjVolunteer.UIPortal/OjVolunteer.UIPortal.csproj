@@ -424,7 +424,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\Admin_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\OrganizeInfo\Index.cshtml" />
@@ -460,8 +459,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\TalkImages\" />
     <Folder Include="Views\ActivityDetail\" />
-    <Folder Include="Views\Favors\" />
-    <Folder Include="Views\UserEnroll\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
