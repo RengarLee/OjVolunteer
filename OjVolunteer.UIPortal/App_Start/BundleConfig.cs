@@ -14,8 +14,6 @@ namespace OjVolunteer.UIPortal
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            // 使用要用于开发和学习的 Modernizr 的开发版本。然后，当你做好
-            // 生产准备就绪，请使用 https://modernizr.com 上的生成工具仅选择所需的测试。
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -26,6 +24,24 @@ namespace OjVolunteer.UIPortal
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            //oj js
+            bundles.Add(new ScriptBundle("~/Content/oj/js").Include(
+                        "~/Content/oj/js/jquery-1.12.4.js",
+                        "~/Content/oj/js/bootstrap.min.js",
+                        "~/Content/oj/js/check.js"));
+
+            //layui js
+            bundles.Add(new ScriptBundle("~/Content/layui/js").Include(
+                        "~/Content/layui/layui.all.js"));
+
+            //oj css
+            bundles.Add(new StyleBundle("~/Content/oj/css").Include(
+          "~/Content/oj/css/main.css"));
+
+            //layui css
+            bundles.Add(new StyleBundle("~/Content/layui/css").Include(
+          "~/Content/layui/css/layui.css"));
         }
     }
 }
