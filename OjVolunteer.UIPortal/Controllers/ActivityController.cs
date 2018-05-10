@@ -27,6 +27,19 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region Query
 
+        public ActionResult ActivityOfUser(int id)
+        {
+            //.Select(u => new { u.ActivityID, u.ActivityContent, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityIcon, u.ActivityAddress, u.ActivityManagerID, u.ManagerUserInfo.UserInfoShowName, u.ManagerUserInfo.UserInfoPhone, u.ActivityType.ActivityTypeName, u.ActivityName })
+            var activity = ActivityService.GetEntities(u => u.Status==delNormal && u.ActivityID == id).FirstOrDefault();
+            if (activity == null)
+            {
+                return Redirect("/UserInfo/Index");
+            }
+            //ViewBag.data = activity;
+            ViewData.Model = activity;
+            return View();
+        }
+
         /// <summary>
         /// 义工用户进入活动列表
         /// </summary>
@@ -88,7 +101,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult ActivityOfAuditing()
         {
-            return View(LoginOrganize);
+            return View();
         }
         
         /// <summary>

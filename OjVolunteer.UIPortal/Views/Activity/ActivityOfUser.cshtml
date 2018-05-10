@@ -1,0 +1,186 @@
+﻿@model OjVolunteer.Model.Activity
+
+<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+</head>
+<body>
+    @*@{ 
+        var data = ViewBag.data;
+    }*@
+    <header>
+        
+        <nav class="top">
+            <p>活动详情</p>
+        </nav>
+    </header>
+    <div class="acmore">
+        <img src="images/acmoreimg.jpg">
+        <div class="acmore-class">@Model.ActivityType.ActivityTypeName</div>
+    </div>
+    <!-- 活动简介 -->
+    <div class="acmoreinfo">
+        <div class="acmore-title">
+
+            <span>@Model.ActivityName</span>
+        </div>
+        <div class="acmore-title">
+            <span>时间：2018-1-13日 13:30-16:00</span>
+        </div>
+        <div class="acmore-title">
+            <span>截止：2018-1-13日  12:00</span>
+        </div>
+        <div class="acmore-title">
+            <span>活动地点：<a target="_blank" href="https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=@Model.ActivityAddress/vt=map">@Model.ActivityAddress</a></span>
+        </div>
+        <div class="acmore-title">
+            <a href="#" class="acmore-userinfo">
+                <img src="@Model.ManagerUserInfo.UserInfoIcon">
+                <span>队长：@Model.ManagerUserInfo.UserInfoShowName</span>
+                <i>查看队长详细信息</i>
+            </a>
+        </div>
+        <!-- 两个弹窗按钮 -->
+        <div class="acmore-button">
+            <!-- 联系方式按钮 -->
+            <button type="button" class="am-btn am-btn-primary"
+                    data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 200, height: 100}">
+                联系方式
+            </button>
+            <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-hd">
+                        联系方式
+                        <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                    </div>
+                    <div class="am-modal-bd">
+                        12345678901
+                    </div>
+                </div>
+            </div>
+            <!-- 活动二维码按钮 -->
+            <button type="button" class="am-btn am-btn-primary"
+                    data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 300, height: 300}">
+                活动二维码
+            </button>
+            <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-2">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-hd">
+                        二维码
+                        <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                    </div>
+                    <div class="am-modal-bd">
+                        假装这里有个二维码
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="acmore-content">
+            <pre>
+    一、活动目的：
+   通过志愿者活动，将当代大学生乐于助人，乐于奉献的精神以一种崭新的姿态呈现给社会，将爱心的种子不断地传播下去，激起更多爱心之士加入志愿者的行列。
+活动的宗旨：
+   提供志愿服务、弘扬志愿精神。通过大批优秀大学生不断的努力，实践自我、提高自我、升华自我、大力宣传并发扬新一代中学生志愿者的奉献精神。
+活动的意义：
+  1、提升个人的精神境界。志愿者通过参与志愿服务工作，有机会为社会贡献自身的才学、能力，并在不同的岗位上发挥着自身的作用和优势，不单为社会作出了一定的贡献，弘扬了新风气、新风尚，而且人生的价值也在志愿活动当中得到体现，从中学会自觉地奉献精神和参与社会活动的责任感，精神境界得到升华。
+  2、提供学习机会。志愿者在参与志愿服务工作过程中，培养自己的组织、协调、交际及领导能力，学习新知识，提高自身素质。
+  3、 促进自身发展。在开展志愿者各项活动过程中，志愿者可通过对比发现别人的优点和自身的不足，并可以善加利用，取长补短，有助于自身的发展。
+二、注意事项
+  1、必须确保个人自身安全下参加活动，身体不适、有癫痫、哮喘等疾病的同学前提前通知报备。
+  2、活动中一定要牢记自己党员的身份，穿着义工马甲。
+  3、有事不能及时来时，请电话与队长联系。
+    </pre>
+        </div>
+    </div>
+
+    <a class="signnav" href="#">
+        <p>我要报名</p>
+    </a>
+
+
+
+
+
+    <!-- 返回上一层组件 -->
+    <a href="javascript:history.go(-1)" class="header-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/oj/js/amazeui.min.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            GetActivityData(1, 5);
+            $("#ActivityTypeID").change(
+                function () {
+                    $("#list").empty();
+                    GetActivityData(1, 5, $(this).children('option:selected').val());
+                }
+            )
+        });
+
+        //加载活动数据
+        function GetActivityData(pageIndex, pageSize, typeId) {
+            $.post("/Activity/GetListData", { pageIndex: pageIndex, pageSize: pageSize, typeId: typeId }, function (data) {
+                if (data["msg"] == "success") {
+                    pageIndex = pageIndex + 1;
+                    var buffer = "";
+                    var item = data["data"];
+                    for (var i = 0; i < item.length; i++) {
+                        /**/
+                        buffer = buffer + "<li class='aclist-box clearfix'> <a href='#' class='aclist-box-img'><img src='" + item[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href=''>" + item[i].ActivityName + "</a><span class='actime'>时间:" + TimeFormat(item[i].ActivityStart) + "-" + TimeFormat(item[i].ActivityEnd) + "</span><br> <span class='acendtime'>截止: " + TimeFormat(item[i].ActivityEnrollEnd) + "</span></div><div class='acbox-btn'><button  class='btnEnroll' activity=" + item[i].ActivityID + ">我要报名</button> </div></li>";
+                        /**/
+                    }
+                    buffer = buffer + "<input type='button' id='btnevent' pageIndex='";
+                    buffer = buffer + pageIndex + "' value='查看更多'/>";
+                    $("#btnevent").remove();
+                    $("#list").append(buffer);
+                    BindEnrollClickEvent();
+                    BindActivtyListClickEvent();
+                } else {
+                    $("#btnevent").remove();
+                    var buffer = "<p> 无更多活动</p>"
+                    $("#list").append(buffer);
+                }
+            });
+
+        }
+
+        //查看更多活动按钮绑定
+        function BindActivtyListClickEvent() {
+            $("#btnevent").click(function () {
+                var pageIndex = parseInt($("#btnevent").attr("pageIndex"));
+                var pageSize = 5;
+                var typeId = $("#ActivityTypeID").val();
+                GetActivityData(pageIndex, pageSize, typeId);
+            });
+        }
+
+        //报名按钮绑定事件
+        function BindEnrollClickEvent() {
+            $(".btnEnroll").click(function () {
+                var activityId = $(this).attr("activity");
+                $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
+                    alert(data["msg"]);
+                });
+            });
+        }
+
+        //时间戳转为时间
+        function TimeFormat(value) {
+            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+        }
+    </script>
+
+</body>
+</html>

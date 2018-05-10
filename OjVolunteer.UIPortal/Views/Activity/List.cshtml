@@ -37,8 +37,7 @@
                     var buffer = "";
                     var item = data["data"];
                     for (var i = 0; i < item.length; i++) {
-                        /**/
-                        buffer = buffer + "<li class='aclist-box clearfix'> <a href='#' class='aclist-box-img'><img src='" + item[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href=''>" + item[i].ActivityName + "</a><span class='actime'>时间:" + TimeFormat(item[i].ActivityStart) + "-" + TimeFormat(item[i].ActivityEnd) + "</span><br> <span class='acendtime'>截止: " + TimeFormat(item[i].ActivityEnrollEnd) + "</span></div><div class='acbox-btn'><button  class='btnEnroll' activity=" + item[i].ActivityID + ">我要报名</button> </div></li>";
+                            buffer = buffer + "<li class='aclist-box clearfix'><a href='#' class='aclist-box-img'><img src='" + item[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href='/Activity/ActivityOfUser/"+item[i].ActivityID+"'>" + item[i].ActivityName + "</a><span class='actime'>时间:" + TimeFormat(item[i].ActivityStart) + "-" + TimeFormat(item[i].ActivityEnd) + "</span><br> <span class='acendtime'>截止: " + TimeFormat(item[i].ActivityEnrollEnd) + "</span></div><div class='acbox-btn'><button  class='btnEnroll' activity=" + item[i].ActivityID + ">我要报名</button></div></li>";
                         /**/
                     }
                     buffer = buffer + "<input type='button' id='btnevent' pageIndex='";

@@ -200,6 +200,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Filters\ExceptionLogFilterAttribute.cs" />
+    <Compile Include="Models\ActivityDetailViewModel.cs" />
     <Compile Include="Models\TalkViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -453,6 +454,7 @@
     <Content Include="Views\OrganizeInfo\Welcome.cshtml" />
     <Content Include="Views\Talks\AllTalks.cshtml" />
     <Content Include="Views\Talks\List.cshtml" />
+    <Content Include="Views\Activity\ActivityOfUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
