@@ -35,9 +35,11 @@ namespace OjVolunteer.UIPortal
             bundles.Add(new ScriptBundle("~/Content/layui/js").Include(
                         "~/Content/layui/layui.all.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/App/Ajax").Include("~/Scripts/jquery.unobtrusive-ajax.js"));
+
             //oj css
             bundles.Add(new StyleBundle("~/Content/oj/css").Include(
-          "~/Content/oj/css/main.css"));
+          "~/Content/oj/css/main.css", "~/Content/oj/css/bootstrap.css"));
 
             //layui css
             bundles.Add(new StyleBundle("~/Content/layui/css").Include(
