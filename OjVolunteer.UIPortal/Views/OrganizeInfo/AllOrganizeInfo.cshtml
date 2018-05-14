@@ -7,33 +7,24 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-
-    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
-    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-table/bootstrap-table-filter-control.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/layui/css")
+    @Styles.Render("~/Content/bootstrap-table/css")
+    @Styles.Render("~/Content/bootstrap-table/filter/css")
 
 
 </head>
-
 
 <body>
 
     <div>
         <table id="tb_organize" data-filter-control="true"></table>
     </div>
-
-    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
-    <script src="~/Scripts/bootstrap-table.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Content/layui/layui.all.js"></script>
-    <script src="~/Content/oj/js/admin.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table-filter-control.js"></script>
-    <script src="~/Content/bootstrap-table/bootstrap-table-export.js"></script>
-    <script src="~/Scripts/datapattern.js"></script>
+    @Scripts.Render("~/Content/oj/js")
+    @Scripts.Render("~/Content/layui/js")
+    @Scripts.Render("~/Content/bootstrap-table/js")
+    @Scripts.Render("~/Content/bootstrap-table/filter/js")
+    @Scripts.Render("~/Scripts/App/Data")
     <script type="text/javascript">
         $(function () {
             //初始化表格
@@ -63,7 +54,7 @@
                 minimumCountColumns: 3,
                 clickToSelect: true,
                 uniqueId: "OrganizeInfoID",
-                rowStyle: function (row, index) { 
+                rowStyle: function (row, index) {
                     var strclass = "";
                     if (row.ORDER_STATUS == "2") {
                         strclass = 'warning';//还有一个active

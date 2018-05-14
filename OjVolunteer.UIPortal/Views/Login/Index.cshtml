@@ -11,10 +11,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     @Styles.Render("~/Content/oj/css")
     @Styles.Render("~/Content/layui/css")
-
-
-
-
 </head>
 <body>
     <div class="login-content conter-block">
@@ -28,10 +24,9 @@
         }
     </div>
 
-
-    @Scripts.Render("~/Content/oj/js")
     @Scripts.Render("~/Content/layui/js")
-    @Scripts.Render("~/Scripts/App/Ajax")
+    @Scripts.Render("~/Content/oj/js")
+    @Scripts.Render("~/Scripts/Ajax")
     <script type="text/javascript">
         if (window.parent.window != window) {
             window.top.location.href = "/Login/Index";
