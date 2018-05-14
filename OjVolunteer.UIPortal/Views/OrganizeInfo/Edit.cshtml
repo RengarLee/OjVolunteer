@@ -10,38 +10,9 @@
 <head>
     <meta charset="UTF-8">
     <title>ITAEM</title>
-    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    @Styles.Render("~/Content/layui/css")
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
-    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
-    <script src="~/Content/layui/layui.all.js"></script>
-    <script src="~/Content/oj/js/admin.js"></script>
-    <script src="~/Scripts/simple-ajax-form.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Content/oj/js/check.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            bindUpdateClick();
 
-        });
-        //用户点击确定
-        function bindUpdateClick() {
-            $("#btnUpdate").click(function () {
-                $.post("/OrganizeInfo/Edit", $("#form1").serializeArray(), function (data) {
-                    if (data != "success") {
-                        alert("资料修改出错，请稍后再试");
-                        return;
-                    } else {
-                        var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                        alert("资料修改成功");
-                    }
-                });
-            });
-        }
-
-
-    </script>
 </head>
 <body>
     <header class="form-title">
@@ -110,11 +81,34 @@
             </div>
         </form>
     </div>
-
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+    <script src="~/Scripts/App/simple-ajax-form.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
-    <script src="~/Content/oj/js/main.js"></script>
     <script>
+        $(function () {
+            bindUpdateClick();
+
+        });
+        //用户点击确定
+        function bindUpdateClick() {
+            $("#btnUpdate").click(function () {
+                $.post("/OrganizeInfo/Edit", $("#form1").serializeArray(), function (data) {
+                    if (data != "success") {
+                        alert("资料修改出错，请稍后再试");
+                        return;
+                    } else {
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                        alert("资料修改成功");
+                    }
+                });
+            });
+        }
         layui.use('upload', function () {
             var upload = layui.upload;
             var uploadInst = upload.render({
