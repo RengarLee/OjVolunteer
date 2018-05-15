@@ -16,7 +16,7 @@
 </head>
 
 <body>
-
+    <a href="/OrganizeInfo/ExportExcel">组织文件导出</a>
     <div>
         <table id="tb_organize" data-filter-control="true"></table>
     </div>
@@ -29,6 +29,16 @@
         $(function () {
             //初始化表格
             initTable();
+        });
+
+        $("#btn_add").on('click', function () {
+            $("#Name").val("");
+            layer.open({
+                type: 2,
+                content:"/OrganizeInfo/Create",
+                title: '添加学生',
+                area: ['1000px', '500px']
+            });
         });
         //初始化表格
         function initTable(queryParam) {
