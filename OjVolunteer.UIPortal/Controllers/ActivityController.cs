@@ -27,6 +27,11 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region Query
 
+        /// <summary>
+        /// 义工用户查看活动详情
+        /// </summary>
+        /// <param name="id">活动Id</param>
+        /// <returns></returns>
         public ActionResult Details(int id)
         {
             var activity = ActivityService.GetEntities(u => u.Status==delNormal && u.ActivityID == id).FirstOrDefault();
