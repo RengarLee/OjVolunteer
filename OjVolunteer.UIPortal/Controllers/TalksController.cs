@@ -365,7 +365,30 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Content("error");             
             }
+        }
 
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult Delete(String ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("Please Select!");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            if (TalksService.DeleteListByLogical(idList))
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("error");
+            }
         }
         #endregion
 
