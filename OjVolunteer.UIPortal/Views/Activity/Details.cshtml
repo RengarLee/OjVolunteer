@@ -101,7 +101,7 @@
         </div>
     </div>
     @{
-        if (Model.ActivityEnrollEnd > DateTime.Now&& Model.ManagerUserInfo.UserInfoID != (int)ViewBag.UserId)
+        if (Model.ActivityEnrollEnd > DateTime.Now && Model.ManagerUserInfo.UserInfoID != (int)ViewBag.UserId)
         {
             <a class="signnav" href="#">
                 <p>我要报名</p>

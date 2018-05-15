@@ -455,6 +455,7 @@
     <Content Include="Views\Talks\AllTalks.cshtml" />
     <Content Include="Views\Talks\List.cshtml" />
     <Content Include="Views\Activity\ActivityOfUser.cshtml" />
+    <Content Include="Views\Activity\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

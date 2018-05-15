@@ -27,15 +27,14 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region Query
 
-        public ActionResult ActivityOfUser(int id)
+        public ActionResult Details(int id)
         {
-            //.Select(u => new { u.ActivityID, u.ActivityContent, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityIcon, u.ActivityAddress, u.ActivityManagerID, u.ManagerUserInfo.UserInfoShowName, u.ManagerUserInfo.UserInfoPhone, u.ActivityType.ActivityTypeName, u.ActivityName })
             var activity = ActivityService.GetEntities(u => u.Status==delNormal && u.ActivityID == id).FirstOrDefault();
             if (activity == null)
             {
                 return Redirect("/UserInfo/Index");
             }
-            //ViewBag.data = activity;
+            ViewBag.UserId = LoginUser.UserInfoID;
             ViewData.Model = activity;
             return View();
         }
