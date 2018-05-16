@@ -80,6 +80,7 @@
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
     <Compile Include="TalksService.cs" />
+    <Compile Include="UserEnrollService.cs" />
     <Compile Include="UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>

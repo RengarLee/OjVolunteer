@@ -63,6 +63,7 @@
       <DependentUpon>IServices.tt</DependentUpon>
     </Compile>
     <Compile Include="ITalksService.cs" />
+    <Compile Include="IUserEnrollService.cs" />
     <Compile Include="IUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -86,6 +86,15 @@ namespace OjVolunteer.BLL
                        
         }
 
+        public bool Update(List<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                CurrentDal.Update(entity);
+            }
+            return DbSession.SaveChanges() > 0;
+        }
+
         public bool UpdateListStatus(List<int> ids, short delFlag)
         {
             try

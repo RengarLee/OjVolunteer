@@ -19,7 +19,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [HttpPost]
-        public JsonResult Create(int activityId)
+        public JsonResult Enroll(int activityId)
         {
             string msg = String.Empty;
             //TODO:用户验证参加规则
@@ -38,6 +38,28 @@ namespace OjVolunteer.UIPortal.Controllers
                 msg = "报名失败,请稍后再试";
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult SignIn()
+        {
+            int activityId = Convert.ToInt32(Request["aid"]);
+            string[] strIds = Request["ids"].Split(',');
+            string msg = String.Empty;
+            List<int> uIdList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                uIdList.Add(int.Parse(strId));
+            }
+            if (UserEnrollService.SignIn(activityId, uIdList))
+            {
+                msg = "success";
+            }
+            else
+            {
+                msg = "fail";
+            }
+            return Json(new { msg}, JsonRequestBehavior.AllowGet);
         }
     }
 }
