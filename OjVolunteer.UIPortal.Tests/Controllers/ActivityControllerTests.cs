@@ -27,6 +27,9 @@ namespace OjVolunteer.UIPortal.Controllers.Tests
         public IPoliticalService PoliticalService = new PoliticalService();
         public IDepartmentService DepartmentService = new DepartmentService();
 
+        /// <summary>
+        /// 义工活动完成
+        /// </summary>
         [TestMethod()]
         public void ActAccTest()
         {
