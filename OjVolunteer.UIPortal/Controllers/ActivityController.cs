@@ -120,10 +120,10 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum,u.ActivityType.ActivityTypeName,u.CreateTime,u.Status ,u.ActivityManagerID}).AsQueryable();
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo,u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum,u.ActivityType.ActivityTypeName,u.CreateTime,u.Status ,u.ActivityManagerID}).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                pageData = pageData.Where(u => u.ActivityManagerID == LoginOrganize.OrganizeInfoID).AsQueryable();
+                pageData = pageData.Where(u => u.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
             }
             var data = new { total = pageData.Count(), rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
