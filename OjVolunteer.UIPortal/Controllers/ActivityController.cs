@@ -13,6 +13,8 @@ namespace OjVolunteer.UIPortal.Controllers
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delDelete = (short)Model.Enum.DelFlagEnum.Deleted;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
+        short delUndone = (short)Model.Enum.DelFlagEnum.Undone;
+        short delDoneAuditing = (short)Model.Enum.DelFlagEnum.DoneAuditing;
         public IActivityTypeService ActivityTypeService { get; set; }
         public IActivityService ActivityService { get; set; }
         public IOrganizeInfoService OrganizeInfoService { get; set; }
@@ -127,13 +129,62 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        #region 活动完成审核
+        public ActionResult ActAccAuditing()
+        {
+            return View();
+        }
+
+        public JsonResult ActAccAuditingData()
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID }).AsQueryable();
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                pageData = pageData.Where(u => u.ActivityManagerID == LoginOrganize.OrganizeInfoID).AsQueryable();
+            }
+            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        ///活动负责人确定活动完成
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public JsonResult ActAcc()
+        {
+            string msg = String.Empty;
+            int ActId =Convert.ToInt32(Request["aId"]);
+            int UserId = LoginUser.UserInfoID;
+            Activity activity = ActivityService.GetEntities(u => u.Status == delUndone && u.ActivityManagerID == UserId).FirstOrDefault();
+            if (activity == null)
+            {
+                msg = "fail";
+            }
+            else
+            {
+                activity.ActivityEnd = DateTime.Now;
+                activity.Status = delDoneAuditing;
+                if (ActivityService.Update(activity))
+                {
+                    msg = "success";
+                }
+                else
+                {
+                    msg = "fail";
+                }
+            }
+            return Json(new { msg}) ;
+        }
+
         #endregion
 
         #region Create
         /// <summary>
-            /// 组织进入活动申请界面
-            /// </summary>
-            /// <returns></returns>
+        /// 组织进入活动申请界面
+        /// </summary>
+        /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true)]
         public ActionResult OrgCreate()
         {

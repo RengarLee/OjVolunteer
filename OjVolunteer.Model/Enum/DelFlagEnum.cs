@@ -27,5 +27,15 @@ namespace OjVolunteer.Model.Enum
         /// 用途:申请未通过
         /// </summary>
         Invalid = 3,
+        /// <summary>
+        /// 未完成状态
+        /// 用途：活动通过审批但未完成
+        /// </summary>
+        Undone = 4,
+        /// <summary>
+        /// 完成提交审核状态
+        /// 用途：活动完成但未经过审核
+        /// </summary>
+        DoneAuditing = 5
     }
 }

@@ -7,10 +7,11 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/layui/css")
-    @Styles.Render("~/Content/bootstrap-table/css")
-    @Styles.Render("~/Content/bootstrap-table/filter/css")
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table-filter-control.css" rel="stylesheet" />
 
 
 </head>
@@ -20,11 +21,15 @@
     <div>
         <table id="tb_organize" data-filter-control="true"></table>
     </div>
-    @Scripts.Render("~/Content/oj/js")
-    @Scripts.Render("~/Content/layui/js")
-    @Scripts.Render("~/Content/bootstrap-table/js")
-    @Scripts.Render("~/Content/bootstrap-table/filter/js")
-    @Scripts.Render("~/Scripts/App/Data")
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-filter-control.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化表格
@@ -35,7 +40,7 @@
             $("#Name").val("");
             layer.open({
                 type: 2,
-                content:"/OrganizeInfo/Create",
+                content: "/OrganizeInfo/Create",
                 title: '添加学生',
                 area: ['1000px', '500px']
             });
