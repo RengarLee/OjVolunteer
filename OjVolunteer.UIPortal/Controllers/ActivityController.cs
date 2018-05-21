@@ -236,8 +236,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
 
         }
-
-
         #endregion
 
     }

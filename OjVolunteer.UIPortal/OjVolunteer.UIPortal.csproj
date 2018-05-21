@@ -398,6 +398,7 @@
     <Content Include="Content\lrz\dist\2.chunk.js.map" />
     <Content Include="Content\lrz\dist\lrz.all.bundle.js.map" />
     <Content Include="Content\lrz\dist\lrz.bundle.js.map" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\App\datapattern.js" />
     <Content Include="Scripts\datapattern.js" />

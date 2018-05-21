@@ -18,6 +18,11 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 活动报名
+        /// </summary>
+        /// <param name="activityId">活动Id</param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult Enroll(int activityId)
         {
@@ -40,7 +45,10 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
 
-
+        /// <summary>
+        /// 活动签到
+        /// </summary>
+        /// <returns></returns>
         public JsonResult SignIn()
         {
             int activityId = Convert.ToInt32(Request["aid"]);
@@ -60,6 +68,31 @@ namespace OjVolunteer.UIPortal.Controllers
                 msg = "fail";
             }
             return Json(new { msg}, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 活动签退
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult SignOut()
+        {
+            int activityId = Convert.ToInt32(Request["aid"]);
+            string[] strIds = Request["ids"].Split(',');
+            string msg = String.Empty;
+            List<int> uIdList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                uIdList.Add(int.Parse(strId));
+            }
+            if (UserEnrollService.SignOut(activityId, uIdList))
+            {
+                msg = "success";
+            }
+            else
+            {
+                msg = "fail";
+            }
+            return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
     }
 }

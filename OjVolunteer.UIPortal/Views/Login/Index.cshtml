@@ -9,8 +9,9 @@
     <meta charset="UTF-8">
     <title>登录</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    @Styles.Render("~/Content/oj/css")
-    @Styles.Render("~/Content/layui/css")
+    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
 </head>
 <body>
     <div class="login-content conter-block">
@@ -24,9 +25,13 @@
         }
     </div>
 
-    @Scripts.Render("~/Content/layui/js")
-    @Scripts.Render("~/Content/oj/js")
-    @Scripts.Render("~/Scripts/Ajax")
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
+    <script src="~/Content/oj/js/notification.js"></script>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
         if (window.parent.window != window) {
             window.top.location.href = "/Login/Index";

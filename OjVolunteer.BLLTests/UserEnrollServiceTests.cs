@@ -19,5 +19,13 @@ namespace OjVolunteer.BLL.Tests
             List<int> uIdList = new List<int> { 2, 3 };
             Service.SignIn(aId, uIdList);
         }
+
+        [TestMethod()]
+        public void SignOutTest()
+        {
+            int aId = 2;
+            List<int> uIdList = new List<int> { 2, 3 };
+            Service.SignOut(aId, uIdList);
+        }
     }
 }

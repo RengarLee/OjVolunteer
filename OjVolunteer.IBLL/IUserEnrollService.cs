@@ -9,5 +9,7 @@ namespace OjVolunteer.IBLL
     public partial interface  IUserEnrollService
     {
         bool SignIn(int aId, List<int> uIdList);
+
+        bool SignOut(int aId, List<int> uIdList);
     }
 }
