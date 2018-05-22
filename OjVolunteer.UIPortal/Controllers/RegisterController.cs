@@ -55,11 +55,11 @@ namespace OjVolunteer.UIPortal.Controllers
                 userDuration.ModfiedOn = userDuration.CreateTime;
                 userDuration.Status = delNormal;
                 UserDurationService.Add(userDuration);
-                return Content("ok");
+                return Content("success");
             }
             catch (Exception e)
             {
-                return Content("error");
+                return Content("fail");
             }
         }
         #endregion

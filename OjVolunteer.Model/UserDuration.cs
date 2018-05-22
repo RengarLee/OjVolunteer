@@ -27,5 +27,7 @@ namespace OjVolunteer.Model
         public Nullable<decimal> UserDurationNormalTotal { get; set; }
     
         public virtual UserInfo UserInfo { get; set; }
+        public virtual UserDuration UserDuration1 { get; set; }
+        public virtual UserDuration UserDuration2 { get; set; }
     }
 }

@@ -27,6 +27,7 @@
     <property name="UserInfoService" ref="UserInfoService" ></property>
     <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
     <property name="PoliticalService" ref="PoliticalService" ></property>
+    <property name="UserDurationService" ref="UserDurationService" ></property>
   </object>
   
   <object type="OjVolunteer.UIPortal.Controllers.PoliticalController, OjVolunteer.UIPortal" singleton="false" >

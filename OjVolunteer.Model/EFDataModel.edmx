@@ -338,6 +338,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserDuration_UserDuration">
+          <End Role="UserDuration" Type="Self.UserDuration" Multiplicity="1" />
+          <End Role="UserDuration1" Type="Self.UserDuration" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserDuration">
+              <PropertyRef Name="UserDurationID" />
+            </Principal>
+            <Dependent Role="UserDuration1">
+              <PropertyRef Name="UserDurationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserDuration_UserInfo">
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
           <End Role="UserDuration" Type="Self.UserDuration" Multiplicity="0..1" />
@@ -492,6 +504,10 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Talks" EntitySet="Talks" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserDuration_UserDuration" Association="Self.FK_UserDuration_UserDuration">
+            <End Role="UserDuration" EntitySet="UserDuration" />
+            <End Role="UserDuration1" EntitySet="UserDuration" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserDuration_UserInfo" Association="Self.FK_UserDuration_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserDuration" EntitySet="UserDuration" />
@@ -618,6 +634,10 @@
           <AssociationSet Name="FK_USERINFO_REFERENCE_ORGANIZE" Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE">
             <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
             <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDuration_UserDuration" Association="OjVolunteerModel.FK_UserDuration_UserDuration">
+            <End Role="UserDuration" EntitySet="UserDuration" />
+            <End Role="UserDuration1" EntitySet="UserDuration" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Activity">
@@ -804,6 +824,8 @@
           <Property Name="Status" Nullable="false" Type="Int16" />
           <Property Name="UserDurationNormalTotal" Precision="10" Scale="2" Type="Decimal" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_UserDuration_UserInfo" FromRole="UserDuration" ToRole="UserInfo" />
+          <NavigationProperty Name="UserDuration1" Relationship="OjVolunteerModel.FK_UserDuration_UserDuration" FromRole="UserDuration" ToRole="UserDuration1" />
+          <NavigationProperty Name="UserDuration2" Relationship="OjVolunteerModel.FK_UserDuration_UserDuration" FromRole="UserDuration1" ToRole="UserDuration" />
         </EntityType>
         <EntityType Name="UserEnroll">
           <Key>
@@ -1084,6 +1106,18 @@
             </Principal>
             <Dependent Role="UserInfo">
               <PropertyRef Name="OrganizeInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDuration_UserDuration">
+          <End Type="OjVolunteerModel.UserDuration" Role="UserDuration" Multiplicity="1" />
+          <End Type="OjVolunteerModel.UserDuration" Role="UserDuration1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserDuration">
+              <PropertyRef Name="UserDurationID" />
+            </Principal>
+            <Dependent Role="UserDuration1">
+              <PropertyRef Name="UserDurationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
