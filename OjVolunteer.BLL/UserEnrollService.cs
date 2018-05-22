@@ -16,6 +16,7 @@ namespace OjVolunteer.BLL
             foreach (var temp in Data)
             {
                 temp.UserEnrollActivityStart = DateTime.Now;
+                temp.Status = (short)Model.Enum.DelFlagEnum.Auditing;
             }
             return Update(Data);
         }
@@ -27,6 +28,7 @@ namespace OjVolunteer.BLL
             foreach (var temp in Data)
             {
                 temp.UserEnrollActivityEnd = DateTime.Now;
+                temp.Status = (short)Model.Enum.DelFlagEnum.Normal;
             }
             return Update(Data);
         }

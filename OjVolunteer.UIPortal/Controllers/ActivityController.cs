@@ -129,6 +129,22 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+
+        #region 活动信息管理
+
+        public ActionResult ActivityManager()
+        {
+            return View();
+        }
+
+        public JsonResult ActManData()
+        {
+            return Json(new { });
+        }
+
+        #endregion
+
+
         #region 活动完成审核
         public ActionResult ActAccAuditing()
         {
@@ -253,6 +269,12 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Content("fail");
             }
+        }
+
+        public JsonResult ActAccPassed()
+        {
+            int actId = Convert.ToInt32(Request["aId"]);
+            return Json(new { });
         }
 
         #endregion

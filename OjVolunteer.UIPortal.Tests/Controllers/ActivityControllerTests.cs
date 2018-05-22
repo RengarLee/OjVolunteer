@@ -69,14 +69,40 @@ namespace OjVolunteer.UIPortal.Controllers.Tests
             int pageSize = 5;
             int offset = 0;
 
-
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo,u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID }).AsQueryable();
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID }).AsQueryable();
             if (OrgId != 1)
             {
                 pageData = pageData.Where(u => u.ManagerUserInfo.OrganizeInfoID == OrgId).AsQueryable();
             }
             var data = new { total = pageData.Count(), rows = pageData.ToList() };
+
+        }
+
+        [TestMethod()]
+        public void ActManDataTest()
+        {
+            int OrgId = 1;
+            int pageSize = 5;
+            int offset = 0;
+
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID }).AsQueryable();
+            if (OrgId != 1)
+            {
+                pageData = pageData.Where(u => u.ManagerUserInfo.OrganizeInfoID == OrgId).AsQueryable();
+            }
+            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+        }
+
+        [TestMethod()]
+        public void ActAccPassedTest()
+        {
+            int actId = 1;
+            if (ActivityService.AddTime(actId))
+            { }
+            else
+            { }
 
         }
     }
