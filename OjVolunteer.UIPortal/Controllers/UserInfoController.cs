@@ -217,6 +217,15 @@ namespace OjVolunteer.UIPortal.Controllers
                 userInfo.UserInfoLastTime = userInfo.CreateTime;
                 userInfo.Status = delAuditing;
                 UserInfoService.Add(userInfo);
+
+                //用户活动时长添加
+
+                UserDuration userDuration = new UserDuration();
+                userDuration.UserDurationID = userInfo.UserInfoID;
+                userDuration.CreateTime = DateTime.Now;
+                userDuration.ModfiedOn = userDuration.CreateTime;
+                userDuration.Status = delNormal;
+                UserDurationService.Add(userDuration);
                 return Content("success");
             }
             return Content("fail");

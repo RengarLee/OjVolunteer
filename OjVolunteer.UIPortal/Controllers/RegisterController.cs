@@ -15,6 +15,7 @@ namespace OjVolunteer.UIPortal.Controllers
         short delNormal = (short)DelFlagEnum.Normal;
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
+        public IUserDurationService UserDurationService { get; set; }
         public IPoliticalService PoliticalService { get; set; }
         // GET: Register
         public ActionResult Index()
@@ -33,7 +34,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             try
             {
-                UserInfo user = new UserInfo
+                UserInfo userInfo = new UserInfo
                 {
                     UserInfoLoginId = loginname,
                     UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd),
@@ -45,7 +46,15 @@ namespace OjVolunteer.UIPortal.Controllers
                     ModfiedOn = DateTime.Now,
                     CreateTime = DateTime.Now
                 };
-                UserInfoService.Add(user);
+
+
+                UserInfoService.Add(userInfo);
+                UserDuration userDuration = new UserDuration();
+                userDuration.UserDurationID = userInfo.UserInfoID;
+                userDuration.CreateTime = DateTime.Now;
+                userDuration.ModfiedOn = userDuration.CreateTime;
+                userDuration.Status = delNormal;
+                UserDurationService.Add(userDuration);
                 return Content("ok");
             }
             catch (Exception e)
