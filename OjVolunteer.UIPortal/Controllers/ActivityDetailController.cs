@@ -56,7 +56,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 排行榜
 
-        public JsonResult GetTop()
+        public JsonResult TopData()
         {
             //int OrgId = int.Parse(Request["OrganizeInfoId"] ?? "-1");
             //int TimeSpan = int.Parse(Request["TimeSpan"] ?? "-1");

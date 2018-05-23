@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ActivityControllerTests.cs" />
+    <Compile Include="Controllers\ActivityDetailControllerTests.cs" />
     <Compile Include="Controllers\MajorControllerTests.cs" />
     <Compile Include="Controllers\UserEnrollControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
