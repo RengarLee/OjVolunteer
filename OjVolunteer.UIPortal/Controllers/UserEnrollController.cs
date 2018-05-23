@@ -94,5 +94,28 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Edit(int userEnrollId)
+        {
+            ViewData.Model = UserEnrollService.GetEntities(u => u.UserEnrollID == userEnrollId).FirstOrDefault();
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult Edit(UserEnroll userEnroll)
+        {
+            TimeSpan timeSpan = (TimeSpan)(userEnroll.UserEnrollActivityEnd - userEnroll.UserEnrollActivityStart);
+            decimal Time = timeSpan.Hours * 60 + timeSpan.Minutes;
+            userEnroll.ActivityTime = Time;
+            if (UserEnrollService.Update(userEnroll))
+            {
+                return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
     }
 }

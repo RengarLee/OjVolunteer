@@ -39,7 +39,6 @@
         <!-- 侧边栏 -->
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
-                <!-- 控制台的 -->
                 <ul left-bar left-id="1" class="layui-nav layui-nav-tree" lay-filter="left-nav" style="border-radius: 0;">
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:;" data-url="/OrganizeInfo/Welcome" data-id="1" tab-item>
@@ -115,14 +114,19 @@
                                     活动申请审核
                                 </a>
                             </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Activity/ActAccAuditing" data-id="35" tab-item>
+                                    活动完成审核
+                                </a>
+                            </dd>
                             @if (Model.OrganizeInfoManageId == null)
-                            {
-                                <dd>
-                                    <a href="javascript:;" data-url="/OrganizeInfo/OrganizeOfAuditing" data-id="34" tab-item>
-                                        组织账号申请审核
-                                    </a>
-                                </dd>
-                            }
+    {
+                        <dd>
+                            <a href="javascript:;" data-url="/OrganizeInfo/OrganizeOfAuditing" data-id="34" tab-item>
+                                组织账号申请审核
+                            </a>
+                        </dd>
+}
                         </dl>
                     </li>
                 </ul>

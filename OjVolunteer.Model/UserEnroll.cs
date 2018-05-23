@@ -24,6 +24,7 @@ namespace OjVolunteer.Model
         public Nullable<System.DateTime> ModfiedOn { get; set; }
         public string Remark { get; set; }
         public short Status { get; set; }
+        public Nullable<decimal> ActivityTime { get; set; }
     
         public virtual Activity Activity { get; set; }
         public virtual UserInfo UserInfo { get; set; }

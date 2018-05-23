@@ -1,0 +1,118 @@
+﻿@model OjVolunteer.Model.UserEnroll
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div>
+        <table id="tb_user"></table>
+    </div>
+    <button id="agree">
+        通过
+    </button>
+    <button id="cancel">不通过</button>
+
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script type="text/javascript">
+        layui.use('layer', function () {
+            var layer = layui.layer;
+        });
+
+        $(function () {
+            initTable();
+            $("#agree").click(function (data) {
+                $.post("/Activity/ActAccPass", { aId:@ViewBag.Id}, function (data) {
+                    alert(data);
+                });
+            });
+            $("#cancel").click(function (data) {
+                $.post("/Activity/ActAccNotPass", { aId:@ViewBag.Id}, function (data) {
+                    alert(data);
+                });
+            });
+        });
+
+        function initTable(queryParam) {
+            $("#tb_user").bootstrapTable('destroy');
+            $('#tb_user').bootstrapTable({
+                url: '/Activity/ParticipantsData/@ViewBag.Id',
+                clickToSelect: true,
+                uniqueId: "UserInfoID",
+                columns: [
+                    {
+                        field: 'UserInfoID',
+                        title: '用户Id',
+                        width: '5%',
+                        sortable: true,
+                    },
+                    {
+                        field: 'UserInfoShowName',
+                        title: '用户昵称',
+                        visible: true,
+                        sortable: true,
+                        width: '10%',
+                        editable: {
+                            type: 'text',
+                            title: '用户名',
+                            validate: function (v) {
+                                if (!v) return '用户名不能为空';
+
+                            }
+                        }
+                    },
+                    {
+                        field: 'UserEnrollActivityStart',
+                        title: '活动开始时间',
+                        visible: true,
+                        sortable: true,
+                        width: '20%',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'UserEnrollActivityEnd',
+                        title: '活动结束时间',
+                        visible: true,
+                        sortable: true,
+                        width: '20%',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'ActivityTime',
+                        title: '活动时长',
+                        align: 'center',
+                        width: '25%',
+                    },
+                ],   
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        title: '修改',
+                        type: 2,
+
+                        content: '/UserEnroll/Edit?userEnrollId='+row['UserEnrollID'],
+                        area: ['1000px', '500px']
+                    });
+                }
+            });
+        };
+
+    </script>
+</body>
+</html>

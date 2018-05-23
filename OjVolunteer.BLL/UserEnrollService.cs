@@ -28,6 +28,9 @@ namespace OjVolunteer.BLL
             foreach (var temp in Data)
             {
                 temp.UserEnrollActivityEnd = DateTime.Now;
+                TimeSpan timeSpan = (TimeSpan)(temp.UserEnrollActivityEnd - temp.UserEnrollActivityStart);
+                double Time = timeSpan.Hours * 60 + timeSpan.Minutes;
+                temp.ActivityTime = (decimal)Time;
                 temp.Status = (short)Model.Enum.DelFlagEnum.Normal;
             }
             return Update(Data);

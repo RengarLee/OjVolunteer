@@ -1,4 +1,5 @@
-﻿using OjVolunteer.IBLL;
+﻿using OjVolunteer.BLL;
+using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.UIPortal.Filters;
 using System;
@@ -13,6 +14,7 @@ namespace OjVolunteer.UIPortal.Controllers
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delDelete = (short)Model.Enum.DelFlagEnum.Deleted;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
+        short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
         short delUndone = (short)Model.Enum.DelFlagEnum.Undone;
         short delDoneAuditing = (short)Model.Enum.DelFlagEnum.DoneAuditing;
         public IActivityTypeService ActivityTypeService { get; set; }
@@ -21,6 +23,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public IMajorService MajorService { get; set; }
         public IPoliticalService PoliticalService { get; set; }
         public IDepartmentService DepartmentService { get; set; }
+        public IUserEnrollService UserEnrollService { get; set; }
 
         public ActionResult Index()
         {
@@ -34,6 +37,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// </summary>
         /// <param name="id">活动Id</param>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Details(int id)
         {
             var activity = ActivityService.GetEntities(u => u.Status==delNormal && u.ActivityID == id).FirstOrDefault();
@@ -42,6 +46,19 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Redirect("/UserInfo/Index");
             }
             ViewBag.UserId = LoginUser.UserInfoID;
+            ViewData.Model = activity;
+            return View();
+        }
+
+        /// <summary>
+        /// 组织查看活动详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult OrgSeeDetails(int id)
+        {
+            var activity = ActivityService.GetEntities(u=>u.ActivityID == id).FirstOrDefault();
             ViewData.Model = activity;
             return View();
         }
@@ -129,7 +146,6 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-
         #region 活动信息管理
 
         public ActionResult ActivityManager()
@@ -144,7 +160,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-
         #region 活动完成审核
         public ActionResult ActAccAuditing()
         {
@@ -156,13 +171,64 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID }).AsQueryable();
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID }).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
                 pageData = pageData.Where(u => u.ActivityManagerID == LoginOrganize.OrganizeInfoID).AsQueryable();
             }
             var data = new { total = pageData.Count(), rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Participants(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
+
+        public JsonResult ParticipantsData(int id)
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == id, u => u.ActivityID, true).Select(u => new { u.UserEnrollID,u.UserInfoID,u.UserInfo.UserInfoShowName, u.UserEnrollActivityStart, u.UserEnrollActivityEnd,u.ActivityTime }).AsQueryable();
+
+            return Json(pageData, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ActAccPass()
+        {
+            string msg = String.Empty;
+            int aId = Convert.ToInt32(Request["aId"]);
+            if (ActivityService.AddTime(aId))
+                msg = "success";
+            else
+                msg = "fail";
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ActAccNotPass()
+        {
+            string msg = String.Empty;
+            int aId = Convert.ToInt32(Request["aId"]);
+            Activity activity = ActivityService.GetEntities(u => u.ActivityID == aId&&u.Status==delDoneAuditing).FirstOrDefault();
+            if (activity == null)
+            {
+                msg = "fail";
+            }
+            else {
+                activity.ModfiedOn = DateTime.Now;
+                activity.Status = delInvalid;
+                if (ActivityService.Update(activity))
+                {
+                    msg = "success";
+                }
+                else
+                {
+                    msg = "fail";
+                }
+            }
+            return Json(msg, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

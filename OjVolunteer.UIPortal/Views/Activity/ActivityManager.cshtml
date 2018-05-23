@@ -126,13 +126,6 @@
                             }
                         }
                     },
-                    {
-                        field: 'operate',
-                        title: '操作',
-                        align: 'center',
-                        width: '25%',
-                        formatter: operateFormatter
-                    }
                 ],
                 onLoadSuccess: function (data) {
                     $(".agreeLink").click(function () {
@@ -147,15 +140,7 @@
             });
         };
 
-        function operateFormatter(value, row, index) {
-            return [
-                '<a  href="javascript:void(0)" class="agreeLink" uid="' + row['ActivityID'] + '">',
-                '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>通过</span>',
-                '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
-                '<a href="javascript:void(0)" class="opposeLink" uid="' + row['ActivityID'] + '">',
-                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>删除</span></a>',
-            ].join('');
-        }
+
 
         function agreeSelectClickEvent() {
             var selectedRows = $('#tb_activity').bootstrapTable('getSelections', function (row) {

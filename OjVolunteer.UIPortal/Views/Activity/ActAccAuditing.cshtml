@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div>
+        <table id="tb_activity"></table>
+    </div>
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script type="text/javascript">
+        layui.use('layer', function () {
+            var layer = layui.layer;
+        });
+
+        $(function () {
+            initTable();
+        });
+
+        function initTable(queryParam) {
+            $("#tb_activity").bootstrapTable('destroy');
+            $('#tb_activity').bootstrapTable({
+                contentType: "application/x-www-form-urlencoded",
+                url: '/Activity/ActAccAuditingData',
+                method: 'post',
+                toolbar: '#toolbar',
+                striped: true,
+                cache: false,
+                pagination: true,
+                queryParams: queryParam,
+                sidePagination: "server",
+                pageNumber: 1,
+                pageSize: 10,
+                pageList: [10, 20, 50, 100],
+                smartDisplay: false,
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 3,
+                clickToSelect: true,
+                uniqueId: "ActivityID",
+                columns: [
+                    {
+                        field: 'ActivityID',
+                        title: '活动Id',
+                        width: '5%',
+                        sortable: true,
+                    },
+                    {
+                        field: 'ActivityName',
+                        title: '活动名称',
+                        visible: true,
+                        sortable: true,
+                        width: '10%',
+
+                    },
+                    {
+                        field: 'ActivityPrediNum',
+                        title: '活动人数名额',
+
+                        width: '10%',
+                    },
+                    {
+                        field: 'CreateTime',
+                        title: '活动开始时间',
+                        visible: true,
+                        sortable: true,
+                        width: '20%',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'CreateTime',
+                        title: '活动结束时间',
+                        visible: true,
+                        sortable: true,
+                        width: '20%',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'operate',
+                        title: '操作',
+                        align: 'center',
+                        width: '25%',
+                        formatter: operateFormatter
+                    },
+                ],
+                onLoadSuccess: function (data) {
+                    $(".detailLink").click(function () {
+                        detailClickEvent($(this).attr("uid"));
+                        return false;
+                    });
+                },
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        title: '活动参加人员',
+                        type: 2,
+                        content: '/Activity/Participants/' + row['ActivityID'],
+                        area: ['1000px', '500px']
+                    });
+
+                }
+            });
+        };
+
+
+        //生成操作框图标
+        function operateFormatter(value, row, index) {
+            return [
+                '<a  href="javascript:void(0)" class="detailLink" uid="' + row['ActivityID'] + '">',
+                '&nbsp;&nbsp;<span>查看详情</span></a>&nbsp;&nbsp;&nbsp;&nbsp;',
+            ].join('');
+        }
+
+        //点击查看详情
+        function detailClickEvent(data) {
+            var index = layer.open({
+                title: '活动详情',
+                type: 2,
+                content: '/Activity/OrgSeeDetails/' + data,
+                area: ['1000px', '500px']
+            });
+        }
+    </script>
+</body>
+</html>

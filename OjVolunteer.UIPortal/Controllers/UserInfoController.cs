@@ -225,6 +225,10 @@ namespace OjVolunteer.UIPortal.Controllers
                 userDuration.CreateTime = DateTime.Now;
                 userDuration.ModfiedOn = userDuration.CreateTime;
                 userDuration.Status = delNormal;
+                userDuration.UserDurationNormalTotal = 0;
+                userDuration.UserDurationPartyTotal = 0;
+                userDuration.UserDurationPropartyTotal = 0;
+                userDuration.UserDurationNormalTotal = 0;
                 UserDurationService.Add(userDuration);
                 return Content("success");
             }
