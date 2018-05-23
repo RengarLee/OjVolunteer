@@ -8,47 +8,36 @@
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="toolbar" class="btn-group">
-        <button id="btn_agrees" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-        </button>
-    </div>
     <div>
         <table id="tb_activity"></table>
     </div>
 
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
-
     <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
+        layui.use('layer', function () {
+            var layer = layui.layer;
+        });
         $(function () {
             initTable();
-            $("#btn_agrees").click(function () {
-                agreeSelectClickEvent();
-            });
-            $("#btn_removes").click(function () {
-                removeSelectClickEvent();
-            });
-
         });
 
         function initTable(queryParam) {
             $("#tb_activity").bootstrapTable('destroy');
             $('#tb_activity').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
-                url: '/Activity/GetAllActivityOfAuditing',
+                url: '/Activity/ActManData',
                 method: 'post',
                 toolbar: '#toolbar',
                 striped: true,
                 cache: false,
                 pagination: true,
+                detailView: true,
                 queryParams: queryParam,
                 sidePagination: "server",
                 pageNumber: 1,
@@ -61,10 +50,6 @@
                 clickToSelect: true,
                 uniqueId: "ActivityID",
                 columns: [
-                    {
-                        field: 'checked',
-                        checkbox: true,
-                    },
                     {
                         field: 'ActivityID',
                         title: '活动Id',
@@ -80,33 +65,23 @@
 
                     },
                     {
-                        field: 'UserInfoShowName',
-                        title: '活动申请人昵称',
-                        visible: true,
-                        sortable: true,
-                        width: '10%',
-
-                    },
-                    {
-                        field: 'OrganizeInfoShowName',
-                        title: '活动申请组织昵称',
-                        width: '10%',
-
-                    },
-                    {
-                        field: 'ActivityPrediNum',
-                        title: '活动人数名额',
-
-                        width: '10%',
-                    },
-                    {
                         field: 'ActivityTypeName',
                         title: '活动类型名称',
                         width: '10%',
                     },
                     {
-                        field: 'CreateTime',
-                        title: '申请时间',
+                        field: 'ActivityStart',
+                        title: '活动开始时间',
+                        visible: true,
+                        sortable: true,
+                        width: '20%',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'ActivityEnd',
+                        title: '活动结束时间',
                         visible: true,
                         sortable: true,
                         width: '20%',
@@ -121,100 +96,82 @@
                         sortable: true,
                         width: '10%',
                         formatter: function (value, row, index) {
-                            if (true) {
-                                return '未审核';
-                            }
+
                         }
                     },
                 ],
-                onLoadSuccess: function (data) {
-                    $(".agreeLink").click(function () {
-                        agreeClickEvent($(this).attr("uid"));
-                        return false;
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        title: '活动详情',
+                        type: 2,
+                        content: '/Activity/OrgSeeDetails/' + row["ActivityID"],
+                        area: ['1000px', '500px']
                     });
-                    $(".opposeLink").click(function () {
-                        removeClickEvent($(this).attr("uid"));
-                        return false;
-                    })
+                },
+                onExpandRow: function (index, row, $detail) {
+                    initSubTable(index, row, $detail);
                 }
             });
         };
+        //子表
+        function initSubTable(index, row, $detail) {
+            var parentid = row.ActivityID;
+            var cur_table = $detail.html('<table></table>').find('table');
+            $(cur_table).bootstrapTable({
+                queryParams: { id: parentid },
+                url: '/Activity/ParticipantsData',
+                clickToSelect: true,
+                uniqueId: "UserInfoID",
+                columns: [
+                    {
+                        field: 'UserInfoID',
+                        title: '用户Id',
+                        width: '5%',
+                        sortable: true,
+                    },
+                    {
+                        field: 'UserInfoShowName',
+                        title: '用户昵称',
+                        visible: true,
+                        sortable: true,
+                        width: '10%',
+                        editable: {
+                            type: 'text',
+                            title: '用户名',
+                            validate: function (v) {
+                                if (!v) return '用户名不能为空';
 
-
-
-        function agreeSelectClickEvent() {
-            var selectedRows = $('#tb_activity').bootstrapTable('getSelections', function (row) {
-                return row;
+                            }
+                        }
+                    },
+                    {
+                        field: 'UserEnrollActivityStart',
+                        title: '活动开始时间',
+                        visible: true,
+                        sortable: true,
+                        width: '20%',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'UserEnrollActivityEnd',
+                        title: '活动结束时间',
+                        visible: true,
+                        sortable: true,
+                        width: '20%',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'ActivityTime',
+                        title: '活动时长',
+                        align: 'center',
+                        width: '25%',
+                    },
+                ],   
             });
-            if (selectedRows.length <= 0) {
-                alert("至少选中一个选项");
-            }
-            var ids = "";
-            for (var key in selectedRows) {
-                ids += selectedRows[key].ActivityID + ",";
-            }
-            ids = ids.substr(0, ids.length - 1);
-            $.post("/Activity/EditOfList", { ids, ids }, function (data) {
-                if (data == "success") {
-                    initTable();
-                    alert("操作成功");
-                } else if (data == "null") {
-                    alert("至少选择一列");
-                } else {
-                    alert("操作失败,请稍后再试");
-                }
-            });
-        }
-
-        function agreeClickEvent(data) {
-            $.post("/Activity/EditOfList", { ids: data }, function (data) {
-                if (data == "success") {
-                    initTable();
-                    alert("操作成功");
-                } else if (data == "null") {
-                    alert("至少选择一列");
-                } else {
-                    alert("操作失败,请稍后再试");
-                }
-            });
-        }
-
-        function removeSelectClickEvent() {
-            var selectedRows = $('#tb_activity').bootstrapTable('getSelections', function (row) {
-                return row;
-            });
-            if (selectedRows.length <= 0) {
-                alert("至少选中一个选项");
-            }
-            var ids = "";
-            for (var key in selectedRows) {
-                ids += selectedRows[key].ActivityID + ",";
-            }
-            ids = ids.substr(0, ids.length - 1);
-            $.post("/Activity/DeleteOfList", { ids, ids }, function (data) {
-                //初始化表格
-                initTable();
-                if (data == "success") {
-                    alert("删除成功");
-                } else if (data == "null") {
-                    alert("至少选择一列");
-                } else {
-                    alert("删除失败,请稍后再试");
-                }
-            });
-        }
-
-        function removeClickEvent(data) {
-            $.post("/Activity/DeleteOfList", { ids: data }, function (data) {
-                initTable();
-                if (data == "success") {
-                    alert("删除成功");
-                } else if (data == "null") {
-                    alert("至少选择一列");
-                } else {
-                    alert("删除失败,请稍后再试");
-                }
-            })
         }
     </script>
 </body>

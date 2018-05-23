@@ -467,7 +467,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Upload\TalkImages\" />
-    <Folder Include="Views\ActivityDetail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
