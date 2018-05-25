@@ -138,53 +138,9 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region Edit
-        /// <summary>
-        /// 打开编辑窗口
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult Edit(int id)
-        {
-            //非最高等级组织用户欲编辑其他用户信息
-            if(LoginOrganize.OrganizeInfoManageId!=null&&LoginOrganize.OrganizeInfoID != id)
-            {
-                return Redirect("/OrganizeInfo/Index");
-            }
-            OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(p => p.OrganizeInfoID == id && p.Status == delNormal).FirstOrDefault();
-            if (organizeInfo == null)
-            {
-                return Redirect("/OrganizeInfo/Index");
-            }
-            return View(organizeInfo);
-        }
 
-        /// <summary>
-        /// 提交编辑申请
-        /// </summary>
-        /// <param name="organizeInfo"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult Edit(OrganizeInfo organizeInfo)
-        {  
-            if (ModelState.IsValid)
-            {
-
-                organizeInfo.ModfiedOn = DateTime.Now;
-                if (OrganizeInfoService.Update(organizeInfo))
-                {
-                    return Content("success");
-                }
-                else
-                {
-                    return Content("fail");
-                }
-            }
-            return Content("fail");
-        }
+        
         #endregion
-
 
         #region 组织账审核审核
         /// <summary>
@@ -297,11 +253,62 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 头像更换
+        #region 组织修改组织信息
+
+        /// <summary>
+        /// 打开编辑窗口
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult Edit(int id)
+        {
+            //非最高等级组织用户欲编辑其他用户信息
+            if (LoginOrganize.OrganizeInfoManageId != null && LoginOrganize.OrganizeInfoID != id)
+            {
+                return Redirect("/OrganizeInfo/Index");
+            }
+            OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(p => p.OrganizeInfoID == id && p.Status == delNormal).FirstOrDefault();
+            if (organizeInfo == null)
+            {
+                return Redirect("/OrganizeInfo/Index");
+            }
+            return View(organizeInfo);
+        }
+
+        /// <summary>
+        /// 提交编辑申请
+        /// </summary>
+        /// <param name="organizeInfo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult Edit(OrganizeInfo organizeInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                organizeInfo.ModfiedOn = DateTime.Now;
+                if (OrganizeInfoService.Update(organizeInfo))
+                {
+                    return Content("success");
+                }
+                else
+                {
+                    return Content("fail");
+                }
+            }
+            return Content("fail");
+        }
+
+        /// <summary>
+        /// 头像上传
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UploadIcon()
         {
             var file = Request.Files["file"];
-            string path = "/Content/Upload/Icon/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+            String filePath =  System.Configuration.ConfigurationManager.AppSettings["DefaultIconSavePath"];
+            string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
             string dirPath = Request.MapPath(path);
             if (!Directory.Exists(dirPath))
             {
@@ -312,16 +319,16 @@ namespace OjVolunteer.UIPortal.Controllers
             file.SaveAs(Request.MapPath(fileName));
             OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).FirstOrDefault();
             organizeInfo.OrganizeInfoIcon = fileName;
+            organizeInfo.ModfiedOn = DateTime.Now;
             if (OrganizeInfoService.Update(organizeInfo))
             {
                 LoginOrganize.OrganizeInfoIcon = fileName;
-                return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
+                return Json(new { src = fileName, msg = "success" }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { msg = "error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
             }
-
         }
         #endregion
 

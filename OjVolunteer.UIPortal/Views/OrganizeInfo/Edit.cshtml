@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-head-right">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">登录帐号</label>
+                        <label class="layui-form-label">登录名</label>
                         <div class="layui-input-block">
                             @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { @class = "layui-input", type = "text", disabled = "" } })
                         </div>
@@ -115,11 +115,13 @@
                 elem: '#myimg'
                 , url: '/OrganizeInfo/UploadIcon' //上传接口
                 , accept: 'images'
+                , size: 2048
                 , done: function (res) {
-                    if (res["msg"] == "error") {
+                    if (res["msg"] == "fail") {
                         alert("头像更换失败，请稍后再试");
                     } else {
                         $("#myimg").attr("src", res["src"]);
+                        $("#OrganizeInfoIcon").attr("value", res["src"]);
                         alert("头像更新成功");
                     }
                 }
