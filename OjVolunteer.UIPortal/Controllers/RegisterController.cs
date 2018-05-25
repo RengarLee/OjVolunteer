@@ -5,6 +5,7 @@ using OjVolunteer.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -55,7 +56,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 userDuration.ModfiedOn = userDuration.CreateTime;
                 userDuration.Status = delNormal;
                 UserDurationService.Add(userDuration);
-                return Content("success");
+                return Content("user");
             }
             catch (Exception e)
             {
@@ -68,24 +69,55 @@ namespace OjVolunteer.UIPortal.Controllers
 
         public ActionResult OrganizeRegister(string loginname, string pwd, string nickname, string people, string phone)
         {
-                OrganizeInfo organize = new OrganizeInfo
-                {
-                    
-                    OrganizeInfoLoginId = loginname,
-                    OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd),
-                    OrganizeInfoShowName = nickname,
-                    OrganizeInfoPeople = people,
-                    OrganizeInfoPhone = phone,
-                    Status = (short)Model.Enum.DelFlagEnum.Auditing,
+            //验证
+            //登录名
+            Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
+            if (!regex.IsMatch(loginname))
+            {
+                return Content("fail");
+            }
+            //密码
+            regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
+            if (!regex.IsMatch(pwd))
+            {
+                return Content("fail");
+            }
+            //昵称
+            regex = new Regex(@"^[\u4e00-\u9fa5]{2,15}$");
+            if (!regex.IsMatch(nickname))
+            {
+                return Content("fail");
+            }
 
-                    ModfiedOn = DateTime.Now,
-                    CreateTime = DateTime.Now,
-                    OrganizeInfoLastTime = DateTime.Now,
-                    OrganizeInfoManageId = OrganizeInfoService.GetEntities(u=>u.OrganizeInfoManageId == null).FirstOrDefault().OrganizeInfoID,
-                    OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"],
-                };
+            regex = new Regex(@"^[\u4e00-\u9fa5]{2,10}$");
+            if (!regex.IsMatch(people))
+            {
+                return Content("fail");
+            }
+            //电话号码
+            regex = new Regex(@"^\d{11}$");
+            if (!regex.IsMatch(phone))
+            {
+                return Content("fail");
+            }
+
+            OrganizeInfo organize = new OrganizeInfo
+            {
+                OrganizeInfoLoginId = loginname,
+                OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd),
+                OrganizeInfoShowName = nickname,
+                OrganizeInfoPeople = people,
+                OrganizeInfoPhone = phone,
+                Status = (short)Model.Enum.DelFlagEnum.Auditing,
+                ModfiedOn = DateTime.Now,
+                CreateTime = DateTime.Now,
+                OrganizeInfoLastTime = DateTime.Now,
+                OrganizeInfoManageId = OrganizeInfoService.GetEntities(u => u.OrganizeInfoManageId == null).FirstOrDefault().OrganizeInfoID,
+                OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"],
+                ActivityCount = 0
+            };
                 if(OrganizeInfoService.Add(organize)!=null)
-                    return Content("success");
+                    return Content("organize");
                 else
                     return Content("fail");
         }
