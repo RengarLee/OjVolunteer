@@ -33,7 +33,7 @@ namespace OjVolunteer.Model.Enum
         /// </summary>
         Undone = 4,
         /// <summary>
-        /// 完成提交审核状态
+        /// 完成待审核状态
         /// 用途：活动完成但未经过审核
         /// </summary>
         DoneAuditing = 5
