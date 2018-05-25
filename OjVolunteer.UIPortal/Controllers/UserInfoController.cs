@@ -237,6 +237,9 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+
+
+        #region 修改信息
         /// <summary>
         /// 用户修改自身资料
         /// </summary>
@@ -245,24 +248,24 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult UserEditUser(int id)
         {
-            if(LoginUser.UserInfoID != id)
+            if (LoginUser.UserInfoID != id)
             {
                 return Redirect("/UserInfo/Index");
             }
             var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewData["DepartmentList"] = (from u in allDepartment
-                                        select new SelectListItem() { Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
+                                          select new SelectListItem() { Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
 
             var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewData["MajorList"] = (from u in allMajor
-                                   select new SelectListItem() {  Text = u.MajorName, Value = u.MajorID + "" }).ToList();
+                                     select new SelectListItem() { Text = u.MajorName, Value = u.MajorID + "" }).ToList();
 
             var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewData["UpdatePoliticalList"] = (from u in allPolitical
-                                             select new SelectListItem() {  Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+                                               select new SelectListItem() { Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
             var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).AsQueryable();
             ViewData["OrganizeinfoList"] = (from u in allOrganizeInfo
-                                          select new SelectListItem() {  Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + ""}).ToList();
+                                            select new SelectListItem() { Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
 
             return View(LoginUser);
         }
@@ -276,7 +279,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult OrgEditUser(int id)
         {
             UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
-            if(user == null)
+            if (user == null)
                 return Redirect("/OrganizeInfo/Index");
             var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewBag.MajorID = (from u in allMajor select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
@@ -290,7 +293,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 allOrganizeInfo = allOrganizeInfo.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
             }
             ViewBag.OrganizeInfoID = (from u in allOrganizeInfo select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
-            if (LoginOrganize.OrganizeInfoID!=user.OrganizeInfoID&& LoginOrganize.OrganizeInfoManageId!=null)
+            if (LoginOrganize.OrganizeInfoID != user.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
             {
                 return Redirect("/OrganizeInfo/Index");
             }
@@ -298,6 +301,8 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewData.Model = user;
             return View();
         }
+        #endregion
+
 
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
