@@ -22,9 +22,14 @@
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
+                if ($("#add_department").val() =="") {
+                    alert("名称不为空");
+                    return ;
+                }
                 $.post("/Department/Create", { DepartmentName: $("#add_department").val() }, function (data) {
                     if (data == "success") {
                         initTable();
+                        $("#add_department").val("");
                         alert("操作成功");
                     } else if (data == "fail") {
                         alert("操作失败");
@@ -43,18 +48,18 @@
         function initTable(queryParam) {
             $("#tb_department").bootstrapTable('destroy');
             $('#tb_department').bootstrapTable({
-                contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
-                url: '/Department/GetAllDepartment',         //请求后台的URL（*）
-                method: 'post',                      //请求方式（*）
+                contentType: "application/x-www-form-urlencoded",
+                url: '/Department/GetAllDepartment',        
+                method: 'post',                     
                 toolbar: '#toolbar',
-                striped: true,                      //是否显示行间隔色
+                striped: true,                      
                 cache: false,
-                pagination: true,                   //是否显示分页（*）
+                pagination: true,                  
                 queryParams: queryParam,
-                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-                pageNumber: 1,                       //初始化加载第一页，默认第一页
-                pageSize: 10,                       //每页的记录行数（*）
-                pageList: [10, 20, 50, 100],        //可供选择的每页的行数（*）
+                sidePagination: "server",           
+                pageNumber: 1,                      
+                pageSize: 10,                      
+                pageList: [10, 20, 50, 100],        
                 smartDisplay: false,
                 showColumns: true,
                 showRefresh: true,
@@ -62,7 +67,7 @@
                 clickToSelect: true,
                 showExport: true,
                 exportDataType: "all",
-                uniqueId: "DepartmentID",                     //每一行的唯一标识，一般为主键列
+                uniqueId: "DepartmentID",                    
                 columns: [
                     {
                         field: 'checked',
@@ -104,34 +109,8 @@
                         }
                     }
                 ],
-                onEditableSave: function (field, row, oldValue, $el) {
-                    $.ajax({
-                        type: "post",
-                        url: "/Department/Edit",
-                        data: row,
-                        dataType: 'JSON',
-                        success: function (data, status) {
-                            if (data["result"] == "success") {
-                                alert('操作成功');
-
-                            } else if (data["result"] == "fail") {
-                                alert("操作失败");
-
-                            } else if (data["result"] == "exist") {
-                                alert("已存在");
-                            }
-                        },
-                        error: function (data, status) {
-                            alert("操作失败")
-                        },
-                        complete: function () {
-                            initTable();
-                        }
-                    })
-                }
             });
         };
-
 
         function removeSelectClickEvent() {
             var selectedRows = $('#tb_department').bootstrapTable('getSelections', function (row) {
@@ -146,8 +125,6 @@
             }
             ids = ids.substr(0, ids.length - 1);
             $.post("/Department/DeleteOfList", { ids, ids }, function (data) {
-                //初始化表格
-
                 if (data == "success") {
                     initTable();
                     alert("操作成功");

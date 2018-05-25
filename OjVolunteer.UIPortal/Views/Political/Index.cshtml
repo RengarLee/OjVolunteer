@@ -21,9 +21,14 @@
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
+                if ($("#add_political").val() == "") {
+                    alert("名称不为空");
+                    return;
+                }
                 $.post("/Political/Create", { PoliticalName: $("#add_political").val() }, function (data) {
                     if (data == "success") {
                         initTable();
+                        $("#add_political").val("");
                         alert("资料修改成功");
                     } else if (data == "fail") {
                         alert("修改失败");
@@ -143,7 +148,6 @@
             }
             ids = ids.substr(0, ids.length - 1);
             $.post("/Political/DeleteOfList", { ids, ids }, function (data) {
-                //初始化表格
 
                 if (data == "success") {
                     initTable();

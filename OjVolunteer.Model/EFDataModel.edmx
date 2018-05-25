@@ -63,7 +63,7 @@
             <PropertyRef Name="DepartmentID" />
           </Key>
           <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DepartmentName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
@@ -130,7 +130,7 @@
             <PropertyRef Name="PoliticalID" />
           </Key>
           <Property Name="PoliticalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PoliticalName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="PoliticalName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
@@ -712,7 +712,7 @@
           <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="Status" Nullable="false" Type="Int16" />
           <Property Name="DepartmentID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="DepartmentName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="DepartmentName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_DEPARTME1" FromRole="Department" ToRole="UserInfo" />
         </EntityType>
         <EntityType Name="Favors">
@@ -783,7 +783,7 @@
             <PropertyRef Name="PoliticalID" />
           </Key>
           <Property Name="PoliticalID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="PoliticalName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="PoliticalName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="CreateTime" Precision="3" Type="DateTime" />
           <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
           <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />

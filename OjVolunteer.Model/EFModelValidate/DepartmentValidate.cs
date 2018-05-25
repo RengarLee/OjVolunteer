@@ -15,7 +15,7 @@ namespace OjVolunteer.Model
 
     public class DepartmentValidate
     {
-        [StringLength(15, MinimumLength = 2, ErrorMessage = "学院名称长度在2到15长度之内")]
+        [RegularExpression("^[\u4e00-\u9fa5]{2,20}$", ErrorMessage = "学院名称不符合规范")]
         public string DepartmentName { get; set; }
     }
 }

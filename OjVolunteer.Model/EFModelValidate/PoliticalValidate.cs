@@ -15,7 +15,7 @@ namespace OjVolunteer.Model
 
     public class PoliticalValidate
     {
-        [StringLength(15, MinimumLength = 2, ErrorMessage = "政治面貌名称长度在2到15长度之内")]
+        [RegularExpression("^[\u4e00-\u9fa5]{2,20}$", ErrorMessage = "政治面貌名称不符合规范")]
         public string PoliticalName { get; set; }
     }
 }

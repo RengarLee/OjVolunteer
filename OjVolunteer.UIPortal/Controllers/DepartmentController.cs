@@ -108,7 +108,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             if (string.IsNullOrEmpty(ids))
             {
-                return Content("null");
+                return Content("Please Select!");
             }
             string[] strIds = Request["ids"].Split(',');
             List<int> idList = new List<int>();
@@ -122,7 +122,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             else
             {
-                return Content("fail");           
+                return Content("fail");
             }
         }
         #endregion
