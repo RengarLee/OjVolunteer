@@ -27,18 +27,17 @@ namespace OjVolunteer.UIPortal.Controllers
         public ITalksService TalksService { get; set; }
 
 
-        public ActionResult Welcome()
-        {
-            return View();
-        }
 
-        /// <summary>
-        /// 跳转后台页面
-        /// </summary>
+
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Index()
         {
             return View(LoginOrganize);
+        }
+
+        public ActionResult Welcome()
+        {
+            return View();
         }
 
         #region  Query
@@ -100,31 +99,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 进入组织信息审核界面
-        /// </summary>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
-        public ActionResult OrganizeOfAuditing()
-        {
-            return View();
-        }
 
-        /// <summary>
-        /// 加载未审核的组织信息
-        /// </summary>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
-        public ActionResult GetAllOrganizeOfAuditing()
-        {
-
-            int pageSize = int.Parse(Request["limit"] ?? "5");
-            int offset = int.Parse(Request["offset"] ?? "0");
-            int pageIndex = (offset / pageSize) + 1;
-            var pageData = OrganizeInfoService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing && o.OrganizeInfoManageId == LoginOrganize.OrganizeInfoID,u =>u.OrganizeInfoID ,true).Select(u=>new {u.OrganizeInfoID,u.OrganizeInfoPeople,u.OrganizeInfoPhone,u.OrganizeInfoShowName,u.CreateTime,u.OrganizeInfoLoginId}).AsQueryable();
-            var data = new { total = total, rows=pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
 
         #endregion
 
@@ -208,6 +183,62 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             return Content("fail");
         }
+        #endregion
+
+
+        #region 组织账审核审核
+        /// <summary>
+        /// 进入组织信息审核界面
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
+        public ActionResult OrganizeOfAuditing()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 加载未审核的组织信息
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
+        public ActionResult GetAllOrganizeOfAuditing()
+        {
+
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = OrganizeInfoService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing && o.OrganizeInfoManageId == LoginOrganize.OrganizeInfoID, u => u.OrganizeInfoID, true).Select(u => new { u.OrganizeInfoID, u.OrganizeInfoPeople, u.OrganizeInfoPhone, u.OrganizeInfoShowName, u.CreateTime, u.OrganizeInfoLoginId }).AsQueryable();
+            var data = new { total = total, rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 批量删除申请的组织账号
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public ActionResult DeleteOfList(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            if (OrganizeInfoService.InvalidListByULS(idList))
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
+        }
 
         /// <summary>
         /// 批量通过组织申请
@@ -238,37 +269,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             #endregion
         }
-        #endregion
 
-        #region Delete
-        /// <summary>
-        /// 批量删除申请的组织账号
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        public ActionResult DeleteOfList(string ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            #region 逻辑删除
-            if (OrganizeInfoService.InvalidListByULS(idList))
-            {
-                return Content("success");
-            }
-            else
-            {
-                return Content("fail");
-            }
-            #endregion
-        }
         #endregion
 
         #region 退出操作

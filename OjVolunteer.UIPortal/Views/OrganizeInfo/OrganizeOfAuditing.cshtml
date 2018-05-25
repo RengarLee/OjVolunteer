@@ -35,82 +35,66 @@
         function initTable(queryParam) {
             $("#tb_organize").bootstrapTable('destroy');
             $('#tb_organize').bootstrapTable({
-                contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
-                url: '/OrganizeInfo/GetAllOrganizeOfAuditing',         //请求后台的URL（*）
-                method: 'post',                      //请求方式（*）
+                contentType: "application/x-www-form-urlencoded",
+                url: '/OrganizeInfo/GetAllOrganizeOfAuditing',         
+                method: 'post',                      
                 toolbar: '#toolbar',
-                striped: true,                      //是否显示行间隔色
-                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-                pagination: true,                   //是否显示分页（*）
+                striped: true,                      
+                cache: false,                       
+                pagination: true,                   
                 queryParams: queryParam,
-                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-                pageNumber: 1,                       //初始化加载第一页，默认第一页
-                pageSize: 10,                       //每页的记录行数（*）
-                pageList: [10, 20, 50, 100],        //可供选择的每页的行数（*）
+                sidePagination: "server",           
+                pageNumber: 1,                      
+                pageSize: 10,                       
+                pageList: [10, 20, 50, 100],        
                 smartDisplay: false,
-                showColumns: true,                  //是否显示所有的列
-                showRefresh: true,                  //是否显示刷新按钮
-                minimumCountColumns: 3,             //最少允许的列数
+                showColumns: true,                  
+                showRefresh: true,                  
+                minimumCountColumns: 3,             
                 clickToSelect: true,
-                uniqueId: "OrganizeInfoID",                     //每一行的唯一标识，一般为主键列
+                uniqueId: "OrganizeInfoID",                    
                 columns: [
                     {
                         field: 'checked',
                         checkbox: true,
                     },
                     {
-                        field: 'OrganizeInfoID',//域值
-                        title: '账号Id',//标题
+                        field: 'OrganizeInfoID',
+                        title: '组织ID',
                         width: '5%',
-                        sortable: true,
                     },
                     {
-                        field: 'OrganizeInfoLoginId',//域值
-                        title: '组织账号',//标题
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
+                        field: 'OrganizeInfoLoginId',
+                        title: '组织用户名',
                         width: '10%',
-
                     },
                     {
-                        field: 'OrganizeInfoShowName',//域值
-                        title: '组织名称',//标题
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
+                        field: 'OrganizeInfoShowName',
+                        title: '组织名称',
+                        visible: true,
                         width: '10%',
-
                     },
                     {
-                        field: 'OrganizeInfoPeople',//域值
-                        title: '负责人',//标题
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
+                        field: 'OrganizeInfoPeople',
+                        title: '负责人',
                         width: '10%',
-
                     },
                     {
-                        field: 'OrganizeInfoPhone',//域值
-                        title: '联系方式',//标题
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
+                        field: 'OrganizeInfoPhone',
+                        title: '手机号',
                         width: '10%',
-
                     },
                     {
-                        field: 'CreateTime',//域值
-                        title: '申请时间',//标题
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
+                        field: 'CreateTime',
+                        title: '申请时间',
                         width: '20%',
                         formatter: function (value, row, index) {
                             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
                         }
                     },
                     {
-                        field: 'Status',//域值
-                        title: '状态',//内容
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
+                        field: 'Status',
+                        title: '状态',
                         width: '10%',
                         formatter: function (value, row, index) {
                             if (true) {
