@@ -11,6 +11,7 @@ namespace OjVolunteer.UIPortal.Controllers
     public class UserEnrollController : BaseController
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+        short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         public IActivityService ActivityService { get; set; }
         public IUserEnrollService UserEnrollService { get; set; }
         public ActionResult Index()
@@ -27,8 +28,13 @@ namespace OjVolunteer.UIPortal.Controllers
         public JsonResult Enroll(int activityId)
         {
             string msg = String.Empty;
+            //用户是否可以修改政治面貌
             //TODO:用户验证参加规则
             //TODO:验证用户是否已参加活动
+            if (LoginUser.Status == delAuditing)
+            {
+                return Json(new { msg = "您的政治面貌尚未审核，无法参加活动，请耐心等待！" }, JsonRequestBehavior.AllowGet);
+            }
             if (UserEnrollService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.ActivityID == activityId).Count() > 0)
             {
                 return Json(new { msg="您已报名" }, JsonRequestBehavior.AllowGet);

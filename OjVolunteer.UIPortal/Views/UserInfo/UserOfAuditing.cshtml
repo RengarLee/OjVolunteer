@@ -33,24 +33,24 @@
         function initTable(queryParam) {
             $("#tb_user").bootstrapTable('destroy');
             $('#tb_user').bootstrapTable({
-                contentType: "application/x-www-form-urlencoded",//后台拿Request拿不到值添加该条语句
-                url: '/UserInfo/GetAllUserOfAuditing',         //请求后台的URL（*）
-                method: 'post',                      //请求方式（*）
+                contentType: "application/x-www-form-urlencoded",
+                url: '/UserInfo/GetAllUserOfAuditing',        
+                method: 'post',                    
                 toolbar: '#toolbar',
-                striped: true,                      //是否显示行间隔色
-                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-                pagination: true,                   //是否显示分页（*）
+                striped: true,                     
+                cache: false,                       
+                pagination: true,                 
                 queryParams: queryParam,
-                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-                pageNumber: 1,                       //初始化加载第一页，默认第一页
-                pageSize: 10,                       //每页的记录行数（*）
-                pageList: [10, 20, 50, 100],        //可供选择的每页的行数（*）
+                sidePagination: "server",           
+                pageNumber: 1,                      
+                pageSize: 10,                      
+                pageList: [10, 20, 50, 100],      
                 smartDisplay: false,
-                showColumns: true,                  //是否显示所有的列
-                showRefresh: true,                  //是否显示刷新按钮
-                minimumCountColumns: 3,             //最少允许的列数
+                showColumns: true,                
+                showRefresh: true,                 
+                minimumCountColumns: 3,         
                 clickToSelect: true,
-                uniqueId: "UserInfoID",                     //每一行的唯一标识，一般为主键列
+                uniqueId: "UserInfoID",                
                 columns: [
                     {
                         field: 'checked',
@@ -94,6 +94,13 @@
                     {
                         field: 'UpdateName',
                         title: '申请后政治面貌',
+                        visible: true,
+                        width: '10%',
+                        align: 'center',
+                    },
+                    {
+                        field: 'UserDurationPropartyTime',
+                        title: '预备党员活动时长',
                         visible: true,
                         width: '10%',
                         align: 'center',
@@ -150,10 +157,10 @@
         function operateFormatter(value, row, index) {
             return [
                 '<a  href="javascript:void(0)" class="agreeLink" uid="' + row['UserInfoID'] + '">',
-                '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>操作</span>',
+                '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>同意</span>',
                 '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
                 '<a href="javascript:void(0)" class="opposeLink" uid="' + row['UserInfoID'] + '">',
-                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>操作</span></a>',
+                '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>驳回</span></a>',
             ].join('');
         }
 

@@ -27,8 +27,6 @@ namespace OjVolunteer.UIPortal.Controllers
         public IDepartmentService DepartmentService { get; set; }
         public ITalksService TalksService { get; set; }
 
-
-
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Index()
         { 
@@ -136,7 +134,9 @@ namespace OjVolunteer.UIPortal.Controllers
             var data = new { total = userQueryParam.Total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
+        #region 义工政治面貌审核
         /// <summary>
         /// 组织进入义工政治面貌审核界面
         /// </summary>
@@ -144,7 +144,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult UserOfAuditing()
         {
-            return View(LoginOrganize);
+            return View();
         }
         /// <summary>
         /// 加载政治面貌变更审核信息
@@ -154,12 +154,13 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult GetAllUserOfAuditing()
         {
-           
+
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
             var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.UserInfoID, true)
                 .Select(u => new {
+                    u.UserDuration.UserDurationPropartyTime,
                     u.UserInfoID,
                     u.UserInfoShowName,
                     u.UserInfoLoginId,
@@ -235,8 +236,6 @@ namespace OjVolunteer.UIPortal.Controllers
             return Content("fail");
         }
         #endregion
-
-        #region Edit
 
         /// <summary>
         /// 用户修改自身资料
@@ -392,7 +391,6 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Content("fail");
             }     
         }
-        #endregion
 
         #region Delete
         /// <summary>
