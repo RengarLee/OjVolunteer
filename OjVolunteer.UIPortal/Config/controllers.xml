@@ -19,9 +19,6 @@
     <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
     <property name="UserInfoService" ref="UserInfoService" ></property>
     <property name="UserDurationService" ref="UserDurationService" ></property>
-
-    <!--异常测试-->
-    <!--<property name="TalksService" ref="TalksService" ></property>-->
   </object>
   
   <object type="OjVolunteer.UIPortal.Controllers.RegisterController, OjVolunteer.UIPortal" singleton="false" >
@@ -59,6 +56,7 @@
     <property name="DepartmentService" ref="DepartmentService" ></property>
     <property name="PoliticalService" ref="PoliticalService" ></property>
     <property name="UserEnrollService" ref="UserEnrollService" ></property>
+    <property name="ActivityDetailService" ref="ActivityDetailService" ></property>
   </object>
 
   <object type="OjVolunteer.UIPortal.Controllers.UserEnrollController, OjVolunteer.UIPortal" singleton="false" >

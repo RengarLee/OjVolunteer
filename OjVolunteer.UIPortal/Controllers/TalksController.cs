@@ -444,7 +444,7 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["pageSize"] ?? "5");
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int UserInfoId = Convert.ToInt32(Request["userInfoId"]);
-            var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.CreateTime, false).AsQueryable();
+            var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).AsQueryable();
             if (UserInfoId != LoginUser.UserInfoID)
             {
                 PageData = PageData.Where(u => u.Status == delNormal).AsQueryable();

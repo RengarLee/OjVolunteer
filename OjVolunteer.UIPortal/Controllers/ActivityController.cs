@@ -24,6 +24,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public IPoliticalService PoliticalService { get; set; }
         public IDepartmentService DepartmentService { get; set; }
         public IUserEnrollService UserEnrollService { get; set; }
+        public IActivityDetailService ActivityDetailService { get; set; }
 
         public ActionResult Index()
         {
@@ -383,6 +384,34 @@ namespace OjVolunteer.UIPortal.Controllers
             }
 
 
+        }
+        #endregion
+
+        #region 历史活动界面
+
+        /// <summary>
+        /// 进入个人历史活动界面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TalksOfUser()
+        {
+            return View();
+        }
+        /// <summary>
+        /// 用户活动数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult TalkOfUserData()
+        {
+            int pageSize = int.Parse(Request["pageSize"] ?? "5");
+            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
+            int UserInfoId = Convert.ToInt32(Request["userInfoId"]);
+            var PageData = ActivityDetailService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoId== UserInfoId, u => u.CreateTime, false).AsQueryable();
+            if (UserInfoId != LoginUser.UserInfoID)
+            {
+                PageData = PageData.Where(u => u.Activity.Status == delNormal).AsQueryable();
+            }
+            return Json(new { PageData }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
