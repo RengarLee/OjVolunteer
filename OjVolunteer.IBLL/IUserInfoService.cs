@@ -12,7 +12,11 @@ namespace OjVolunteer.IBLL
     public partial interface  IUserInfoService
     {
         Stream ExportToExecl(bool isSuper, int orgId);
+
         IQueryable<UserInfo> LoadPageData(UserQueryParam userQueryParam);
+
         bool ListUpdatePolical(List<int> ids);
+
+        bool AddUser(UserInfo userInfo);
     }
 }

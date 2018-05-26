@@ -26,7 +26,7 @@ namespace OjVolunteer.Model
         /// 组织昵称
         /// </summary>
         
-        [Required(ErrorMessage = "组织昵称不为空")]
+        [Required(ErrorMessage = "组织名称不为空")]
         [RegularExpression("^[\u4e00-\u9fa5]{2,12}$", ErrorMessage = "组织名称不符合规范")]
         public string OrganizeInfoShowName { get; set; }
 
@@ -50,11 +50,6 @@ namespace OjVolunteer.Model
         [RegularExpression("^\\d{11}$", ErrorMessage = "手机号不符合格式")]
         public string OrganizeInfoPhone { get; set; }
 
-        /// <summary>
-        /// 邮箱
-        /// </summary>
-        //[RegularExpression("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$", ErrorMessage = "邮箱不符合格式")]
-        //public string OrganizeInfoEmail { get; set; }
     }
 }
 

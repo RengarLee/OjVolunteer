@@ -9,110 +9,150 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <title>UserInfoDetail</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/App/simple-ajax-form.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#resetPwd").click(function () {
+                $.post("/UserInfo/ResetPwd", { "id": $("#UserInfoID").val() }, function (data) {
+                    if (data == "success") {
+                        alert("密码重置为000000");
+                    } else {
+                        alert("重置失败,请稍后再试");
+                    }
+                })
+            });
+        });
+
+        function afterSubmit(data)
+        {
+            if (data["msg"] == "success") { }
+            else { }
+        }
+    </script>
 </head>
 <body>
-    @using (Html.BeginForm())
+    @using (Ajax.BeginForm("Create", "UserInfo", FormMethod.Post, new AjaxOptions() { OnSuccess="afterSubmit" }, new { @class = "layui-form layui-form-pane stuInfo-form" }))
     {
-        @Html.AntiForgeryToken()
-
         <div class="form-horizontal">
-            <h4>UserInfo</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoLoginId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoLoginId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserInfoLoginId, "", new { @class = "text-danger" })
+        </div>
+        <div class="header clearfix">
+            <div class="header-left">
+                @Html.HiddenFor(Model=>Model.UserInfoIcon)
+                <img src="@Model.UserInfoIcon" width="100px" height="100px">
+            </div>
+            <div class="header-right">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录名</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required", @class = "layui-input" } })
+                    </div>
                 </div>
-            </div>   
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoPwd, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoPwd, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserInfoPwd, "", new { @class = "text-danger" })
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="content clearfix">
+            <div class="content-left">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoShowName, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|username", @class = "layui-input" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">学院</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownList("DepartmentID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">组织名称</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownList("OrganizeInfoID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoStuId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoStuId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserInfoStuId, "", new { @class = "text-danger" })
+            <div class="content-right">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoPhone, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|phone", @class = "layui-input" } })
+                    </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoShowName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoShowName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserInfoShowName, "", new { @class = "text-danger" })
+                <div class="layui-form-item">
+                    <label class="layui-form-label">专业</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownList("MajorID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                    </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoPhone, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserInfoPhone, "", new { @class = "text-danger" })
+                <div class="layui-form-item">
+                    <label class="layui-form-label">政治面貌</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownList("PoliticalID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                    </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoEmail, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserInfoEmail, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.MajorID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.MajorID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.MajorID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.DepartmentID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DepartmentID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.PoliticalID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PoliticalID, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PoliticalID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserInfoIcon, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.UserInfoIcon, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserInfoIcon, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.OrganizeInfoID, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("OrganizeInfoID")
-                </div>
-            </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+                        <select name="Status" lay-verify="required">
+                            @{
+                                if (Model.Status == 0)
+                                {
+                                    <option value="0" selected>正常</option>
+                                    <option value="1">已删除</option>
+                                }
+                                else if (Model.Status == 1)
+                                {
+
+                                    <option value="0">正常</option>
+                                    <option value="1" selected>已删除</option>
+                                }
+                                if (Model.Status == 2)
+                                {
+                                    <option value="2" selected>待审核</option>
+                                }
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="footer">
+            <div class="layui-form-item">
+                <button class="layui-btn red-btn" type="submit" lay-submit>添加</button>
+                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+            </div>
+        </div>
+
     }
-    
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
 </body>
 </html>

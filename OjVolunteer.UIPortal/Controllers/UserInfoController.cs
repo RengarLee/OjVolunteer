@@ -184,56 +184,47 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Create
+        #region 组织创建用户
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Create()
         {
             var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.Major = (from u in allMajor select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
+            ViewBag.MajorID = (from u in allMajor select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
             var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.PoliticalID = (from u in allPolitical select new SelectListItem() { Selected = false, Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+            ViewBag.PoliticalID = (from u in allPolitical select new SelectListItem() { Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
             var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewBag.DepartmentID = (from u in allDepartment select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
             var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                allOrganizeInfo = allOrganizeInfo.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable() ;
+                allOrganizeInfo = allOrganizeInfo.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
             }
-            ViewBag.OrganizeInfoID = (from u in allOrganizeInfo  select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
+            ViewBag.OrganizeInfoID = (from u in allOrganizeInfo select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
+            UserInfo userInfo = new UserInfo();
+            userInfo.UserInfoIcon = userInfo.UserInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+            ViewData.Model = userInfo;
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Create(UserInfo userInfo)
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public JsonResult Create(UserInfo userInfo)
         {
+            String msg = String.Empty;
             if (ModelState.IsValid)
             {
-                if (String.IsNullOrEmpty(userInfo.UserInfoIcon))
+                if (UserInfoService.AddUser(userInfo))
                 {
-                    userInfo.UserInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+                    msg = "success";
                 }
-                userInfo.UserInfoTalkCount = 0;
-                userInfo.CreateTime = DateTime.Now;
-                userInfo.ModfiedOn = userInfo.CreateTime;
-                userInfo.UserInfoLastTime = userInfo.CreateTime;
-                userInfo.Status = delAuditing;
-                UserInfoService.Add(userInfo);
-
-                //用户活动时长添加
-
-                UserDuration userDuration = new UserDuration();
-                userDuration.UserDurationID = userInfo.UserInfoID;
-                userDuration.CreateTime = DateTime.Now;
-                userDuration.ModfiedOn = userDuration.CreateTime;
-                userDuration.Status = delNormal;
-                userDuration.UserDurationNormalTotal = 0;
-                userDuration.UserDurationPartyTotal = 0;
-                userDuration.UserDurationPropartyTotal = 0;
-                userDuration.UserDurationNormalTotal = 0;
-                UserDurationService.Add(userDuration);
-                return Content("success");
+                else
+                {
+                    msg = "fail";
+                }
             }
-            return Content("fail");
+            msg = "fail";
+            return Json(new {msg},JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -280,7 +271,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
             if (user == null)
-                return Redirect("/OrganizeInfo/Index");
+                return Redirect("/Login/Index");
             var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewBag.MajorID = (from u in allMajor select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
             var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable();
@@ -295,7 +286,7 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewBag.OrganizeInfoID = (from u in allOrganizeInfo select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
             if (LoginOrganize.OrganizeInfoID != user.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
             {
-                return Redirect("/OrganizeInfo/Index");
+                return Redirect("/Login/Index");
             }
             ViewBag.Status = user.Status;
             ViewData.Model = user;

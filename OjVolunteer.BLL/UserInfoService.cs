@@ -12,6 +12,7 @@ namespace OjVolunteer.BLL
 {
     public partial class UserInfoService :BaseService<UserInfo>, IUserInfoService
     {
+        short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         #region Excel导出
         public Stream ExportToExecl(bool isSuper,int orgId)
         {
@@ -254,6 +255,40 @@ namespace OjVolunteer.BLL
             }
         }
 
+        #endregion
+
+        #region 用户添加
+        public bool AddUser(UserInfo userInfo)
+        {
+            bool flag = false ;
+            //用户添加
+            string pwd = "000000";
+            userInfo.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd);
+            userInfo.UserInfoTalkCount = 0;
+            userInfo.CreateTime = DateTime.Now;
+            userInfo.ModfiedOn = userInfo.CreateTime;
+            userInfo.UserInfoLastTime = userInfo.CreateTime;
+            userInfo.Status = delNormal;
+            DbSession.UserInfoDal.Add(userInfo);
+            if (DbSession.SaveChanges() > 0)
+                flag = true;
+
+            //用户时长添加
+            UserDuration userDuration = new UserDuration();
+            userDuration.UserDurationID = userInfo.UserInfoID;
+            userDuration.CreateTime = DateTime.Now;
+            userDuration.ModfiedOn = userDuration.CreateTime;
+            userDuration.Status = delNormal;
+            userDuration.UserDurationTotal = 0;
+            userDuration.UserDurationPartyTotal = 0;
+            userDuration.UserDurationPropartyTotal = 0;
+            userDuration.UserDurationNormalTotal = 0;
+            DbSession.UserDurationDal.Add(userDuration);
+            if (DbSession.SaveChanges() > 0)
+                flag = true;
+            return flag;
+            
+        }
         #endregion
     }
 }

@@ -14,7 +14,14 @@
     <link href="~/Content/bootstrap-table/bootstrap-table-filter-control.css" rel="stylesheet" />
 </head>
 <body>
-    <a href="/UserInfo/ExportExcel">义工文件导出</a>
+    <div id="toolbar" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <a href="/UserInfo/ExportExcel" class="btn btn-default">
+            <span class="glyphicon glyphicon-open" aria-hidden="true"></span>数据导出
+        </a>
+    </div>
     <div>
         <table id="tb_user" data-filter-control="true"></table>
     </div>
@@ -32,6 +39,19 @@
     <script type="text/javascript">
         $(function () {
             initTable();
+
+            $("#btn_add").click(function (data) {
+                var index = layer.open({
+                    type: 2,
+                    title: false,
+                    closeBtn: 0,
+                    maxmin: false,
+                    shadeClose: true,
+                    area: ['800px', '400px'],
+                    content: '/UserInfo/Create/'
+                });
+            });
+
         });
 
         function initTable(queryParam) {
@@ -247,6 +267,7 @@
                 }
             });
         };
+
 
     </script>
 </body>
