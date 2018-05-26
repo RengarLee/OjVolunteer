@@ -273,17 +273,17 @@ namespace OjVolunteer.UIPortal.Controllers
             if (user == null)
                 return Redirect("/Login/Index");
             var allMajor = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.MajorID = (from u in allMajor select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
+            ViewBag.MajorList = (from u in allMajor select new SelectListItem() { Selected = false, Text = u.MajorName, Value = u.MajorID + "" }).ToList();
             var allPolitical = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.PoliticalID = (from u in allPolitical select new SelectListItem() { Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
+            ViewBag.PoliticalList = (from u in allPolitical select new SelectListItem() { Text = u.PoliticalName, Value = u.PoliticalID + "" }).ToList();
             var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.DepartmentID = (from u in allDepartment select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
+            ViewBag.DepartmentList = (from u in allDepartment select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
             var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
                 allOrganizeInfo = allOrganizeInfo.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
             }
-            ViewBag.OrganizeInfoID = (from u in allOrganizeInfo select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
+            ViewBag.OrganizeinfoList = (from u in allOrganizeInfo select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
             if (LoginOrganize.OrganizeInfoID != user.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
             {
                 return Redirect("/Login/Index");

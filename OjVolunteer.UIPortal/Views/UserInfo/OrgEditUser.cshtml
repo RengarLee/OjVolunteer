@@ -15,6 +15,156 @@
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
 
+
+
+</head>
+<body>
+    @using (Ajax.BeginForm("OrgEditUser", "UserInfo", FormMethod.Post, new AjaxOptions() {OnSuccess="afterSubmit" }, new { @class = "layui-form layui-form-pane stuInfo-form" }))
+    {
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.UserInfoLoginId)
+        @Html.HiddenFor(model => model.UserInfoID)
+        @Html.HiddenFor(model => model.UserInfoPwd)
+        @Html.HiddenFor(model => model.UserInfoIcon)
+        @Html.HiddenFor(model => model.UserInfoLastTime)
+        @Html.HiddenFor(model => model.CreateTime)
+        @Html.HiddenFor(model=>model.UserInfoTalkCount)
+    </div>
+        <div class="header clearfix">
+            <div class="header-left">
+                <img src="@Model.UserInfoIcon" width="100px" height="100px">
+            </div>
+            <div class="header-right">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录名</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", disabled = "", lay_verify = "required", @class = "layui-input" } })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="content clearfix">
+            <div class="content-left">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoShowName, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|username", @class = "layui-input" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">学院</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownListFor(Model => Model.DepartmentID, ViewBag.DepartmentList as IEnumerable<SelectListItem>, new { @lay_verify = "required" })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">组织名称</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownListFor(Model => Model.OrganizeInfoID, ViewBag.OrganizeinfoList as IEnumerable<SelectListItem>, new { @lay_verify = "required" })
+                    </div>
+                </div>
+            </div>
+            <div class="content-right">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(Model => Model.UserInfoPhone, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|phone", @class = "layui-input" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">专业</label>
+                    <div class="layui-input-block">
+
+                        @Html.DropDownListFor(Model => Model.MajorID, ViewBag.MajorList as IEnumerable<SelectListItem>, new { @lay_verify = "required" })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">政治面貌</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownListFor(Model => Model.PoliticalID, ViewBag.PoliticalList as IEnumerable<SelectListItem>, new { @lay_verify = "required" })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+                        <select name="Status" lay-verify="required">
+                            @{
+                                if (Model.Status == 0)
+                                {
+                                    <option value="0" selected>正常</option>
+                                    <option value="1">已删除</option>
+                                }
+                                else if (Model.Status == 1)
+                                {
+
+                                    <option value="0">正常</option>
+                                    <option value="1" selected>已删除</option>
+                                }
+                                if (Model.Status == 2)
+                                {
+                                    <option value="2" selected>待审核</option>
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="content-footer">
+            <div class="layui-form-item">
+                <label class="layui-form-label">注册时间</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(Model => Model.CreateTime, new { htmlAttributes = new { autocomplete = "off", disabled = "", @class = "layui-input" } })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">最后登录时间</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(Model => Model.UserInfoLastTime, new { htmlAttributes = new { autocomplete = "off", disabled = "", @class = "layui-input" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="layui-form-item">
+                <button class="layui-btn red-btn" lay-submit>更改</button>
+                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+            </div>
+        </div>
+    }
+    <div>
+        <div>
+            <table id="tb_talks"></table>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <table id="tb_activitys"></table>
+        </div>
+    </div>
+
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/App/simple-ajax-form.js"></script>
@@ -22,6 +172,8 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -38,6 +190,12 @@
             initTable_talk();
             initTable_activity();
         });
+
+        function afterSubmit(data) {
+            if (data["msg"] == "success") {
+
+            } else { }
+        }
 
         function initTable_talk(queryParam) {
             $("#tb_talks").bootstrapTable('destroy');
@@ -69,24 +227,24 @@
                 uniqueId: "TalkID",
                 columns: [
                     {
-                        field: 'TalkID', 
-                        title: 'Id', 
+                        field: 'TalkID',
+                        title: 'Id',
                         visible: false,
                         align: 'center',
                         width: '6%',
 
                     },
                     {
-                        field: 'TalkFavorsNum', 
-                        title: '点赞数', 
-                        visible: true, 
+                        field: 'TalkFavorsNum',
+                        title: '点赞数',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                     },
                     {
-                        field: 'TalkContent', 
-                        title: '心得内容', 
-                        visible: true, 
+                        field: 'TalkContent',
+                        title: '心得内容',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -95,17 +253,17 @@
                         }
                     },
                     {
-                        field: 'TalkFavorsNum', 
-                        title: '点赞数', 
-                        visible: true, 
+                        field: 'TalkFavorsNum',
+                        title: '点赞数',
+                        visible: true,
                         width: '6%',
                         align: 'center',
 
                     },
                     {
-                        field: 'CreateTime', 
-                        title: '创建时间', 
-                        visible: false, 
+                        field: 'CreateTime',
+                        title: '创建时间',
+                        visible: false,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -113,9 +271,9 @@
                         }
                     },
                     {
-                        field: 'ModfiedOn', 
-                        title: '最后更新时间', 
-                        visible: false, 
+                        field: 'ModfiedOn',
+                        title: '最后更新时间',
+                        visible: false,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -184,34 +342,24 @@
                 uniqueId: "ActivityID",
                 columns: [
                     {
-                        field: 'ActivityID', 
-                        title: 'Id', 
+                        field: 'ActivityID',
+                        title: 'Id',
                         visible: false,
                         align: 'center',
                         width: '6%',
 
                     },
                     {
-                        field: 'ActivityName', 
-                        title: '活动名称', 
-                        visible: true, 
+                        field: 'ActivityName',
+                        title: '活动名称',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                     },
                     {
-                        field: 'ActivityStart', 
-                        title: '活动开始时间', 
-                        visible: true, 
-                        width: '6%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
-                        }
-                    },
-                    {
-                        field: 'ActivityEnd', 
-                        title: '活动结束时间', 
-                        visible: true, 
+                        field: 'ActivityStart',
+                        title: '活动开始时间',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -219,9 +367,19 @@
                         }
                     },
                     {
-                        field: 'ActivityDetailTime', 
-                        title: '义工时长', 
-                        visible: true, 
+                        field: 'ActivityEnd',
+                        title: '活动结束时间',
+                        visible: true,
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'ActivityDetailTime',
+                        title: '义工时长',
+                        visible: true,
                         width: '6%',
                         align: 'center',
 
@@ -244,157 +402,5 @@
         };
 
     </script>
-</head>
-<body>
-    @using (Ajax.BeginForm("OrgEditUser", "UserInfo", FormMethod.Post, new AjaxOptions() { }, new { @class = "layui-form layui-form-pane stuInfo-form" }))
-    {
-    <div class="form-horizontal">
-        @Html.HiddenFor(model => model.UserInfoID)
-        @Html.HiddenFor(model => model.UserInfoPwd)
-        @Html.HiddenFor(model => model.UpdatePoliticalID)
-        @Html.HiddenFor(model => model.UserInfoIcon)
-        @Html.HiddenFor(model => model.UserInfoLoginId)
-        @Html.HiddenFor(model => model.UserInfoLastTime)
-        @Html.HiddenFor(model => model.CreateTime)   
-    </div>
-        <div class="header clearfix">
-            <div class="header-left">
-                <img src="@Model.UserInfoIcon" width="100px" height="100px">
-            </div>
-            <div class="header-right">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">登录名</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", disabled = "", lay_verify = "required", @class = "layui-input" } })
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">学号</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="content clearfix">
-            <div class="content-left">
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">姓名</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoShowName, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|username", @class = "layui-input" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-
-                    <label class="layui-form-label">学院</label>
-                    <div class="layui-input-block">
-                        @Html.DropDownList("DepartmentID", null, new { htmlAttributes = new { @lay_verify = "required" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">组织名称</label>
-                    <div class="layui-input-block">
-                        @Html.DropDownList("OrganizeInfoID", null, new { htmlAttributes = new { @lay_verify = "required" } })
-                    </div>
-                </div>
-            </div>
-            <div class="content-right">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">手机号</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoPhone, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|phone", @class = "layui-input" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">专业</label>
-                    <div class="layui-input-block">
-                        @Html.DropDownList("MajorID", null, new { htmlAttributes = new { @lay_verify = "required" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">政治面貌</label>
-                    <div class="layui-input-block">
-                        @Html.DropDownList("PoliticalID", null, new { htmlAttributes = new { @lay_verify = "required" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">状态</label>
-                    <div class="layui-input-block">
-                        <select name="Status" lay-verify="required">
-                            @{
-                                if (Model.Status == 0)
-                                {
-                                    <option value="0" selected>正常</option>
-                                    <option value="1">已删除</option>
-                                }
-                                else if (Model.Status == 1)
-                                {
-
-                                    <option value="0">正常</option>
-                                    <option value="1" selected>已删除</option>
-                                }
-                                if (Model.Status == 2)
-                                {
-                                    <option value="2" selected>待审核</option>
-                                }
-                            }
-
-
-                        </select>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <div class="content-footer">
-            <div class="layui-form-item">
-                <label class="layui-form-label">注册时间</label>
-                <div class="layui-input-block">
-                    @Html.EditorFor(Model => Model.CreateTime, new { htmlAttributes = new { autocomplete = "off", disabled = "", @class = "layui-input" } })
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">最后登录时间</label>
-                <div class="layui-input-block">
-                    @Html.EditorFor(Model => Model.UserInfoLastTime, new { htmlAttributes = new { autocomplete = "off", disabled = "", @class = "layui-input" } })
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <div class="layui-form-item">
-                <button class="layui-btn red-btn" lay-submit>确定更改</button>
-                <button type="reset" class="layui-btn layui-btn-primary">取消更改</button>
-            </div>
-        </div>
-
-
-
-    }
-    <div>
-        <div>
-            <table id="tb_talks"></table>
-        </div>
-    </div>
-
-    <div>
-        <div>
-            <table id="tb_activitys"></table>
-        </div>
-    </div>
-
-    <script src="~/Content/layui/layui.all.js"></script>
-    <script src="~/Content/oj/js/check.js"></script>
 </body>
 </html>
