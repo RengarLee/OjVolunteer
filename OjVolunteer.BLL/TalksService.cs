@@ -1,8 +1,10 @@
 ﻿using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.Model.Param;
+using OjVolunteer.Model.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ namespace OjVolunteer.BLL
 {
     public partial class TalksService: BaseService<Talks>, ITalksService
     {
+        short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         #region 多条件查询
         public IQueryable<Talks> LoadPageData(TalkQueryParam talkQueryParam)
         {
@@ -82,5 +85,22 @@ namespace OjVolunteer.BLL
             return temp.OrderBy(u => u.TalkID).Skip(talkQueryParam.PageSize * (talkQueryParam.PageIndex - 1)).Take(talkQueryParam.PageSize).AsQueryable();
         }
         #endregion
+
+        #region 
+        //心得列表数据加载
+        public List<TalkView> LoadData(int pageIndex, int pageSize)
+        {
+            var PageData = DbSession.TalksDal.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.CreateTime, false).AsQueryable();
+            return LoadImagePath(PageData);
+        }
+
+        //通过义工ID筛选心得
+        public List<TalkView> LoadDataOfUserId(int pageIndex, int pageSize, int UserInfoId)
+        {
+            var PageData = DbSession.TalksDal.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).AsQueryable();
+            return LoadImagePath(PageData);
+        }
+        #endregion
+        
     }
 }

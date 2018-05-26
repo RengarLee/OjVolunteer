@@ -99,6 +99,7 @@
     <Compile Include="Controllers\ActivityControllerTests.cs" />
     <Compile Include="Controllers\ActivityDetailControllerTests.cs" />
     <Compile Include="Controllers\MajorControllerTests.cs" />
+    <Compile Include="Controllers\TalksControllerTests.cs" />
     <Compile Include="Controllers\UserEnrollControllerTests.cs" />
     <Compile Include="Controllers\UserInfoControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

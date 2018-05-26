@@ -129,6 +129,7 @@
     <Compile Include="UserInfo.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\TalkView.cs" />
     <Compile Include="ViewModel\TopView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,8 @@
       <LastGenOutput>EFDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ViewModel\NewFolder1\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
