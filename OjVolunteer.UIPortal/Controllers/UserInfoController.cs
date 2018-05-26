@@ -43,35 +43,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(new { login=user.UserInfoLoginId, showname = user.UserInfoShowName }, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// 用户通过用户获得用户信息
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public ActionResult UserInfoSimple(int Id)
-        {
-                bool isSelf = LoginUser.UserInfoID == Id ? true : false;
-                UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
-                if (userDuration != null)
-                {
-                    ViewData["UserDuration"] = userDuration;
-                }
-                ViewBag.isSelf = isSelf;
-                if (isSelf)
-                {
-                    return View(LoginUser);
-                }
-                else
-                {
-                    UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == Id && u.Status == delNormal).FirstOrDefault();
-                    if (user == null)
-                    {
-                        return View("Shared/Error.cshtml");
-                    }
-                    return View(user);
-                }
-        }
+        
 
         /// <summary>
         /// 进入义工信息管理界面
@@ -134,6 +106,33 @@ namespace OjVolunteer.UIPortal.Controllers
             var data = new { total = userQueryParam.Total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        #region 用户获得用户信息
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult UserInfo(int Id)
+        {
+            bool isSelf = LoginUser.UserInfoID == Id ? true : false;
+            UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
+            if (userDuration != null)
+            {
+                ViewData["UserDuration"] = userDuration;
+            }
+            ViewBag.isSelf = isSelf;
+            if (isSelf)
+            {
+                return View(LoginUser);
+            }
+            else
+            {
+                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == Id && u.Status == delNormal).FirstOrDefault();
+                if (user == null)
+                {
+                    return View("Shared/Error.cshtml");
+                }
+                return View(user);
+            }
+        } 
         #endregion
 
         #region 义工政治面貌审核
@@ -481,8 +480,6 @@ namespace OjVolunteer.UIPortal.Controllers
         #region 重置密码
 
         #endregion
-
-
 
         #region 导出Excel文件
         public FileResult ExportExcel()

@@ -100,6 +100,7 @@
     <Compile Include="Controllers\ActivityDetailControllerTests.cs" />
     <Compile Include="Controllers\MajorControllerTests.cs" />
     <Compile Include="Controllers\UserEnrollControllerTests.cs" />
+    <Compile Include="Controllers\UserInfoControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
