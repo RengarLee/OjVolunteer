@@ -228,9 +228,39 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-
-
         #region 修改信息
+
+        /// <summary>
+        /// 头像上传
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult UploadIcon()
+        {
+            var file = Request.Files["file"];
+            String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultIconSavePath"];
+            string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+            string dirPath = Request.MapPath(path);
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
+            file.SaveAs(Request.MapPath(fileName));
+            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+            userInfo.UserInfoIcon = fileName;
+
+            if (UserInfoService.Update(userInfo))
+            {
+                LoginUser.UserInfoIcon = fileName;
+                return Json(new { src = fileName, msg = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
         /// <summary>
         /// 用户修改自身资料
         /// </summary>
@@ -292,8 +322,6 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewData.Model = user;
             return View();
         }
-        #endregion
-
 
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
@@ -309,7 +337,87 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             return Content("fail");
         }
+        
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult ResetPwd(int id)
+        {
 
+            UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
+            //TODO:
+            user.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5("000000");
+            if (UserInfoService.Update(user))
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
+        }
+        #endregion
+
+
+
+        #region 注释
+        ///// <summary>
+        ///// 修改信息
+        ///// </summary>
+        ///// <param name="userInfo"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public ActionResult Edit(UserInfo userInfo)
+        //{
+        //    UserInfo temp = UserInfoService.GetEntities(u => u.UserInfoID == userInfo.UserInfoID).FirstOrDefault();
+        //    if (temp == null)
+        //    {
+        //        return Content("fail");
+        //    }
+        //    if (LoginUser != null)
+        //    {
+        //        if (temp.UpdatePoliticalID != userInfo.UpdatePoliticalID)
+        //        {
+        //            temp.UpdatePoliticalID = userInfo.UpdatePoliticalID;
+        //            temp.Status = (short)Model.Enum.DelFlagEnum.Auditing;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (userInfo.OrganizeInfoID != LoginOrganize.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
+        //        {
+        //            return Content("fail");
+        //        }
+        //    }
+
+        //    temp.UserInfoShowName = userInfo.UserInfoShowName;
+        //    temp.UserInfoStuId = userInfo.UserInfoStuId;
+        //    temp.UserInfoPhone = userInfo.UserInfoPhone;
+        //    temp.UserInfoEmail = userInfo.UserInfoEmail;
+        //    temp.MajorID = userInfo.MajorID;
+        //    temp.OrganizeInfoID = userInfo.OrganizeInfoID;
+        //    temp.DepartmentID = userInfo.DepartmentID;
+        //    temp.ModfiedOn = DateTime.Now;
+        //    if (UserInfoService.Update(temp))
+        //    {
+        //        if (temp.Status == delAuditing)
+        //        {
+        //            return Content("auditing");
+        //        }
+        //        return Content("success");
+        //    }
+        //    else
+        //    {
+        //        return Content("fail");
+        //    }     
+        //} 
+        #endregion
+
+        #region 政治面貌审核
         /// <summary>
         /// 批量处理同意用户转变政治面貌
         /// </summary>
@@ -338,58 +446,6 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 修改信息
-        /// </summary>
-        /// <param name="userInfo"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult Edit(UserInfo userInfo)
-        {
-            UserInfo temp = UserInfoService.GetEntities(u => u.UserInfoID == userInfo.UserInfoID).FirstOrDefault();
-            if (temp == null)
-            {
-                return Content("fail");
-            }
-            if (LoginUser != null)
-            {
-                if (temp.UpdatePoliticalID != userInfo.UpdatePoliticalID)
-                {
-                    temp.UpdatePoliticalID = userInfo.UpdatePoliticalID;
-                    temp.Status = (short)Model.Enum.DelFlagEnum.Auditing;
-                }
-            }
-            else
-            {
-                if (userInfo.OrganizeInfoID != LoginOrganize.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
-                {
-                    return Content("fail");
-                }
-            }
-
-            temp.UserInfoShowName = userInfo.UserInfoShowName;
-            temp.UserInfoStuId = userInfo.UserInfoStuId;
-            temp.UserInfoPhone = userInfo.UserInfoPhone;
-            temp.UserInfoEmail = userInfo.UserInfoEmail;
-            temp.MajorID = userInfo.MajorID;
-            temp.OrganizeInfoID = userInfo.OrganizeInfoID;
-            temp.DepartmentID = userInfo.DepartmentID;
-            temp.ModfiedOn = DateTime.Now;
-            if (UserInfoService.Update(temp))
-            {
-                if (temp.Status == delAuditing)
-                {
-                    return Content("auditing");
-                }
-                return Content("success");
-            }
-            else
-            {
-                return Content("fail");
-            }     
-        }
-
-        #region Delete
-        /// <summary>
         /// 驳回义工更正政治面貌申请
         /// </summary>
         /// <param name="ids"></param>
@@ -397,8 +453,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult DeleteOfList(string ids)
-        {
-            //TODO:                                                                                                                                                                                                                                         
+        {                                                                                                                                                                                                                                       
             if (string.IsNullOrEmpty(ids))
             {
                 return Content("null");
@@ -422,52 +477,10 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
         
         #region 重置密码
-        [HttpPost]
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult ResetPwd(int id)
-        {
 
-                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
-            //TODO:
-                user.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5("000000");
-                if(UserInfoService.Update(user))
-                {
-                    return Content("success");
-                }
-                else
-                {
-                    return Content("fail");
-                }
-        }
         #endregion
 
-        #region 头像更换
-        public ActionResult UploadIcon()
-        {
-            var file = Request.Files["file"];
-            string path = "/Content/Upload/Icon/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
-            string dirPath = Request.MapPath(path);
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath);
-            }
-            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
-            file.SaveAs(Request.MapPath(fileName));
-            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
-            userInfo.UserInfoIcon = fileName;
 
-            if (UserInfoService.Update(userInfo))
-            {
-                LoginUser.UserInfoIcon = fileName;
-                return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(new { msg = "error" }, JsonRequestBehavior.AllowGet);
-            }
-
-        }
-        #endregion
 
         #region 导出Excel文件
         public FileResult ExportExcel()
