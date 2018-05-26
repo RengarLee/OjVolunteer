@@ -12,6 +12,8 @@ namespace OjVolunteer.BLL
 {
     public partial class OrganizeInfoService : BaseService<OrganizeInfo>, IOrganizeInfoService
     {
+        short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+
         #region QrganizeQuery of Multiple conditions 
         /// <summary>
         /// 多条件查询 
@@ -165,6 +167,25 @@ namespace OjVolunteer.BLL
             ms.Seek(0, SeekOrigin.Begin);
 
             return ms;
+        }
+        #endregion
+
+        #region 组织添加
+        public bool AddOrg(OrganizeInfo organizeInfo)
+        {
+            bool flag = false;
+
+            String pwd = "000000";
+            organizeInfo.OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd);
+            organizeInfo.ActivityCount = 0;
+            organizeInfo.CreateTime = DateTime.Now;
+            organizeInfo.ModfiedOn = organizeInfo.CreateTime;
+            organizeInfo.OrganizeInfoLastTime = organizeInfo.CreateTime;
+            organizeInfo.Status = delNormal;
+            DbSession.OrganizeInfoDal.Add(organizeInfo);
+            if (DbSession.SaveChanges() > 0)
+                flag = true;
+            return flag;
         }
         #endregion
     }

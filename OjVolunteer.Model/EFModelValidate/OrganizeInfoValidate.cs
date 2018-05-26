@@ -33,7 +33,6 @@ namespace OjVolunteer.Model
         /// <summary>
         /// 组织密码
         /// </summary>
-        [Required(ErrorMessage = "用户密码不能为空")]
         public string OrganizeInfoPwd { get; set; }
 
         /// <summary>

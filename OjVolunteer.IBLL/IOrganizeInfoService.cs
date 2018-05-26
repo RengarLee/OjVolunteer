@@ -13,6 +13,9 @@ namespace OjVolunteer.IBLL
     public partial interface IOrganizeInfoService : IBaseService<OrganizeInfo>
     {
         Stream ExportToExecl();
+
         IQueryable<OrganizeInfo> LoadPageData(OrganizeQueryParam organizeQueryParam ,int loginUserId);
+
+        bool AddOrg(OrganizeInfo organizeInfo);
     }
 }

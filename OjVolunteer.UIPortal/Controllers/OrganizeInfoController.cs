@@ -16,10 +16,8 @@ namespace OjVolunteer.UIPortal.Controllers
 
     public class OrganizeInfoController : BaseController
     {
-        #region 存入缓存
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
-        #endregion
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserDurationService UserDurationService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
@@ -88,37 +86,31 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Create
+        #region 添加组织
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public ActionResult Create()
         {
+            OrganizeInfo organizeInfo = new OrganizeInfo();
+            organizeInfo.OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+            ViewData.Model = organizeInfo;
             return View();
         }
 
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
-        public ActionResult Create(OrganizeInfo organizeInfo)
+        public JsonResult Create(OrganizeInfo organizeInfo)
         {
+            string msg = "fail";
             if (ModelState.IsValid)
             {
-                if (String.IsNullOrEmpty(organizeInfo.OrganizeInfoIcon))
-                {
-                     organizeInfo.OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
-                }
-                //organizeInfo.OrganizeInfoPwd = MD5Helper.Get_MD5(organizeInfo.OrganizeInfoPwd);
                 organizeInfo.OrganizeInfoManageId = LoginOrganize.OrganizeInfoID;
-                organizeInfo.ActivityCount = 0;
-                organizeInfo.CreateTime = DateTime.Now;
-                organizeInfo.ModfiedOn = organizeInfo.CreateTime;
-                organizeInfo.OrganizeInfoLastTime = organizeInfo.CreateTime;
-                organizeInfo.Status = delNormal;
-                OrganizeInfoService.Add(organizeInfo);
-                return Content("success");
+                if (OrganizeInfoService.AddOrg(organizeInfo))
+                {
+                    msg = "success";
+                }
+
             }
-            else
-            {
-                return Content("fail");
-            }
+            return Json(new { msg },JsonRequestBehavior.AllowGet);
         }
         #endregion
 

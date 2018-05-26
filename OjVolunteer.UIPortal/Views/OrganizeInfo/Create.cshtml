@@ -9,87 +9,117 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <title>OrganizeDetail</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+
+
 </head>
 <body>
-    @using (Html.BeginForm()) 
+    @using (Ajax.BeginForm("Create", "OrganizInfo", new AjaxOptions() { OnSuccess = "afterSubmit" }, new { @class = "layui-form layui-form-pane stuInfo-form" }))
     {
-        @Html.AntiForgeryToken()
-        
-    <div class="form-horizontal">
-        <h4>OrganizeInfo</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganizeInfoShowName,"组织昵称", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganizeInfoShowName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganizeInfoShowName, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+        </div>
+        <div class="header clearfix">
+            <div class="header-left">
+                @Html.HiddenFor(model => model.OrganizeInfoIcon)
+                <img src="@Model.OrganizeInfoIcon" width="100px" height="100px">
+            </div>
+            <div class="header-right">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录名</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required" } })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">负责人</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoPeople, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|username" } })
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="content clearfix">
+            <div class="content-left">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganizeInfoPwd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganizeInfoPwd, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganizeInfoPwd, "", new { @class = "text-danger" })
+                <div class="layui-form-item">
+                    <label class="layui-form-label">组织名称</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoShowName, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|orgname" } })
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "email" } })
+                    </div>
+                </div>
+            </div>
+            <div class="content-right">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoPhone, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|phone" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+                        <select name="Status" lay-verify="required">
+                            @{
+                                if (Model.Status == 0)
+                                {
+                                    <option value="0" selected>正常</option>
+                                    <option value="1">已删除</option>
+                                }
+                                else if (Model.Status == 1)
+                                {
+
+                                    <option value="0">正常</option>
+                                    <option value="1" selected>已删除</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
-
-
-       
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganizeInfoPeople, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganizeInfoPeople, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganizeInfoPeople, "", new { @class = "text-danger" })
+        <div class="footer">
+            <div class="layui-form-item">
+                <button class="layui-btn red-btn" lay-submit>添加</button>
+                <button type="reset" class="layui-btn layui-btn-primary" id="orgcancel">取消</button>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganizeInfoPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganizeInfoPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganizeInfoPhone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganizeInfoEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganizeInfoEmail, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganizeInfoIcon, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganizeInfoIcon, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganizeInfoIcon, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganizeInfoLoginId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganizeInfoLoginId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
     }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/App/simple-ajax-form.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
+    <script type="text/javascript">
+  
+        function afterSubmit(data) {
+            if (data["msg"] == "success") {
+                alert("修改成功");
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
+            } else {
+                alert("修改失败请稍后再试!");
+            }
+        }
+    </script>
+
 </body>
 </html>
