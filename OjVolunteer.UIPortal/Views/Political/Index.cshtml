@@ -33,7 +33,7 @@
                     } else if (data == "fail") {
                         alert("修改失败");
                     } else if (data == "exist") {
-                        alert("该专业名存在");
+                        alert("该政治面貌名存在");
                     }
                 });
             });
@@ -73,22 +73,22 @@
                     },
                     {
                         field: 'PoliticalID',
-                        title: '专业编号',
+                        title: '政治面貌编号',
                         width: '5%',
                         visible: false,
                         align: 'center',
                     },
                     {
                         field: 'PoliticalName',
-                        title: '专业名称',
+                        title: '政治面貌名称',
                         visible: true,
                         width: '10%',
                         align: 'center',
                         editable: {
                             type: 'text',
-                            title: '专业名称',
+                            title: '政治面貌名称',
                             validate: function (v) {
-                                if (!v) return '专业名称不能为空';
+                                if (!v) return '政治面貌名称不能为空';
                             }
                         }
                     },
