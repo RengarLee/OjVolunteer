@@ -14,6 +14,7 @@ namespace OjVolunteer.UIPortal.Controllers
     public class RegisterController : Controller
     {
         short delNormal = (short)DelFlagEnum.Normal;
+        short delAuditing = (short)DelFlagEnum.Auditing;
         public IOrganizeInfoService OrganizeInfoService { get; set; }
         public IUserInfoService UserInfoService { get; set; }
         public IUserDurationService UserDurationService { get; set; }
@@ -33,32 +34,47 @@ namespace OjVolunteer.UIPortal.Controllers
         #region UserRegister 个人用户注册
         public ActionResult UserRegister(string loginname, string pwd, string nickname, string phone, string OrganizeInfoList, string PoliticalList)
         {
-            try
+
+            Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
+            if (!regex.IsMatch(loginname))
             {
-                UserInfo userInfo = new UserInfo
-                {
-                    UserInfoLoginId = loginname,
-                    UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd),
-                    UserInfoShowName = nickname,
-                    UserInfoPhone = phone,
-                    OrganizeInfoID = Convert.ToInt32(OrganizeInfoList),
-                    UpdatePoliticalID = Convert.ToInt32(PoliticalList),
-                    Status = delNormal,
-                    ModfiedOn = DateTime.Now,
-                    CreateTime = DateTime.Now
-                };
-
-
-                UserInfoService.Add(userInfo);
-                UserDuration userDuration = new UserDuration();
-                userDuration.UserDurationID = userInfo.UserInfoID;
-                userDuration.CreateTime = DateTime.Now;
-                userDuration.ModfiedOn = userDuration.CreateTime;
-                userDuration.Status = delNormal;
-                UserDurationService.Add(userDuration);
+                return Content("fail");
+            }
+            //密码
+            regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
+            if (!regex.IsMatch(pwd))
+            {
+                return Content("fail");
+            }
+            //昵称
+            regex = new Regex(@"^[\u4e00-\u9fa5]{2,15}$");
+            if (!regex.IsMatch(nickname))
+            {
+                return Content("fail");
+            }
+            //电话号码
+            regex = new Regex(@"^\d{11}$");
+            if (!regex.IsMatch(phone))
+            {
+                return Content("fail");
+            }
+            UserInfo userInfo = new UserInfo
+            {
+                UserInfoLoginId = loginname,
+                UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd),
+                UserInfoShowName = nickname,
+                UserInfoPhone = phone,
+                OrganizeInfoID = Convert.ToInt32(OrganizeInfoList),
+                UpdatePoliticalID = Convert.ToInt32(PoliticalList),
+                PoliticalID = Convert.ToInt32(PoliticalList),
+                Status = delAuditing,
+                UserInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"],
+            };
+            if (UserInfoService.AddUser(userInfo))
+            {
                 return Content("user");
             }
-            catch (Exception e)
+            else
             {
                 return Content("fail");
             }
@@ -116,10 +132,10 @@ namespace OjVolunteer.UIPortal.Controllers
                 OrganizeInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"],
                 ActivityCount = 0
             };
-                if(OrganizeInfoService.Add(organize)!=null)
-                    return Content("organize");
-                else
-                    return Content("fail");
+            if(OrganizeInfoService.Add(organize)!=null)
+                return Content("organize");
+            else
+                return Content("fail");
         }
         #endregion
 

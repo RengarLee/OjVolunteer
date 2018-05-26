@@ -214,6 +214,10 @@ namespace OjVolunteer.UIPortal.Controllers
             String msg = String.Empty;
             if (ModelState.IsValid)
             {
+                string pwd = "000000";
+                userInfo.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd);
+                userInfo.Status = delNormal;
+
                 if (UserInfoService.AddUser(userInfo))
                 {
                     msg = "success";
@@ -361,8 +365,6 @@ namespace OjVolunteer.UIPortal.Controllers
             }
         }
         #endregion
-
-
 
         #region 注释
         ///// <summary>

@@ -387,66 +387,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_USERINFO_REFERENCE_DEPARTME">
-          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="DepartmentID" />
-            </Principal>
-            <Dependent Role="UserInfo">
-              <PropertyRef Name="DepartmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_USERINFO_REFERENCE_MAJOR">
-          <End Role="Major" Type="Self.Major" Multiplicity="0..1" />
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Major">
-              <PropertyRef Name="MajorID" />
-            </Principal>
-            <Dependent Role="UserInfo">
-              <PropertyRef Name="MajorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_USERINFO_REFERENCE_ORGANIZE">
-          <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="1" />
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OrganizeInfo">
-              <PropertyRef Name="OrganizeInfoID" />
-            </Principal>
-            <Dependent Role="UserInfo">
-              <PropertyRef Name="OrganizeInfoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_USERINFO_REFERENCE_POLITICA">
-          <End Role="Political" Type="Self.Political" Multiplicity="1" />
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Political">
-              <PropertyRef Name="PoliticalID" />
-            </Principal>
-            <Dependent Role="UserInfo">
-              <PropertyRef Name="PoliticalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserInfo_UpdatePolitical">
-          <End Role="Political" Type="Self.Political" Multiplicity="0..1" />
-          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Political">
-              <PropertyRef Name="PoliticalID" />
-            </Principal>
-            <Dependent Role="UserInfo">
-              <PropertyRef Name="UpdatePoliticalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="OjVolunteerModelStoreContainer">
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActivityDetail" EntityType="Self.ActivityDetail" Schema="dbo" store:Type="Tables" />
@@ -520,26 +460,6 @@
           <AssociationSet Name="FK_USERENRO_REFERENCE_USERINFO" Association="Self.FK_USERENRO_REFERENCE_USERINFO">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserEnroll" EntitySet="UserEnroll" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERINFO_REFERENCE_DEPARTME" Association="Self.FK_USERINFO_REFERENCE_DEPARTME">
-            <End Role="Department" EntitySet="Department" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERINFO_REFERENCE_MAJOR" Association="Self.FK_USERINFO_REFERENCE_MAJOR">
-            <End Role="Major" EntitySet="Major" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERINFO_REFERENCE_ORGANIZE" Association="Self.FK_USERINFO_REFERENCE_ORGANIZE">
-            <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_USERINFO_REFERENCE_POLITICA" Association="Self.FK_USERINFO_REFERENCE_POLITICA">
-            <End Role="Political" EntitySet="Political" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserInfo_UpdatePolitical" Association="Self.FK_UserInfo_UpdatePolitical">
-            <End Role="Political" EntitySet="Political" />
-            <End Role="UserInfo" EntitySet="UserInfo" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>

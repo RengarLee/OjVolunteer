@@ -262,13 +262,10 @@ namespace OjVolunteer.BLL
         {
             bool flag = false ;
             //用户添加
-            string pwd = "000000";
-            userInfo.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(pwd);
             userInfo.UserInfoTalkCount = 0;
             userInfo.CreateTime = DateTime.Now;
             userInfo.ModfiedOn = userInfo.CreateTime;
             userInfo.UserInfoLastTime = userInfo.CreateTime;
-            userInfo.Status = delNormal;
             DbSession.UserInfoDal.Add(userInfo);
             if (DbSession.SaveChanges() > 0)
                 flag = true;
