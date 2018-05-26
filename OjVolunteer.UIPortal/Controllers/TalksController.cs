@@ -28,6 +28,89 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region  Query
 
+        /// <summary>
+        /// 通过路径查看图片
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetTalksImage()
+        {
+            string path = Request["ImagePath"];
+            List<String> imageList = new List<string>();
+            if (path != null)
+            {
+                var files = Directory.GetFiles(Request.MapPath(path));
+                foreach (var file in files)
+                {
+                    int i = file.LastIndexOf("\\");
+                    imageList.Add(file.Substring(i + 1));
+                }
+            }
+            return Json(new { total = imageList.Count(), data = imageList }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region 用户心得列表
+        public ActionResult List()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 获得心得数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetListData()
+        {
+            int pageSize = int.Parse(Request["pageSize"] ?? "5");
+            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
+            var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.CreateTime, false).AsQueryable();
+
+            if (PageData.Count() > 0)
+            {
+                List<TalkViewModel> list = new List<TalkViewModel>();
+                foreach (var data in PageData)
+                {
+                    TalkViewModel talk = new TalkViewModel();
+                    talk.TalkID = data.TalkID;
+
+                    talk.TalkFavorsNum = (int)data.TalkFavorsNum;
+                    talk.CreateTime = (DateTime)data.CreateTime;
+                    if (data.UserInfo != null)
+                    {
+                        talk.ShowName = data.UserInfo.UserInfoShowName;
+                        talk.Icon = data.UserInfo.UserInfoIcon;
+                    }
+                    else
+                    {
+                        talk.ShowName = data.OrganizeInfo.OrganizeInfoShowName;
+                        talk.Icon = data.OrganizeInfo.OrganizeInfoIcon;
+                    }
+                    talk.TalkContent = data.TalkContent;
+
+                    if (data.TalkImagePath != null)
+                    {
+                        var files = Directory.GetFiles(Request.MapPath(data.TalkImagePath));
+                        List<String> pathlist = new List<String>();
+                        foreach (var file in files)
+                        {
+                            int i = file.LastIndexOf("\\");
+                            pathlist.Add(data.TalkImagePath + file.Substring(i + 1));
+                        }
+                        talk.ImagePath = pathlist;
+                    }
+                    list.Add(talk);
+                }
+                return Json(new { msg = "success", data = list }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "fail" });
+            }
+        }
+        #endregion
+
+        #region 组织心得管理
         public ActionResult AllTalks()
         {
             return View();
@@ -69,90 +152,6 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-
-        public ActionResult List()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// 获得心得数据
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult GetListData()
-        {
-            int pageSize = int.Parse(Request["pageSize"] ?? "5");
-            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
-            var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.CreateTime, false).AsQueryable();
-           
-            if (PageData.Count() > 0)
-            {
-                List<TalkViewModel> list = new List<TalkViewModel>();
-                foreach (var data in PageData)
-                {
-                    TalkViewModel talk = new TalkViewModel();
-                    talk.TalkID = data.TalkID;
-
-                    talk.TalkFavorsNum = (int)data.TalkFavorsNum;
-                    talk.CreateTime = (DateTime)data.CreateTime;
-                    if (data.UserInfo != null)
-                    {
-                        talk.ShowName = data.UserInfo.UserInfoShowName;
-                        talk.Icon = data.UserInfo.UserInfoIcon;
-                    }
-                    else
-                    {
-                        talk.ShowName = data.OrganizeInfo.OrganizeInfoShowName;
-                        talk.Icon = data.OrganizeInfo.OrganizeInfoIcon;
-                    }
-                    talk.TalkContent = data.TalkContent;
-
-                    if (data.TalkImagePath != null)
-                    {
-                        var files = Directory.GetFiles(Request.MapPath(data.TalkImagePath));
-                        List<String> pathlist = new List<String>();
-                        foreach (var file in files)
-                        {
-                            int i = file.LastIndexOf("\\");
-                            pathlist.Add(data.TalkImagePath+file.Substring(i + 1));
-                        }
-                        talk.ImagePath = pathlist;
-                    }
-                    list.Add(talk);
-                }
-                return Json(new { msg = "success", data = list }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(new { msg = "fail" });
-            }
-        }
-
-        /// <summary>
-        /// 通过路径查看图片
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult GetTalksImage()
-        {
-            string path = Request["ImagePath"];
-            List<String> imageList = new List<string>();
-            if (path != null)
-            {
-                var files = Directory.GetFiles(Request.MapPath(path));
-                foreach (var file in files)
-                {
-                    int i = file.LastIndexOf("\\");
-                    imageList.Add(file.Substring(i + 1));
-                }
-            }
-            return Json(new { total = imageList.Count(), data = imageList }, JsonRequestBehavior.AllowGet);
-        }
-
-
-
-        #endregion
-
-        #region 组织心得管理
         /// <summary>
         /// 组织根据用户ID查看该用户发表的发表的心得列表
         /// </summary>
