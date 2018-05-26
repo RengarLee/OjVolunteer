@@ -43,8 +43,9 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(new { login=user.UserInfoLoginId, showname = user.UserInfoShowName }, JsonRequestBehavior.AllowGet);
         }
 
-        
+        #endregion
 
+        #region 义工信息管理
         /// <summary>
         /// 进入义工信息管理界面
         /// </summary>
@@ -77,7 +78,8 @@ namespace OjVolunteer.UIPortal.Controllers
                 userQueryParam.OrganizeInfoID = LoginOrganize.OrganizeInfoID;
                 userQueryParam.isSuper = false;
             }
-            else {
+            else
+            {
                 userQueryParam.isSuper = true;
             }
             userQueryParam.Total = 0;
@@ -270,12 +272,8 @@ namespace OjVolunteer.UIPortal.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public ActionResult UserEditUser(int id)
+        public ActionResult UserEditUser()
         {
-            if (LoginUser.UserInfoID != id)
-            {
-                return Redirect("/UserInfo/Index");
-            }
             var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewData["DepartmentList"] = (from u in allDepartment
                                           select new SelectListItem() { Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
@@ -292,6 +290,47 @@ namespace OjVolunteer.UIPortal.Controllers
                                             select new SelectListItem() { Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
 
             return View(LoginUser);
+        }
+
+        /// <summary>
+        /// 用户修改自身资料
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult UserEditUser(UserInfo userInfo)
+        {
+            UserInfo temp = UserInfoService.GetEntities(u => u.UserInfoID == userInfo.UserInfoID).FirstOrDefault();
+            if (temp == null||userInfo.UserInfoID!=LoginUser.UserInfoID)
+            {
+                return Content("fail");
+            }
+            if (temp.UpdatePoliticalID != userInfo.UpdatePoliticalID)
+            {
+                userInfo.Status = (short)Model.Enum.DelFlagEnum.Auditing;
+            }
+            //temp.UserInfoShowName = userInfo.UserInfoShowName;
+            //temp.UserInfoStuId = userInfo.UserInfoStuId;
+            //temp.UserInfoPhone = userInfo.UserInfoPhone;
+            //temp.UserInfoEmail = userInfo.UserInfoEmail;
+            //temp.MajorID = userInfo.MajorID;
+            //temp.OrganizeInfoID = userInfo.OrganizeInfoID;
+            //temp.DepartmentID = userInfo.DepartmentID;
+            //temp.ModfiedOn = DateTime.Now;
+            userInfo.ModfiedOn = DateTime.Now;
+            if (UserInfoService.Update(userInfo))
+            {
+                if (temp.Status == delAuditing)
+                {
+                    return Content("auditing");
+                }
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
         }
 
         /// <summary>
@@ -333,6 +372,10 @@ namespace OjVolunteer.UIPortal.Controllers
             if (ModelState.IsValid)
             {
                 userInfo.ModfiedOn = DateTime.Now;
+                if (userInfo.OrganizeInfoID != LoginOrganize.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
+                {
+                    return Content("fail");
+                }
                 if (UserInfoService.Update(userInfo))
                 {
                     return Content("success");
@@ -363,59 +406,6 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Content("fail");
             }
         }
-        #endregion
-
-        #region 注释
-        ///// <summary>
-        ///// 修改信息
-        ///// </summary>
-        ///// <param name="userInfo"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public ActionResult Edit(UserInfo userInfo)
-        //{
-        //    UserInfo temp = UserInfoService.GetEntities(u => u.UserInfoID == userInfo.UserInfoID).FirstOrDefault();
-        //    if (temp == null)
-        //    {
-        //        return Content("fail");
-        //    }
-        //    if (LoginUser != null)
-        //    {
-        //        if (temp.UpdatePoliticalID != userInfo.UpdatePoliticalID)
-        //        {
-        //            temp.UpdatePoliticalID = userInfo.UpdatePoliticalID;
-        //            temp.Status = (short)Model.Enum.DelFlagEnum.Auditing;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (userInfo.OrganizeInfoID != LoginOrganize.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
-        //        {
-        //            return Content("fail");
-        //        }
-        //    }
-
-        //    temp.UserInfoShowName = userInfo.UserInfoShowName;
-        //    temp.UserInfoStuId = userInfo.UserInfoStuId;
-        //    temp.UserInfoPhone = userInfo.UserInfoPhone;
-        //    temp.UserInfoEmail = userInfo.UserInfoEmail;
-        //    temp.MajorID = userInfo.MajorID;
-        //    temp.OrganizeInfoID = userInfo.OrganizeInfoID;
-        //    temp.DepartmentID = userInfo.DepartmentID;
-        //    temp.ModfiedOn = DateTime.Now;
-        //    if (UserInfoService.Update(temp))
-        //    {
-        //        if (temp.Status == delAuditing)
-        //        {
-        //            return Content("auditing");
-        //        }
-        //        return Content("success");
-        //    }
-        //    else
-        //    {
-        //        return Content("fail");
-        //    }     
-        //} 
         #endregion
 
         #region 政治面貌审核
@@ -493,6 +483,15 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             var reslut = UserInfoService.GetEntities(u => u.UserInfoLoginId.Equals(username)).AsQueryable().Count() == 0;
             return Json(reslut, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 退出操作
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult Exit()
+        {
+            Response.Cookies["userLoginId"].Value = String.Empty;
+            return Redirect("/Login/index");
         }
         #endregion
 

@@ -115,7 +115,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
 
-        #region 组织账审核审核
+        #region 组织账号申请审核
         /// <summary>
         /// 进入组织信息审核界面
         /// </summary>
