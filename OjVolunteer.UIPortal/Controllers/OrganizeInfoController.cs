@@ -86,21 +86,6 @@ namespace OjVolunteer.UIPortal.Controllers
             var data = new { total = qrganizeQueryParam.Total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-        /// <summary>
-        /// 查看组织详细页面,包括组织心得与组织活动
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
-        public ActionResult OrganizeDetail(int id)
-        {
-            ViewData.Model = OrganizeInfoService.GetEntities(o => o.OrganizeInfoID == id).FirstOrDefault();
-            return View();
-        }
-
-
-
         #endregion
 
         #region Create
@@ -137,10 +122,6 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Edit
-
-        
-        #endregion
 
         #region 组织账审核审核
         /// <summary>
@@ -254,6 +235,19 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 组织修改组织信息
+
+        /// <summary>
+        /// 查看组织详细页面,包括组织心得与组织活动
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
+        public ActionResult OrganizeDetail(int id)
+        {
+            ViewData.Model = OrganizeInfoService.GetEntities(o => o.OrganizeInfoID == id).FirstOrDefault();
+            return View();
+        }
+
 
         /// <summary>
         /// 打开编辑窗口

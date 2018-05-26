@@ -15,6 +15,124 @@
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
 
+
+</head>
+<body>
+    @using (Ajax.BeginForm("Edit", "OrganizeDetail", new AjaxOptions() { OnSuccess = "afterSubmit" }, new { @class = "layui-form layui-form-pane stuInfo-form" }))
+    {
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.OrganizeInfoID)
+            @Html.HiddenFor(model => model.OrganizeInfoManageId)
+            @Html.HiddenFor(model => model.OrganizeInfoLastTime)
+            @Html.HiddenFor(model => model.CreateTime)
+            @Html.HiddenFor(model => model.Remark)
+            @Html.HiddenFor(model => model.OrganizeInfoPwd)
+            @Html.HiddenFor(model => model.OrganizeInfoLoginId)
+            @Html.HiddenFor(Model=>Model.ActivityCount)
+        </div>
+        <div class="header clearfix">
+            <div class="header-left">
+                @Html.HiddenFor(model => model.OrganizeInfoIcon)
+                <img src="@Model.OrganizeInfoIcon" width="100px" height="100px">
+            </div>
+            <div class="header-right">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">登录名</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "", lay_verify = "required" } })
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">负责人</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoPeople, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|username" } })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content clearfix">
+            <div class="content-left">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">组织名称</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoShowName, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|orgname" } })
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "email" } })
+                    </div>
+                </div>
+            </div>
+            <div class="content-right">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoPhone, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|phone" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block">
+                        <select name="Status" lay-verify="required">
+                            @{
+                                if (Model.Status == 0)
+                                {
+                                    <option value="0" selected>正常</option>
+                                    <option value="1">已删除</option>
+                                }
+                                else if (Model.Status == 1)
+                                {
+
+                                    <option value="0">正常</option>
+                                    <option value="1" selected>已删除</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="content-footer">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">注册时间</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">最后登录时间</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.OrganizeInfoLastTime, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "" } })
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer">
+            <div class="layui-form-item">
+                <button class="layui-btn red-btn" lay-submit>确定修改</button>
+                <button type="reset" class="layui-btn layui-btn-primary" id="orgcancel">取消修改</button>
+            </div>
+        </div>
+    }
+    <div>
+        <div>
+            <table id="tb_talks"></table>
+        </div>
+    </div>
+    <div>
+        <div>
+            <table id="tb_activitys"></table>
+        </div>
+    </div>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/App/simple-ajax-form.js"></script>
@@ -22,6 +140,8 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
     <script type="text/javascript">
 
          $(function () {
@@ -69,24 +189,24 @@
                 uniqueId: "TalkID",
                 columns: [
                     {
-                        field: 'TalkID',//域值
-                        title: 'Id',//标题
+                        field: 'TalkID',
+                        title: 'Id',
                         visible: false,
                         align: 'center',
                         width: '6%',
 
                     },
                     {
-                        field: 'TalkFavorsNum',//域值
-                        title: '点赞数',//标题
-                        visible: true,//false表示不显示
+                        field: 'TalkFavorsNum',
+                        title: '点赞数',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                     },
                     {
-                        field: 'TalkContent',//域值
-                        title: '心得内容',//标题
-                        visible: true,//false表示不显示
+                        field: 'TalkContent',
+                        title: '心得内容',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -95,17 +215,17 @@
                         }
                     },
                     {
-                        field: 'TalkFavorsNum',//域值
-                        title: '点赞数',//标题
-                        visible: true,//false表示不显示
+                        field: 'TalkFavorsNum',
+                        title: '点赞数',
+                        visible: true,
                         width: '6%',
                         align: 'center',
 
                     },
                     {
-                        field: 'CreateTime',//域值
-                        title: '创建时间',//标题
-                        visible: false,//false表示不显示
+                        field: 'CreateTime',
+                        title: '创建时间',
+                        visible: false,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -113,9 +233,9 @@
                         }
                     },
                     {
-                        field: 'ModfiedOn',//域值
-                        title: '最后更新时间',//标题
-                        visible: false,//false表示不显示
+                        field: 'ModfiedOn',
+                        title: '最后更新时间',
+                        visible: false,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -184,34 +304,24 @@
                 uniqueId: "ActivityID",
                 columns: [
                     {
-                        field: 'ActivityID',//域值
-                        title: 'Id',//标题
+                        field: 'ActivityID',
+                        title: 'Id',
                         visible: false,
                         align: 'center',
                         width: '6%',
 
                     },
                     {
-                        field: 'ActivityName',//域值
-                        title: '活动名称',//标题
-                        visible: true,//false表示不显示
+                        field: 'ActivityName',
+                        title: '活动名称',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                     },
                     {
-                        field: 'ActivityStart',//域值
-                        title: '活动开始时间',//标题
-                        visible: true,//false表示不显示
-                        width: '6%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
-                        }
-                    },
-                    {
-                        field: 'ActivityEnd',//域值
-                        title: '活动结束时间',//标题
-                        visible: true,//false表示不显示
+                        field: 'ActivityStart',
+                        title: '活动开始时间',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -219,9 +329,19 @@
                         }
                     },
                     {
-                        field: 'ActivityDetailTime',//域值
-                        title: '义工时长',//标题
-                        visible: true,//false表示不显示
+                        field: 'ActivityEnd',
+                        title: '活动结束时间',
+                        visible: true,
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                        }
+                    },
+                    {
+                        field: 'ActivityDetailTime',
+                        title: '义工时长',
+                        visible: true,
                         width: '6%',
                         align: 'center',
 
@@ -252,131 +372,6 @@
             }
         }
     </script>
-</head>
-<body>
-    @using (Ajax.BeginForm("Edit", "OrganizeDetail", new AjaxOptions() { OnSuccess = "afterSubmit" }, new { @class = "layui-form layui-form-pane stuInfo-form" }))
-    {
-        <div class="form-horizontal">
 
-            @Html.HiddenFor(model => model.OrganizeInfoID)
-            @Html.HiddenFor(model => model.OrganizeInfoManageId)
-            @Html.HiddenFor(model => model.OrganizeInfoLastTime)
-            @Html.HiddenFor(model => model.CreateTime)
-            @Html.HiddenFor(model => model.Remark)
-            @Html.HiddenFor(model => model.OrganizeInfoPwd)
-            @Html.HiddenFor(model => model.OrganizeInfoLoginId)
-
-        </div>
-
-        <div class="header clearfix">
-            <div class="header-left">
-                @Html.HiddenFor(model => model.OrganizeInfoIcon)
-                <img src="@Model.OrganizeInfoIcon" width="100px" height="100px">
-            </div>
-            <div class="header-right">
-
-                <!-- 每一个item代表一行 -->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">登录帐号</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "", lay_verify = "required" } })
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">负责人</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoPeople, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|username" } })
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="content clearfix">
-            <div class="content-left">
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">组织名称</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoShowName, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|orgname" } })
-                    </div>
-                </div>
-
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "email" } })
-                    </div>
-                </div>
-            </div>
-            <div class="content-right">
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">手机号</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoPhone, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|phone" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">状态</label>
-                    <div class="layui-input-block">
-                        <select name="Status" lay-verify="required">
-                            @{
-                                if (Model.Status == 0)
-                                {
-                                    <option value="0" selected>正常</option>
-                                    <option value="1">已删除</option>
-                                }
-                                else if (Model.Status == 1)
-                                {
-
-                                    <option value="0">正常</option>
-                                    <option value="1" selected>已删除</option>
-                                }
-                            }
-
-
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="content-footer">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">注册时间</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "" } })
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">最后登录时间</label>
-                    <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoLastTime, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", disabled = "" } })
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="footer">
-            <div class="layui-form-item">
-                <button class="layui-btn red-btn" lay-submit>确定修改</button>
-                <button type="reset" class="layui-btn layui-btn-primary" id="orgcancel">取消修改</button>
-            </div>
-        </div>
-    }
-    <div>
-        <div>
-            <table id="tb_talks"></table>
-        </div>
-    </div>
-
-    <div>
-        <div>
-            <table id="tb_activitys"></table>
-        </div>
-    </div>
-
-    <script src="~/Content/layui/layui.all.js"></script>
-    <script src="~/Content/oj/js/check.js"></script>
 </body>
 </html>

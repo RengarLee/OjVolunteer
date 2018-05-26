@@ -17,7 +17,14 @@
 </head>
 
 <body>
-    <a href="/OrganizeInfo/ExportExcel">组织文件导出</a>
+    <div id="toolbar" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <a href="/OrganizeInfo/ExportExcel" class="btn btn-default">
+            <span class="glyphicon glyphicon-open" aria-hidden="true"></span>数据导出
+        </a>
+    </div>
     <div>
         <table id="tb_organize" data-filter-control="true"></table>
     </div>
@@ -34,18 +41,16 @@
         $(function () {
             //初始化表格
             initTable();
-        });
-
-        $("#btn_add").on('click', function () {
-            $("#Name").val("");
-            layer.open({
-                type: 2,
-                content: "/OrganizeInfo/Create",
-                title: '添加学生',
-                area: ['1000px', '500px']
+            $("#btn_add").on('click', function () {
+                layer.open({
+                    type: 2,
+                    content: "/OrganizeInfo/Create",
+                    title: '添加组织',
+                    area: ['800px', '400px'],
+                });
             });
         });
-        //初始化表格
+
         function initTable(queryParam) {
             $("#tb_organize").bootstrapTable('destroy');
             $('#tb_organize').bootstrapTable({
@@ -69,19 +74,6 @@
                 minimumCountColumns: 3,
                 clickToSelect: true,
                 uniqueId: "OrganizeInfoID",
-                rowStyle: function (row, index) {
-                    var strclass = "";
-                    if (row.ORDER_STATUS == "2") {
-                        strclass = 'warning';//还有一个active
-                    }
-                    else if (row.ORDER_STATUS == "1") {
-                        strclass = 'danger';
-                    }
-                    else {
-                        return {};
-                    }
-                    return { classes: strclass }
-                },
                 columns: [
                     {
                         field: 'OrganizeInfoID',
@@ -172,9 +164,9 @@
                         }
                     },
                     {
-                        field: 'OrganizeInfoLastTime',//域值
-                        title: '最后登录时间',//内容
-                        visible: true,//false表示不显示
+                        field: 'OrganizeInfoLastTime',
+                        title: '最后登录时间',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
@@ -186,10 +178,10 @@
                         }
                     },
                     {
-                        field: 'Status',//域值
-                        title: '状态',//内容
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
+                        field: 'Status',
+                        title: '状态',
+                        visible: true,
+                        sortable: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -204,12 +196,6 @@
                         filterControl: 'input',
                     }
                 ],
-                onLoadSuccess: function (data) {
-                    $(".editLink").click(function () {
-                        editClickEvent($(this).attr("uid"));
-                        return false;
-                    });
-                },
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
                         type: 2,
@@ -218,20 +204,13 @@
                         maxmin: false,
                         shadeClose: true,
                         closeBtn: 1,
-                        area: ['1000px', '850px'],
+                        area: ['1000px', '680px'],
                         content: '/OrganizeInfo/OrganizeDetail/' + row["OrganizeInfoID"]
                     });
                 }
             });
         };
-        //生成操作框图标
-        function operateFormatter(value, row, index) {
-            return [
-                '<a  href="javascript:void(0)" class="editLink" uid="' + row['OrganizeInfoID'] + '">',
-                '<i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;<span>编辑</span>',
-                '</a>',
-            ].join('');
-        }
+
     </script>
 </body>
 </html>
