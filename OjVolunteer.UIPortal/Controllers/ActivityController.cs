@@ -219,52 +219,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #endregion
-
-        #region Create
-        /// <summary>
-        /// 组织进入活动申请界面
-        /// </summary>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true)]
-        public ActionResult OrgCreate()
-        {
-            var allActivityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.ActivityTypeID = (from u  in allActivityType select new SelectListItem() { Selected = false, Text = u.ActivityTypeName, Value = u.ActivityTypeID + "" }).ToList();
-            ViewBag.MajorDict = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.MajorID, u => u.MajorName);
-            ViewBag.PoliticalDict = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.PoliticalID, u => u.PoliticalName);
-            ViewBag.DepartmentDict = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.DepartmentID, u => u.DepartmentName); 
-            return View();
-        }
-
-        [HttpPost]
-        [ActionAuthentication(AbleOrganize = true)]
-        public ActionResult Create(Activity activity)
-        {
-            if (ModelState.IsValid)
-            {
-                //添加活动条件
-                activity.ActivityPolitical = Request["politicalIds"] ?? "";
-                activity.ActivityMajor = Request["majorIds"] ?? "";
-                activity.ActivityDepartment = Request["departmentIds"] ?? "";
-                if (string.IsNullOrEmpty(activity.ActivityIcon))
-                {
-                    activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
-                }                
-                activity.ActivityManagerID = OrganizeInfoService.GetEntities(u => u.OrganizeInfoManageId == null).FirstOrDefault().OrganizeInfoID;
-                activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
-                activity.ActivityClicks = 0;
-                activity.CreateTime = DateTime.Now;
-                activity.ModfiedOn = activity.CreateTime;
-                activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delNormal : delDelete;
-                if (ActivityService.Add(activity) != null)
-                {
-                    return Content("success");
-                }
-            }
-            return Content("fail");
-        }
-        #endregion
-
+     
         #region Edit
 
         /// <summary>
@@ -391,12 +346,59 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 组织申请活动
+        /// <summary>
+        /// 组织进入活动申请界面
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true)]
+        public ActionResult OrgCreate()
+        {
+            var allActivityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewBag.ActivityTypeID = (from u in allActivityType select new SelectListItem() { Selected = false, Text = u.ActivityTypeName, Value = u.ActivityTypeID + "" }).ToList();
+            ViewBag.MajorDict = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.MajorID, u => u.MajorName);
+            ViewBag.PoliticalDict = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.PoliticalID, u => u.PoliticalName);
+            ViewBag.DepartmentDict = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.DepartmentID, u => u.DepartmentName);
+            return View();
+        }
+
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true)]
+        public JsonResult Create(Activity activity)
+        {
+            String msg = "fail";
+            if (ModelState.IsValid)
+            {
+                //添加活动条件
+                activity.ActivityPolitical = Request["politicalIds"] ?? "";
+                activity.ActivityMajor = Request["majorIds"] ?? "";
+                activity.ActivityDepartment = Request["departmentIds"] ?? "";
+                if (string.IsNullOrEmpty(activity.ActivityIcon))
+                {
+                    activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+                }
+                activity.ActivityManagerID = OrganizeInfoService.GetEntities(u => u.OrganizeInfoManageId == null).FirstOrDefault().OrganizeInfoID;
+                activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
+                activity.ActivityClicks = 0;
+                activity.CreateTime = DateTime.Now;
+                activity.ModfiedOn = activity.CreateTime;
+                activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delNormal : delDelete;
+                if (ActivityService.Add(activity) != null)
+                {
+                    msg = "success";
+                }
+            }
+            return Json(new { msg }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         #region 历史活动界面
 
         /// <summary>
         /// 进入个人历史活动界面
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false,AbleUser =true)]
         public ActionResult TalksOfUser()
         {
             return View();
@@ -405,6 +407,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 用户活动数据
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false,AbleUser =true)]
         public JsonResult TalkOfUserData()
         {
             int pageSize = int.Parse(Request["pageSize"] ?? "5");
