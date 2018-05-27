@@ -21,6 +21,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
+        #region 活动报名
         /// <summary>
         /// 活动报名
         /// </summary>
@@ -35,18 +36,18 @@ namespace OjVolunteer.UIPortal.Controllers
             if (LoginUser.Status == delAuditing)
             {
                 return Json(new { msg = "您的政治面貌尚未审核，无法参加活动，请耐心等待！" }, JsonRequestBehavior.AllowGet);
-            }   
+            }
             //已报名
             if (UserEnrollService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.ActivityID == activityId).Count() > 0)
             {
-                return Json(new { msg="您已报名" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "您已报名" }, JsonRequestBehavior.AllowGet);
             }
             Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
             if (activity == null)
             {
-                return Json(new { msg = "报名失败,请稍后再试"}, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "报名失败,请稍后再试" }, JsonRequestBehavior.AllowGet);
             }
-            UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delNormal};
+            UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delNormal };
             if (UserEnrollService.Add(userEnroll) != null)
             {
                 msg = "报名成功";
@@ -56,8 +57,10 @@ namespace OjVolunteer.UIPortal.Controllers
                 msg = "报名失败,请稍后再试";
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
-        }
+        } 
+        #endregion
 
+        #region 活动签到签退
         /// <summary>
         /// 活动签到
         /// </summary>
@@ -80,7 +83,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 msg = "fail";
             }
-            return Json(new { msg}, JsonRequestBehavior.AllowGet);
+            return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -106,7 +109,8 @@ namespace OjVolunteer.UIPortal.Controllers
                 msg = "fail";
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
-        }
+        } 
+        #endregion
 
         public ActionResult Edit(int userEnrollId)
         {
