@@ -42,10 +42,18 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Json(new { msg = "您已报名" }, JsonRequestBehavior.AllowGet);
             }
+
+
+
             Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
+            //报名条件
             if (activity == null)
             {
                 return Json(new { msg = "报名失败,请稍后再试" }, JsonRequestBehavior.AllowGet);
+            }
+            if (activity.ActivityEnrollEnd < DateTime.Now)
+            {
+                return Json(new { msg = "报名已结束" }, JsonRequestBehavior.AllowGet);
             }
             UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delNormal };
             if (UserEnrollService.Add(userEnroll) != null)
