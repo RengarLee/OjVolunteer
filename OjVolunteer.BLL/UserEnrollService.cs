@@ -9,6 +9,7 @@ namespace OjVolunteer.BLL
 {
     public partial class UserEnrollService
     {
+
         //签到
         public bool SignIn(int aId, List<int> uIdList)
         {

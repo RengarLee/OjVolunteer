@@ -1,5 +1,6 @@
 ﻿using OjVolunteer.IBLL;
 using OjVolunteer.Model;
+using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace OjVolunteer.UIPortal.Controllers
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
+        short delUndone = (short)Model.Enum.DelFlagEnum.Undone;
         public IActivityService ActivityService { get; set; }
         public IUserEnrollService UserEnrollService { get; set; }
         public ActionResult Index()
@@ -25,19 +27,24 @@ namespace OjVolunteer.UIPortal.Controllers
         /// <param name="activityId">活动Id</param>
         /// <returns></returns>
         [HttpPost]
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public JsonResult Enroll(int activityId)
         {
             string msg = String.Empty;
-            //用户是否可以修改政治面貌
-            //TODO:用户验证参加规则
-            //TODO:验证用户是否已参加活动
+
             if (LoginUser.Status == delAuditing)
             {
                 return Json(new { msg = "您的政治面貌尚未审核，无法参加活动，请耐心等待！" }, JsonRequestBehavior.AllowGet);
-            }
+            }   
+            //已报名
             if (UserEnrollService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.ActivityID == activityId).Count() > 0)
             {
                 return Json(new { msg="您已报名" }, JsonRequestBehavior.AllowGet);
+            }
+            Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
+            if (activity == null)
+            {
+                return Json(new { msg = "报名失败,请稍后再试"}, JsonRequestBehavior.AllowGet);
             }
             UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delNormal};
             if (UserEnrollService.Add(userEnroll) != null)
