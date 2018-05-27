@@ -325,12 +325,12 @@ namespace OjVolunteer.UIPortal.Controllers
             string oldPwd = Request["old"];
             string newPwd = Request["new"];
 
-            if (LoginOrganize.OrganizeInfoPwd.Equals(Common.Encryption.MD5Helper.Get_MD5(oldPwd)))
+            if (LoginOrganize.OrganizeInfoPwd.Equals(MD5Helper.Get_MD5(oldPwd)))
             {
                 Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
                 if (regex.IsMatch(newPwd))
                 {
-                    LoginOrganize.OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5(newPwd);
+                    LoginOrganize.OrganizeInfoPwd = MD5Helper.Get_MD5(newPwd);
                     LoginOrganize.ModfiedOn = DateTime.Now;
                     if (OrganizeInfoService.Update(LoginOrganize))
                     {
