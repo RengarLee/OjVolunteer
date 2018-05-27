@@ -64,59 +64,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 义工用户进入活动列表
-        /// </summary>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public ActionResult List()
-        {
-            var activityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.ActivityTypeID = (from u in activityType select new SelectListItem { Value = u.ActivityTypeID + "", Text = u.ActivityTypeName }).ToList();
-
-            var PageData = GetActivityData(5, 1);
-            return View(PageData.ToList());
-        }
-
-        /// <summary>
-        /// 义工用户浏览活动列表
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult GetListData()
-        {
-            int pageSize = int.Parse(Request["pageSize"] ?? "5");
-            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
-            var PageData = GetActivityData(pageSize, pageIndex);
-            if (!String.IsNullOrEmpty(Request["typeId"]))
-            {
-                int typeId = int.Parse(Request["typeId"]);
-                PageData = PageData.Where(u => u.ActivityTypeID == typeId).AsQueryable();
-            }
-            if (PageData.Count() > 0)
-            {
-                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID }).ToList() }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(new { msg = "fail" });
-            }
-        }
-
-        /// <summary>
-        /// 加载列表数据
-        /// </summary>
-        /// <param name="pageSize"></param>
-        /// <param name="pageIndex"></param>
-        /// <returns></returns>
-        public IQueryable<Activity> GetActivityData(int pageSize, int pageIndex)
-        {
-            var DataPage = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.ActivityEnrollStart, false).AsQueryable();
-
-            DataPage = DataPage.Where(u => !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).AsQueryable();
-
-            DataPage = DataPage.Where(u => u.ActivityEnrollStart < DateTime.Now).AsQueryable();
-            return DataPage;
-        }
+   
 
         /// <summary>
         /// 活动申请审核
@@ -384,6 +332,62 @@ namespace OjVolunteer.UIPortal.Controllers
             }
 
 
+        }
+        #endregion
+
+        #region 义工浏览义工商场
+        /// <summary>
+        /// 义工用户进入活动列表
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult List()
+        {
+            var activityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewBag.ActivityTypeID = (from u in activityType select new SelectListItem { Value = u.ActivityTypeID + "", Text = u.ActivityTypeName }).ToList();
+
+            var PageData = GetActivityData(5, 1);
+            return View(PageData.ToList());
+        }
+
+        /// <summary>
+        /// 义工用户浏览活动列表
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetListData()
+        {
+            int pageSize = int.Parse(Request["pageSize"] ?? "5");
+            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
+            var PageData = GetActivityData(pageSize, pageIndex);
+            if (!String.IsNullOrEmpty(Request["typeId"]))
+            {
+                int typeId = int.Parse(Request["typeId"]);
+                PageData = PageData.Where(u => u.ActivityTypeID == typeId).AsQueryable();
+            }
+            if (PageData.Count() > 0)
+            {
+                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID }).ToList() }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "fail" });
+            }
+        }
+
+        /// <summary>
+        /// 加载列表数据
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public IQueryable<Activity> GetActivityData(int pageSize, int pageIndex)
+        {
+            var DataPage = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delUndone, u => u.ActivityEnrollStart, false).AsQueryable();
+
+            DataPage = DataPage.Where(u => !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).AsQueryable();
+
+            DataPage = DataPage.Where(u => u.ActivityEnrollStart < DateTime.Now).AsQueryable();
+            return DataPage;
         }
         #endregion
 
