@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -406,6 +407,33 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Content("fail");
             }
         }
+
+        /// <summary>
+        /// 更改密码
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult UpdatePwd()
+        {
+            String msg = "fail";
+            string oldPwd = Request["old"];
+            string newPwd = Request["new"];
+
+            if (LoginUser.UserInfoPwd.Equals(Common.Encryption.MD5Helper.Get_MD5(oldPwd)))
+            {
+                Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
+                if (regex.IsMatch(newPwd))
+                {
+                    LoginUser.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(newPwd);
+                    LoginUser.ModfiedOn = DateTime.Now;
+                    if (UserInfoService.Update(LoginUser))
+                    {
+                        msg = "success";
+                    }
+                }
+            }
+            return Json(new { msg }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region 政治面貌审核
@@ -509,5 +537,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+
     }
 }
