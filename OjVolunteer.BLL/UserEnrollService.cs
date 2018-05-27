@@ -30,7 +30,7 @@ namespace OjVolunteer.BLL
             {
                 temp.UserEnrollActivityEnd = DateTime.Now;
                 TimeSpan timeSpan = (TimeSpan)(temp.UserEnrollActivityEnd - temp.UserEnrollActivityStart);
-                double Time = timeSpan.Hours * 60 + timeSpan.Minutes;
+                double Time = timeSpan.Hours + (double)timeSpan.Minutes/60;
                 temp.ActivityTime = (decimal)Time;
                 temp.Status = (short)Model.Enum.DelFlagEnum.Normal;
             }

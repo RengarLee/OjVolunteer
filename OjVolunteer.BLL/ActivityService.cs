@@ -43,6 +43,7 @@ namespace OjVolunteer.BLL
                     DbSession.UserDurationDal.Update(userDuration);
                 }
                 activity.Status = delNormal;
+                activity.ModfiedOn = DateTime.Now;
                 DbSession.ActivityDal.Update(activity);
                 DbSession.SaveChanges();
                 flag = true;

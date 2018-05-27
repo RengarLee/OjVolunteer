@@ -31,8 +31,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        #region Query
-
+        #region 查看活动详情
         /// <summary>
         /// 义工用户查看活动详情
         /// </summary>
@@ -41,7 +40,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Details(int id)
         {
-            var activity = ActivityService.GetEntities(u => u.Status==delNormal && u.ActivityID == id).FirstOrDefault();
+            var activity = ActivityService.GetEntities(u => u.Status == delNormal && u.ActivityID == id).FirstOrDefault();
             if (activity == null)
             {
                 return Redirect("/UserInfo/Index");
@@ -59,10 +58,58 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult OrgSeeDetails(int id)
         {
-            var activity = ActivityService.GetEntities(u=>u.ActivityID == id).FirstOrDefault();
+            var activity = ActivityService.GetEntities(u => u.ActivityID == id).FirstOrDefault();
             ViewData.Model = activity;
             return View();
+        } 
+        #endregion
+
+        #region 活动开始结束
+        /// <summary>
+        /// 活动开始
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult Start()
+        {
+            int aId = Convert.ToInt32(Request["aId"]);
+            Activity activity = ActivityService.GetEntities(u => u.ActivityID == aId && u.Status == delUndone).FirstOrDefault();
+            if (activity.ActivityManagerID == LoginUser.UserInfoID)
+            {
+                activity.ActivityStart = DateTime.Now;
+                activity.ModfiedOn = activity.ActivityStart;
+                
+                if (ActivityService.Update(activity))
+                {
+                    return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
         }
+
+        /// <summary>
+        /// 活动结束
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult End()
+        {
+            int aId = Convert.ToInt32(Request["aId"]);
+            Activity activity = ActivityService.GetEntities(u => u.ActivityID == aId && u.Status == delUndone).FirstOrDefault();
+            if (activity.ActivityManagerID == LoginUser.UserInfoID)
+            {
+                activity.ActivityEnd = DateTime.Now;
+                activity.ModfiedOn = activity.ActivityEnd;
+                activity.Status = delDoneAuditing;
+                if (ActivityService.Update(activity))
+                {
+                    return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         #region 活动信息管理
         public ActionResult ActivityManager()
         {
@@ -86,11 +133,19 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 活动完成后审核
+        /// <summary>
+        /// 进入活动完成审核界面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ActAccAuditing()
         {
             return View();
         }
-
+        
+        /// <summary>
+        /// 加载需审核数据
+        /// </summary>
+        /// <returns></returns>
         public JsonResult ActAccAuditingData()
         {
             int pageSize = int.Parse(Request["limit"] ?? "5");
@@ -105,22 +160,36 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 参考参与人员
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Participants(int id)
         {
             ViewBag.Id = id;
             return View();
         }
 
+        /// <summary>
+        /// 参加该活动的人员数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public JsonResult ParticipantsData(int id)
         {
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
             var pageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == id, u => u.ActivityID, true).Select(u => new { u.UserEnrollID,u.UserInfoID,u.UserInfo.UserInfoShowName, u.UserEnrollActivityStart, u.UserEnrollActivityEnd,u.ActivityTime }).AsQueryable();
-
-            return Json(pageData, JsonRequestBehavior.AllowGet);
+            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
-
+        
+        /// <summary>
+        /// 通过
+        /// </summary>
+        /// <returns></returns>
         public JsonResult ActAccPass()
         {
             string msg = String.Empty;
@@ -132,6 +201,10 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(msg, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 不通过
+        /// </summary>
+        /// <returns></returns>
         public JsonResult ActAccNotPass()
         {
             string msg = String.Empty;
@@ -156,43 +229,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(msg, JsonRequestBehavior.AllowGet);
         }
 
-
-        ///活动负责人确定活动完成
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public JsonResult ActAcc()
-        {
-            string msg = String.Empty;
-            int ActId = Convert.ToInt32(Request["aId"]);
-            int UserId = LoginUser.UserInfoID;
-            Activity activity = ActivityService.GetEntities(u => u.Status == delUndone && u.ActivityManagerID == UserId).FirstOrDefault();
-            if (activity == null)
-            {
-                msg = "fail";
-            }
-            else
-            {
-                activity.ActivityEnd = DateTime.Now;
-                activity.Status = delDoneAuditing;
-                if (ActivityService.Update(activity))
-                {
-                    msg = "success";
-                }
-                else
-                {
-                    msg = "fail";
-                }
-            }
-            return Json(new { msg });
-        }
-
-        public JsonResult ActAccPassed()
-        {
-            int actId = Convert.ToInt32(Request["aId"]);
-            return Json(new { });
-        }
-
         #endregion
-
 
         #region 活动申请审核
 
@@ -283,8 +320,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
         }
         #endregion
-
-
 
         #region 义工浏览义工商场
         /// <summary>
