@@ -86,21 +86,7 @@ namespace OjVolunteer.BLL
         }
         #endregion
 
-        #region 
-        //心得列表数据加载
-        public List<TalkView> LoadData(int pageIndex, int pageSize)
-        {
-            var PageData = DbSession.TalksDal.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.CreateTime, false).AsQueryable();
-            return LoadImagePath(PageData);
-        }
 
-        //通过义工ID筛选心得
-        public List<TalkView> LoadDataOfUserId(int pageIndex, int pageSize, int UserInfoId)
-        {
-            var PageData = DbSession.TalksDal.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).AsQueryable();
-            return LoadImagePath(PageData);
-        }
-        #endregion
         
     }
 }

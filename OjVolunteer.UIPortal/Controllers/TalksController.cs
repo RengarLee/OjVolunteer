@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -253,7 +254,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Add
+        #region 发布心得
         public ActionResult Add()
         {
             Talks talks = new Talks
@@ -274,10 +275,16 @@ namespace OjVolunteer.UIPortal.Controllers
         [HttpPost]
         public ActionResult Add(Talks talks)
         {
+            //Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
+            //if (!regex.IsMatch(talks.TalkContent))
+            //{
+            //    return Content("alert");
+            //}
             talks.CreateTime = DateTime.Now;
             talks.ModfiedOn = DateTime.Now;
             talks.Status = delAuditing;
             talks.TalkFavorsNum = 0;
+
             if (TalksService.Update(talks))
             {
                 return Content("success");
@@ -287,6 +294,30 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Content("fail");
             }
         }
+
+        /// <summary>
+        /// 心得图片上传
+        /// </summary>
+        public ActionResult UploadImage()
+        {
+            var file = Request.Files["file"];
+            int id = Convert.ToInt32(Request["id"]);
+            String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultTalkImagesSavePath"];
+            string path = "/Content/Upload/TalkImages/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + id + "/";
+            string dirPath = Request.MapPath(path);
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+                Talks talks = TalksService.GetEntities(u => u.TalkID == id).FirstOrDefault();
+                talks.TalkImagePath = path;
+                TalksService.Update(talks);
+            }
+            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
+            file.SaveAs(Request.MapPath(fileName));
+            return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
+
+        }
+        
         #endregion
 
         #region Edit
@@ -403,28 +434,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 图片上传
-        public ActionResult UploadImage()
-        {
-            //TODO:添加异常
-            var file = Request.Files["file"];
-                int id = Convert.ToInt32(Request["id"]);
-                string path = "/Content/Upload/TalkImages/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + id+"/";
-                string dirPath = Request.MapPath(path);
-                if (!Directory.Exists(dirPath))
-                {
-                    Directory.CreateDirectory(dirPath);
-                    Talks talks = TalksService.GetEntities(u => u.TalkID == id).FirstOrDefault();
-                    talks.TalkImagePath = path;
-                    TalksService.Update(talks);
-                }
-                string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
-                file.SaveAs(Request.MapPath(fileName));
-                return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
-
-        }
-        #endregion
-
+       
         #region 历史心得界面
 
         /// <summary>

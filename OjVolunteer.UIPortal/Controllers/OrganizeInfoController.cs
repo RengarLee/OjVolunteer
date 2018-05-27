@@ -24,9 +24,6 @@ namespace OjVolunteer.UIPortal.Controllers
         public IMajorService MajorService { get; set; }
         public ITalksService TalksService { get; set; }
 
-
-
-
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Index()
         {
@@ -113,7 +110,6 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(new { msg },JsonRequestBehavior.AllowGet);
         }
         #endregion
-
 
         #region 组织账号申请审核
         /// <summary>
