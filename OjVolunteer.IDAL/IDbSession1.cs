@@ -10,6 +10,8 @@ namespace OjVolunteer.IDAL
 	 
 		IActivityTypeDal ActivityTypeDal { get;}
 	 
+		IBadgeDal BadgeDal { get;}
+	 
 		IDepartmentDal DepartmentDal { get;}
 	 
 		IFavorsDal FavorsDal { get;}
@@ -23,6 +25,8 @@ namespace OjVolunteer.IDAL
 		IPoliticalDal PoliticalDal { get;}
 	 
 		ITalksDal TalksDal { get;}
+	 
+		IUserBadgeDal UserBadgeDal { get;}
 	 
 		IUserDurationDal UserDurationDal { get;}
 	 

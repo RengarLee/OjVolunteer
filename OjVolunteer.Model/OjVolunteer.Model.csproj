@@ -71,6 +71,9 @@
     <Compile Include="ActivityType.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Badge.cs">
+      <DependentUpon>EFDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Department.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
@@ -118,6 +121,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Talks.cs">
+      <DependentUpon>EFDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserBadge.cs">
       <DependentUpon>EFDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserDuration.cs">

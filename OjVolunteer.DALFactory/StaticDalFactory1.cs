@@ -38,6 +38,12 @@ namespace OjVolunteer.DALFactory
 				as IActivityTypeDal;
 		}
 	
+		public static IBadgeDal GetBadgeDal()
+		{
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".BadgeDal")
+				as IBadgeDal;
+		}
+	
 		public static IDepartmentDal GetDepartmentDal()
 		{
 			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".DepartmentDal")
@@ -78,6 +84,12 @@ namespace OjVolunteer.DALFactory
 		{
 			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".TalksDal")
 				as ITalksDal;
+		}
+	
+		public static IUserBadgeDal GetUserBadgeDal()
+		{
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".UserBadgeDal")
+				as IUserBadgeDal;
 		}
 	
 		public static IUserDurationDal GetUserDurationDal()

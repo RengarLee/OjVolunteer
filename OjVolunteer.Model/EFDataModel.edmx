@@ -58,6 +58,17 @@
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
         </EntityType>
+        <EntityType Name="Badge">
+          <Key>
+            <PropertyRef Name="BadgeID" />
+          </Key>
+          <Property Name="BadgeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BadgeName" Type="varchar" MaxLength="50" />
+          <Property Name="Staus" Type="smallint" Nullable="false" />
+          <Property Name="Remark" Type="varchar" MaxLength="100" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="ImgSrc" Type="varchar" MaxLength="200" />
+        </EntityType>
         <EntityType Name="Department">
           <Key>
             <PropertyRef Name="DepartmentID" />
@@ -150,6 +161,16 @@
           <Property Name="Status" Type="smallint" Nullable="false" />
           <Property Name="OrganizeInfoID" Type="int" />
           <Property Name="TalkImagePath" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="UserBadge">
+          <Key>
+            <PropertyRef Name="UserBadgeID" />
+          </Key>
+          <Property Name="UserBadgeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserInfoID" Type="int" Nullable="false" />
+          <Property Name="BadgeID" Type="int" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="Staus" Type="smallint" />
         </EntityType>
         <EntityType Name="UserDuration">
           <Key>
@@ -339,6 +360,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserBadge_Badge">
+          <End Role="Badge" Type="Self.Badge" Multiplicity="1" />
+          <End Role="UserBadge" Type="Self.UserBadge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Badge">
+              <PropertyRef Name="BadgeID" />
+            </Principal>
+            <Dependent Role="UserBadge">
+              <PropertyRef Name="BadgeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBadge_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserBadge" Type="Self.UserBadge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoID" />
+            </Principal>
+            <Dependent Role="UserBadge">
+              <PropertyRef Name="UserInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserDuration_UserDuration">
           <End Role="UserDuration" Type="Self.UserDuration" Multiplicity="1" />
           <End Role="UserDuration1" Type="Self.UserDuration" Multiplicity="0..1" />
@@ -391,6 +436,7 @@
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActivityDetail" EntityType="Self.ActivityDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActivityType" EntityType="Self.ActivityType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Badge" EntityType="Self.Badge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Favors" EntityType="Self.Favors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Integrals" EntityType="Self.Integrals" Schema="dbo" store:Type="Tables" />
@@ -398,6 +444,7 @@
           <EntitySet Name="OrganizeInfo" EntityType="Self.OrganizeInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Political" EntityType="Self.Political" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Talks" EntityType="Self.Talks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserBadge" EntityType="Self.UserBadge" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDuration" EntityType="Self.UserDuration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserEnroll" EntityType="Self.UserEnroll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
@@ -444,6 +491,14 @@
           <AssociationSet Name="FK_Talks_UserInfo" Association="Self.FK_Talks_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Talks" EntitySet="Talks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBadge_Badge" Association="Self.FK_UserBadge_Badge">
+            <End Role="Badge" EntitySet="Badge" />
+            <End Role="UserBadge" EntitySet="UserBadge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBadge_UserInfo" Association="Self.FK_UserBadge_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserBadge" EntitySet="UserBadge" />
           </AssociationSet>
           <AssociationSet Name="FK_UserDuration_UserDuration" Association="Self.FK_UserDuration_UserDuration">
             <End Role="UserDuration" EntitySet="UserDuration" />
@@ -559,6 +614,16 @@
           <AssociationSet Name="FK_UserDuration_UserDuration" Association="OjVolunteerModel.FK_UserDuration_UserDuration">
             <End Role="UserDuration" EntitySet="UserDuration" />
             <End Role="UserDuration1" EntitySet="UserDuration" />
+          </AssociationSet>
+          <EntitySet Name="Badge" EntityType="OjVolunteerModel.Badge" />
+          <EntitySet Name="UserBadge" EntityType="OjVolunteerModel.UserBadge" />
+          <AssociationSet Name="FK_UserBadge_Badge" Association="OjVolunteerModel.FK_UserBadge_Badge">
+            <End Role="Badge" EntitySet="Badge" />
+            <End Role="UserBadge" EntitySet="UserBadge" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBadge_UserInfo" Association="OjVolunteerModel.FK_UserBadge_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserBadge" EntitySet="UserBadge" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Activity">
@@ -802,6 +867,7 @@
           <NavigationProperty Name="UpdatePolitical" Relationship="OjVolunteerModel.FK_UserInfo_UpdatePolitical" FromRole="UserInfo" ToRole="Political" />
           <Property Name="OrganizeInfoID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="OrganizeInfo" Relationship="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" FromRole="UserInfo" ToRole="OrganizeInfo" />
+          <NavigationProperty Name="UserBadge" Relationship="OjVolunteerModel.FK_UserBadge_UserInfo" FromRole="UserInfo" ToRole="UserBadge" />
         </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Type="OjVolunteerModel.OrganizeInfo" Multiplicity="0..1" Role="OrganizeInfo" />
@@ -1043,6 +1109,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Badge">
+          <Key>
+            <PropertyRef Name="BadgeID" />
+          </Key>
+          <Property Name="BadgeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BadgeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Staus" Type="Int16" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="ImgSrc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserBadge" Relationship="OjVolunteerModel.FK_UserBadge_Badge" FromRole="Badge" ToRole="UserBadge" />
+        </EntityType>
+        <EntityType Name="UserBadge">
+          <Key>
+            <PropertyRef Name="UserBadgeID" />
+          </Key>
+          <Property Name="UserBadgeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserInfoID" Type="Int32" Nullable="false" />
+          <Property Name="BadgeID" Type="Int32" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="Staus" Type="Int16" />
+          <NavigationProperty Name="Badge" Relationship="OjVolunteerModel.FK_UserBadge_Badge" FromRole="UserBadge" ToRole="Badge" />
+          <NavigationProperty Name="UserInfo" Relationship="OjVolunteerModel.FK_UserBadge_UserInfo" FromRole="UserBadge" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_UserBadge_Badge">
+          <End Type="OjVolunteerModel.Badge" Role="Badge" Multiplicity="1" />
+          <End Type="OjVolunteerModel.UserBadge" Role="UserBadge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Badge">
+              <PropertyRef Name="BadgeID" />
+            </Principal>
+            <Dependent Role="UserBadge">
+              <PropertyRef Name="BadgeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBadge_UserInfo">
+          <End Type="OjVolunteerModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="OjVolunteerModel.UserBadge" Role="UserBadge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="UserInfoID" />
+            </Principal>
+            <Dependent Role="UserBadge">
+              <PropertyRef Name="UserInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1264,6 +1378,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="Badge">
+            <EntityTypeMapping TypeName="OjVolunteerModel.Badge">
+              <MappingFragment StoreEntitySet="Badge">
+                <ScalarProperty Name="ImgSrc" ColumnName="ImgSrc" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Staus" ColumnName="Staus" />
+                <ScalarProperty Name="BadgeName" ColumnName="BadgeName" />
+                <ScalarProperty Name="BadgeID" ColumnName="BadgeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBadge">
+            <EntityTypeMapping TypeName="OjVolunteerModel.UserBadge">
+              <MappingFragment StoreEntitySet="UserBadge">
+                <ScalarProperty Name="Staus" ColumnName="Staus" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="BadgeID" ColumnName="BadgeID" />
+                <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
+                <ScalarProperty Name="UserBadgeID" ColumnName="UserBadgeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

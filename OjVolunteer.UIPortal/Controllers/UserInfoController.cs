@@ -26,7 +26,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public IMajorService MajorService { get; set; }
         public IDepartmentService DepartmentService { get; set; }
         public ITalksService TalksService { get; set; }
-
+        public IUserBadgeService UserBadgeService { get; set; }
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Index()
         { 
@@ -495,5 +495,19 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 五小时义工提示
+        public JsonResult FiftyHours()
+        {
+            String msg = "fail";
+            UserBadge userBadge = UserBadgeService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.BadgeID == 1).FirstOrDefault();
+            if (userBadge != null && LoginUser.UserInfoLastTime < userBadge.CreateTime)
+            {
+                msg = "success";
+            }
+            LoginUser.UserInfoLastTime = DateTime.Now;
+            UserInfoService.Update(LoginUser);
+            return Json(new { msg }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

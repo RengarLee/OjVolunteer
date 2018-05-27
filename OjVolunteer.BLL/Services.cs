@@ -35,6 +35,14 @@ namespace OjVolunteer.BLL
         } 
 	}
 	
+	public partial class BadgeService:BaseService<Badge>,IBadgeService 
+    {
+		public override void SetCurrentDal()
+        {
+            CurrentDal = DbSession.BadgeDal;
+        } 
+	}
+	
 	public partial class DepartmentService:BaseService<Department>,IDepartmentService 
     {
 		public override void SetCurrentDal()
@@ -88,6 +96,14 @@ namespace OjVolunteer.BLL
 		public override void SetCurrentDal()
         {
             CurrentDal = DbSession.TalksDal;
+        } 
+	}
+	
+	public partial class UserBadgeService:BaseService<UserBadge>,IUserBadgeService 
+    {
+		public override void SetCurrentDal()
+        {
+            CurrentDal = DbSession.UserBadgeDal;
         } 
 	}
 	

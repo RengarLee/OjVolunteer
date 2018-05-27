@@ -20,6 +20,10 @@ namespace OjVolunteer.IBLL
     {
     }
 	
+    public partial interface IBadgeService:IBaseService<Badge>
+    {
+    }
+	
     public partial interface IDepartmentService:IBaseService<Department>
     {
     }
@@ -45,6 +49,10 @@ namespace OjVolunteer.IBLL
     }
 	
     public partial interface ITalksService:IBaseService<Talks>
+    {
+    }
+	
+    public partial interface IUserBadgeService:IBaseService<UserBadge>
     {
     }
 	

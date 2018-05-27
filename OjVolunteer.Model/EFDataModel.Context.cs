@@ -38,5 +38,7 @@ namespace OjVolunteer.Model
         public virtual DbSet<UserDuration> UserDuration { get; set; }
         public virtual DbSet<UserEnroll> UserEnroll { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
+        public virtual DbSet<Badge> Badge { get; set; }
+        public virtual DbSet<UserBadge> UserBadge { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace OjVolunteer.BLL
 {
     public partial class ActivityService
     {
+        //private BadgeService BadgeService = new BadgeService();
         public Boolean AddTime(int actId)
         {
             bool flag = false;
@@ -37,7 +38,20 @@ namespace OjVolunteer.BLL
                     if (userDuration.UserDurationPartyTime != null)
                         userDuration.UserDurationPartyTotal = userDuration.UserDurationPartyTotal + (decimal)Enroll.ActivityTime;
                     else if (userDuration.UserDurationPropartyTime != null)
+                    {
                         userDuration.UserDurationPropartyTotal = userDuration.UserDurationPropartyTotal + (decimal)Enroll.ActivityTime;
+                        //50小时义工徽章
+                        if (userDuration.UserDurationPropartyTotal >= 50)
+                        {
+                            UserBadge userBadge = new UserBadge();
+                            //徽章ID
+                            userBadge.BadgeID = 1;
+                            userBadge.UserInfoID = userDuration.UserDurationID;
+                            userBadge.CreateTime = DateTime.Now;
+                            userDuration.Status = delNormal;
+                            DbSession.UserBadgeDal.Add(userBadge);
+                        }
+                    }
                     else
                         userDuration.UserDurationNormalTotal = userDuration.UserDurationNormalTotal + (decimal)Enroll.ActivityTime;
                     DbSession.UserDurationDal.Update(userDuration);

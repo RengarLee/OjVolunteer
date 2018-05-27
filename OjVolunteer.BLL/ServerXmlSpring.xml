@@ -10,6 +10,9 @@
 	<object name="ActivityTypeService" type="OjVolunteer.BLL.ActivityTypeService, OjVolunteer.BLL" singleton="false" >
   </object>
 
+	<object name="BadgeService" type="OjVolunteer.BLL.BadgeService, OjVolunteer.BLL" singleton="false" >
+  </object>
+
 	<object name="DepartmentService" type="OjVolunteer.BLL.DepartmentService, OjVolunteer.BLL" singleton="false" >
   </object>
 
@@ -29,6 +32,9 @@
   </object>
 
 	<object name="TalksService" type="OjVolunteer.BLL.TalksService, OjVolunteer.BLL" singleton="false" >
+  </object>
+
+	<object name="UserBadgeService" type="OjVolunteer.BLL.UserBadgeService, OjVolunteer.BLL" singleton="false" >
   </object>
 
 	<object name="UserDurationService" type="OjVolunteer.BLL.UserDurationService, OjVolunteer.BLL" singleton="false" >

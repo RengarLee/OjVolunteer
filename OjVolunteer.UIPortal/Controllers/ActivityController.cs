@@ -256,7 +256,7 @@ namespace OjVolunteer.UIPortal.Controllers
             var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID, u.ApplyUserInfo }).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                pageData = pageData.Where(u => u.ApplyUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID &&).AsQueryable();
+                pageData = pageData.Where(u => u.ApplyUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
                 //pageData = pageData.Where(u => u.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID&&).AsQueryable();
             }
             var data = new { total = pageData.Count(), rows = pageData.ToList() };

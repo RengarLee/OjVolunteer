@@ -21,6 +21,11 @@ namespace OjVolunteer.DALFactory
 			get { return StaticDalFactory.GetActivityTypeDal(); }
 		}
 		
+		public IBadgeDal BadgeDal
+		{
+			get { return StaticDalFactory.GetBadgeDal(); }
+		}
+		
 		public IDepartmentDal DepartmentDal
 		{
 			get { return StaticDalFactory.GetDepartmentDal(); }
@@ -54,6 +59,11 @@ namespace OjVolunteer.DALFactory
 		public ITalksDal TalksDal
 		{
 			get { return StaticDalFactory.GetTalksDal(); }
+		}
+		
+		public IUserBadgeDal UserBadgeDal
+		{
+			get { return StaticDalFactory.GetUserBadgeDal(); }
 		}
 		
 		public IUserDurationDal UserDurationDal

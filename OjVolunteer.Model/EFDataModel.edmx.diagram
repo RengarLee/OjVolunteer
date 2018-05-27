@@ -38,6 +38,10 @@
         <AssociationConnector Association="OjVolunteerModel.FK_Talks_OrganizeInfo" />
         <AssociationConnector Association="OjVolunteerModel.FK_USERINFO_REFERENCE_ORGANIZE" />
         <AssociationConnector Association="OjVolunteerModel.FK_UserDuration_UserDuration" />
+        <EntityTypeShape EntityType="OjVolunteerModel.Badge" Width="1.5" PointX="4.75" PointY="19.875" />
+        <EntityTypeShape EntityType="OjVolunteerModel.UserBadge" Width="1.5" PointX="7" PointY="17.875" />
+        <AssociationConnector Association="OjVolunteerModel.FK_UserBadge_Badge" />
+        <AssociationConnector Association="OjVolunteerModel.FK_UserBadge_UserInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -24,6 +24,10 @@ namespace OjVolunteer.EFDAL
     {
 	}
 		
+	public partial class BadgeDal:BaseDal<Badge>,IBadgeDal
+    {
+	}
+		
 	public partial class DepartmentDal:BaseDal<Department>,IDepartmentDal
     {
 	}
@@ -49,6 +53,10 @@ namespace OjVolunteer.EFDAL
 	}
 		
 	public partial class TalksDal:BaseDal<Talks>,ITalksDal
+    {
+	}
+		
+	public partial class UserBadgeDal:BaseDal<UserBadge>,IUserBadgeDal
     {
 	}
 		

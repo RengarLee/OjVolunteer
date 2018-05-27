@@ -24,6 +24,7 @@ namespace OjVolunteer.Model
             this.Integrals = new HashSet<Integrals>();
             this.Talks = new HashSet<Talks>();
             this.UserEnroll = new HashSet<UserEnroll>();
+            this.UserBadge = new HashSet<UserBadge>();
         }
     
         public int UserInfoID { get; set; }
@@ -66,5 +67,7 @@ namespace OjVolunteer.Model
         public virtual UserDuration UserDuration { get; set; }
         public virtual Political UpdatePolitical { get; set; }
         public virtual OrganizeInfo OrganizeInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserBadge> UserBadge { get; set; }
     }
 }

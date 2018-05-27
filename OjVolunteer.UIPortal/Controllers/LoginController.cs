@@ -38,8 +38,8 @@ namespace OjVolunteer.UIPortal.Controllers
             var userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == name && u.UserInfoPwd == pwd && u.Status != delDeleted&&u.Status != delInvalid).FirstOrDefault();
             if (userInfo != null)
             {
-                userInfo.UserInfoLastTime = DateTime.Now;
-                UserInfoService.Update(userInfo);
+                //userInfo.UserInfoLastTime = DateTime.Now;
+                //UserInfoService.Update(userInfo);
                 UserToCache(userInfo);
                 return Content("userinfo");
             }
