@@ -68,7 +68,7 @@ namespace OjVolunteer.UIPortal.Controllers
         } 
         #endregion
 
-        #region 活动签到签退
+        #region 列表活动签到签退
         /// <summary>
         /// 活动签到
         /// </summary>
@@ -117,7 +117,31 @@ namespace OjVolunteer.UIPortal.Controllers
                 msg = "fail";
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
-        } 
+        }
+        #endregion
+
+        #region 二维码签到签退
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public JsonResult QrCodeSignIn()
+        {
+            int activityId = Convert.ToInt32(Request["aid"]);
+            string msg = String.Empty;
+            var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+            if (temp !=null)
+            {
+                temp.UserEnrollActivityStart = DateTime.Now;
+                temp.Status = (short)Model.Enum.DelFlagEnum.Auditing;
+                if (UserEnrollService.Update(temp))
+                    msg = "success";
+                else
+                    msg = "fail";
+            }
+            else
+            {
+                msg = "noexist";
+            }
+            return Json(new { msg }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         public ActionResult Edit(int userEnrollId)

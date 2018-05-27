@@ -358,6 +358,7 @@
     <Content Include="Content\oj\js\notification.js" />
     <Content Include="Content\oj\js\npm.js" />
     <Content Include="Content\oj\js\toast.script.js" />
+    <Content Include="Content\qrcode\qrcode.js" />
     <Content Include="Content\Upload\Icon\1.jpg" />
     <Content Include="Content\Upload\Images\1.jpg" />
     <Content Include="Content\Upload\Images\66763879_p0.jpg" />

@@ -12,20 +12,10 @@
 
 </head>
 <body>
-    <button id="add" value="add">添加</button>
-    <form class="layui-form" action="file:///D:/Web/Demo/Demo1.html" id="form"></form>
-    <script>
-        $(function () {
-            alert("TTTT");
-            $("#add").click(function () {
-                var num = parseInt($("div .num:last").val("num"));
-                if (num == null)
-                    num = 0;
-                num = num + 1;
-                $("#form").append("<div class='num' num='"+num+"'>" + num + "</div><button class='del' num'" + num + "'>删除</button>");
-            });
-        });
-
+    <div id="qrcode"></div>
+    <script src="Content/qrcode/qrcode.js"></script>
+    <script type="text/javascript">
+        new QRCode(document.getElementById("qrcode"), "http://192.168.1.104:3492/UserEnroll/QrCodeSignIn/?aid=2");
     </script>
 
 </body>
