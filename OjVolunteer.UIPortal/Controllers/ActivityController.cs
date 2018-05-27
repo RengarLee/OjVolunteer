@@ -63,40 +63,7 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewData.Model = activity;
             return View();
         }
-
-   
-
-        /// <summary>
-        /// 活动申请审核
-        /// </summary>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult ActivityOfAuditing()
-        {
-            return View();
-        }
-        
-        /// <summary>
-        /// 活动申请审核数据
-        /// </summary>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult GetAllActivityOfAuditing()
-        {
-            int pageSize = int.Parse(Request["limit"] ?? "5");
-            int offset = int.Parse(Request["offset"] ?? "0");
-            int pageIndex = (offset / pageSize) + 1;
-            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo,u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum,u.ActivityType.ActivityTypeName,u.CreateTime,u.Status ,u.ActivityManagerID}).AsQueryable();
-            if (LoginOrganize.OrganizeInfoManageId != null)
-            {
-                pageData = pageData.Where(u => u.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
-            }
-            var data = new { total = pageData.Count(), rows = pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
         #region 活动信息管理
-
         public ActionResult ActivityManager()
         {
             return View();
@@ -188,14 +155,14 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             return Json(msg, JsonRequestBehavior.AllowGet);
         }
-        #endregion
+
 
         ///活动负责人确定活动完成
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public JsonResult ActAcc()
         {
             string msg = String.Empty;
-            int ActId =Convert.ToInt32(Request["aId"]);
+            int ActId = Convert.ToInt32(Request["aId"]);
             int UserId = LoginUser.UserInfoID;
             Activity activity = ActivityService.GetEntities(u => u.Status == delUndone && u.ActivityManagerID == UserId).FirstOrDefault();
             if (activity == null)
@@ -215,12 +182,49 @@ namespace OjVolunteer.UIPortal.Controllers
                     msg = "fail";
                 }
             }
-            return Json(new { msg}) ;
+            return Json(new { msg });
+        }
+
+        public JsonResult ActAccPassed()
+        {
+            int actId = Convert.ToInt32(Request["aId"]);
+            return Json(new { });
         }
 
         #endregion
-     
-        #region Edit
+
+
+        #region 活动申请审核
+
+        /// <summary>
+        /// 活动申请审核
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult ActivityOfAuditing()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 活动申请审核数据
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult GetAllActivityOfAuditing()
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID, u.ApplyUserInfo }).AsQueryable();
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                pageData = pageData.Where(u => u.ApplyUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID &&).AsQueryable();
+                //pageData = pageData.Where(u => u.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID&&).AsQueryable();
+            }
+            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }      
 
         /// <summary>
         /// 批量同意活动申请
@@ -249,16 +253,6 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Content("fail");
             }
         }
-
-        public JsonResult ActAccPassed()
-        {
-            int actId = Convert.ToInt32(Request["aId"]);
-            return Json(new { });
-        }
-
-        #endregion
-
-        #region Delete
 
         /// <summary>
         /// 批量删除申请的活动
@@ -289,6 +283,8 @@ namespace OjVolunteer.UIPortal.Controllers
 
         }
         #endregion
+
+
 
         #region 义工浏览义工商场
         /// <summary>
