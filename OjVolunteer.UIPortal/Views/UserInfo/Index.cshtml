@@ -1,172 +1,106 @@
-﻿@model OjVolunteer.Model.UserInfo
-
-@{
-    Layout = null;
+﻿@{
+    Layout = "~/Views/Shared/User_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>瓯江义工网</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/oj/css/iconfont.css" rel="stylesheet" />
-    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
-    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
-</head>
-<body>
-    <header>
-        <nav class="top">
-            <p>首页</p>
-        </nav>
-        <!--轮播图-->>
-        <nav class="ad clearfix">
-            <div class="layui-carousel" id="ad-img">
-                <div carousel-item>
-                    <div>这里用一个img放第一个图</div>
-                    <div>这里用一个img放第二个图</div>
-                    <div>这里用一个img放第三个图</div>
-                </div>
-            </div>
-        </nav>
-        <div class="icons clearfix">
-            <ul class="icons-row">
-                <li>
-                    <a href="~/Activity/List"><i class="iconfont icon-huodong"></i></a><span>查看活动</span>
-                </li>
-                <li>
-                    <a href="/Talks/Add"><i class="iconfont icon-paixingbang"></i></a><span>发表心得</span>
-                </li>
-                <li>
-                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
-                </li>
-                <li>
-                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
-                </li>
-                <li>
-                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
-                </li>
-                <li>
-                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
-                </li>
-                <li>
-                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
-                </li>
-                <li>
-                    <a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span>
-                </li>
 
-            </ul>
-        </div>
-    </header>
-    <!-- 首页的主要内容 -->
-    <div class="hot-action">
-        <section class="action clearfix">
-            <!-- 清除了浮动 -->
-            <div class="userinfo">
-                <span class="ac-userimg">
-                    <img src="images/1.jpg">
-                </span>
-                <span class="ac-username">
-                    李华伟
-                </span>
-            </div>
-
-            <div class="ac-left">
-                <h4 class="ac-title">1月13日（星期六下午）在温大北校区7号楼打扫</h4>
-                <div class="ac-time">
-                    <p>
-                        时间：2018-1-13日 13:30-16:00
-                        <br>
-                        截止2018-1-6日 已经<span>1</span>人报名
-                    </p>
-                </div>
-            </div>
-            <div class="ac-right">
-                <img src="images/acimg.png">
-            </div>
-        </section>
-        <section class="action clearfix">
-            <!-- 清除了浮动 -->
-            <div class="userinfo">
-                <span class="ac-userimg">
-                    <img src="images/1.jpg">
-                </span>
-                <span class="ac-username">
-                    李华伟
-                </span>
-            </div>
-
-            <div class="ac-left">
-                <h4 class="ac-title">1月13日（星期六下午）在温大北校区7号楼打扫</h4>
-                <div class="ac-time">
-                    <p>
-                        时间：2018-1-13日 13:30-16:00
-                        <br>
-                        截止2018-1-6日 已经<span>1</span>人报名
-                    </p>
-                </div>
-            </div>
-            <div class="ac-right">
-                <img src="images/acimg.png">
-            </div>
-        </section>
-        <section class="action clearfix">
-            <!-- 清除了浮动 -->
-            <div class="userinfo">
-                <span class="ac-userimg">
-                    <img src="images/1.jpg">
-                </span>
-                <span class="ac-username">
-                    李华伟
-                </span>
-            </div>
-
-            <div class="ac-left">
-                <h4 class="ac-title">1月13日（星期六下午）在温大北校区7号楼打扫</h4>
-                <div class="ac-time">
-                    <p>
-                        时间：2018-1-13日 13:30-16:00
-                        <br>
-                        截止2018-1-6日 已经<span>1</span>人报名
-                    </p>
-                </div>
-            </div>
-            <div class="ac-right">
-                <img src="images/acimg.png">
-            </div>
-        </section>
-    </div>
-    <footer></footer>
-    <!-- 下边导航组件 -->
-    <nav class="navbt">
-        <a href="" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
-        <a href="" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
-        <a href="/UserInfo/Index" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span>首页</span></a>
-        <a href="/Talks/List" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
-        <a href="/UserInfo/UserInfoSimple/@Model.UserInfoID" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
+<header>
+    <nav class="top">
+        <p>首页</p>
     </nav>
-    <!-- 侧边栏组件 -->
-    <div class="topback" id="topback">
-        <i class="iconfont icon-less"></i>
+    <!-- 轮播图 -->
+    <nav class="ad clearfix">
+        <div class="layui-carousel" id="ad-img">
+            <div carousel-item>
+                <div><img src="images/acmoreimg.jpg"></div>
+                <div><img src="images/acimg.png" alt="" /></div>
+                <div>条目3</div>
+            </div>
+        </div>
+    </nav>
+    <div class="icons clearfix">
+        <!-- 清除了浮动 -->
+        <ul class="icons-row">
+            <li><a href="Release.html"><i class="iconfont icon-huodong"></i></a><span>发起活动</span></li>
+            <li><a href="#"><i class="iconfont icon-paixingbang"></i></a><span>义工排行</span></li>
+            <li><a href="#"><i class="iconfont icon-scanning"></i></a><span>扫码签到</span></li>
+            <li><a href="#"><i class="iconfont icon-huodong"></i></a><span>发起活动</span></li>
+        </ul>
     </div>
-    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
-    <script src="~/Content/oj/js/bootstrap.min.js"></script>
-    <script src="~/Content/layui/layui.all.js"></script>
-    <script src="~/Content/oj/js/main.js"></script>
-    <script>
-        layui.use('carousel', function () {
-            var carousel = layui.carousel;
-            //建造实例
-            carousel.render({
-                elem: '#ad-img'
-                , width: '100%' //设置容器宽度
-                , arrow: 'always' //始终显示箭头
-                , height: '200px'  //设置高度
-                , arrow: 'always'  //两个圆形箭头一直存在
-                , indicator: 'none'  //去掉了下面的圆点
-            });
-        });
-    </script>
-</body>
-</html>
+</header>
+<!-- 首页的主要内容 -->
+<div class="hot-action">
+    <section class="action clearfix">
+        <!-- 清除了浮动 -->
+        <div class="userinfo">
+            <span class="ac-userimg">
+                <img src="images/1.jpg">
+            </span>
+            <span class="ac-username">
+                李华伟
+            </span>
+        </div>
+
+        <div class="ac-left">
+            <a class="ac-title" href="#">1月13日（星期六下午）在温大北校区7号楼打扫</a>
+            <div class="ac-time">
+                <p>
+                    时间：2018-1-13日 13:30-16:00
+                    <br>
+                    截止2018-1-6日 已经<span>1</span>人报名
+                </p>
+            </div>
+        </div>
+        <div class="ac-right">
+            <img src="images/acimg.png">
+        </div>
+    </section>
+    <section class="action clearfix">
+        <!-- 清除了浮动 -->
+        <div class="userinfo">
+            <span class="ac-userimg">
+                <img src="images/1.jpg">
+            </span>
+            <span class="ac-username">
+                李华伟
+            </span>
+        </div>
+
+        <div class="ac-left">
+            <a class="ac-title" href="#">1月13日（星期六下午）在温大北校区7号楼打扫</a>
+            <div class="ac-time">
+                <p>
+                    时间：2018-1-13日 13:30-16:00
+                    <br>
+                    截止2018-1-6日 已经<span>1</span>人报名
+                </p>
+            </div>
+        </div>
+        <div class="ac-right">
+            <img src="images/acimg.png">
+        </div>
+    </section>
+    <section class="action clearfix">
+        <!-- 清除了浮动 -->
+        <div class="userinfo">
+            <span class="ac-userimg">
+                <img src="images/1.jpg">
+            </span>
+            <span class="ac-username">
+                李华伟
+            </span>
+        </div>
+
+        <div class="ac-left">
+            <a class="ac-title" href="#">1月13日（星期六下午）在温大北校区7号楼打扫</a>
+            <div class="ac-time">
+                <p>
+                    时间：2018-1-13日 13:30-16:00
+                    <br>
+                    截止2018-1-6日 已经<span>1</span>人报名
+                </p>
+            </div>
+        </div>
+        <div class="ac-right">
+            <img src="images/acimg.png">
+        </div>
+    </section>
+</div>

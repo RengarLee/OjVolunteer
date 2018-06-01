@@ -114,18 +114,29 @@ a:active{
 	header .ad{
 		width: 96%;
 		height: 200px;
-		margin: 0px auto;
-		margin-top: 50px;
+		margin: 10px auto;
+		margin-top: 60px;
+	}
+	header .ad img{
+		width: 100%;
+		height: 200px;
 	}
 	/*图标导航部分*/
 	header .icons{
 		padding: 10px 15px 10px;
-        margin-bottom:20px;
 	}
 	header .icons .icons-row{
 		margin: 0 auto;
 		text-align: center;
 	}
+	.icon-huodong,
+	.icon-paixingbang,
+	.icon-scanning{
+		font-size: 40px;
+		color: #C62F2F;
+		vertical-align: middle;
+	}
+	
 	/*这里宽度设置了25%，可以让每排四个图标平均分配*/
 	header .icons .icons-row li{
 		width: 25%;
@@ -133,21 +144,13 @@ a:active{
 		margin-bottom: 15px;
 	}
 	header .icons .icons-row li a{
-		width: 45px;
-		height: 45px;
+		width: 40px;
+		height: 40px;
 		margin: 0 auto;
 		text-align: center;
 		line-height: 55px;
 		display: block;
 	}
-
-    .icon-huodong,
-    .icon-paixingbang,
-    .icon-scanning {
-        font-size: 40px;
-        color: #C62F2F;
-        vertical-align: middle;
-    }
 	header .icons .icons-row li span{
 		display: block;
 		width: 100%;
@@ -158,7 +161,7 @@ a:active{
 	/*主要内容部分*/
 	.hot-action{
 		margin-bottom: 70px;
-		margin-top: -30px;
+		margin-top: -10px;
 	}
 	.hot-action .kinds{
 		margin-left: 15px;
@@ -236,16 +239,15 @@ a:active{
 		font-size: 25px;
 		color: #000000;
 	}
-    .this-icon {
-    color: #C62F2F !important;
-    }
+	.this-icon{
+		color: #C62F2F !important;
+	}
+
 	.navbt .btBar span{
 		margin-top: 5px;
 		margin-bottom: 5px;
 		font-size: 12px;
 	}
-
-
 /*登录界面样式*/
 	/*由于导航栏有50px高所以下面的元素至少要有50px的上边距*/
 	.login-content{
@@ -280,11 +282,11 @@ a:active{
 		margin-bottom: 20px;
 		display: block;
 	}
-    .select-item {
-        margin: 0 auto;
-        width: 250px;
-        margin-bottom: 20px;
-    }
+	.select-item{
+		margin: 0 auto;
+		width: 250px;
+		margin-bottom: 20px;
+	}
 	.btn{
 		width: 250px;
 	}
@@ -295,7 +297,6 @@ a:active{
 	.tips{
 		margin-left: -200px;
 	}
-
 /*个人中心界面样式*/
 	.usertitle{
 		margin: 0 auto;
@@ -322,6 +323,7 @@ a:active{
 	}
 	.usertitle .info-name h3{
 		font-weight: bold;
+		margin-bottom: 15px;
 	}
 	.usertitle .info-name p{
 		color: #999;
@@ -384,6 +386,9 @@ a:active{
 		color: #C62F2F;
 	}
 	/*非第一名样式*/
+	.untop{
+
+	}
 	.untop .untop-item{
 		padding-top: 5px;
 		padding-left: 10px;
@@ -434,31 +439,32 @@ a:active{
 
 /*活动界面样式*/
 	/*活动类型选择栏*/
+	.action-bg{
+		background-color: #FAFAFA;
+	}
 	.classnav{
-		margin-top: 50px;
+		margin: 0 auto;
+		margin-top: 55px;
+		text-align:center; ;
 	}
-	/*下面3个改变了妹子UI的基础样式*/
-	.classnav .am-btn{
-		font-size: 1rem;
-		text-align: center;
-	}
-	.classnav .am-selected{
-		width: 100%;
-	}
-	.classnav .am-selected-status{
-		text-align: center;
+	.classnav .layui-form-item{
+		width: 98%;
+		margin: 0 auto;
 	}
 	/*活动列表部分*/
 	.acbox{
-		margin-top: 5px;
 		text-align: center;
+		margin-top: 5px;
+		margin-bottom: 20px;
 	}
 	.ac-list .aclist-box{
 		width: 98%;
-		border:1px solid #eee;
+		border:1px solid #E1E1E2; 
+		border-top: none;
 		margin:0 auto;
 		box-shadow: 0 0 3px #eee;
-		margin-bottom: 5px;
+		margin-bottom: 10px;
+		background-color: #fff;
 	}
 	.ac-list .aclist-box a{
 		display: block;
@@ -467,7 +473,7 @@ a:active{
 		float: left;
 		width: 40%;
 		margin-top: 20px;
-		margin-bottom: 0px;
+		margin-bottom: 20px;
 	}
 	.aclist-box-img img{
 		width: 130px;
@@ -488,12 +494,13 @@ a:active{
 	}
 	.acbox-btn{
 		text-align: right;
+		margin-right: 10px;
 	}
 	.acbox-btn .btn{
-		background-color: #C62F2F;
+		background-color: #237B9F;
 		color: #fff;
 		width: 80px;
-		margin-top: -30px;
+		margin-bottom: 20px;
 	}
 	.ac-bottom{
 		margin-top: -10px;
@@ -567,10 +574,12 @@ a:active{
 	}
 	
 /*义工心得界面样式*/
-	.feel{
-		margin-bottom: 50px;
-		margin-top: 50px;
+	.feelbg{
 		background-color: #eee;
+	}
+	.feel{
+		margin-bottom: 5px;
+		margin-top: 50px;
 	}
 	.feel .feel-list{
 		padding: 0;
@@ -614,7 +623,7 @@ a:active{
 		font-size: 10px;
 	}
 	.feel-item .layui-icon{
-		font-size: 1.5rem;
+		font-size: 1.7rem;
 		position: absolute;
 		right: 5%;
 		top: 20px;
@@ -623,10 +632,27 @@ a:active{
 		color: #666;
 		padding-left: 3px;
 	}
-	/*心得内容*/
-	.fell-item-content{
-		padding: 10px;
+	.yiZan{
+		color: #C62F2F;
 	}
+	.fell-item-content p{
+	}
+
+	.fell-item-imgs {
+	  margin: 0 auto !important;
+	}
+	.fell-item-imgs .box {
+	  padding-bottom: 100%;
+	  width: 100%;
+	  height: 0;
+	  position: relative;
+	}
+	.fell-item-imgs .box img{
+		width: 95%;
+		height: 95%;
+		position: absolute;
+	}
+
 /*编写义工心得界面样式*/
 	/*导航条部分-不固定*/
 	header .writertop{
@@ -732,6 +758,9 @@ a:active{
 	margin-top: 60px;
 	width: 96%;
 }
+.release .layui-form-label{
+	width: auto;
+}
 .release .btn-item{
 	margin-top: 20px;
 }
@@ -748,6 +777,14 @@ a:active{
 	margin: 0 auto;
 	margin-top: 10px;
 }
+.reinfobox-btn{
+	text-align: center;
+	margin-top: 40px;
+}
+.reinfobox .layui-btn{
+	background-color: #C62F2F;
+	width: 60%;
+}
 
 
 	/* 我的活动列表部分*/
@@ -755,21 +792,8 @@ a:active{
 		margin-top: 50px;
 		text-align: center;
 	}
-	.ac-list .aclist-box{
-		width: 98%;
-		border:1px solid #eee;
-		margin:0 auto;
-		box-shadow: 0 0 3px #eee;
-		margin-bottom: 5px;
-	}
 	.ac-list .aclist-box a{
 		display: block;
-	}
-	.aclist-box-img{
-		float: left;
-		width: 40%;
-		margin-top: 20px;
-		margin-bottom: 0px;
 	}
 	.aclist-box-img img{
 		width: 130px;
@@ -788,15 +812,6 @@ a:active{
 	.aclist-box-info .acendtime{
 		font-size: 12px;
 	}
-	.acbox-btn{
-		text-align: right;
-	}
-	.acbox-btn .btn{
-		background-color: #C62F2F;
-		color: #fff;
-		width: 80px;
-		margin-top: -30px;
-	}
 	.ac-bottom{
 		margin-top: -10px;
 		margin-bottom: 50px;
@@ -807,24 +822,30 @@ a:active{
 
 
 /*组件样式*/
+/*点击加载更多*/
+.addMore{
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 60px;
+}
 /*返回顶部组件*/
 .topback{
 	position: fixed;
 	bottom: 60px;
 	right: 10px;
 }
-.topback .icon-less {
-        color: #fff;
-        font-size: 32px;
-        background-color: rgba(0,0,0,0.2);
-    }
+.topback .icon-less{
+	color: #fff;
+	font-size:32px;
+	background-color: rgba(0,0,0,0.2);
+}
 /*返回上一页组件*/
-.header-back {
-    display: block;
-    position: fixed;
-    top: 12px;
-    left: 15px;
-    z-index: 9999;
+.header-back{
+	display: block;
+	position: fixed;
+	top: 12px;
+	left: 15px;
+	z-index: 9999;
 }
 .header-back span{
 	font-size: 20px;
@@ -851,6 +872,35 @@ a:active{
 {
 	color: #eee;
 }
+
+.write-content{
+	position: relative;
+}
+.write-content textarea{
+	height: 400px;
+}
+
+.write-icon{
+	position: absolute;
+	left: 20px;
+	bottom: 20px;
+}
+/*layui框架选择从绿色变成其他颜色*/
+.layui-form-select dl dd.layui-this{
+	background-color: #C62F2F;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* 
 参考数据

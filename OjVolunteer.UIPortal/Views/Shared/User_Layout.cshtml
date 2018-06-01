@@ -1,0 +1,48 @@
+﻿<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/iconfont.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+</head>
+<body>
+    @RenderBody();
+    <footer></footer>
+    <!-- 下边导航组件 -->
+    <nav class="navbt">
+        <a href="toplist.html" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
+        <a href="action.html" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
+        <a href="index.html" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span class="this-icon">首页</span></a>
+        <a href="feel.html" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
+    </nav>
+    <!-- 返回顶部 -->
+    <div class="topback" id="topback">
+        <i class="iconfont icon-less"></i>
+    </div>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+    <script>
+        // 录播图
+        layui.use('carousel', function () {
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#ad-img'
+                , width: '100%' //设置容器宽度
+                , arrow: 'always' //始终显示箭头
+                , height: '200px'  //设置高度
+                , arrow: 'always'  //两个圆形箭头一直存在
+                , indicator: 'none'  //去掉了下面的圆点
+            });
+        });
+    </script>
+</body>
+</html>

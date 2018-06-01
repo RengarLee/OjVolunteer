@@ -348,6 +348,7 @@
     <Content Include="Content\oj\images\icon1.png" />
     <Content Include="Content\oj\images\password.png" />
     <Content Include="Content\oj\images\topback.png" />
+    <Content Include="Content\oj\images\update-img.png" />
     <Content Include="Content\oj\js\admin.js" />
     <Content Include="Content\oj\js\amazeui.min.js" />
     <Content Include="Content\oj\js\bootstrap.js" />
@@ -464,6 +465,7 @@
     <Content Include="Views\Activity\OrgSeeDetails.cshtml" />
     <Content Include="Views\Activity\Participants.cshtml" />
     <Content Include="Views\UserEnroll\Edit.cshtml" />
+    <Content Include="Views\Shared\User_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
