@@ -17,9 +17,9 @@
     <nav class="navbt">
         <a href="toplist.html" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
         <a href="action.html" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
-        <a href="index.html" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span class="this-icon">首页</span></a>
+        <a href="index.html" class="btBar"><i class="iconfont icon-zhuye @RenderSection("Index_i",false)"></i><span class="@RenderSection("Index_s",false)">首页</span></a>
         <a href="feel.html" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
-        <a href="/UserInfo/Self" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
+        <a href="/UserInfo/Self" class="btBar"><i class="iconfont icon-account  @RenderSection("Self_i",false)"></i><span class="@RenderSection("Self_s",false)">个人中心</span></a>
     </nav>
     <!-- 返回顶部 -->
     <div class="topback" id="topback">
