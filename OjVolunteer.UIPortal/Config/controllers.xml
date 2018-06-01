@@ -13,6 +13,7 @@
     <property name="MajorService" ref="MajorService" ></property>
     <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
     <property name="TalksService" ref="TalksService" ></property>
+    <property name="UserBadgeService" ref="UserBadgeService" ></property>
   </object>
   
   <object type="OjVolunteer.UIPortal.Controllers.OrganizeInfoController, OjVolunteer.UIPortal" singleton="false" >

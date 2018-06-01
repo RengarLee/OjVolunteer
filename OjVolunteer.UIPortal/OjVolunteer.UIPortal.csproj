@@ -466,6 +466,7 @@
     <Content Include="Views\Activity\Participants.cshtml" />
     <Content Include="Views\UserEnroll\Edit.cshtml" />
     <Content Include="Views\Shared\User_Layout.cshtml" />
+    <Content Include="Views\UserInfo\Self.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

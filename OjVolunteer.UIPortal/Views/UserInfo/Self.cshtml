@@ -1,0 +1,88 @@
+﻿@model OjVolunteer.Model.UserInfo
+
+@{
+    Layout = "~/Views/Shared/User_Layout.cshtml";
+}
+
+    <header>
+        <nav class="top">
+            <p>个人中心</p>
+        </nav>
+    </header>
+    <div class="usertitle clearfix">
+        <div class="info-img">
+            <img src="@Model.UserInfoIcon" id="myimg" name="UserInfoIcon">
+        </div>
+        <div class="info-name">
+            <h3>@Model.UserInfoShowName</h3>
+            <p>
+                所属院校：<i>@Model.Department.DepartmentName</i>
+                <br>
+                义工总时长： <i>@ViewBag.Duration 小时</i>
+            </p>
+        </div>
+    </div>
+
+    <div class="baseinfo">
+        <ul class="info-list">
+            <li class="info-item">
+                <a href="myfeel.html" class="clearfix">
+                    <i class="iconfont icon-edit"></i>
+                    <span>我的心得</span>
+                </a>
+            </li>
+
+            <li class="info-item">
+                <a href="myaction.html" class="clearfix">
+                    <i class="iconfont icon-compass"></i>
+                    <span>参与活动</span>
+                </a>
+            </li>
+
+            <li class="info-item">
+                <a href="reinfo.html" class="clearfix">
+                    <img src="~/Content/oj/images/password.png" />
+                    <span>修改信息</span>
+                </a>
+            </li>
+
+            <li class="info-item">
+                <a href="#" class="clearfix">
+                    <img src="~/Content/oj/images/password.png" />
+                    <span>我的徽章</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="userout">
+        <a href="/UserInfo/Exit" class="btn btn-danger">退出</a>
+    </div>
+
+@section Script{
+    <script type="text/javascript">
+            layui.use('upload', function () {
+                var upload = layui.upload;
+                var uploadInst = upload.render({
+                    elem: '#myimg' 
+                    , url: '/UserInfo/UploadIcon' 
+                    , accept: 'images'
+                    , done: function (res) {
+                        if (res["msg"] == "fail") {
+                            alert("头像更换失败，请稍后再试");
+                        } else {
+                            $("#myimg").attr("src", res["src"]);
+                            alert("头像更新成功");
+                        }
+                    }
+                    , error: function () {
+                        alert("头像更换失败，请稍后再试")
+                    }
+                });
+            });
+    </script>
+}
+
+
+
+
+

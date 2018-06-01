@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>瓯江义工网</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/iconfont.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
@@ -19,7 +19,7 @@
         <a href="action.html" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
         <a href="index.html" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span class="this-icon">首页</span></a>
         <a href="feel.html" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
-        <a href="" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
+        <a href="/UserInfo/Self" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
     </nav>
     <!-- 返回顶部 -->
     <div class="topback" id="topback">
@@ -44,5 +44,6 @@
             });
         });
     </script>
+    @RenderSection("Script",false)
 </body>
 </html>

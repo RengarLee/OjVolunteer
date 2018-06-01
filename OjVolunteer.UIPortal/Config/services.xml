@@ -24,4 +24,6 @@
   </object>
   <object name="FavorsService" type="OjVolunteer.BLL.FavorsService, OjVolunteer.BLL" singleton="false" >
   </object>
+  <object name="UserBadgeService" type="OjVolunteer.BLL.UserBadgeService, OjVolunteer.BLL" singleton="false" >
+  </object>
 </objects>

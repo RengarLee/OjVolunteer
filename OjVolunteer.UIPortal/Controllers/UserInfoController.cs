@@ -1,4 +1,5 @@
-﻿using OjVolunteer.IBLL;
+﻿using OjVolunteer.BLL;
+using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.Model.Enum;
 using OjVolunteer.Model.Param;
@@ -28,9 +29,10 @@ namespace OjVolunteer.UIPortal.Controllers
         public IDepartmentService DepartmentService { get; set; }
         public ITalksService TalksService { get; set; }
         public IUserBadgeService UserBadgeService { get; set; }
+
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Index()
-        { 
+        {
             return View();
         }
 
@@ -111,32 +113,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 用户获得用户信息
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public ActionResult UserInfo(int Id)
-        {
-            bool isSelf = LoginUser.UserInfoID == Id ? true : false;
-            UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
-            if (userDuration != null)
-            {
-                ViewData["UserDuration"] = userDuration;
-            }
-            ViewBag.isSelf = isSelf;
-            if (isSelf)
-            {
-                return View(LoginUser);
-            }
-            else
-            {
-                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == Id && u.Status == delNormal).FirstOrDefault();
-                if (user == null)
-                {
-                    return View("Shared/Error.cshtml");
-                }
-                return View(user);
-            }
-        } 
-        #endregion
+        
 
         #region 义工政治面貌审核
         /// <summary>
@@ -234,7 +211,48 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 用户获得用户信息
+        /// <summary>
+        /// 义工查看个人中心
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult Self()
+        {
+            ViewBag.Duration = UserDurationService.GetEntities(u => u.UserDurationID == LoginUser.UserInfoID).FirstOrDefault().UserDurationTotal;
+            ViewData.Model = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+            return View();
+        }
+
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult UserInfo(int Id)
+        {
+            bool isSelf = LoginUser.UserInfoID == Id ? true : false;
+            UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
+            if (userDuration != null)
+            {
+                ViewData["UserDuration"] = userDuration;
+            }
+            ViewBag.isSelf = isSelf;
+            if (isSelf)
+            {
+                return View(LoginUser);
+            }
+            else
+            {
+                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == Id && u.Status == delNormal).FirstOrDefault();
+                if (user == null)
+                {
+                    return View("Shared/Error.cshtml");
+                }
+                return View(user);
+            }
+        }
+        #endregion
+
         #region 修改信息
+
+
 
         /// <summary>
         /// 头像上传
@@ -254,6 +272,7 @@ namespace OjVolunteer.UIPortal.Controllers
             file.SaveAs(Request.MapPath(fileName));
             UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
             userInfo.UserInfoIcon = fileName;
+            userInfo.ModfiedOn = DateTime.Now;
 
             if (UserInfoService.Update(userInfo))
             {
@@ -515,11 +534,11 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 退出操作
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Exit()
         {
             Response.Cookies["userLoginId"].Value = String.Empty;
-            return Redirect("/Login/index");
+            return Redirect("/Login/");
         }
         #endregion
 
