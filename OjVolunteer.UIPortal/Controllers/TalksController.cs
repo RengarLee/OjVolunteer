@@ -4,8 +4,10 @@ using OjVolunteer.Model.Param;
 using OjVolunteer.Model.ViewModel;
 using OjVolunteer.UIPortal.Filters;
 using OjVolunteer.UIPortal.Models;
+using Spring.Web.Support;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -343,7 +345,8 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 发布心得
-        public ActionResult Add()
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult Create()
         {
             Talks talks = new Talks
             {
@@ -361,19 +364,21 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Talks talks)
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult Create(Talks talks)
         {
-            //Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
-            //if (!regex.IsMatch(talks.TalkContent))
-            //{
-            //    return Content("alert");
-            //}
+            if (talks.TalkContent.Length > 140 || talks.TalkContent.Length < 5)
+            {
+                return Content("fail");
+            }
+            talks.UserInfoID = LoginUser.UserInfoID;
+            talks.TalkFavorsNum = 0;
             talks.CreateTime = DateTime.Now;
             talks.ModfiedOn = DateTime.Now;
             talks.Status = delAuditing;
-            talks.TalkFavorsNum = 0;
-
-            if (TalksService.Update(talks))
+            talks.OrganizeInfoID = LoginUser.OrganizeInfoID;
+            talks.TalkImagePath = Request["path"];
+            if (TalksService.Add(talks)!=null)
             {
                 return Content("success");
             }
@@ -387,23 +392,29 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 心得图片上传
         /// </summary>
         public ActionResult UploadImage()
-        {
-            var file = Request.Files["file"];
-            int id = Convert.ToInt32(Request["id"]);
-            String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultTalkImagesSavePath"];
-            string path = "/Content/Upload/TalkImages/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + id + "/";
-            string dirPath = Request.MapPath(path);
-            if (!Directory.Exists(dirPath))
+        {         
+            try
             {
-                Directory.CreateDirectory(dirPath);
-                Talks talks = TalksService.GetEntities(u => u.TalkID == id).FirstOrDefault();
-                talks.TalkImagePath = path;
-                TalksService.Update(talks);
+                String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultTalkImagesSavePath"];
+                var file = Request.Files["imagefile"];
+                string path = Request["path"];
+                if (String.IsNullOrEmpty(path))
+                {
+                    path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + Common.Encryption.MD5Helper.Get_MD5(DateTime.Now.Millisecond.ToString()).Substring(0, 10)+"/";
+                }
+                string dirPath = Request.MapPath(path);
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                }
+                string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName+".jpg";
+                file.SaveAs(Request.MapPath(fileName));
+                return Json(new { src = fileName, msg = "success", path = path }, JsonRequestBehavior.AllowGet);
             }
-            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
-            file.SaveAs(Request.MapPath(fileName));
-            return Json(new { src = fileName, msg = "ok" }, JsonRequestBehavior.AllowGet);
-
+            catch
+            {
+                return Json(new {  msg = "fail" }, JsonRequestBehavior.AllowGet);
+            }
         }
         
         #endregion

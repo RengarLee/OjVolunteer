@@ -374,6 +374,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="Scripts\App\MobileImageUpload.js" />
     <Content Include="Scripts\bootstrap-table-filter-control.js" />
     <Content Include="Scripts\bootstrap-table-zh-CN.js" />
     <Content Include="Scripts\bootstrap-table.js" />
@@ -469,6 +470,7 @@
     <Content Include="Views\UserInfo\Self.cshtml" />
     <Content Include="Views\UserInfo\Other.cshtml" />
     <Content Include="Views\Talks\TalksOfUser.cshtml" />
+    <Content Include="Views\Talks\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
