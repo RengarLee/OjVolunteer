@@ -36,18 +36,19 @@
             <p> 发布心得</p>
         </nav>
     </header>
-    <div class="write-content">
-        <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea"> </textarea>
-        <div class="write-icon" id="write-icon">
-            <input type="file" id="choose" accept="image/*" multiple>
-            <img id="upload" src="~/Content/oj/images/update-img.png">
+    <form id="from1">
+        <div class="write-content">
+            <textarea name="TalkContent" required lay-verify="required" placeholder="请输入" class="layui-textarea"> </textarea>
+            <div class="write-icon" id="write-icon">
+                <input type="file" id="choose" accept="image/*" multiple>
+                <img id="upload" src="~/Content/oj/images/update-img.png">
+            </div>
         </div>
-    </div>
-    <input type="hidden" name="UpImagePath"id="path" value=""/>
-    <div class="write-btn">
-        <input type="submit" value="发布" class="layui-btn" / >
-    </div>
-    
+        <input type="hidden" name="TalkImagePath" id="path" value="" />
+        <div class="write-btn">
+            <button id="btnSubmit" type="submit" value="发布" class="layui-btn" />
+        </div>
+    </form>
     <ul class="img-list"></ul>
     <a href="javascript:history.go(-1)" class="write-back">
         <span class="glyphicon glyphicon-chevron-left"> </span>
@@ -58,6 +59,19 @@
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/main.js"></script>
     <script>
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $.post("/Talks/Create", $("#from1").serializeArray(), function (data) {
+                    if (data == "success") {
+                        alert("心得发表成功！,请等待审核！");
+                        window.location.href = "/UserInfo/Index";
+                    } else {
+                        alert("心得发表失败，请稍后再试！");
+                    }
+                });
+            });
+        });
+
         var filechooser = document.getElementById("choose");
 
         var canvas = document.createElement("canvas");

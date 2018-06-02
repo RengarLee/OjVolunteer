@@ -148,13 +148,13 @@
             }
             var ids = "";
             for (var key in selectedRows) {
-                ids += selectedRows[key].UserInfoID + ",";
+                ids += selectedRows[key].TalkID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
             $.post("/Talks/EditOfList", { ids, ids }, function (data) {
                 //初始化表格
                 initTable();
-                if (data == "ok") {
+                if (data == "success") {
                     alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
@@ -168,7 +168,7 @@
         function agreeClickEvent(data) {
             $.post("/Talks/EditOfList", { ids: data }, function (data) {
                 initTable();
-                if (data == "ok") {
+                if (data == "success") {
                     alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
@@ -188,7 +188,7 @@
             }
             var ids = "";
             for (var key in selectedRows) {
-                ids += selectedRows[key].UserInfoID + ",";
+                ids += selectedRows[key].TalkID + ",";
             }
             ids = ids.substr(0, ids.length - 1);
             $.post("/Talks/DeleteOfList", { ids, ids }, function (data) {
@@ -221,10 +221,10 @@
         //生成操作框图标
         function operateFormatter(value, row, index) {
             return [
-                '<a  href="javascript:void(0)" class="agreeLink" uid="' + row['UserInfoID'] + '">',
+                '<a  href="javascript:void(0)" class="agreeLink" uid="' + row['TalkID'] + '">',
                 '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>通过</span>',
                 '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
-                '<a href="javascript:void(0)" class="opposeLink" uid="' + row['UserInfoID'] + '">',
+                '<a href="javascript:void(0)" class="opposeLink" uid="' + row['TalkID'] + '">',
                 '<i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;<span>驳回</span></a>',
             ].join('');
         }

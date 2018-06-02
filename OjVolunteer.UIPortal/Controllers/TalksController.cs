@@ -348,18 +348,6 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Create()
         {
-            Talks talks = new Talks
-            {
-                CreateTime = DateTime.Now,
-                Status = delInvalid,
-                ModfiedOn = DateTime.Now,
-                TalkContent = "",
-                UserInfoID = LoginUser.UserInfoID,
-                OrganizeInfoID = LoginUser.OrganizeInfoID,             
-                TalkFavorsNum = 0,
-            };
-            talks = TalksService.Add(talks);
-            ViewBag.TalkId = talks.TalkID;
             return View();
         }
 
@@ -367,7 +355,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Create(Talks talks)
         {
-            if (talks.TalkContent.Length > 140 || talks.TalkContent.Length < 5)
+            if (talks.TalkContent.Length > 141 || talks.TalkContent.Length < 6)
             {
                 return Content("fail");
             }
@@ -377,7 +365,6 @@ namespace OjVolunteer.UIPortal.Controllers
             talks.ModfiedOn = DateTime.Now;
             talks.Status = delAuditing;
             talks.OrganizeInfoID = LoginUser.OrganizeInfoID;
-            talks.TalkImagePath = Request["path"];
             if (TalksService.Add(talks)!=null)
             {
                 return Content("success");
