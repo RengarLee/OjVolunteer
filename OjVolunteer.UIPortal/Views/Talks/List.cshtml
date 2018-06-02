@@ -47,13 +47,13 @@
 
                         var li_div = $("<div class='feel-item-info clearfix'></div>");
                         //头像
-                        var li_div_a = $("<a class='info-img' href='/UserInfo/Other/" + temp.TalkID + "'></a>");
+                        var li_div_a = $("<a class='info-img' href='/UserInfo/Other/?Id=" + temp.UserInfoId + "'></a>");
                         var li_div_a_img = $("<img/>");
                         li_div_a_img.attr("src", temp.Icon);
                         li_div_a.append(li_div_a_img);
                         //姓名 时间
                         var li_div_div = $("<div class='info-name'></div>");
-                        var li_div_div_a = $("<a href='/UserInfo/Other/" + temp.TalkID + "'></a>");
+                        var li_div_div_a = $("<a href='/UserInfo/Other/?Id=" + temp.UserInfoId + "'></a>");
                         li_div_div_a.text(temp.ShowName);
                         var li_div_div_p = $("<p></p>");
                         var li_div_div_p_span = $("<span class='feeltime'></span>");

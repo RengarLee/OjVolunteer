@@ -10,6 +10,7 @@ namespace OjVolunteer.UIPortal.Models
     {
         public int TalkID { get; set; }
         public int TalkFavorsNum { get; set; }
+        public int UserInfoId { get; set; }
         public DateTime CreateTime { get; set; }
         public String ShowName { get; set; }
         public String Icon { get; set; }

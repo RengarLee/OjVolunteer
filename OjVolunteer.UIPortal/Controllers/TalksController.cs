@@ -53,6 +53,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 用户心得列表
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult List()
         {
             return View();
@@ -101,6 +102,7 @@ namespace OjVolunteer.UIPortal.Controllers
                         }
                         talk.ImagePath = pathlist;
                     }
+                    talk.UserInfoId = (int)data.UserInfoID;
                     talk.Favors = FavorsService.GetEntities(u => u.TalkID == talk.TalkID && u.UserInfoID == LoginUser.UserInfoID).Count()>0;
                     list.Add(talk);
                 }
@@ -323,6 +325,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region Edit
+
         public ActionResult Edit(int id)
         {
             //TODO:加载编辑对话框

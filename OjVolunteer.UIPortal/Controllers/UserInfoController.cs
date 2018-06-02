@@ -223,28 +223,16 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public ActionResult UserInfo(int Id)
+        public ActionResult Other(int Id)
         {
-            bool isSelf = LoginUser.UserInfoID == Id ? true : false;
+            if (Id == LoginUser.UserInfoID)
+            {
+                return Redirect("/UserInfo/Self");
+            }
             UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
-            if (userDuration != null)
-            {
-                ViewData["UserDuration"] = userDuration;
-            }
-            ViewBag.isSelf = isSelf;
-            if (isSelf)
-            {
-                return View(LoginUser);
-            }
-            else
-            {
-                UserInfo user = UserInfoService.GetEntities(u => u.UserInfoID == Id && u.Status == delNormal).FirstOrDefault();
-                if (user == null)
-                {
-                    return View("Shared/Error.cshtml");
-                }
-                return View(user);
-            }
+            ViewBag.Duration = UserDurationService.GetEntities(u => u.UserDurationID == LoginUser.UserInfoID).FirstOrDefault().UserDurationTotal;
+            ViewData.Model = UserInfoService.GetEntities(u => u.UserInfoID == Id ).FirstOrDefault();
+            return View();
         }
         #endregion
 
