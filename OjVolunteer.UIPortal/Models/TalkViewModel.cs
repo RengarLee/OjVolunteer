@@ -14,6 +14,7 @@ namespace OjVolunteer.UIPortal.Models
         public String ShowName { get; set; }
         public String Icon { get; set; }
         public String TalkContent { get; set; }
+        public bool Favors { get; set; }
         public List<string> ImagePath { get; set; }
     }
 }

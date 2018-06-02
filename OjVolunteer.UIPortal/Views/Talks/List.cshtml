@@ -1,60 +1,120 @@
-﻿@model OjVolunteer.UIPortal.Models.TalkViewModel
-
+﻿
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/User_Layout.cshtml";
 }
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>我的心得</title>
-
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/oj/css/iconfont.css" rel="stylesheet" />
-    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
-    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+<header>
+    <nav class="top">
+        <p>义工心得</p>
+    </nav>
+</header>
+<div class="feelbg">
+    <div class="feel">
+        <ul id="feelul" class="feel-list"></ul>
+    </div>
+</div>
 
 
-    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
-    <script src="~/Content/oj/js/bootstrap.min.js"></script>
-    <script src="~/Content/oj/js/amazeui.min.js"></script>
-    <script src="~/Content/oj/js/main.js"></script>
-    <script src="~/Scripts/datapattern.js"></script>
+<footer class="addMore">
+    <p>点击加载更多</p>
+</footer>
+
+<a href="write.html" class="writefeel">
+    <span class="glyphicon glyphicon-edit"></span>
+</a>
+
+@section Script{
     <script type="text/javascript">
-
+        function Photos() {
+            layer.photos({
+                photos: '.fell-item-imgs'
+                , anim: 5            }); 
+        }
+  
         $(function () {
-            GetActivityData(1, 5);
+            GetTalksData(1, 5);
         });
 
-        //加载心得数据
-        function GetActivityData(pageIndex, pageSize) {
+        function GetTalksData(pageIndex, pageSize) {
             $.post("/Talks/GetListData", { pageIndex: pageIndex, pageSize: pageSize }, function (data) {
+                $("#btnevent").remove();
                 if (data["msg"] == "success") {
-                    pageIndex = pageIndex + 1;
-                    var buffer = "";
-                    var item = data["data"];
-                    for (var i = 0; i < item.length; i++) {
-                        bufferImage = "";
-                        var imagelist = item[i]["ImagePath"];
-                        for (var j = 0; j < imagelist.length; j++) {
-                            bufferImage = bufferImage + "<img width='100px' height='100px' src='" + imagelist[j] + "'>";
+                    
+                    for (var i in data["data"]) {
+                        var temp = data["data"][i];
+                        //上
+                        var li = $("<li class='feel-item'></li>");
+
+                        var li_div = $("<div class='feel-item-info clearfix'></div>");
+                        //头像
+                        var li_div_a = $("<a class='info-img' href='/UserInfo/Other/" + temp.TalkID + "'></a>");
+                        var li_div_a_img = $("<img/>");
+                        li_div_a_img.attr("src", temp.Icon);
+                        li_div_a.append(li_div_a_img);
+                        //姓名 时间
+                        var li_div_div = $("<div class='info-name'></div>");
+                        var li_div_div_a = $("<a href='/UserInfo/Other/" + temp.TalkID + "'></a>");
+                        li_div_div_a.text(temp.ShowName);
+                        var li_div_div_p = $("<p></p>");
+                        var li_div_div_p_span = $("<span class='feeltime'></span>");
+                        li_div_div_p_span.text(TimeFormat(temp.CreateTime));
+                        li_div_div_p.append(li_div_div_p_span);
+                        li_div_div.append(li_div_div_a);
+                        li_div_div.append(li_div_div_p);
+
+                        //点赞数
+                        var li_div_i_Str = null;
+                        if (temp.Favors) {
+                            li_div_i_Str = "<i class='layui-icon zan yiZan'>&#xe6c6;</i>";
+                        } else {
+                            li_div_i_Str = "<i class='layui-icon zan' >&#xe6c6;</i>";
                         }
-                        buffer = buffer + "<li class='myfeel-item'><div class='feel-item-info clearfix' ><a class='info-img' href='#'><img width='10%' height='10%' src='" + item[i].Icon + "'></a > <div class='info-name'><a href = '#' >" + item[i].ShowName + "</a><p><span class='feeltime'>" + TimeFormat(item[i].CreateTime) + "</span></p></div><a class='btnFavor' favors='" + item[i].TalkID + "'><i class='layui-icon'>&#xe6c6;<span>" + item[i].TalkFavorsNum + "</span></i></a></div><div class='fell-item-content'><p>" + item[i].TalkContent + "</p></div><div>" + bufferImage+ "</div></li>";
+                        var li_div_i = $(li_div_i_Str);
+                        li_div_i.attr("tId", temp.TalkID);
+                        var li_div_i_span = $("<span></span>");
+                        li_div_i_span.text(temp.TalkFavorsNum);
+                        li_div_i.append(li_div_i_span);
+                        li_div.append(li_div_a);
+                        li_div.append(li_div_div);
+                        li_div.append(li_div_i);
+                        //文本
+                        var li_cdiv = $("<div class='fell-item-content'></div>");
+                        var li_cdiv_p = $("<p></p>");
+                        li_cdiv_p.text(temp.TalkContent);
+                        li_cdiv.append(li_cdiv_p);
+                        //图片
+                        var li_bdiv = $("<div class='layui-row fell-item-imgs'></div>");
+                        for (var j in temp.ImagePath) {
+                            var img = temp.ImagePath[j];
+                            var li_bdiv_div = $("<div class='layui-col-xs4'></div>");
+                            var li_bdiv_div_div = $("<div class='box'></div>");
+                            var li_bdiv_div_div_img = $("<img>");
+                            li_bdiv_div_div_img.attr("src", img);
+                            li_bdiv_div_div.append(li_bdiv_div_div_img);
+                            li_bdiv_div.append(li_bdiv_div_div);
+                            li_bdiv.append(li_bdiv_div);
+                        }
+
+                        li.append(li_div);
+                        li.append(li_cdiv);
+                        li.append(li_bdiv);
+
+
+                        $("#feelul").append(li);
                     }
-                    buffer = buffer + "<li><input type='button' id='btnevent' pageIndex='";
-                    buffer = buffer + pageIndex + "' value='查看更多'/></li>";
-                    $("#btnevent").remove();
-                    $("#list").append(buffer);
-                    BindEnrollClickEvent();
+                    var btn_li = $("<li></li>");
+                    var btn_input = $("<input type='button' id='btnevent' value='查看更多'/>");
+                    pageIndex++;
+                    btn_input.attr("pageIndex", pageIndex);
+                    btn_li.append(btn_input);
+                    $("#feelul").append(btn_li);
+                    dianZan();
+                    Photos();
                     BindActivtyListClickEvent();
                 } else {
-                    $("#btnevent").remove();
-                    var buffer = "<p> 无更多心得</p>"
-                    $("#list").append(buffer);
+                    var btn_li = $("<li></li>");
+                    btn_li.text("无新内容");
+                    $("#feelul").append(btn_li);
                 }
             });
 
@@ -65,21 +125,7 @@
             $("#btnevent").click(function () {
                 var pageIndex = parseInt($("#btnevent").attr("pageIndex"));
                 var pageSize = 5;
-                GetActivityData(pageIndex, pageSize);
-            });
-        }
-
-        //点赞按钮绑定事件
-        function BindEnrollClickEvent() {
-            $(".btnFavor").click(function () {
-                var s = $(this);
-                var talkId = $(this).attr("favors");
-                $.post("/Favors/Create/", { talkId: talkId }, function (data) {
-                    if (data["msg"] == "success") {
-                        s.children("i").children("span").empty().html(data["num"]);
-                    }
-
-                });
+                GetTalksData(pageIndex, pageSize);
             });
         }
 
@@ -88,27 +134,34 @@
             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
         }
 
+        // 点赞功能
+        function dianZan() {
+            $('.zan').click(function () {
+                if ($(this).hasClass('yiZan')) {
+                    layer.msg('只能点赞一次哦~');
+                }
+                else {
+                    var talkId = $(this).attr("tId");
+                    $.post("/Favors/Create/", { talkId: talkId }, function (data) {
+                        if (data["msg"] == "success") {
+                            
+                            layer.msg('点赞成功！');
+                            var zanNums = Number($(this).find('span').text());
+                            zanNums++;
+                            $(this).find('span').text(zanNums);
+                        }
+                    });
+                    $(this).addClass('yiZan');
+                }
+            })
+        }
     </script>
-</head>
-<body>
-    <header>
-        <nav class="top">
-            <p>我的心得</p>
-        </nav>
-    </header>
+}
 
-    <div class="myfeel">
-        <ul class="myfeel-list" id="list">
-            
-        </ul>
-    </div>
-    <!-- 侧边栏组件 -->
-    <div class="topback" id="topback">
-        <img src="images/topback.png">
-    </div>
-    <a href="javascript:history.go(-1)" class="header-back">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-   
-</body>
-</html>
+@*点亮图标*@
+@section Talks_i{
+    this-icon
+}
+@section Talks_s{
+    this-icon
+}

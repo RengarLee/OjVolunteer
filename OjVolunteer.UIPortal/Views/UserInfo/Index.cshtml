@@ -107,6 +107,23 @@
     </section>
 </div>
 
+@section Script{
+<script>
+
+    layui.use('carousel', function () {
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#ad-img'
+            , width: '100%' //设置容器宽度
+            , arrow: 'always' //始终显示箭头
+            , height: '200px'  //设置高度
+            , arrow: 'always'  //两个圆形箭头一直存在
+            , indicator: 'none'  //去掉了下面的圆点
+        });
+    });
+</script>
+    }
 @section Index_i{
     this-icon
 }

@@ -41,7 +41,7 @@ namespace OjVolunteer.UIPortal.Controllers
             talks.TalkFavorsNum = talks.TalkFavorsNum + 1;
             if (FavorsService.Add(favors) != null&& TalksService.Update(talks))
             {
-                return Json(new { msg = "success",num=talks.TalkFavorsNum }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
         }

@@ -13,15 +13,17 @@
 <body>
     @RenderBody();
     <footer></footer>
-    <!-- 下边导航组件 -->
     <nav class="navbt">
         <a href="toplist.html" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
         <a href="action.html" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
-        <a href="index.html" class="btBar"><i class="iconfont icon-zhuye @RenderSection("Index_i",false)"></i><span class="@RenderSection("Index_s",false)">首页</span></a>
-        <a href="feel.html" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
+        <a href="/UserInfo/Index" class="btBar"><i class="iconfont icon-zhuye @RenderSection("Index_i",false)"></i><span class="@RenderSection("Index_s",false)">首页</span></a>
+        <a href="/Talks/List" class="btBar"><i class="iconfont icon-edit @RenderSection("Talks_i",false)"></i><span class="@RenderSection("Talks_s",false)">义工心得</span></a>
         <a href="/UserInfo/Self" class="btBar"><i class="iconfont icon-account  @RenderSection("Self_i",false)"></i><span class="@RenderSection("Self_s",false)">个人中心</span></a>
     </nav>
-    <!-- 返回顶部 -->
+
+    <a href="javascript:history.go(-1)" class="write-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
     <div class="topback" id="topback">
         <i class="iconfont icon-less"></i>
     </div>
@@ -29,21 +31,25 @@
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/admin.js"></script>
+    <script src="~/Scripts/App/datapattern.js"></script>
     <script>
-        // 录播图
-        layui.use('carousel', function () {
-            var carousel = layui.carousel;
-            //建造实例
-            carousel.render({
-                elem: '#ad-img'
-                , width: '100%' //设置容器宽度
-                , arrow: 'always' //始终显示箭头
-                , height: '200px'  //设置高度
-                , arrow: 'always'  //两个圆形箭头一直存在
-                , indicator: 'none'  //去掉了下面的圆点
-            });
-        });
+        var topback = $('#topback');
+        // 返回顶部按钮点击事件
+        topback.on("click", function () {
+            $('html,body').animate({
+                scrollTop: 0
+            }, 200)
+
+        })
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > 200)
+                topback.fadeIn();
+            else
+                topback.fadeOut();
+        })
+        $(window).trigger('scroll');
     </script>
-    @RenderSection("Script",false)
+    @RenderSection("Script", false)
+
 </body>
 </html>

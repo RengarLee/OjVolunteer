@@ -22,6 +22,7 @@ namespace OjVolunteer.UIPortal.Controllers
         short delDeleted = (short)Model.Enum.DelFlagEnum.Deleted;
         short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
         public ITalksService TalksService { get; set; }
+        public IFavorsService FavorsService { get; set; }
         public ActionResult Index()
         {
             return View();
@@ -100,6 +101,7 @@ namespace OjVolunteer.UIPortal.Controllers
                         }
                         talk.ImagePath = pathlist;
                     }
+                    talk.Favors = FavorsService.GetEntities(u => u.TalkID == talk.TalkID && u.UserInfoID == LoginUser.UserInfoID).Count()>0;
                     list.Add(talk);
                 }
                 return Json(new { msg = "success", data = list }, JsonRequestBehavior.AllowGet);
