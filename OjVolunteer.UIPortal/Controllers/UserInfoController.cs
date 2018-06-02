@@ -113,8 +113,6 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        
-
         #region 义工政治面貌审核
         /// <summary>
         /// 组织进入义工政治面貌审核界面
@@ -252,8 +250,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 修改信息
 
-
-
         /// <summary>
         /// 头像上传
         /// </summary>
@@ -276,7 +272,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
             if (UserInfoService.Update(userInfo))
             {
-                LoginUser.UserInfoIcon = fileName;
+                UpSessionUserInfo(userInfo);
                 return Json(new { src = fileName, msg = "success" }, JsonRequestBehavior.AllowGet);
             }
             else
@@ -321,36 +317,41 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult UserEditUser(UserInfo userInfo)
         {
-            UserInfo temp = UserInfoService.GetEntities(u => u.UserInfoID == userInfo.UserInfoID).FirstOrDefault();
-            if (temp == null||userInfo.UserInfoID!=LoginUser.UserInfoID)
+            String msg = "fail";
+            if (ModelState.IsValid)
             {
-                return Content("fail");
-            }
-            if (temp.UpdatePoliticalID != userInfo.UpdatePoliticalID)
-            {
-                userInfo.Status = (short)Model.Enum.DelFlagEnum.Auditing;
-            }
-            //temp.UserInfoShowName = userInfo.UserInfoShowName;
-            //temp.UserInfoStuId = userInfo.UserInfoStuId;
-            //temp.UserInfoPhone = userInfo.UserInfoPhone;
-            //temp.UserInfoEmail = userInfo.UserInfoEmail;
-            //temp.MajorID = userInfo.MajorID;
-            //temp.OrganizeInfoID = userInfo.OrganizeInfoID;
-            //temp.DepartmentID = userInfo.DepartmentID;
-            //temp.ModfiedOn = DateTime.Now;
-            userInfo.ModfiedOn = DateTime.Now;
-            if (UserInfoService.Update(userInfo))
-            {
-                if (temp.Status == delAuditing)
+                UserInfo temp = UserInfoService.GetEntities(u => LoginUser.UserInfoID == u.UserInfoID).FirstOrDefault();
+                if (temp == null || temp.UserInfoID != userInfo.UserInfoID)
                 {
-                    return Content("auditing");
+                    return Content(msg);
                 }
-                return Content("success");
+                if (temp.UpdatePoliticalID != userInfo.UpdatePoliticalID)
+                {
+                    temp.Status = delAuditing;
+                }
+                //赋值
+                temp.UserInfoShowName = userInfo.UserInfoShowName;
+                temp.UserInfoStuId = userInfo.UserInfoStuId;
+                temp.UserInfoPhone = userInfo.UserInfoPhone;
+                temp.UserInfoEmail = userInfo.UserInfoEmail;
+                temp.MajorID = userInfo.MajorID;
+                temp.DepartmentID = userInfo.DepartmentID;
+                temp.OrganizeInfoID = userInfo.OrganizeInfoID;
+                temp.UpdatePoliticalID = userInfo.UpdatePoliticalID;
+                temp.ModfiedOn = DateTime.Now;
+
+                if (UserInfoService.Update(temp))
+                {
+                    
+                    UpSessionUserInfo(temp);
+                    if (temp.Status == delAuditing)
+                    {
+                        return Content("auditing");
+                    }
+                    return Content("success");
+                }
             }
-            else
-            {
-                return Content("fail");
-            }
+            return Content(msg);
         }
 
         /// <summary>

@@ -54,5 +54,12 @@ namespace OjVolunteer.UIPortal.Controllers
                 return;
             }
         }
+
+        //更新缓存中的数据
+        protected void UpSessionUserInfo(Object value)
+        {
+            String userLoginId = Request.Cookies["userLoginId"].Value;
+            Common.Cache.CacheHelper.SetCache(userLoginId, value);
+        }
     }
 }
