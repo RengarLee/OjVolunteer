@@ -1,0 +1,146 @@
+﻿
+@{
+    Layout = "~/Views/Shared/User_Layout.cshtml";
+}
+
+<header>
+    <nav class="top">
+        <p>历史心得</p>
+    </nav>
+</header>
+<div class="feelbg">
+    <div class="feel">
+        <ul id="feelul" class="feel-list"></ul>
+    </div>
+</div>
+
+
+<footer class="addMore">
+    <p>点击加载更多</p>
+</footer>
+
+<a href="write.html" class="writefeel">
+    <span class="glyphicon glyphicon-edit"></span>
+</a>
+
+@section Script{
+    <script type="text/javascript">
+        function Photos() {
+            layer.photos({
+                photos: '.fell-item-imgs'
+                , anim: 5
+            });
+        }
+
+        $(function () {
+            GetTalksData(1, 5);
+        });
+
+        function GetTalksData(pageIndex, pageSize) {
+            $.post("/Talks/TalkOfUserData", { userInfoId:@ViewBag.UserId, pageIndex: pageIndex, pageSize: pageSize }, function (data) {
+                $("#btnevent").remove();
+                if (data["msg"] == "success") {
+
+                    for (var i in data["data"]) {
+                        var temp = data["data"][i];
+                        //上
+                        var li = $("<li class='feel-item'></li>");
+
+                        var li_div = $("<div class='feel-item-info clearfix'></div>");
+                        //头像
+                        var li_div_a = $("<a class='info-img'></a>");
+                        var li_div_a_img = $("<img/>");
+                        li_div_a_img.attr("src", temp.Icon);
+                        li_div_a.append(li_div_a_img);
+                        //姓名 时间
+                        var li_div_div = $("<div class='info-name'></div>");
+                        var li_div_div_a = $("<a></a>");
+                        li_div_div_a.text(temp.ShowName);
+                        var li_div_div_p = $("<p></p>");
+                        var li_div_div_p_span = $("<span class='feeltime'></span>");
+                        li_div_div_p_span.text(TimeFormat(temp.CreateTime));
+                        li_div_div_p.append(li_div_div_p_span);
+                        li_div_div.append(li_div_div_a);
+                        li_div_div.append(li_div_div_p);
+
+                        //点赞数
+                        var li_div_i_Str = null;
+                        if (temp.Favors) {
+                            li_div_i_Str = "<i class='layui-icon zan yiZan'>&#xe6c6;</i>";
+                        } else {
+                            li_div_i_Str = "<i class='layui-icon zan' >&#xe6c6;</i>";
+                        }
+                        var li_div_i = $(li_div_i_Str);
+                        li_div_i.attr("tId", temp.TalkID);
+                        var li_div_i_span = $("<span></span>");
+                        li_div_i_span.text(temp.TalkFavorsNum);
+                        li_div_i.append(li_div_i_span);
+                        li_div.append(li_div_a);
+                        li_div.append(li_div_div);
+                        li_div.append(li_div_i);
+                        //文本
+                        var li_cdiv = $("<div class='fell-item-content'></div>");
+                        var li_cdiv_p = $("<p></p>");
+                        li_cdiv_p.text(temp.TalkContent);
+                        li_cdiv.append(li_cdiv_p);
+                        //图片
+                        var li_bdiv = $("<div class='layui-row fell-item-imgs'></div>");
+                        for (var j in temp.ImagePath) {
+                            var img = temp.ImagePath[j];
+                            var li_bdiv_div = $("<div class='layui-col-xs4'></div>");
+                            var li_bdiv_div_div = $("<div class='box'></div>");
+                            var li_bdiv_div_div_img = $("<img>");
+                            li_bdiv_div_div_img.attr("src", img);
+                            li_bdiv_div_div.append(li_bdiv_div_div_img);
+                            li_bdiv_div.append(li_bdiv_div_div);
+                            li_bdiv.append(li_bdiv_div);
+                        }
+
+                        li.append(li_div);
+                        li.append(li_cdiv);
+                        li.append(li_bdiv);
+
+
+                        $("#feelul").append(li);
+                    }
+                    var btn_li = $("<li></li>");
+                    var btn_input = $("<input type='button' id='btnevent' value='查看更多'/>");
+                    pageIndex++;
+                    btn_input.attr("pageIndex", pageIndex);
+                    btn_li.append(btn_input);
+                    $("#feelul").append(btn_li);
+                    Photos();
+                    BindActivtyListClickEvent();
+                } else {
+                    var btn_li = $("<li></li>");
+                    btn_li.text("无新内容");
+                    $("#feelul").append(btn_li);
+                }
+            });
+
+        }
+
+        //查看更多活动按钮绑定
+        function BindActivtyListClickEvent() {
+            $("#btnevent").click(function () {
+                var pageIndex = parseInt($("#btnevent").attr("pageIndex"));
+                var pageSize = 5;
+                GetTalksData(pageIndex, pageSize);
+            });
+        }
+
+        //时间戳转为时间
+        function TimeFormat(value) {
+            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+        }
+
+    </script>
+}
+
+@*点亮图标*@
+@section Talks_i{
+    this-icon
+}
+@section Talks_s{
+    this-icon
+}

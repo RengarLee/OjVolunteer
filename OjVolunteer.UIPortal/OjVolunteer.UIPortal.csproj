@@ -468,6 +468,7 @@
     <Content Include="Views\Shared\User_Layout.cshtml" />
     <Content Include="Views\UserInfo\Self.cshtml" />
     <Content Include="Views\UserInfo\Other.cshtml" />
+    <Content Include="Views\Talks\TalksOfUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

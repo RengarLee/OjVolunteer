@@ -113,6 +113,90 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Json(new { msg = "fail" });
             }
         }
+
+        #region 历史心得界面
+
+        /// <summary>
+        /// 进入个人历史心得界面
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult TalksOfUser(int Id)
+        {
+            ViewBag.UserId = Id;
+            return View();
+        }
+        /// <summary>
+        /// 用户心得数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult TalkOfUserData()
+        {
+            int pageSize = int.Parse(Request["pageSize"] ?? "5");
+            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
+            int UserInfoId = Convert.ToInt32(Request["userInfoId"]);
+            var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).AsQueryable();
+            if (UserInfoId != LoginUser.UserInfoID)
+            {
+                PageData = PageData.Where(u => u.Status == delNormal).AsQueryable();
+            }
+            var data = LoadImagePath(PageData);
+            if (data.Count > 0)
+            {
+                return Json(new { msg = "success", data }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
+        #region 加载心得图片 
+        private List<TalkView> LoadImagePath(IQueryable<Talks> Data)
+        {
+            List<TalkView> list = new List<TalkView>();
+            if (Data.Count() > 0)
+            {
+                foreach (var data in Data)
+                {
+                    TalkView talk = new TalkView
+                    {
+                        TalkID = data.TalkID,
+                        TalkFavorsNum = (int)data.TalkFavorsNum,
+                        CreateTime = (DateTime)data.CreateTime
+                    };
+                    if (data.UserInfo != null)
+                    {
+                        talk.ShowName = data.UserInfo.UserInfoShowName;
+                        talk.Icon = data.UserInfo.UserInfoIcon;
+                    }
+                    else
+                    {
+                        talk.ShowName = data.OrganizeInfo.OrganizeInfoShowName;
+                        talk.Icon = data.OrganizeInfo.OrganizeInfoIcon;
+                    }
+                    talk.TalkContent = data.TalkContent;
+
+                    if (data.TalkImagePath != null)
+                    {
+                        var files = Directory.GetFiles(Request.MapPath(data.TalkImagePath));
+                        List<String> pathlist = new List<String>();
+                        foreach (var file in files)
+                        {
+                            int i = file.LastIndexOf("\\");
+                            pathlist.Add(data.TalkImagePath + file.Substring(i + 1));
+                        }
+                        talk.ImagePath = pathlist;
+                    }
+                    list.Add(talk);
+                }
+
+            }
+            return list;
+        }
+        #endregion
+
         #endregion
 
         #region 组织心得管理
@@ -438,80 +522,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
         }
         #endregion
+     
 
-       
-        #region 历史心得界面
-
-        /// <summary>
-        /// 进入个人历史心得界面
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult TalksOfUser()
-        {
-            return View();
-        }
-        /// <summary>
-        /// 用户心得数据
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult TalkOfUserData()
-        {
-            int pageSize = int.Parse(Request["pageSize"] ?? "5");
-            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
-            int UserInfoId = Convert.ToInt32(Request["userInfoId"]);
-            var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).AsQueryable();
-            if (UserInfoId != LoginUser.UserInfoID)
-            {
-                PageData = PageData.Where(u => u.Status == delNormal).AsQueryable();
-            }
-            var data = LoadImagePath(PageData);
-            return Json(new { data},JsonRequestBehavior.AllowGet);
-        }
-        #endregion
-
-        #region 加载心得图片 
-        private List<TalkView> LoadImagePath(IQueryable<Talks> Data)
-        {
-            List<TalkView> list = new List<TalkView>();
-            if (Data.Count() > 0)
-            {
-                foreach (var data in Data)
-                {
-                    TalkView talk = new TalkView
-                    {
-                        TalkID = data.TalkID,
-                        TalkFavorsNum = (int)data.TalkFavorsNum,
-                        CreateTime = (DateTime)data.CreateTime
-                    };
-                    if (data.UserInfo != null)
-                    {
-                        talk.ShowName = data.UserInfo.UserInfoShowName;
-                        talk.Icon = data.UserInfo.UserInfoIcon;
-                    }
-                    else
-                    {
-                        talk.ShowName = data.OrganizeInfo.OrganizeInfoShowName;
-                        talk.Icon = data.OrganizeInfo.OrganizeInfoIcon;
-                    }
-                    talk.TalkContent = data.TalkContent;
-
-                    if (data.TalkImagePath != null)
-                    {
-                        var files = Directory.GetFiles(Request.MapPath(data.TalkImagePath));
-                        List<String> pathlist = new List<String>();
-                        foreach (var file in files)
-                        {
-                            int i = file.LastIndexOf("\\");
-                            pathlist.Add(data.TalkImagePath + file.Substring(i + 1));
-                        }
-                        talk.ImagePath = pathlist;
-                    }
-                    list.Add(talk);
-                }
-
-            }
-            return list;
-        }
-        #endregion
     }
 }
