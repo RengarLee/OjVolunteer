@@ -40,7 +40,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Details(int Id)
         {
-            var activity = ActivityService.GetEntities(u => u.Status == delNormal && u.ActivityID == Id).FirstOrDefault();
+            var activity = ActivityService.GetEntities(u=>u.ActivityID == Id).FirstOrDefault();
             if (activity == null)
             {
                 return Redirect("/UserInfo/Index");

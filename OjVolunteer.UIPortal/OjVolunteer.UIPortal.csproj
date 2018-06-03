@@ -471,6 +471,7 @@
     <Content Include="Views\UserInfo\Other.cshtml" />
     <Content Include="Views\Talks\TalksOfUser.cshtml" />
     <Content Include="Views\Talks\Create.cshtml" />
+    <Content Include="Views\UserEnroll\SingIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -68,6 +68,13 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 列表活动签到签退
+
+        public ActionResult SingIn(int aId)
+        {
+
+            return View();
+        }
+
         /// <summary>
         /// 活动签到
         /// </summary>
