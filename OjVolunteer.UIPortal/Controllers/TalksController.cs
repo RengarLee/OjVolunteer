@@ -342,6 +342,69 @@ namespace OjVolunteer.UIPortal.Controllers
             var data = new { total = pageData.Count(), rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
+        #region 评论审核
+        /// <summary>
+        /// 批量删除审核的心得
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult DeleteOfList(String ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("Please Select!");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            if (TalksService.InvalidListByULS(idList))
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("error");
+            }
+        }
+
+        /// <summary>
+        /// 批量审核心得
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult EditOfList(String ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            if (TalksService.NormalListByULS(idList))
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
+
+        }
+
+        #endregion
+
         #endregion
 
         #region 发布心得
@@ -415,36 +478,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View(talks);
         }
 
-        /// <summary>
-        /// 批量审核心得
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult EditOfList(String ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            if (TalksService.NormalListByULS(idList))
-            {
-                return Content("success");
-            }
-            else
-            {
-                return Content("fail");
-            }
-
-        }
-
+      
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Edit(Talks talks)
@@ -466,61 +500,47 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region Delete
-        /// <summary>
-        /// 批量删除审核的心得
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult DeleteOfList(String ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("Please Select!");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            if (TalksService.InvalidListByULS(idList))
-            {
-                return Content("ok");
-            }
-            else
-            {
-                return Content("error");             
-            }
-        }
 
+
+        #region 评论删除
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult Delete(String ids)
+        public ActionResult Delete()
         {
-            if (string.IsNullOrEmpty(ids))
+            //if (string.IsNullOrEmpty(ids))
+            //{
+            //    return Content("Please Select!");
+            //}
+            //string[] strIds = Request["ids"].Split(',');
+            //List<int> idList = new List<int>();
+            //foreach (var strId in strIds)
+            //{
+            //    idList.Add(int.Parse(strId));
+            //}
+            //if (TalksService.DeleteListByLogical(idList))
+            //{
+            //    return Content("ok");
+            //}
+            //else
+            //{
+            //    return Content("error");
+            //}
+            int tId = Convert.ToInt32(Request["talksId"]);
+            Talks talks = TalksService.GetEntities(u => u.TalkID == tId).FirstOrDefault();
+            if (talks == null)
             {
-                return Content("Please Select!");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            if (TalksService.DeleteListByLogical(idList))
-            {
-                return Content("ok");
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Content("error");
+                talks.Status = delDeleted;
+                if (TalksService.Update(talks))
+                    return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
+                else
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
             }
-        }
+
+        } 
         #endregion
-     
-
     }
 }
