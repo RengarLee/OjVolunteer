@@ -99,3 +99,89 @@
   line-height: 130px;
   text-align: center;
 }
+
+
+/*管理员发布活动*/
+/*表单样式*/
+.acStart{
+	width: 1200px;
+	margin: 20px auto;
+	background-color: #fff;
+	text-align: center;
+}
+/*题目,主体内容部分*/
+.acStart-title,
+.acStart-box{
+	width: 60%;
+	margin: 0 auto;
+}
+.acStart-title{
+	color: #5FB878;
+	padding-top: 10px;
+}
+.acStart-box{
+	margin: 0 auto;
+	padding-top: 10px;
+}
+.acStart-short{
+	width: 48%;
+}
+.acStart-left{
+    float:left;
+}
+.acStart-jieGuo {义工后台管理系统
+总支部
+ 
+退出
+欢迎
+申请活动
+信息管理
+义工信息
+心得信息
+活动信息
+组织信息
+专业信息
+学院信息
+政治面貌信息
+信息审核
+政治面貌更改审核
+心得审核
+活动申请审核
+活动完成审核
+组织账号申请审核
+欢迎 申请活动 
+    width: 330px;
+    padding: 8px 5px;
+    height: 38px;
+    line-height: 20px;
+    text-align: left;
+    background-color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+}
+.acStart-map{
+    width:200px;
+}
+.acStart-mapleft{
+    float:left;
+    width:70%;
+}
+/*后台主体背影颜色*/
+.layui-body{
+	background-color: #F2F2F2;
+}
+.acArticle{
+	color: #5FB878;
+	font-size: 16px;
+	margin-top: -5px;
+	margin-bottom: 5px;
+}
+.acStart-Condition{
+	text-align: left;
+	margin-top: 20px;
+}
+.acArticle-btn{
+	margin-top: 20px;
+}

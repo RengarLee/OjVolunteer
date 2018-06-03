@@ -9,130 +9,137 @@
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
     <style type="text/css">
-
         #l-map {
             height: 300px;
             width: 300px;
-        }
-
-        #r-result {
-            width: 100%;
+            display:none;
         }
     </style>
 </head>
-<body class="layui-layout-body">
+<body>
     <div class="layui-layout layui-layout-admin">
-        <div class="layui-body">
-            <form class="layui-form layui-form-pane acStart" id="form1">
-                <h2 class="acStart-title">发布活动</h2>
-                <hr />
-                <div class="acStart-box">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">活动名称</label>
-                        <div class="layui-input-block">
-                            @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
-                        </div>
+        <form class="layui-form layui-form-pane acStart" id="form1">
+            <h2 class="acStart-title">发布活动</h2>
+            <hr />
+            <div class="acStart-box">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">活动名称</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
                     </div>
-                    <div class="layui-form-item">
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline acStart-left">
                         <label class="layui-form-label ">负责人</label>
                         <div class="layui-input-block">
-                            <input type="text" id="managerid" name="title" lay-verify="required|username" class="layui-input" value="陈浩强">
+                            <input type="text" id="managerid" name="title" lay-verify="required|username" class="layui-input">
                         </div>
-                        <button type="button" id="btnSer" name="btnSer" value="查找">查找</button><div id="manager"></div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label ">活动类型</label>
+                    <div class="layui-inline acStart-left">
+                        <button type="button" id="btnSer" name="btnSer" value="查找" class="layui-btn">查找</button>
+                    </div>
+                    <div class="layui-inline">
+                        <div id="manager" class="acStart-jieGuo"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">活动类型</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownList("ActivityTypeID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div id="l-map"></div>
+                    <div class="layui-inline acStart-mapleft">
+                        <label class="layui-form-label acStart-map" id="r-result">活动地点</label>
                         <div class="layui-input-block">
-                            @Html.DropDownList("ActivityTypeID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                            <input type="text" name="title" lay-verify="required|username" class="layui-input" id="suggestId" size="20" value="百度">
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label ">活动地点</label>
+                    <div class="layui-inline acStart-left">
+                        <div id="address" style="overflow:hidden;width:190px;white-space:nowrap;text-overflow:ellipsis;height:38px;line-height:38px;"></div>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                    </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">报名时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">预计活动时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline acStart-short">
+                        <label class="layui-form-label ">人数上限</label>
                         <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="required|username" class="layui-input" value="百度地图">
+                            <input type="text" name="title" lay-verify="required|number" class="layui-input" value="12">
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">报名时间</label>
+                    <div class="layui-inline acStart-short">
                         <div class="layui-input-block">
-                            <input type="text" name="title" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">预计活动时间</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline acStart-short">
-                            <label class="layui-form-label ">人数上限</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" lay-verify="required|number" class="layui-input" value="12">
-                            </div>
-                        </div>
-                        <div class="layui-inline acStart-short">
-                            <div class="layui-input-block">
-                                <button type="button" class="layui-btn" id="test1">点击上传活动封面</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--富文本框-->
-                    <h4 class="acArticle">活动详情</h4>
-                    <textarea id="demo" style="display: none;"></textarea>
-
-                    <div class="acStart-Condition">
-                        <div class="layui-collapse">
-                            <div class="layui-colla-item">
-                                <h2 class="layui-colla-title">参与人员政治面貌筛选</h2>
-                                <div class="layui-colla-content layui-show">
-                                    @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
-                                    @foreach (var key in PoliticalDict.Keys)
-                            {
-                                <input type="checkbox" value="@key" name="Major" id="@key" title="@PoliticalDict[key]" />
-
-                    }
-                                </div>
-                            </div>
-                            <div class="layui-colla-item">
-                                <h2 class="layui-colla-title">参与人员学院筛选</h2>
-                                <div class="layui-colla-content layui-show">
-                                    @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
-                                    @foreach (var key in MajorDict.Keys)
-                            {
-                                <input type="checkbox" value="@key" name="Major" id="@key" title="@MajorDict[key]" />
-                    }
-                                </div>
-                            </div>
-                            <div class="layui-colla-item">
-                                <h2 class="layui-colla-title">参与人员专业筛选</h2>
-                                <div class="layui-colla-content layui-show">
-                                    @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
-                                    @foreach (var key in DepartmentDict.Keys)
-                            {
-                                <input type="checkbox" value="@key" name="Major" id="@key" title="@DepartmentDict[key]" />
-                    }
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="acArticle-btn">
-                        <div class="layui-form-item">
-                            <button class="layui-btn red-btn" lay-submit>发布</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">取消发布</button>
+                            <button type="button" class="layui-btn" id="test1">点击上传活动封面</button>
                         </div>
                     </div>
                 </div>
-            </form><div id="l-map"></div>
-            <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
-            
-            <div id="address"></div>
-            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                <!--富文本框-->
+                <h4 class="acArticle">活动详情</h4>
+                <textarea id="demo" style="display: none;"></textarea>
 
-        </div>
+                <div class="acStart-Condition">
+                    <div class="layui-collapse">
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">参与人员政治面貌筛选</h2>
+                            <div class="layui-colla-content">
+                                @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
+                                @foreach (var key in PoliticalDict.Keys)
+                    {
+                        <input type="checkbox" value="@key" name="Major" id="@key" title="@PoliticalDict[key]" />
+
+        }
+                            </div>
+                        </div>
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">参与人员学院筛选</h2>
+                            <div class="layui-colla-content">
+                                @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
+                                @foreach (var key in MajorDict.Keys)
+                    {
+                        <input type="checkbox" value="@key" name="Major" id="@key" title="@MajorDict[key]" />
+        }
+                            </div>
+                        </div>
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">参与人员专业筛选</h2>
+                            <div class="layui-colla-content">
+                                @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
+                                @foreach (var key in DepartmentDict.Keys)
+                    {
+                        <input type="checkbox" value="@key" name="Major" id="@key" title="@DepartmentDict[key]" />
+        }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="acArticle-btn">
+                    <div class="layui-form-item">
+                        <button class="layui-btn red-btn" lay-submit>发布</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">取消发布</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+
     </div>
 
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=HisYFGGE2IDgsNH7xUAEQfExLIxpWwDh"></script>
@@ -148,7 +155,7 @@
             $('#btnSer').click(function () {
                 $.post("/UserInfo/SearchActivityPeople", { key: $("#managerid").val() }, function (data) {
                     if (data["msg"] == "success") {
-                        var buffer = "登录名" + data["login"] + "真实姓名" + data["showname"] + "手机号" + data["phone"];
+                        var buffer = "登录名："+ data["login"] +" " +"真实姓名：" + data["showname"];
 
                     } else {
                         var buffer = "查无此人";
@@ -200,7 +207,19 @@
         //富文本框
         layui.use('layedit', function () {
             var layedit = layui.layedit;
-            layedit.build('demo'); //建立编辑器
+            layedit.build('demo', {
+                tool: [
+                    'strong' //加粗
+                    , 'italic' //斜体
+                    , 'underline' //下划线
+                    , 'del' //删除线
+                    , '|' //分割线
+                    , 'left' //左对齐
+                    , 'center' //居中对齐
+                    , 'right' //右对齐
+                    , 'image' //插入图片
+                ]
+            }); //建立编辑器
         })
         //折叠面板
         layui.use('element', function () {
@@ -254,10 +273,9 @@
                 var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
                 //
                 var poi = local.getResults().getPoi(0);
-                var str = "<div>位置" + poi.title + "<br/>经度:" + poi.point.lng + "<br/>纬度：" + poi.point.lat;
+                var str = "<div>位置" + poi.title;
                 var path = "<a  target='_blank' href='https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=" + poi.title + "/vt=map'>" + poi.title + "</a>";
-                $("#address").append(str);
-                $("#address").append(path);
+                $("#address").html(path);
 
                 map.centerAndZoom(pp, 18);
                 map.addOverlay(new BMap.Marker(pp));    //添加标注
