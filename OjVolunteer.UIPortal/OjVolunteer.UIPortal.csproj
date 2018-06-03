@@ -200,6 +200,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Filters\ExceptionLogFilterAttribute.cs" />
+    <Compile Include="Models\SingModel.cs" />
     <Compile Include="Models\TalkViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
