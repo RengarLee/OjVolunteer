@@ -261,3 +261,4 @@ __pycache__/
 *.pdb
 *.cache
 /.vs/
+*.txt
