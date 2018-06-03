@@ -65,17 +65,18 @@ namespace OjVolunteer.UIPortal.Controllers
                 msg = "报名失败,请稍后再试";
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
-        } 
+        }
         #endregion
 
         #region 列表活动签到签退
-
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult SingIn(int aId)
         {
             ViewBag.ActivityId = aId;
             return View();
         }
 
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public JsonResult SingInData()
         {
             int typeId =Convert.ToInt32(Request["typeId"]);
