@@ -29,8 +29,9 @@ namespace OjVolunteer.UIPortal.Controllers
         /// <returns></returns>
         [HttpPost]
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public JsonResult Enroll(int activityId)
+        public JsonResult Create()
         {
+            int activityId = Convert.ToInt32(Request["activityId"]);
             string msg = String.Empty;
 
             if (LoginUser.Status == delAuditing)
@@ -42,8 +43,6 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Json(new { msg = "您已报名" }, JsonRequestBehavior.AllowGet);
             }
-
-
 
             Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
             //报名条件

@@ -1,27 +1,25 @@
 ﻿@{
     Layout = "~/Views/Shared/User_Layout.cshtml";
 }
+<div class="action-bg">
+    <header>
+        <nav class="top">
+            <p>活动商场</p>
+        </nav>
+    </header>
+    <nav class="classnav">
+        <form class="layui-form" " action="">
+            <div class="layui-form-item">
+                @Html.DropDownList("ActivityTypeID", null, "全部活动", new { htmlAttributes = new { @class = "data-am-selected" } })
+            </div>
+        </form>
 
-<header>
-    <nav class="top">
-        <p>活动商场</p>
     </nav>
-</header>
-<nav class="classnav">
 
-    <form class="layui-form" " action="">
-        <div class="layui-form-item">
-            @Html.DropDownList("ActivityTypeID", null, "全部活动", new { htmlAttributes = new { @class = "data-am-selected" } })
-        </div>
-    </form>
-
-</nav>
-
-<div class="acbox">
-    <ul id="actul" class="ac-list">
-    </ul>
+    <div class="acbox">
+        <ul id="actul" class="ac-list"></ul>
+    </div>
 </div>
-
 
 @section Script{
     <script type="text/javascript">
@@ -66,7 +64,7 @@
                         li_div.append(li_div_s2);
 
                         var li_bdiv = $("<div class='acbox-btn'></div>");
-                        li_bdiv.append("<button class='btn btnEnroll'>我要报名</button>")
+                        li_bdiv.append("<button class='btn btnEnroll' activity='"+temp.ActivityID+"'>我要报名</button>");
                             
 
                         li.append(li_a);
