@@ -42,8 +42,14 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             int key = int.Parse(Request["key"]);
             var user =UserInfoService.GetEntities(u => u.UserInfoID == key).FirstOrDefault();
-
-            return Json(new { login=user.UserInfoLoginId, showname = user.UserInfoShowName }, JsonRequestBehavior.AllowGet);
+            if (user == null)
+            {
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = "success", phone = user.UserInfoPhone, login = user.UserInfoLoginId, showname = user.UserInfoShowName }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion

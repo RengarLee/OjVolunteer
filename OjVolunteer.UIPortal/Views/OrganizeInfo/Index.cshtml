@@ -45,7 +45,11 @@
                             欢迎
                         </a>
                     </li>
-
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" data-url="/Activity/OrgCreate" data-id="4" tab-item>
+                            申请活动
+                        </a>
+                    </li>
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:;">
                             信息管理
@@ -67,28 +71,28 @@
                                 </a>
                             </dd>
                             @if (Model.OrganizeInfoManageId == null)
-                            {
-                                <dd>
-                                    <a href="javascript:;" data-url="/OrganizeInfo/AllOrganizeInfo" data-id="24" tab-item>
-                                        组织信息
-                                    </a>
-                                </dd>
-                                <dd>
-                                    <a href="javascript:;" data-url="/Major/" data-id="25" tab-item>
-                                        专业信息
-                                    </a>
-                                </dd>
-                                <dd>
-                                    <a href="javascript:;" data-url="/Department/" data-id="26" tab-item>
-                                        学院信息
-                                    </a>
-                                </dd>
-                                <dd>
-                                    <a href="javascript:;" data-url="/Political/" data-id="27" tab-item>
-                                        政治面貌信息
-                                    </a>
-                                </dd>
-                            }
+            {
+                <dd>
+                    <a href="javascript:;" data-url="/OrganizeInfo/AllOrganizeInfo" data-id="24" tab-item>
+                        组织信息
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:;" data-url="/Major/" data-id="25" tab-item>
+                        专业信息
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:;" data-url="/Department/" data-id="26" tab-item>
+                        学院信息
+                    </a>
+                </dd>
+                <dd>
+                    <a href="javascript:;" data-url="/Political/" data-id="27" tab-item>
+                        政治面貌信息
+                    </a>
+                </dd>
+}
 
 
                         </dl>
@@ -120,12 +124,12 @@
                                 </a>
                             </dd>
                             @if (Model.OrganizeInfoManageId == null)
-    {
-                        <dd>
-                            <a href="javascript:;" data-url="/OrganizeInfo/OrganizeOfAuditing" data-id="34" tab-item>
-                                组织账号申请审核
-                            </a>
-                        </dd>
+            {
+                <dd>
+                    <a href="javascript:;" data-url="/OrganizeInfo/OrganizeOfAuditing" data-id="34" tab-item>
+                        组织账号申请审核
+                    </a>
+                </dd>
 }
                         </dl>
                     </li>

@@ -1,22 +1,14 @@
 ﻿@model OjVolunteer.Model.Activity
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
     <style type="text/css">
-        body, html {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            font-family: "微软雅黑";
-            font-size: 14px;
-        }
 
         #l-map {
             height: 300px;
@@ -27,237 +19,255 @@
             width: 100%;
         }
     </style>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=HisYFGGE2IDgsNH7xUAEQfExLIxpWwDh"></script>
-    <title>OrgCreate</title>
-    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-1.10.2.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $("#btn").click(function () {
-                //var majorIds = "";
-                //$("input[name='Major']").each(function () {
-                //    if (this.checked) {
-                //        majorIds = majorIds + this.value + ",";
-                //    }
-                //});
-                ///*majorIds = majorIds.substr(0, majorIds.length - 1);*/
-                //alert(majorIds);
-                $.post("/Activity/Create/", $("#form1").serializeArray(), function (data) {
-                    if (data == "success") {
-
-                    } else {
-
-                    }
-                });
-            });
-        });
-    </script>
 </head>
-<body>
-    <form id="form1">
-        <div class="form-horizontal">
-            <h4>Activity</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityName, "活动名称", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ActivityName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-body">
+            <form class="layui-form layui-form-pane acStart" id="form1">
+                <h2 class="acStart-title">发布活动</h2>
+                <hr />
+                <div class="acStart-box">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">活动名称</label>
+                        <div class="layui-input-block">
+                            @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">负责人</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="managerid" name="title" lay-verify="required|username" class="layui-input" value="陈浩强">
+                        </div>
+                        <button type="button" id="btnSer" name="btnSer" value="查找">查找</button><div id="manager"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">活动类型</label>
+                        <div class="layui-input-block">
+                            @Html.DropDownList("ActivityTypeID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label ">活动地点</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" lay-verify="required|username" class="layui-input" value="百度地图">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">报名时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">预计活动时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline acStart-short">
+                            <label class="layui-form-label ">人数上限</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" lay-verify="required|number" class="layui-input" value="12">
+                            </div>
+                        </div>
+                        <div class="layui-inline acStart-short">
+                            <div class="layui-input-block">
+                                <button type="button" class="layui-btn" id="test1">点击上传活动封面</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--富文本框-->
+                    <h4 class="acArticle">活动详情</h4>
+                    <textarea id="demo" style="display: none;"></textarea>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityIcon, "活动头像", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ActivityIcon, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ActivityIcon, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <div class="acStart-Condition">
+                        <div class="layui-collapse">
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">参与人员政治面貌筛选</h2>
+                                <div class="layui-colla-content layui-show">
+                                    @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
+                                    @foreach (var key in PoliticalDict.Keys)
+                            {
+                                <input type="checkbox" value="@key" name="Major" id="@key" title="@PoliticalDict[key]" />
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityTypeID, "活动类型", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("ActivityTypeID", "");
-                    @Html.ValidationMessageFor(model => model.ActivityTypeID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityAddress, "活动地址", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ActivityAddress, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ActivityAddress, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityContent, "活动详细内容", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ActivityContent, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ActivityContent, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityPrediNum, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ActivityPrediNum, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ActivityPrediNum, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityEnrollStart, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ActivityEnrollStart, new { htmlAttributes = new { @class = "form-control", Type = "date" } })
-                    @Html.ValidationMessageFor(model => model.ActivityEnrollStart, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityEnrollEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ActivityEnrollEnd, new { htmlAttributes = new { @class = "form-control", Type = "date" } })
-                    @Html.ValidationMessageFor(model => model.ActivityEnrollEnd, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityPolitical, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
-                    @foreach (var key in PoliticalDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" name="Major" id="@key" />
-                        <label for="@key">@PoliticalDict[key]</label>
                     }
-                    @Html.ValidationMessageFor(model => model.ActivityMajor, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityMajor, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
-                    @foreach (var key in MajorDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" name="Major" id="@key" />
-                        <label for="@key">@MajorDict[key]</label>
+                                </div>
+                            </div>
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">参与人员学院筛选</h2>
+                                <div class="layui-colla-content layui-show">
+                                    @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
+                                    @foreach (var key in MajorDict.Keys)
+                            {
+                                <input type="checkbox" value="@key" name="Major" id="@key" title="@MajorDict[key]" />
                     }
-                    @Html.ValidationMessageFor(model => model.ActivityMajor, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ActivityDepartment, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
-                    @foreach (var key in DepartmentDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" name="Major" id="@key" />
-                        <label for="@key">@DepartmentDict[key]</label>
+                                </div>
+                            </div>
+                            <div class="layui-colla-item">
+                                <h2 class="layui-colla-title">参与人员专业筛选</h2>
+                                <div class="layui-colla-content layui-show">
+                                    @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
+                                    @foreach (var key in DepartmentDict.Keys)
+                            {
+                                <input type="checkbox" value="@key" name="Major" id="@key" title="@DepartmentDict[key]" />
                     }
-                    @Html.ValidationMessageFor(model => model.ActivityMajor, "", new { @class = "text-danger" })
-                </div>
-            </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="button" id="btn" value="Create" class="btn btn-default" />
+                    <div class="acArticle-btn">
+                        <div class="layui-form-item">
+                            <button class="layui-btn red-btn" lay-submit>发布</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">取消发布</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form><div id="l-map"></div>
+            <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
+            
+            <div id="address"></div>
+            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
 
         </div>
+    </div>
 
-    </form>
-
-    <input name="ActivityManagerID" id="managerid" type="text" /> <button type="button" id="btnSer" name="btnSer" value="查找" />
-    <div id="manager"></div>
-
-    <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
-    <div id="address"></div>
-    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-    <div id="l-map"></div>
-
-    <script src="~/Content/layui/layui.all.js"></script>
-    <script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=HisYFGGE2IDgsNH7xUAEQfExLIxpWwDh"></script>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+    <script type="text/javascript">
         $(function () {
             BindSearchKey();
         });
+        //查找负责人
         function BindSearchKey() {
             $('#btnSer').click(function () {
                 $.post("/UserInfo/SearchActivityPeople", { key: $("#managerid").val() }, function (data) {
-                    var buffer = "登录名" + data["login"] + "真实姓名" + data["showname"];
-                    $("#manager").append(buffer);
+                    if (data["msg"] == "success") {
+                        var buffer = "登录名" + data["login"] + "真实姓名" + data["showname"] + "手机号" + data["phone"];
+
+                    } else {
+                        var buffer = "查无此人";
+                    }
+                    $("#manager").html(buffer);
                 });
             });
         }
-    </script>data.TalkImagePath
+
+        layui.use(['form', 'layer'], function () {
+            var form = layui.form;
+            form.verify({
+                userID: function (value, item) { //value：表单的值、item：表单的DOM对象
+                    if (!new RegExp("^[a-zA-Z0-9_s·]+$").test(value)) {
+                        return '登录帐号不能有特殊字符和中文字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                        return '登录帐号首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)) {
+                        return '登录帐号不能全为数字';
+                    }
+                    if (!/{6,18}$/.test(value)) {
+                        return '登录帐号必须在6到18位之间'
+                    }
+                }
+                //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+                ,
+                pass: [
+                    /^[\S]{6,18}$/, '密码必须在6到18位之间，且不能出现空格'
+                ],
+                username: [
+                    /^[\u4e00-\u9fa5]{2,8}$/, '姓名必须在2到8个汉字之间'
+                ],
+                studentNumber: [
+                    /^[0-9]{11}$/, '学号必须位11位，且都是数字'
+                ]
+            });
+        });
+        //日期组件
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#timeRange',
+                type: 'datetime',
+                range: true
+            });
+        });
+        //富文本框
+        layui.use('layedit', function () {
+            var layedit = layui.layedit;
+            layedit.build('demo'); //建立编辑器
+        })
+        //折叠面板
+        layui.use('element', function () {
+            var element = layui.element;
+
+            //…
+        });
+
+
+        // 百度地图API功能
+        function G(id) {
+            return document.getElementById(id);
+        }
+        var map = new BMap.Map("l-map");
+        map.centerAndZoom("温州", 12);     
+        
+        var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+            {
+                "input": "suggestId"
+                , "location": map
+            });
+        ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+            var str = "";
+            var _value = e.fromitem.value;
+            var value = "";
+            if (e.fromitem.index > -1) {
+                value = _value.province + _value.city + _value.district + _value.street + _value.business;
+            }
+            str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+            value = "";
+            if (e.toitem.index > -1) {
+                _value = e.toitem.value;
+                value = _value.province + _value.city + _value.district + _value.street + _value.business;
+            }
+            str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+            G("searchResultPanel").innerHTML = str;
+        });
+
+        var myValue;
+        ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+            var _value = e.item.value;
+            myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+            G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+            setPlace();
+        });
+        function setPlace() {
+            map.clearOverlays();    //清除地图上所有覆盖物
+            function myFun() {
+                var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                //
+                var poi = local.getResults().getPoi(0);
+                var str = "<div>位置" + poi.title + "<br/>经度:" + poi.point.lng + "<br/>纬度：" + poi.point.lat;
+                var path = "<a  target='_blank' href='https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=" + poi.title + "/vt=map'>" + poi.title + "</a>";
+                $("#address").append(str);
+                $("#address").append(path);
+
+                map.centerAndZoom(pp, 18);
+                map.addOverlay(new BMap.Marker(pp));    //添加标注
+            }
+            var local = new BMap.LocalSearch(map, { //智能搜索
+                onSearchComplete: myFun
+            });
+            local.search(myValue);
+        }
+
+    </script>
 </body>
 </html>
-<script type="text/javascript">
-    // 百度地图API功能
-    function G(id) {
-        return document.getElementById(id);
-    }
-
-    var map = new BMap.Map("l-map");
-    map.centerAndZoom("北京", 12);                   // 初始化地图,设置城市和地图级别。
-
-    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-        {
-            "input": "suggestId"
-            , "location": map
-        });
-
-    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
-        var str = "";
-        var _value = e.fromitem.value;
-        var value = "";
-        if (e.fromitem.index > -1) {
-            value = _value.province + _value.city + _value.district + _value.street + _value.business;
-        }
-        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-
-        value = "";
-        if (e.toitem.index > -1) {
-            _value = e.toitem.value;
-            value = _value.province + _value.city + _value.district + _value.street + _value.business;
-        }
-        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-        G("searchResultPanel").innerHTML = str;
-    });
-
-    var myValue;
-    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
-        var _value = e.item.value;
-        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-
-        setPlace();
-    });
-
-    function setPlace() {
-        map.clearOverlays();    //清除地图上所有覆盖物
-        function myFun() {
-            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-            //
-            var poi = local.getResults().getPoi(0);
-            var str = "<div>位置" +poi.title + "<br/>经度:" + poi.point.lng + "<br/>纬度：" + poi.point.lat;
-            var path = "<a  target='_blank' href='https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=" + poi.title+"/vt=map'>" + poi.title + "</a>";
-            $("#address").append(str);
-            $("#address").append(path);
-
-            map.centerAndZoom(pp, 18);
-            map.addOverlay(new BMap.Marker(pp));    //添加标注
-        }
-        var local = new BMap.LocalSearch(map, { //智能搜索
-            onSearchComplete: myFun
-        });
-        local.search(myValue);
-    }
-</script>
-
