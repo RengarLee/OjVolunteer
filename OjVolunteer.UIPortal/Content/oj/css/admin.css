@@ -129,27 +129,7 @@
 .acStart-left{
     float:left;
 }
-.acStart-jieGuo {义工后台管理系统
-总支部
- 
-退出
-欢迎
-申请活动
-信息管理
-义工信息
-心得信息
-活动信息
-组织信息
-专业信息
-学院信息
-政治面貌信息
-信息审核
-政治面貌更改审核
-心得审核
-活动申请审核
-活动完成审核
-组织账号申请审核
-欢迎 申请活动 
+.acStart-jieGuo {
     width: 330px;
     padding: 8px 5px;
     height: 38px;
