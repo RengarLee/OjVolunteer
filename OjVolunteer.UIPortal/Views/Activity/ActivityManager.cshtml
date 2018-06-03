@@ -151,7 +151,10 @@
                         sortable: true,
                         width: '20%',
                         formatter: function (value, row, index) {
-                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                            if (value)
+                                return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                            else
+                                null;
                         }
                     },
                     {
@@ -161,7 +164,10 @@
                         sortable: true,
                         width: '20%',
                         formatter: function (value, row, index) {
-                            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                            if (value)
+                                return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                            else
+                                null;
                         }
                     },
                     {
