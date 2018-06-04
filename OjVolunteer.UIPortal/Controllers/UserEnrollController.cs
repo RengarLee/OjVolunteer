@@ -1,6 +1,7 @@
 ﻿using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.UIPortal.Filters;
+using OjVolunteer.UIPortal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,14 +69,59 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 列表活动签到签退
+
+        public ActionResult SingIn(int aId)
+        {
+            ViewBag.ActivityId = aId;
+            return View();
+        }
+
+        public JsonResult SingInData()
+        {
+            int typeId =Convert.ToInt32(Request["typeId"]);
+            int activityId =Convert.ToInt32(Request["activityId"]);
+            var data = UserEnrollService.GetEntities(u => u.ActivityID == activityId).AsQueryable();
+            //未签到
+            if (typeId == 1)
+            {
+                data = data.Where(u=>u.Status == delAuditing).AsQueryable();
+            }
+            if (typeId == 2)
+            {
+                data = data.Where(u => u.Status != delAuditing).AsQueryable();
+            }
+            List<SingModel> list = new List<SingModel>();
+            foreach (var temp in data)
+            {
+                SingModel sing = new SingModel()
+                {
+                    SingTime = temp.UserEnrollActivityStart,
+                    ShowName = temp.UserInfo.UserInfoShowName,
+                    LoginId = temp.UserInfo.UserInfoLoginId,
+                    UserInfoId = temp.UserInfoID,
+                };
+                if (temp.Status == delAuditing)
+                {
+                    sing.isSing = true;
+                }
+                else
+                {
+                    sing.isSing = false;
+                }
+                list.Add(sing);
+            }
+            return Json(new { msg="success",data= list },JsonRequestBehavior.AllowGet);
+        }
         /// <summary>
         /// 活动签到
         /// </summary>
         /// <returns></returns>
-        public JsonResult SignIn()
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = false, AbleUser =true)]
+        public JsonResult ListSignIn()
         {
-            int activityId = Convert.ToInt32(Request["aid"]);
-            string[] strIds = Request["ids"].Split(',');
+            int activityId = Convert.ToInt32(Request["activityId"]);
+            string[] strIds = Request["ids"].Split(new char[] { ',' },StringSplitOptions.RemoveEmptyEntries);
             string msg = String.Empty;
             List<int> uIdList = new List<int>();
             foreach (var strId in strIds)

@@ -200,6 +200,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Filters\ExceptionLogFilterAttribute.cs" />
+    <Compile Include="Models\SingModel.cs" />
     <Compile Include="Models\TalkViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -471,6 +472,7 @@
     <Content Include="Views\UserInfo\Other.cshtml" />
     <Content Include="Views\Talks\TalksOfUser.cshtml" />
     <Content Include="Views\Talks\Create.cshtml" />
+    <Content Include="Views\UserEnroll\SingIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

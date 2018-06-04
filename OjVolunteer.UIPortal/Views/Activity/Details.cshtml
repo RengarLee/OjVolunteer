@@ -1,87 +1,57 @@
 ﻿@model OjVolunteer.Model.Activity
 
-<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>瓯江义工网</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/oj/css/amazeui.min.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
 </head>
 <body>
-    @*@{
-            var data = ViewBag.data;
-        }*@
     <header>
-
         <nav class="top">
             <p>活动详情</p>
         </nav>
     </header>
     <div class="acmore">
-        <img src="images/acmoreimg.jpg">
+        <img src="@Model.ActivityIcon">
         <div class="acmore-class">@Model.ActivityType.ActivityTypeName</div>
     </div>
     <!-- 活动简介 -->
     <div class="acmoreinfo">
         <div class="acmore-title">
-
             <span>@Model.ActivityName</span>
         </div>
         <div class="acmore-title">
-            <span>时间：2018-1-13日 13:30-16:00</span>
+            <span>报名时间：@{ var Estart = ((DateTime)(Model.ActivityEnrollStart)).ToString("yyyy-MM-dd HH:mm"); @Estart} - @{ var Eend = ((DateTime)(Model.ActivityEnrollEnd)).ToString("HH:mm"); @Eend}</span>
         </div>
         <div class="acmore-title">
-            <span>截止：2018-1-13日  12:00</span>
+            <span>活动时间：@{ var start = ((DateTime)(Model.ActivityStart)).ToString("yyyy-MM-dd HH:mm"); @start} - @{ var end = ((DateTime)(Model.ActivityEnd)).ToString("HH:mm"); @end}</span>
         </div>
         <div class="acmore-title">
             <span>活动地点：<a target="_blank" href="https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=@Model.ActivityAddress/vt=map">@Model.ActivityAddress</a></span>
         </div>
         <div class="acmore-title">
-            <a href="#" class="acmore-userinfo">
+            <a href="/UserInfo/Other/@Model.ActivityManagerID" class="acmore-userinfo">
                 <img src="@Model.ManagerUserInfo.UserInfoIcon">
-                <span>队长：@Model.ManagerUserInfo.UserInfoShowName</span>
+                <span>队长：@Model.ManagerUserInfo.UserInfoShowName<</span>
                 <i>查看队长详细信息</i>
             </a>
         </div>
-        <!-- 两个弹窗按钮 -->
-        <div class="acmore-button">
-            <!-- 联系方式按钮 -->
-            <button type="button" class="am-btn am-btn-primary"
-                    data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 200, height: 100}">
-                联系方式
-            </button>
-            <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
-                <div class="am-modal-dialog">
-                    <div class="am-modal-hd">
-                        联系方式
-                        <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-                    </div>
-                    <div class="am-modal-bd">
-                        12345678901
-                    </div>
-                </div>
-            </div>
-            <!-- 活动二维码按钮 -->
-            <button type="button" class="am-btn am-btn-primary"
-                    data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 300, height: 300}">
-                活动二维码
-            </button>
-            <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-2">
-                <div class="am-modal-dialog">
-                    <div class="am-modal-hd">
-                        二维码
-                        <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-                    </div>
-                    <div class="am-modal-bd">
-                        假装这里有个二维码
-                    </div>
-                </div>
-            </div>
+        <div class="acmore-title">
+            <span>手机号：@Model.ManagerUserInfo.UserInfoPhone</span>
+        </div>
 
+        <div class="acmore-button">
+            <a class="am-btn am-btn-primary" href="/UserEnroll/SingIn/?aId=@Model.ActivityID">
+                签到界面
+            </a>
+            <a class="am-btn am-btn-primary" href="/UserEnroll/SingIn/?aId=@Model.ActivityID">
+                签退界面
+            </a>
         </div>
         <div class="acmore-content">
             <pre>
@@ -100,26 +70,12 @@
     </pre>
         </div>
     </div>
-    @{
-        if (Model.ActivityEnrollEnd > DateTime.Now && Model.ManagerUserInfo.UserInfoID != (int)ViewBag.UserId)
-        {
-            <a class="signnav" href="#">
-                <p>我要报名</p>
-            </a>
-        }
-        else
-        {
-            if (Model.ManagerUserInfo.UserInfoID != (int)ViewBag.UserId)
-            {
-                <a class="signnav" href="#">
-                    <p>开始签到</p>
-                </a>
-            }
-        }
 
-    }
-
-
+    <div class='btnEnroll' activity="@Model.ActivityID">
+        <a class="signnav" href="#">
+            <p>我要报名</p>
+        </a>
+    </div>
 
 
 
@@ -129,73 +85,17 @@
         <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
     <script src="~/Content/oj/js/amazeui.min.js"></script>
+
     <script src="~/Content/oj/js/main.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            GetActivityData(1, 5);
-            $("#ActivityTypeID").change(
-                function () {
-                    $("#list").empty();
-                    GetActivityData(1, 5, $(this).children('option:selected').val());
-                }
-            )
-        });
-
-        //加载活动数据
-        function GetActivityData(pageIndex, pageSize, typeId) {
-            $.post("/Activity/GetListData", { pageIndex: pageIndex, pageSize: pageSize, typeId: typeId }, function (data) {
-                if (data["msg"] == "success") {
-                    pageIndex = pageIndex + 1;
-                    var buffer = "";
-                    var item = data["data"];
-                    for (var i = 0; i < item.length; i++) {
-                        /**/
-                        buffer = buffer + "<li class='aclist-box clearfix'> <a href='#' class='aclist-box-img'><img src='" + item[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href=''>" + item[i].ActivityName + "</a><span class='actime'>时间:" + TimeFormat(item[i].ActivityStart) + "-" + TimeFormat(item[i].ActivityEnd) + "</span><br> <span class='acendtime'>截止: " + TimeFormat(item[i].ActivityEnrollEnd) + "</span></div><div class='acbox-btn'><button  class='btnEnroll' activity=" + item[i].ActivityID + ">我要报名</button> </div></li>";
-                        /**/
-                    }
-                    buffer = buffer + "<input type='button' id='btnevent' pageIndex='";
-                    buffer = buffer + pageIndex + "' value='查看更多'/>";
-                    $("#btnevent").remove();
-                    $("#list").append(buffer);
-                    BindEnrollClickEvent();
-                    BindActivtyListClickEvent();
-                } else {
-                    $("#btnevent").remove();
-                    var buffer = "<p> 无更多活动</p>"
-                    $("#list").append(buffer);
-                }
-            });
-
-        }
-
-        //查看更多活动按钮绑定
-        function BindActivtyListClickEvent() {
-            $("#btnevent").click(function () {
-                var pageIndex = parseInt($("#btnevent").attr("pageIndex"));
-                var pageSize = 5;
-                var typeId = $("#ActivityTypeID").val();
-                GetActivityData(pageIndex, pageSize, typeId);
-            });
-        }
-
-        //报名按钮绑定事件
-        function BindEnrollClickEvent() {
-            $(".btnEnroll").click(function () {
-                var activityId = $(this).attr("activity");
-                $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
-                    alert(data["msg"]);
-                });
-            });
-        }
-
+    <script>
         //时间戳转为时间
         function TimeFormat(value) {
             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
         }
     </script>
-
 </body>
 </html>
