@@ -18,8 +18,8 @@
         <p class="lg-title">登录</p>
         @using (Ajax.BeginForm("ProcessLogin", "Login", new AjaxOptions() { OnSuccess = "afterLogin" }, new { @class = "layui-form" }))
         {
-            <input type="text" name="LoginCode" class="forminput clearfix" placeholder="请输入帐号" lay-verify="required">
-            <input type="password" name="LoginPwd" class="forminput clearfix" placeholder="请输入密码（6-18位）" lay-verify="required">
+            <input type="text" name="LoginCode" class="forminput clearfix" placeholder="请输入登录帐号" lay-verify="required|userID">
+            <input type="password" name="LoginPwd" class="forminput clearfix" placeholder="请输入密码（6-18位）" lay-verify="required|pass">
             <button type="submit" class="btn btn-success" id="loginbtn" lay-submit>登录</button>
             <a href="/Register">快速注册></a>
         }
@@ -37,12 +37,16 @@
             window.top.location.href = "/Login/Index";
         }
         function afterLogin(data) {
+
+            layui.use('layer', function () {
+                var layer = layui.layer;
+            }); 
             if (data == "userinfo") {
                 window.top.location.href = "/UserInfo/Index";
             } else if (data == "OrganizeInfo") {
                 window.top.location.href = "/OrganizeInfo/Index";
             } else if (data == "fail") {
-                alert("密码错误，请重新输入！");
+                layer.msg('密码或帐号错误！请重新输入', { icon: 5 });
             }
         }
     </script>
