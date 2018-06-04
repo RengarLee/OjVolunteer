@@ -12,7 +12,6 @@
     <title>ITAEM</title>
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
-
 </head>
 <body>
     <header class="form-title">
@@ -63,7 +62,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { @class = "layui-input", type = "text", autocomplete = "off" }, lay_verify = "email" })
+                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { @class = "layui-input", type = "text", autocomplete = "off" ,} })
                     </div>
                 </div>
 
@@ -81,6 +80,7 @@
             </div>
         </form>
     </div>
+
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/admin.js"></script>
@@ -91,6 +91,10 @@
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
     <script>
         $(function () {
+            var layer;
+            layui.use('layer', function () {
+                var layer = layui.layer;
+            });
             bindUpdateClick();
 
         });
@@ -99,7 +103,7 @@
             $("#btnUpdate").click(function () {
                 $.post("/OrganizeInfo/Edit", $("#form1").serializeArray(), function (data) {
                     if (data != "success") {
-                        alert("资料修改出错，请稍后再试");
+                        //alert("资料修改出错，请稍后再试")
                         return;
                     } else {
                         var index = parent.layer.getFrameIndex(window.name);
@@ -118,15 +122,15 @@
                 , size: 2048
                 , done: function (res) {
                     if (res["msg"] == "fail") {
-                        alert("头像更换失败，请稍后再试");
+                        layer.msg('头像更换失败，请稍后再试', { icon: 2 });
                     } else {
                         $("#myimg").attr("src", res["src"]);
                         $("#OrganizeInfoIcon").attr("value", res["src"]);
-                        alert("头像更新成功");
+                        layer.msg('修改头像成功！', { icon: 1 });
                     }
                 }
                 , error: function () {
-                    alert("头像更换失败，请稍后再试")
+                    layer.msg('头像更换失败，请稍后再试', { icon: 2 });
                 }
             });
         });
