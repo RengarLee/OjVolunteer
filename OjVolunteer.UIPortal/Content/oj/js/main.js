@@ -1,6 +1,5 @@
 $(document).ready(function(){
-
-
+    
 
 
     // 调用layui弹出层

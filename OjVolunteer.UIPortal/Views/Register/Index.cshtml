@@ -9,40 +9,14 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
-    <script src="~/Content/oj/js/main.js"></script>
-    <script src="~/Content/oj/js/bootstrap.min.js"></script>
     <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script type="text/javascript">
-
-        function registerAfter(data) {
-            if (data == "user")
-                alert("注册成功！")
-            else if (data == "organize")
-                alert("注册成功，请等待组织审核！")
-            else
-                alert("注册失败，请稍后再试！")
+    <style>
+        .layui-form-select dl dd.layui-this {
+            background-color: #5CB85C;
         }
-
-        $(document).ready(function () {
-            $("#username").blur(function () {
-                str = $("#username").val();
-                $.post("/Register/ValidateName", { "name": str, "usertype": "0" }, function (data) {
-                    if (data != "success")
-                        alert("登录名重复,请更换登录名！");
-                });
-            });
-            $("#teamname").blur(function () {
-                str = $("#teamname").val();
-                $.post("Register/ValidateName", { "name": str, "usertype": "1" }, function (data) {
-                    if (data != "success")
-                        alert("登录名重复,请更换登录名！");
-                });
-            });
-        });
-    </script>
+    </style>
 </head>
 <body>
 
@@ -59,83 +33,123 @@
         <div id="myTabContent" class="tab-content">
 
             <div class="tab-pane fade in active" id="solo">
-            @using (Ajax.BeginForm("UserRegister", "Register", new AjaxOptions { OnSuccess = "registerAfter" }))
-            {
-            <h4 class="title">个 人</h4>
-            <div class="item">
-                <label class="tips">义工登录名:</label>
-                <input id="username" class="input forminput" name="loginname" type="text" placeholder="用于用户登录,请填写登录名,仅包括字母和数字,长度在6-12之间" />
-            </div>
-            <div class="item">
-                <label class="tips">密码:</label>
-                <input id="password" class="input forminput" name="pwd" type="password" placeholder="请输入密码,仅包括字母和数字,长度在6-12之间" />
-            </div>
-            <div class="item">
-                <label class="tips">确认密码:</label>
-                <input id="password" class="input forminput" name="pwd" type="password" placeholder="再次输入密码" />
-            </div>
-            <div class="item">
-                <label class="tips">真实姓名:</label>
-                <input id="username" class="input forminput" name="nickname" type="text" placeholder="务必填写真实姓名" /> @*2-10个字符*@
-            </div>
-            <div class="item">
-                <label class="tips">手机号:</label>
-                <input id="phonenumber" class="input forminput" name="phone" type="text" placeholder="请输入手机号" />@*11位字符*@
-            </div>
-            <div class="item">
-                <label class="tips">所在党组织:</label>
-                @Html.DropDownList("OrganizeInfoList", null, new { @class = "input forminput", name = "organizeinfo" })
-            </div>
-            <div class="item">
-                <label class="tips">政治面貌:</label>
-                @Html.DropDownList("PoliticalList", null, new { @class = "input forminput", name = "political" })
-            </div>
-            <div class="item">
-                <button type="submit" class="btn btn-success" id="rebtn">注册</button>
-                <a href="/Login/">返回登录</a>
-            </div>
-            }
+                @using (Ajax.BeginForm("UserRegister", "Register", new AjaxOptions { OnSuccess = "registerAfter" }, new { @class = "layui-form" }))
+                {
+                    <h4 class="title">个 人</h4>
+                    <div class="item">
+                        <label class="tips">登录帐号:</label>
+                        <input id="username" class="input forminput" name="loginname" type="text" placeholder="用于用户登录,仅字母和数字，6-12个字符" lay-verify="required|userID" />
+                    </div>
+                    <div class="item">
+                        <label class="tips">密码:</label>
+                        <input id="userpass" class="input forminput" name="pwd" type="password" placeholder="请输入密码,仅字母和数字,6-12个字符" lay-verify="required|pass" />
+                    </div>
+                    <div class="item">
+                        <label class="tips">确认密码:</label>
+                        <input id="repass" class="input forminput" name="pwd" type="password" placeholder="再次输入密码" lay-verify="required|repass" />
+                    </div>
+                    <div class="item">
+                        <label class="tips">真实姓名:</label>
+                        <input id="realname" class="input forminput" name="nickname" type="text" placeholder="务必填写真实姓名" lay-verify="required|username" /> @*2-10个字符*@
+                    </div>
+                    <div class="item">
+                        <label class="tips">手机号:</label>
+                        <input id="phonenumber" class="input forminput" name="phone" type="text" placeholder="请输入手机号" lay-verify="required|phone" />@*11位字符*@
+                    </div>
+                    <div class="select-item">
+                        <label class="tips">所在党组织:</label>
+                        @Html.DropDownList("OrganizeInfoList", null, new { @class = "input forminput", name = "organizeinfo" })
+                    </div>
+                    <div class="select-item">
+                        <label class="tips">政治面貌:</label>
+                        @Html.DropDownList("PoliticalList", null, new { @class = "input forminput", name = "political" })
+                    </div>
+                    <div class="item">
+                        <button type="submit" class="btn btn-success" id="rebtn" lay-submit>注册</button>
+                        <a href="/Login/">返回登录</a>
+                    </div>
+                }
             </div>
 
             <!-- 下面为组织界面 -->
- 
+
             <div class="tab-pane fade" id="team">
-            @using (Ajax.BeginForm("OrganizeRegister", "Register", new AjaxOptions{ OnSuccess = "registerAfter" }))
-            {
-            <h4 class="title">组 织</h4>
-            <div class="item">
-                <label class="tips">组织登录名:</label>
-                <input id="teamname" class="input forminput" name="loginname" type="text" placeholder="用于组织登录,请填写登录名,仅包括字母和数字,长度在6-12之间" onblur="validateName"/>
-            </div>
-            <div class="item">
-                <label class="tips">密码:</label>
-                <input id="password" class="input forminput" name="pwd" type="password" placeholder="请输入密码,仅包括字母和数字,长度在6-12之间" />
-            </div>
-            <div class="item">
-                <label class="tips">确认密码:</label>
-                <input id="password" class="input forminput" name="pwd" type="password" placeholder="再次输入密码" />
-            </div>
-            <div class="item">
-                <label class="tips">组织名称:</label>
-                <input id="teamname" class="input forminput" name="nickname" type="text" placeholder="请输入组织名称" /> @*2-15*@
-            </div>
-            <div class="item">
-                <label class="tips">负责人姓名:</label>
-                <input id="password" class="input forminput" name="people" type="text" placeholder="请输入负责人姓名" />@*2-10个字符*@
-            </div>
-            <div class="item">
-                <label class="tips">手机号:</label>
-                <input id="password" class="input forminput" name="phone" type="text" placeholder="请输入负责人手机号码" />@*11个字符*@
-            </div>
-            <div class="item">
-                <button type="submit" class="btn btn-success" id="rebtn">注册</button>
-                <a href="/Login/">返回登录</a>
-            </div>
-            }
+                @using (Ajax.BeginForm("OrganizeRegister", "Register", new AjaxOptions { OnSuccess = "registerAfter" }, new { @class = "layui-form" }))
+                {
+                    <h4 class="title">组 织</h4>
+                    <div class="item">
+                        <label class="tips">登录帐号:</label>
+                        <input id="teamname" class="input forminput" name="loginname" type="text" placeholder="用于组织登录,仅字母和数字,6-12个字符" onblur="validateName" lay-verify="required|userID" />
+                    </div>
+                    <div class="item">
+                        <label class="tips">密码:</label>
+                        <input id="orgpass" class="input forminput" name="pwd" type="password" placeholder="请输入密码,仅字母和数字,6-12个字符" lay-verify="required|pass"/>
+                    </div>
+                    <div class="item">
+                        <label class="tips">确认密码:</label>
+                        <input id="r-repass" class="input forminput" name="pwd" type="password" placeholder="再次输入密码" lay-verify="required|orgrepass"/>
+                    </div>
+                    <div class="item">
+                        <label class="tips">组织名称:</label>
+                        <input id="r-teamname" class="input forminput" name="nickname" type="text" placeholder="请输入组织名称" lay-verify="required|orgname"/> @*2-15*@
+                    </div>
+                    <div class="item">
+                        <label class="tips">负责人姓名:</label>
+                        <input id="r-realname" class="input forminput" name="people" type="text" placeholder="请输入负责人姓名" lay-verify="required|username"/>@*2-10个字符*@
+                    </div>
+                    <div class="item">
+                        <label class="tips">手机号:</label>
+                        <input id="r-phone" class="input forminput" name="phone" type="text" placeholder="请输入负责人手机号码" lay-verify="required|phone"/>@*11个字符*@
+                    </div>
+                    <div class="item">
+                        <button type="submit" class="btn btn-success" id="r-rebtn" lay-submit>注册</button>
+                        <a href="/Login/">返回登录</a>
+                    </div>
+                }
             </div>
 
         </div>
     </div>
 
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+        layui.use('layer', function () {
+            var layer = layui.layer;
+        });
+        function registerafter(data) {
+            if (data == "user")
+                //alert("注册成功！");
+                layer.msg('注册成功！', { icon: 1 });
+            else if (data == "organize")
+                //alert("注册成功！");
+                layer.msg('注册成功，请等待组织审核', { icon: 1 });
+            else
+                //alert("注册失败，请稍后再试！");
+                layer.msg('注册失败，请稍后再试！', { icon: 2 });
+        }
+
+        $(document).ready(function () {
+            $("#username").blur(function () {
+                str = $("#username").val();
+                $.post("/register/validatename", { "name": str, "usertype": "0" }, function (data) {
+                    if (data != "success")
+                        //alert("登录名重复,请更换登录名！");
+                        layer.msg('登录名重复,请更换登录名！', { icon: 2 });
+                });
+            });
+            $("#teamname").blur(function () {
+                str = $("#teamname").val();
+                $.post("register/validatename", { "name": str, "usertype": "1" }, function (data) {
+                    if (data != "success")
+                        //alert("登录名重复,请更换登录名！");
+                        layer.msg('登录名重复,请更换登录名！', { icon: 2 });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
