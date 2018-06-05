@@ -36,16 +36,16 @@
             </div>
             <div class="header-right">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">登录</label>
+                    <label class="layui-form-label">登录帐号</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", disabled = "", lay_verify = "required", @class = "layui-input" } })
+                        @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", disabled = "", lay_verify = "required|userID", @class = "layui-input" } })
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">学号</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
+                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|studentNumber" } })
                     </div>
                 </div>
 
@@ -180,9 +180,9 @@
             $("#resetPwd").click(function () {
                 $.post("/UserInfo/ResetPwd", { "id": $("#UserInfoID").val() }, function (data) {
                     if (data == "success") {
-                        alert("密码重置为000000");
+                        layer.alert('密码重置为000000！', { icon: 1 });
                     } else {
-                        alert("重置失败,请稍后再试");
+                        layer.alert('重置失败,请稍后再试', { icon: 2 });
                     }
                 })
 
@@ -193,9 +193,9 @@
 
         function afterSubmit(data) {
             if (data == "success") {
-                alert("更改成功！");
+                layer.alert('更改成功！', { icon: 1 });
             } else {
-                alert("更改失败！");
+                layer.alert('更改成功！', { icon: 2 });
             }
         }
 
