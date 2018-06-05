@@ -10,7 +10,7 @@
     <nav class="classnav">
         <form class="layui-form" " action="">
             <div class="layui-form-item">
-                @Html.DropDownList("ActivityTypeID", null, "全部活动", new { htmlAttributes = new { @class = "data-am-selected" } })
+                @Html.DropDownList("ActivityTypeID", null, "全部活动", new { lay_filter="aihao", onchange="selectchange()"})
             </div>
         </form>
 
@@ -25,16 +25,16 @@
     <script type="text/javascript">
         layui.use('form', function () {
             var form = layui.form;
+            
+            form.on('select(aihao)', function (data) {
+                $("li").remove();
+                var typeId = $("select option:selected").val();
+                GetActivityData(1, 5, typeId);
+            });     
         });
 
         $(function () {
             GetActivityData(1, 5);
-            $("#ActivityTypeID").change(
-                function () {
-                    $("#list").empty();
-                    GetActivityData(1, 5, $(this).children('option:selected').val());
-                }
-            )
         });
 
         //加载活动数据
