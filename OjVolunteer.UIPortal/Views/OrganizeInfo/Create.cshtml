@@ -30,9 +30,9 @@
             <div class="header-right">
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">登录名</label>
+                    <label class="layui-form-label">登录帐号</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required" } })
+                        @Html.EditorFor(model => model.OrganizeInfoLoginId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|userID" } })
                     </div>
                 </div>
 
@@ -58,7 +58,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "email" } })
+                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
                     </div>
                 </div>
             </div>
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
+        <div class="footer-btn">
             <div class="layui-form-item">
                 <button class="layui-btn red-btn" lay-submit>添加</button>
                 <button type="reset" class="layui-btn layui-btn-primary" id="orgcancel">取消</button>
