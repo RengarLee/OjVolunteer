@@ -10,14 +10,16 @@ namespace OjVolunteer.BLL
     public partial class UserEnrollService
     {
 
+        short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
+        short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
         //签到
         public bool SignIn(int aId, List<int> uIdList)
         {
-            List<UserEnroll> Data = CurrentDal.GetEntities(u => u.ActivityID == aId && uIdList.Contains(u.UserInfoID)).ToList();
+            List<UserEnroll> Data = CurrentDal.GetEntities(u => u.ActivityID == aId && uIdList.Contains(u.UserInfoID)&&u.Status == delInvalid).ToList();
             foreach (var temp in Data)
             {
                 temp.UserEnrollActivityStart = DateTime.Now;
-                temp.Status = (short)Model.Enum.DelFlagEnum.Auditing;
+                temp.Status = delAuditing;
             }
             return Update(Data);
         }
@@ -25,7 +27,7 @@ namespace OjVolunteer.BLL
         //签退
         public bool SignOut(int aId, List<int> uIdList)
         {
-            List<UserEnroll> Data = CurrentDal.GetEntities(u => u.ActivityID == aId && uIdList.Contains(u.UserInfoID)).ToList();
+            List<UserEnroll> Data = CurrentDal.GetEntities(u => u.ActivityID == aId && uIdList.Contains(u.UserInfoID)&&u.Status == delAuditing).ToList();
             foreach (var temp in Data)
             {
                 temp.UserEnrollActivityEnd = DateTime.Now;

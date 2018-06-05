@@ -74,7 +74,7 @@
                 ActivityStart();
             });
             var domain = window.location.host;
-            var url = "/UserEnorll/QrCodeSignIn/?aid=@ViewBag.ActivityId";
+            var url = "/UserEnroll/QrCodeSignIn/?aid=@ViewBag.ActivityId";
             URL = domain + url;
             new QRCode(document.getElementById("qrcode"), URL);
         });

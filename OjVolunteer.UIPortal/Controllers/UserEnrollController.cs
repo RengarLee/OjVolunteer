@@ -46,7 +46,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Json(new { msg = "您已报名" }, JsonRequestBehavior.AllowGet);
             }
 
-            Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
+            Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
             //报名条件
             if (activity == null)
             {
@@ -221,32 +221,47 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult QrCodeSignIn()
         {
             int activityId = Convert.ToInt32(Request["aid"]);
-            var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID&&u.Status == delInvalid).FirstOrDefault();
-            if (temp !=null)
+            var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+            if (temp != null)
             {
                 temp.ModfiedOn = DateTime.Now;
                 temp.UserEnrollActivityStart = DateTime.Now;
                 temp.Status = delAuditing;
                 if (UserEnrollService.Update(temp))
-                    return Redirect("/Activity/Details/?Id="+activityId);
+                    return Redirect("/Activity/Details/?Id=" + activityId);
+                else
+                    return Redirect("/Error/QrCodeError/?Id=3");
             }
-            return Redirect("/UserInfo/Index");
+            else
+            {
+                return Redirect("/Error/QrCodeError/?Id=1");
+            }
+            
         }
 
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult QrCodeSignOut()
         {
             int activityId = Convert.ToInt32(Request["aid"]);
-            var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID && u.Status == delAuditing).FirstOrDefault();
+            var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
             if (temp != null)
             {
+                if (temp.Status != delAuditing&&temp.Status != delNormal)
+                {
+                    return Redirect("/Error/QrCodeError/?Id=2");
+                }
                 temp.ModfiedOn = DateTime.Now;
                 temp.UserEnrollActivityEnd = DateTime.Now;
                 temp.Status = delNormal;
                 if (UserEnrollService.Update(temp))
-                    return Redirect("/Activity/Details/?Id=" + activityId);
+                     return Redirect("/Error/QrCodeError/?Id=4&&aId="+activityId);
+                else
+                    return Redirect("/Error/QrCodeError/?Id=3");
             }
-            return Redirect("/UserInfo/Index");
+            else
+            {
+                return Redirect("/Error/QrCodeError/?Id=1");
+            }
         }
         #endregion
 

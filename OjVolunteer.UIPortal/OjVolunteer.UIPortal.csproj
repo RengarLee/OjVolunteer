@@ -186,6 +186,7 @@
     <Compile Include="Controllers\ActivityTypeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FavorsController.cs" />
     <Compile Include="Controllers\MajorController.cs" />
     <Compile Include="Controllers\PoliticalController.cs" />
@@ -474,6 +475,7 @@
     <Content Include="Views\Talks\Create.cshtml" />
     <Content Include="Views\UserEnroll\SingIn.cshtml" />
     <Content Include="Views\UserEnroll\SingOut.cshtml" />
+    <Content Include="Views\Error\QrCodeError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
