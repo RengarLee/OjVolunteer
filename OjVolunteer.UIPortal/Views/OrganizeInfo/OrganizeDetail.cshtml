@@ -66,7 +66,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "email" } })
+                        @Html.EditorFor(model => model.OrganizeInfoEmail, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
                     </div>
                 </div>
             </div>
@@ -90,7 +90,6 @@
                                 }
                                 else if (Model.Status == 1)
                                 {
-
                                     <option value="0">正常</option>
                                     <option value="1" selected>已删除</option>
                                 }

@@ -36,7 +36,7 @@
             </div>
             <div class="header-right">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">登录名</label>
+                    <label class="layui-form-label">登录</label>
                     <div class="layui-input-block">
                         @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", disabled = "", lay_verify = "required", @class = "layui-input" } })
                     </div>
@@ -146,10 +146,10 @@
             </div>
         </div>
 
-        <div class="footer">
+        <div class="footer-btn">
             <div class="layui-form-item">
-                <button class="layui-btn red-btn" lay-submit>更改</button>
-                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                <button class="layui-btn red-btn" lay-submit>确认更改</button>
+                <button type="button" class="layui-btn layui-btn-primary" id="resetPwd">重置密码</button>
             </div>
         </div>
     }
@@ -192,9 +192,11 @@
         });
 
         function afterSubmit(data) {
-            if (data["msg"] == "success") {
-
-            } else { }
+            if (data == "success") {
+                alert("更改成功！");
+            } else {
+                alert("更改失败！");
+            }
         }
 
         function initTable_talk(queryParam) {

@@ -1,134 +1,145 @@
 /*大致界面由layui产生，接下来大部分是修改*/
-.vol-info{
-	background-color: #009688;
+.vol-info {
+    background-color: #009688;
 }
-.org-info{
-	background-color: #009688; 
+
+.org-info {
+    background-color: #009688;
 }
-#admininfo :hover{
-	cursor: pointer;
+
+#admininfo :hover {
+    cursor: pointer;
 }
 /*清除浮动*/
 .clearfix:before,
-.clearfix:after{
-	content: " ";
-	display: table;
+.clearfix:after {
+    content: " ";
+    display: table;
 }
-.clearfix:after{
-	clear: both;
+
+.clearfix:after {
+    clear: both;
 }
 
 /*更改个人信息界面*/
 /*标题部分*/
-.form-title{
-	text-align: center;
-	width: 100%;
-	font-size: 32px;
-	margin-top: 10px;
+.form-title {
+    text-align: center;
+    width: 100%;
+    font-size: 32px;
+    margin-top: 10px;
 }
 /*表单主体部分*/
-.form-content{
-	width: 95%;
-	margin: 0 auto;
+.form-content {
+    width: 95%;
+    margin: 0 auto;
 }
-/*设置每个项目的上下边距为20px*/
-.form-content .layui-form-item{
-	margin: 20px 0;
-}
+    /*设置每个项目的上下边距为20px*/
+    .form-content .layui-form-item {
+        margin: 20px 0;
+    }
 
-/*表单头部*/
-/*表单头部左边*/
-.form-content .form-head-left{
-	float: left;
-	width: 20%;
-	text-align: center;
-}
-/*更改头像按钮*/
-.form-content .form-head-left .layui-upload-list button{
-	margin-top: 5px;
-	font-size:10px !important;
-	margin-bottom: -20px;
-} 
+    /*表单头部*/
+    /*表单头部左边*/
+    .form-content .form-head-left {
+        float: left;
+        width: 20%;
+        text-align: center;
+    }
+        /*更改头像按钮*/
+        .form-content .form-head-left .layui-upload-list button {
+            margin-top: 5px;
+            font-size: 10px !important;
+            margin-bottom: -20px;
+        }
 
 
-/*表单头部右边*/
-.form-content .form-head-right{
-	float:right;
-	width: 78%;
-	margin-bottom: -20px;
-}
-/*表单底部2个按钮*/
-.form-content .form-btns{
-	text-align: center;
-	margin-top: 180px;
-}
+    /*表单头部右边*/
+    .form-content .form-head-right {
+        float: right;
+        width: 78%;
+        margin-bottom: -20px;
+    }
+    /*表单底部2个按钮*/
+    .form-content .form-btns {
+        text-align: center;
+        margin-top: 180px;
+    }
 
 /*点击弹出个人感悟页面样式*/
-.talk-box{
-	margin: 0 auto;
+.talk-box {
+    margin: 0 auto;
 }
-.talk-box .talk-box-title{
-	padding:0 20px;
-	margin-top: 20px;
-}
-.talk-box .talk-box-title p{
-	font-size: 14px;
-}
+
+    .talk-box .talk-box-title {
+        padding: 0 20px;
+        margin-top: 20px;
+    }
+
+        .talk-box .talk-box-title p {
+            font-size: 14px;
+        }
 
 
 
 
-.talk-box .talk-box-img{
-	width: 300px;
-}
-.talk-box .talk-box-img .img-item{
-	display: block;
-	height: 100px;
-	line-height: 100px;
-	text-align: center;
-}
+    .talk-box .talk-box-img {
+        width: 300px;
+    }
+
+        .talk-box .talk-box-img .img-item {
+            display: block;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
 
 
 .boxes {
-  width: 400px;
-  margin: 0 auto !important;
+    width: 400px;
+    margin: 0 auto !important;
 }
 
-.boxes .box {
-  height: 130px;
-  line-height: 130px;
-  text-align: center;
-}
+    .boxes .box {
+        height: 130px;
+        line-height: 130px;
+        text-align: center;
+    }
 
 
 /*管理员发布活动*/
 /*表单样式*/
-.acStart{
-	width: 1200px;
-	margin: 20px auto;
-	background-color: #fff;
-	text-align: center;
+.acStart {
+    width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    text-align: center;
 }
 /*题目,主体内容部分*/
 .acStart-title,
-.acStart-box{
-	width: 60%;
-	margin: 0 auto;
+.acStart-box {
+    width: 60%;
+    margin: 0 auto;
 }
-.acStart-title{
-	color: #5FB878;
-	padding-top: 10px;
+
+.acStart-title {
+    color: #5FB878;
+    padding-top: 10px;
 }
-.acStart-box{
-	margin: 0 auto;
-	padding-top: 10px;
+
+.acStart-box {
+    margin: 0 auto;
+    padding-top: 10px;
 }
-.acStart-short{
-	width: 48%;
+
+.acStart-short {
+    width: 48%;
 }
-.acStart-left{
-    float:left;
+
+.acStart-left {
+    float: left;
 }
+
 .acStart-jieGuo {
     width: 330px;
     padding: 8px 5px;
@@ -141,27 +152,90 @@
     box-sizing: border-box;
     border: 1px solid #eee;
 }
-.acStart-map{
-    width:200px;
+
+.acStart-map {
+    width: 200px;
 }
-.acStart-mapleft{
-    float:left;
-    width:70%;
+
+.acStart-mapleft {
+    float: left;
+    width: 70%;
 }
 /*后台主体背影颜色*/
-.layui-body{
-	background-color: #F2F2F2;
+.layui-body {
+    background-color: #F2F2F2;
 }
-.acArticle{
-	color: #5FB878;
-	font-size: 16px;
-	margin-top: -5px;
-	margin-bottom: 5px;
+
+.acArticle {
+    color: #5FB878;
+    font-size: 16px;
+    margin-top: -5px;
+    margin-bottom: 5px;
 }
-.acStart-Condition{
-	text-align: left;
-	margin-top: 20px;
+
+.acStart-Condition {
+    text-align: left;
+    margin-top: 20px;
 }
-.acArticle-btn{
-	margin-top: 20px;
+
+.acArticle-btn {
+    margin-top: 20px;
+}
+
+/*双击义工信息弹出义工详情界面样式*/
+.stuInfo-form {
+    margin: 10px auto;
+    width: 600px;
+}
+
+.stuInfo-form .header {
+    overflow: hidden;
+    }
+
+.stuInfo-form .header .header-left {
+    float: left;
+    width: 30%;
+    height: 100px;
+    text-align: center;
+}
+
+.stuInfo-form .header .header-right {
+    float: right;
+    width: 70%;
+    height: 100px;
+}
+
+.header-right .layui-form-item {
+    width: 400px;
+    margin: 0 auto;
+    height: 60px;
+}
+/*中间每行2个的样式*/
+.stuInfo-form .content {
+    margin-top: 20px;
+}
+
+    .stuInfo-form .content .content-left {
+        float: left;
+        width: 50%;
+    }
+
+    .stuInfo-form .content .content-right {
+        float: left;
+        width: 50%;
+    }
+
+.content-left .layui-form-item,
+.content-right .layui-form-item {
+    width: 280px;
+    margin: 0 auto;
+    height: 50px;
+}
+/*中间后半段长输入框样式*/
+.stuInfo-form .content .content-footer {
+    width: 580px;
+    margin: 0 auto;
+}
+.footer-btn {
+    text-align: center;
 }
