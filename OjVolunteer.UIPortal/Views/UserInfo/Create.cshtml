@@ -45,14 +45,14 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">登录名</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required", @class = "layui-input" } })
+                        @Html.EditorFor(Model => Model.UserInfoLoginId, new { htmlAttributes = new { autocomplete = "off", lay_verify = "required|userID", @class = "layui-input" } })
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">学号</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input" } })
+                        @Html.EditorFor(Model => Model.UserInfoStuId, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|studentNumber" } })
                     </div>
                 </div>
 
