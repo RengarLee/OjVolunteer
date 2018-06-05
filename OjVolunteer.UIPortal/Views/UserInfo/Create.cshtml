@@ -24,18 +24,6 @@
     <script src="~/Scripts/datapattern.js"></script>
 
     <script type="text/javascript">
-        $(function () {
-            $("#resetPwd").click(function () {
-                $.post("/UserInfo/ResetPwd", { "id": $("#UserInfoID").val() }, function (data) {
-                    if (data == "success") {
-                        alert("密码重置为000000");
-                    } else {
-                        alert("重置失败,请稍后再试");
-                    }
-                })
-            });
-        });
-
         function afterSubmit(data)
         {
             if (data["msg"] == "success") { }
@@ -144,7 +132,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
+        <div class="footer-btn">
             <div class="layui-form-item">
                 <button class="layui-btn red-btn" type="submit" lay-submit>添加</button>
                 <button type="reset" class="layui-btn layui-btn-primary">取消</button>
