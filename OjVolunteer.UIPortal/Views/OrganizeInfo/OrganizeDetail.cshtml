@@ -361,7 +361,7 @@
         };
         function afterSubmit(data) {
             if (data == "success") {
-                alert("修改成功");
+                layer.msg('资料修改成功', { icon: 1 });
                 var index = parent.layer.getFrameIndex(window.name);
                 parent.layer.close(index);
             } else {
