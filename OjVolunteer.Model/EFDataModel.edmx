@@ -153,7 +153,7 @@
           </Key>
           <Property Name="TalkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserInfoID" Type="int" />
-          <Property Name="TalkContent" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="TalkContent" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="TalkFavorsNum" Type="int" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
@@ -782,7 +782,7 @@
           </Key>
           <Property Name="TalkID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
           <Property Name="UserInfoID" Type="Int32" />
-          <Property Name="TalkContent" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="TalkContent" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="TalkFavorsNum" Type="Int32" />
           <Property Name="CreateTime" Precision="3" Type="DateTime" />
           <Property Name="ModfiedOn" Precision="3" Type="DateTime" />

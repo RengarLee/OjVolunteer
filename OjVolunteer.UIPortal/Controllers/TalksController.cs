@@ -418,7 +418,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Create(Talks talks)
         {
-            if (talks.TalkContent.Length > 141 || talks.TalkContent.Length < 6)
+            if (talks.TalkContent.Length > 300 || talks.TalkContent.Length < 6)
             {
                 return Content("fail");
             }

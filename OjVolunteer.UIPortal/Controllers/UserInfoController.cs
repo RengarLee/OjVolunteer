@@ -41,7 +41,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public JsonResult SearchActivityPeople()
         {
             int key = int.Parse(Request["key"]);
-            var user =UserInfoService.GetEntities(u => u.UserInfoID == key).FirstOrDefault();
+            var user = UserInfoService.GetEntities(u => u.UserInfoID == key).FirstOrDefault();
             if (user == null)
             {
                 return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
@@ -141,8 +141,12 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.UserInfoID, true)
-                .Select(u => new {
+
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing && o.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.UserInfoID, true)
+                .Select(u => new
+                {
                     u.UserDuration.UserDurationPropartyTime,
                     u.UserInfoID,
                     u.UserInfoShowName,
@@ -156,14 +160,33 @@ namespace OjVolunteer.UIPortal.Controllers
                     UpdateName = u.UpdatePolitical.PoliticalName,
                     u.Status,
                     u.ModfiedOn
-                }).AsQueryable();
-            if (LoginOrganize.OrganizeInfoManageId != null)
-            {
-                pageData = pageData.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
-                total = pageData.Count();
+                }).ToList();
+                var data = new { total = pageData.Count(), rows = pageData };
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
-            var data = new { total = total, rows = pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
+            else
+            {
+                var pageData = UserInfoService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.UserInfoID, true)
+                .Select(u => new
+                {
+                    u.UserDuration.UserDurationPropartyTime,
+                    u.UserInfoID,
+                    u.UserInfoShowName,
+                    u.UserInfoLoginId,
+                    u.OrganizeInfoID,
+                    u.PoliticalID,
+                    u.Political.PoliticalName,
+                    u.UpdatePoliticalID,
+                    u.OrganizeInfo.OrganizeInfoShowName,
+                    u.UserInfoPhone,
+                    UpdateName = u.UpdatePolitical.PoliticalName,
+                    u.Status,
+                    u.ModfiedOn
+                }).ToList();
+                var data = new { total = pageData.Count(), rows = pageData };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
         }
         #endregion
 
@@ -198,11 +221,11 @@ namespace OjVolunteer.UIPortal.Controllers
             Regex regex1 = new Regex(@"^[0-9]{6,12}$");
             if (regex1.IsMatch(userInfo.UserInfoLoginId))
             {
-                return Json(new { msg ="fail" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
             }
             if (!ValidateName(userInfo.UserInfoLoginId))
             {
-                return Json(new { msg = "exist"}, JsonRequestBehavior.AllowGet); 
+                return Json(new { msg = "exist" }, JsonRequestBehavior.AllowGet);
             }
             if (ModelState.IsValid)
             {
@@ -220,7 +243,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 }
             }
             msg = "fail";
-            return Json(new {msg},JsonRequestBehavior.AllowGet);
+            return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
         #region ValidateName 验证用户名是否重复
         public Boolean ValidateName(string loginId)
@@ -263,7 +286,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
             ViewBag.Duration = UserDurationService.GetEntities(u => u.UserDurationID == LoginUser.UserInfoID).FirstOrDefault().UserDurationTotal;
-            ViewData.Model = UserInfoService.GetEntities(u => u.UserInfoID == Id ).FirstOrDefault();
+            ViewData.Model = UserInfoService.GetEntities(u => u.UserInfoID == Id).FirstOrDefault();
             return View();
         }
         #endregion
@@ -362,7 +385,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
                 if (UserInfoService.Update(temp))
                 {
-                    
+
                     UpSessionUserInfo(temp);
                     if (temp.Status == delAuditing)
                     {
@@ -424,7 +447,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             return Content("fail");
         }
-        
+
         /// <summary>
         /// 重置密码
         /// </summary>
@@ -512,7 +535,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult DeleteOfList(string ids)
-        {                                                                                                                                                                                                                                       
+        {
             if (string.IsNullOrEmpty(ids))
             {
                 return Content("null");
@@ -534,7 +557,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
         }
         #endregion
-        
+
         #region 重置密码
 
         #endregion
