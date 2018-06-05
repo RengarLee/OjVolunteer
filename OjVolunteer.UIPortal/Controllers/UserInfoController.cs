@@ -200,6 +200,10 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Json(new { msg ="fail" }, JsonRequestBehavior.AllowGet);
             }
+            if (!ValidateName(userInfo.UserInfoLoginId))
+            {
+                return Json(new { msg = "exist"}, JsonRequestBehavior.AllowGet); 
+            }
             if (ModelState.IsValid)
             {
                 string pwd = "000000";
@@ -218,6 +222,23 @@ namespace OjVolunteer.UIPortal.Controllers
             msg = "fail";
             return Json(new {msg},JsonRequestBehavior.AllowGet);
         }
+        #region ValidateName 验证用户名是否重复
+        public Boolean ValidateName(string loginId)
+        {
+            bool flag = false;
+            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == loginId).FirstOrDefault();
+            if (userInfo == null)
+            {
+                OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId == loginId).FirstOrDefault();
+                if (organizeInfo == null)
+                {
+                    flag = true;
+                }
+            }
+            return flag;
+        }
+        #endregion
+
         #endregion
 
         #region 用户获得用户信息

@@ -100,6 +100,10 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             string msg = "fail";
             Regex regex1 = new Regex(@"^[0-9]{6,12}$");
+            if (!ValidateName(organizeInfo.OrganizeInfoLoginId))
+            {
+                return Json(new { msg = "exist" }, JsonRequestBehavior.AllowGet);
+            }
             if (regex1.IsMatch(organizeInfo.OrganizeInfoLoginId))
             {
                 return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
@@ -116,7 +120,22 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(new { msg },JsonRequestBehavior.AllowGet);
         }
         #endregion
-
+        #region ValidateName 验证用户名是否重复
+        public Boolean ValidateName(string loginId)
+        {
+            bool flag = false;
+            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == loginId).FirstOrDefault();
+            if (userInfo == null)
+            {
+                OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId == loginId).FirstOrDefault();
+                if (organizeInfo == null)
+                {
+                    flag = true;
+                }
+            }
+            return flag;
+        }
+        #endregion
         #region 组织账号申请审核
         /// <summary>
         /// 进入组织信息审核界面
