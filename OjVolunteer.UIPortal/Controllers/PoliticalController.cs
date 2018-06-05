@@ -20,7 +20,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View(LoginOrganize);
         }
 
-        #region  Query
+        #region  政治面貌信息管理
         /// <summary>
         /// 组织进入政治面貌信息管理界面
         /// </summary>
