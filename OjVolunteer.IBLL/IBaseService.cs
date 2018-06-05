@@ -25,7 +25,7 @@ namespace OjVolunteer.IBLL
         #region 更新
         bool Update(T entity);
         bool NormalListByULS(List<int> ids);
-
+        bool UpdateListStatus(List<int> ids, short delFlag);
         bool InvalidListByULS(List<int> ids);
         #endregion
 

@@ -17,7 +17,7 @@ namespace OjVolunteer.Model
         /// <summary>
         /// 活动名称
         /// </summary>  
-        [StringLength(30 ,MinimumLength = 5, ErrorMessage ="活动名称不少于3个字")]
+        [StringLength(30 ,MinimumLength = 5, ErrorMessage ="活动名称不少于5个字")]
         [Display(Name ="活动名称")]
         public string ActivityName{ get; set; }      
         /// <summary>
@@ -36,7 +36,7 @@ namespace OjVolunteer.Model
         [Display(Name = "报名结束时间")]
         public System.DateTime ActivityEnrollEnd { get; set; }
 
-        [StringLength(50,MinimumLength = 5,ErrorMessage = "长度在5到50字符之内")]
+        [StringLength(50,MinimumLength = 5,ErrorMessage = "长度在2到50字符之内")]
         [Display(Name = "活动详细地址")]
         public string ActivityAddress { get; set; }
 

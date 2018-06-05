@@ -14,7 +14,7 @@ namespace OjVolunteer.Model.Enum
         Normal = 0,
         /// <summary>
         /// 删除状态 
-        /// 用途:由正常状态被删除
+        /// 用途:由正常状态被删除 
         /// </summary>
         Deleted = 1,
         /// <summary>
@@ -24,12 +24,12 @@ namespace OjVolunteer.Model.Enum
         Auditing = 2,
         /// <summary>
         /// 无效状态
-        /// 用途:申请未通过
+        /// 用途:申请未通过 或 活动签到后
         /// </summary>
         Invalid = 3,
         /// <summary>
         /// 未完成状态
-        /// 用途：活动通过审批但未完成
+        /// 用途：活动通过审批但未完成 或 活动报名但未签到
         /// </summary>
         Undone = 4,
         /// <summary>

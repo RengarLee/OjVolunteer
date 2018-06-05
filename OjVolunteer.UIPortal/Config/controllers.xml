@@ -60,6 +60,7 @@
     <property name="PoliticalService" ref="PoliticalService" ></property>
     <property name="UserEnrollService" ref="UserEnrollService" ></property>
     <property name="ActivityDetailService" ref="ActivityDetailService" ></property>
+    <property name="UserInfoService" ref="UserInfoService" ></property>
   </object>
 
   <object type="OjVolunteer.UIPortal.Controllers.UserEnrollController, OjVolunteer.UIPortal" singleton="false" >

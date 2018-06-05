@@ -19,8 +19,8 @@
         <div class="layui-form-item">
             <select id="TypeId" name="TypeId" lay-filter="aihao" onchange="selectchange()">
                 <option value="0" title="0" selected="">全部</option>
-                <option value="1" title="1">未签到</option>
-                <option value="2" title="2">已签到</option>
+                <option value="1" title="1">未签退</option>
+                <option value="2" title="2">已签退</option>
             </select>
         </div>
 
@@ -32,18 +32,19 @@
                     <th>登录名</th>
                     <th>姓名</th>
                     <th>时间</th>
-                    <th>签到</th>
+                    <th>签退</th>
                 </tr>
             </thead>
             <tbody id="trlist"></tbody>
         </table>
         <div style="text-align: center;">
-            <button class="layui-btn">签到二维码</button>
-            <button class="layui-btn" id="SingBtn">签到</button>
-            <button class="layui-btn" id="Start">活动开始</button>
+            <button class="layui-btn">签退二维码</button>
+            <button class="layui-btn" id="SingBtn">签退</button>
+            <button class="layui-btn" id="End">活动结束</button>
         </div>
         <div style="text-align: center" id="qrcode"></div>
     </div>
+
 
 
     <a href="javascript:history.go(-1)" class="header-back">
@@ -67,21 +68,21 @@
         $(function () {
             GetSingData(0);
             $("#SingBtn").click(function () {
-                SingInClick();
+                SingOutClick();
             });
 
-            $("#Start").click(function () {
-                ActivityStart();
+            $("#End").click(function () {
+                ActivityEnd();
             });
             var domain = window.location.host;
-            var url = "/UserEnorll/QrCodeSignIn/?aid=@ViewBag.ActivityId";
+            var url = "/UserEnorll/QrCodeSignOut/?aid=@ViewBag.ActivityId";
             URL = domain + url;
             new QRCode(document.getElementById("qrcode"), URL);
         });
 
-        //活动开始
-        function ActivityStart() {
-            $.post("/Activity/Start/", { aId: @ViewBag.ActivityId }, function (data) {
+        //活动
+        function ActivityEnd() {
+            $.post("/Activity/End/", { aId: @ViewBag.ActivityId }, function (data) {
                 if (data["msg"] == "fall") {
                     alert("出现错误,请稍后再试");
                 } else {
@@ -90,10 +91,10 @@
             });
         }
 
-        //签到人员数据
+        //签退人员数据
         function GetSingData(typeId) {
             $("#trlist tr").remove();
-            $.post("/UserEnroll/SingInData", { activityId:@ViewBag.ActivityId, typeId: typeId }, function (data) {
+            $.post("/UserEnroll/SingOutData", { activityId:@ViewBag.ActivityId, typeId: typeId }, function (data) {
                 if (data["msg"] == "success") {
                     for (var i in data["data"]) {
                         var temp = data["data"][i];
@@ -129,8 +130,8 @@
             });
         }
 
-        //签到
-        function SingInClick() {
+        //签退
+        function SingOutClick() {
             var temp = $(".layui-form-checked").prev().prev();
             var num = temp.length;
             if (temp.length < 1) {
@@ -142,12 +143,12 @@
                 var prev = temp[key];
                 ids += prev.value+',';
             }
-            $.post("/UserEnroll/ListSignIn", { activityId:@ViewBag.ActivityId, ids: ids }, function (data) {
+            $.post("/UserEnroll/ListSignOut", { activityId:@ViewBag.ActivityId, ids: ids }, function (data) {
                 if (data["msg"] = "success") {
                     var typeId = $("select option:selected").val();
                     GetSingData(typeId);
                 } else {
-                    alert("签到失败请稍后再试!");
+                    alert("签退失败请稍后再试!");
                 }
             });
         }

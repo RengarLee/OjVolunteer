@@ -44,15 +44,19 @@
         <div class="acmore-title">
             <span>手机号：@Model.ManagerUserInfo.UserInfoPhone</span>
         </div>
-
+        @if (Model.ActivityManagerID == ViewBag.UserId)
+    {
         <div class="acmore-button">
             <a class="am-btn am-btn-primary" href="/UserEnroll/SingIn/?aId=@Model.ActivityID">
                 签到界面
             </a>
-            <a class="am-btn am-btn-primary" href="/UserEnroll/SingIn/?aId=@Model.ActivityID">
+            <a class="am-btn am-btn-primary" href="/UserEnroll/SingOut/?aId=@Model.ActivityID">
                 签退界面
             </a>
         </div>
+
+}
+
         <div class="acmore-content">
             <pre>
     一、活动目的：
@@ -71,11 +75,11 @@
         </div>
     </div>
 
-    <div class='btnEnroll' activity="@Model.ActivityID">
-        <a class="signnav" href="#">
+
+        <div class="signnav btnEnroll"activity="@Model.ActivityID" >
             <p>我要报名</p>
-        </a>
-    </div>
+        </div>
+
 
 
 
@@ -92,6 +96,17 @@
     <script src="~/Content/oj/js/main.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script>
+        $(function () {
+            BindEnrollClickEvent();
+        });
+        function BindEnrollClickEvent() {
+            $(".btnEnroll").click(function () {
+                var activityId = $(this).attr("activity");
+                $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
+                    alert(data["msg"]);
+                });
+            });
+        }
         //时间戳转为时间
         function TimeFormat(value) {
             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");

@@ -14,6 +14,7 @@ namespace OjVolunteer.UIPortal.Controllers
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
+        short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
         short delUndone = (short)Model.Enum.DelFlagEnum.Undone;
         public IActivityService ActivityService { get; set; }
         public IUserEnrollService UserEnrollService { get; set; }
@@ -55,7 +56,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Json(new { msg = "报名已结束" }, JsonRequestBehavior.AllowGet);
             }
-            UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delNormal };
+            UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delInvalid,CreateTime = DateTime.Now };
             if (UserEnrollService.Add(userEnroll) != null)
             {
                 msg = "报名成功";
@@ -65,30 +66,31 @@ namespace OjVolunteer.UIPortal.Controllers
                 msg = "报名失败,请稍后再试";
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
-        } 
+        }
         #endregion
 
         #region 列表活动签到签退
-
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult SingIn(int aId)
         {
             ViewBag.ActivityId = aId;
             return View();
         }
 
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public JsonResult SingInData()
         {
             int typeId =Convert.ToInt32(Request["typeId"]);
             int activityId =Convert.ToInt32(Request["activityId"]);
-            var data = UserEnrollService.GetEntities(u => u.ActivityID == activityId).AsQueryable();
-            //未签到
+            var data = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.Status != delNormal).AsQueryable();
+            //已签到
             if (typeId == 1)
             {
-                data = data.Where(u=>u.Status == delAuditing).AsQueryable();
+                data = data.Where(u=>u.Status == delInvalid).AsQueryable();
             }
             if (typeId == 2)
             {
-                data = data.Where(u => u.Status != delAuditing).AsQueryable();
+                data = data.Where(u => u.Status != delInvalid).AsQueryable();
             }
             List<SingModel> list = new List<SingModel>();
             foreach (var temp in data)
@@ -100,18 +102,65 @@ namespace OjVolunteer.UIPortal.Controllers
                     LoginId = temp.UserInfo.UserInfoLoginId,
                     UserInfoId = temp.UserInfoID,
                 };
-                if (temp.Status == delAuditing)
+                if (temp.Status == delInvalid)
                 {
-                    sing.isSing = true;
+                    sing.isSing = false;
                 }
                 else
                 {
-                    sing.isSing = false;
+                    sing.isSing = true;
                 }
                 list.Add(sing);
             }
             return Json(new { msg="success",data= list },JsonRequestBehavior.AllowGet);
         }
+
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult SingOut(int aId)
+        {
+            ViewBag.ActivityId = aId;
+            return View();
+        }
+
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public JsonResult SingOutData()
+        {
+            int typeId = Convert.ToInt32(Request["typeId"]);
+            int activityId = Convert.ToInt32(Request["activityId"]);
+            var data = UserEnrollService.GetEntities(u => u.ActivityID == activityId&&u.Status != delInvalid).AsQueryable();
+            //已签退
+            if (typeId == 1)
+            {
+                data = data.Where(u => u.Status == delAuditing).AsQueryable();
+            }
+            if (typeId == 2)
+            {
+                data = data.Where(u => u.Status != delAuditing).AsQueryable();
+            }
+            List<SingModel> list = new List<SingModel>();
+            foreach (var temp in data)
+            {
+                SingModel sing = new SingModel()
+                {
+                    SingTime = temp.UserEnrollActivityEnd,
+                    ShowName = temp.UserInfo.UserInfoShowName,
+                    LoginId = temp.UserInfo.UserInfoLoginId,
+                    UserInfoId = temp.UserInfoID,
+                };
+                if (temp.Status == delAuditing)
+                {
+                    sing.isSing = false;
+                }
+                else
+                {
+                    sing.isSing = true;
+                }
+                list.Add(sing);
+            }
+            return Json(new { msg = "success", data = list }, JsonRequestBehavior.AllowGet);
+        }
+
+
         /// <summary>
         /// 活动签到
         /// </summary>
@@ -143,10 +192,12 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 活动签退
         /// </summary>
         /// <returns></returns>
-        public JsonResult SignOut()
+        ///         [HttpPost]
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public JsonResult ListSignOut()
         {
-            int activityId = Convert.ToInt32(Request["aid"]);
-            string[] strIds = Request["ids"].Split(',');
+            int activityId = Convert.ToInt32(Request["activityId"]);
+            string[] strIds = Request["ids"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             string msg = String.Empty;
             List<int> uIdList = new List<int>();
             foreach (var strId in strIds)
@@ -167,25 +218,35 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 二维码签到签退
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public JsonResult QrCodeSignIn()
+        public ActionResult QrCodeSignIn()
         {
             int activityId = Convert.ToInt32(Request["aid"]);
-            string msg = String.Empty;
-            var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+            var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID&&u.Status == delInvalid).FirstOrDefault();
             if (temp !=null)
             {
+                temp.ModfiedOn = DateTime.Now;
                 temp.UserEnrollActivityStart = DateTime.Now;
-                temp.Status = (short)Model.Enum.DelFlagEnum.Auditing;
+                temp.Status = delAuditing;
                 if (UserEnrollService.Update(temp))
-                    msg = "success";
-                else
-                    msg = "fail";
+                    return Redirect("/Activity/Details/?Id="+activityId);
             }
-            else
+            return Redirect("/UserInfo/Index");
+        }
+
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult QrCodeSignOut()
+        {
+            int activityId = Convert.ToInt32(Request["aid"]);
+            var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID && u.Status == delAuditing).FirstOrDefault();
+            if (temp != null)
             {
-                msg = "noexist";
+                temp.ModfiedOn = DateTime.Now;
+                temp.UserEnrollActivityEnd = DateTime.Now;
+                temp.Status = delNormal;
+                if (UserEnrollService.Update(temp))
+                    return Redirect("/Activity/Details/?Id=" + activityId);
             }
-            return Json(new { msg }, JsonRequestBehavior.AllowGet);
+            return Redirect("/UserInfo/Index");
         }
         #endregion
 
