@@ -4,6 +4,7 @@ using OjVolunteer.Model;
 using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,6 +26,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public IDepartmentService DepartmentService { get; set; }
         public IUserEnrollService UserEnrollService { get; set; }
         public IActivityDetailService ActivityDetailService { get; set; }
+        public IUserInfoService UserInfoService { get; set; }
 
         public ActionResult Index()
         {
@@ -151,10 +153,10 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart,u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID,u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart,u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                pageData = pageData.Where(u => u.ActivityManagerID == LoginOrganize.OrganizeInfoID).AsQueryable();
+                pageData = pageData.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
             }
             var data = new { total = pageData.Count(), rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -253,11 +255,10 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, u.ActivityManagerID, u.ApplyUserInfo }).AsQueryable();
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo.OrganizeInfoID, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, }).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                pageData = pageData.Where(u => u.ApplyUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
-                //pageData = pageData.Where(u => u.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID&&).AsQueryable();
+                pageData = pageData.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
             }
             var data = new { total = pageData.Count(), rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -281,7 +282,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (ActivityService.NormalListByULS(idList))
+            if (ActivityService.UpdateListStatus(idList,delUndone))
             {
                 return Content("success");
             }
@@ -394,32 +395,61 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         [ActionAuthentication(AbleOrganize = true)]
         public JsonResult Create(Activity activity)
         {
-            String msg = "fail";
+            try
+            {
+                string[] EnrollTime = Request["EnrollTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
+                string[] ActivtiyTime = Request["ActivityTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
+                activity.ActivityEnrollStart = DateTime.Parse(EnrollTime[0]);
+                activity.ActivityEnrollEnd = DateTime.Parse(EnrollTime[1]);
+                activity.ActivityStart = DateTime.Parse(ActivtiyTime[0]);
+                activity.ActivityEnd = DateTime.Parse(ActivtiyTime[1]);
+                if (activity.ActivityEnrollEnd > activity.ActivityStart)
+                {
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
+                if (UserInfoService.GetEntities(u => u.UserInfoID == activity.ActivityManagerID).FirstOrDefault() == null)
+                {
+                    return Json(new { msg = "noexist" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch {
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            
             if (ModelState.IsValid)
             {
-                //添加活动条件
-                activity.ActivityPolitical = Request["politicalIds"] ?? "";
-                activity.ActivityMajor = Request["majorIds"] ?? "";
-                activity.ActivityDepartment = Request["departmentIds"] ?? "";
                 if (string.IsNullOrEmpty(activity.ActivityIcon))
                 {
                     activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
                 }
-                activity.ActivityManagerID = OrganizeInfoService.GetEntities(u => u.OrganizeInfoManageId == null).FirstOrDefault().OrganizeInfoID;
                 activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
                 activity.ActivityClicks = 0;
                 activity.CreateTime = DateTime.Now;
                 activity.ModfiedOn = activity.CreateTime;
-                activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delNormal : delDelete;
+                activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
+
                 if (ActivityService.Add(activity) != null)
                 {
-                    msg = "success";
+                    UserEnroll userEnroll = new UserEnroll()
+                    {
+                        ActivityID = activity.ActivityID,
+                        UserInfoID = activity.ActivityManagerID,
+                        UserEnrollStart = activity.ActivityEnrollStart,
+                        ModfiedOn = DateTime.Now,
+                        CreateTime = DateTime.Now,
+                        Status = delInvalid,
+                    };
+                    if (UserEnrollService.Add(userEnroll) != null)
+                    {
+                        return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
+                    }
                 }
             }
-            return Json(new { msg }, JsonRequestBehavior.AllowGet);
+            return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -453,5 +483,54 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        public ActionResult UploadContentImage()
+        {
+            try
+            {
+                var file = Request.Files[0];
+                String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultActivityImagesSavePath"];
+                string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+                string dirPath = Request.MapPath(path);
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                }
+                string fileName = path + Guid.NewGuid().ToString().Substring(1, 10) + ".jpg";
+
+                file.SaveAs(Request.MapPath(fileName));
+
+                LoginOrganize.OrganizeInfoIcon = fileName;
+                return Json(new { data=new { src = fileName }, msg = "success",code=0 }, JsonRequestBehavior.AllowGet);
+            }
+            catch {
+                return Json(new { data = new { src = "" } , msg = "fail",code=1 }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult UploadIcon()
+        {
+            try
+            {
+                var file = Request.Files[0];
+                String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultActivityImagesSavePath"];
+                string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+                string dirPath = Request.MapPath(path);
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                }
+                string fileName = path + Guid.NewGuid().ToString().Substring(1, 10) + ".jpg";
+
+                file.SaveAs(Request.MapPath(fileName));
+                
+                return Json(new { src = fileName , msg = "success",  }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new { msg = "fail",  }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
     }
 }

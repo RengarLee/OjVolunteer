@@ -56,7 +56,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Json(new { msg = "报名已结束" }, JsonRequestBehavior.AllowGet);
             }
-            UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delInvalid };
+            UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delInvalid,CreateTime = DateTime.Now };
             if (UserEnrollService.Add(userEnroll) != null)
             {
                 msg = "报名成功";

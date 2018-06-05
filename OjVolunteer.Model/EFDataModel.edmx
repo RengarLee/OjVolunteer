@@ -10,13 +10,13 @@
             <PropertyRef Name="ActivityID" />
           </Key>
           <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ActivityName" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="ActivityIcon" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActivityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ActivityIcon" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="ActivityTypeID" Type="int" Nullable="false" />
           <Property Name="ActivityAddress" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ActivityAddressX" Type="decimal" Precision="10" Scale="10" />
-          <Property Name="ActivityAddressY" Type="decimal" Precision="10" Scale="10" />
-          <Property Name="ActivityContent" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="ActivityAddressX" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="ActivityAddressY" Type="decimal" Precision="10" Scale="3" />
+          <Property Name="ActivityContent" Type="text" Nullable="false" />
           <Property Name="ActivityPrediNum" Type="int" Nullable="false" />
           <Property Name="ActivityManagerID" Type="int" Nullable="false" />
           <Property Name="ActivityApplyUserInfoID" Type="int" />
@@ -631,13 +631,13 @@
             <PropertyRef Name="ActivityID" />
           </Key>
           <Property Name="ActivityID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="ActivityName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="ActivityIcon" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityIcon" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="ActivityTypeID" Nullable="false" Type="Int32" />
           <Property Name="ActivityAddress" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="ActivityAddressX" Precision="10" Scale="10" Type="Decimal" />
-          <Property Name="ActivityAddressY" Precision="10" Scale="10" Type="Decimal" />
-          <Property Name="ActivityContent" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityAddressX" Precision="10" Scale="3" Type="Decimal" />
+          <Property Name="ActivityAddressY" Precision="10" Scale="3" Type="Decimal" />
+          <Property Name="ActivityContent" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
           <Property Name="ActivityPrediNum" Nullable="false" Type="Int32" />
           <Property Name="ActivityManagerID" Nullable="false" Type="Int32" />
           <Property Name="ActivityApplyUserInfoID" Type="Int32" />

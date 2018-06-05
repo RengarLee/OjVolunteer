@@ -12,13 +12,17 @@
         #l-map {
             height: 300px;
             width: 300px;
-            display:none;
+            display: none;
+        }
+        img {
+            height: 300px;
+            width: 300px;
         }
     </style>
 </head>
 <body>
     <div class="layui-layout layui-layout-admin">
-        <form class="layui-form layui-form-pane acStart" id="form1">
+            <form id="form1" class="layui-form layui-form-pane acStart">
             <h2 class="acStart-title">发布活动</h2>
             <hr />
             <div class="acStart-box">
@@ -30,9 +34,9 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline acStart-left">
-                        <label class="layui-form-label ">负责人</label>
+                        <label class="layui-form-label ">负责人ID</label>
                         <div class="layui-input-block">
-                            <input type="text" id="managerid" name="title" lay-verify="required|username" class="layui-input">
+                            @Html.EditorFor(model => model.ActivityManagerID, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|" } })
                         </div>
                     </div>
                     <div class="layui-inline acStart-left">
@@ -53,7 +57,9 @@
                     <div class="layui-inline acStart-mapleft">
                         <label class="layui-form-label acStart-map" id="r-result">活动地点</label>
                         <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="required|username" class="layui-input" id="suggestId" size="20" value="百度">
+                            @Html.EditorFor(model => model.ActivityAddress, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|", id = "suggestId", size = "20" } })
+                            @Html.HiddenFor(model => model.ActivityAddressX)
+                            @Html.HiddenFor(model => model.ActivityAddressY)
                         </div>
                     </div>
                     <div class="layui-inline acStart-left">
@@ -65,64 +71,66 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">报名时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
+                        <input type="text" name="EnrollTime" required placeholder="请输入活动时间范围" class="layui-input" id="timeEnrollRange">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">预计活动时间</label>
+                    <label class="layui-form-label">活动时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
+                        <input type="text" name="ActivityTime" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline acStart-short">
                         <label class="layui-form-label ">人数上限</label>
                         <div class="layui-input-block">
-                            <input type="text" name="title" lay-verify="required|number" class="layui-input" value="12">
+                            @Html.EditorFor(model => model.ActivityPrediNum, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
                         </div>
                     </div>
                     <div class="layui-inline acStart-short">
                         <div class="layui-input-block">
+                            @Html.HiddenFor(model => model.ActivityIcon)
                             <button type="button" class="layui-btn" id="test1">点击上传活动封面</button>
                         </div>
                     </div>
                 </div>
                 <!--富文本框-->
                 <h4 class="acArticle">活动详情</h4>
-                <textarea id="demo" style="display: none;"></textarea>
-
+                @*<textarea id="demo" name="ActivityContent" style="display: none;"></textarea>*@
+                @Html.TextAreaFor(Model=>Model.ActivityContent, new { style = "display: none;" , id = "demo" })
                 <div class="acStart-Condition">
                     <div class="layui-collapse">
                         <div class="layui-colla-item">
                             <h2 class="layui-colla-title">参与人员政治面貌筛选</h2>
                             <div class="layui-colla-content">
+                                @Html.HiddenFor(model=>model.ActivityPolitical)
                                 @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
                                 @foreach (var key in PoliticalDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" name="Major" id="@key" title="@PoliticalDict[key]" />
-
-        }
+                                {
+                                    <input type="checkbox" value="@key" typename="PoliticalDict" id="@key" title="@PoliticalDict[key]"  />
+                                }
                             </div>
                         </div>
                         <div class="layui-colla-item">
                             <h2 class="layui-colla-title">参与人员学院筛选</h2>
                             <div class="layui-colla-content">
+                                @Html.HiddenFor(model => model.ActivityMajor)
                                 @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
                                 @foreach (var key in MajorDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" name="Major" id="@key" title="@MajorDict[key]" />
-        }
+    {
+                            <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]" />
+}
                             </div>
                         </div>
                         <div class="layui-colla-item">
                             <h2 class="layui-colla-title">参与人员专业筛选</h2>
                             <div class="layui-colla-content">
+                                @Html.HiddenFor(model => model.ActivityDepartment)
                                 @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
                                 @foreach (var key in DepartmentDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" name="Major" id="@key" title="@DepartmentDict[key]" />
-        }
-
+    {
+                            <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" />
+}
                             </div>
                         </div>
                     </div>
@@ -131,31 +139,54 @@
 
                 <div class="acArticle-btn">
                     <div class="layui-form-item">
-                        <button class="layui-btn red-btn" lay-submit>发布</button>
+                        <button class="layui-btn" id="btnSubmit" type="button">发布</button>
                         <button type="reset" class="layui-btn layui-btn-primary">取消发布</button>
                     </div>
                 </div>
             </div>
         </form>
-
-
+        <div id="l-map"></div>
 
     </div>
 
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=HisYFGGE2IDgsNH7xUAEQfExLIxpWwDh"></script>
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Content/layui/layui.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/App/simple-ajax-form.js"></script>
     <script src="~/Content/oj/js/admin.js"></script>
     <script type="text/javascript">
         $(function () {
+            BindSubmit();
             BindSearchKey();
+
+            layui.use('upload', function () {
+                var upload = layui.upload;
+                var uploadInst = upload.render({
+                    elem: '#test1'
+                    , url: '/Activity/UploadIcon' //上传接口
+                    , accept: 'images'
+                    , size: 2048
+                    , done: function (res) {
+                        if (res["msg"] == "fail") {
+                            alert("上传失败，请稍后再试");
+                        } else {
+                            $("#ActivityIcon").attr("value", res["src"]);
+                            alert("上传成功");
+                        }
+                    }
+                    , error: function () {
+                        alert("上传失败，请稍后再试")
+                    }
+                });
+            });
         });
         //查找负责人
         function BindSearchKey() {
             $('#btnSer').click(function () {
-                $.post("/UserInfo/SearchActivityPeople", { key: $("#managerid").val() }, function (data) {
+                $.post("/UserInfo/SearchActivityPeople", { key: $("#ActivityManagerID").val() }, function (data) {
                     if (data["msg"] == "success") {
-                        var buffer = "登录名："+ data["login"] +" " +"真实姓名：" + data["showname"];
+                        var buffer = "登录名：" + data["login"] + " " + "真实姓名：" + data["showname"];
 
                     } else {
                         var buffer = "查无此人";
@@ -164,37 +195,51 @@
                 });
             });
         }
-
-        layui.use(['form', 'layer'], function () {
-            var form = layui.form;
-            form.verify({
-                userID: function (value, item) { //value：表单的值、item：表单的DOM对象
-                    if (!new RegExp("^[a-zA-Z0-9_s·]+$").test(value)) {
-                        return '登录帐号不能有特殊字符和中文字符';
+        function BindSubmit() {
+            $("#btnSubmit").click(function () {
+                beforeSubmit();
+                $.post("/Activity/Create", $("#form1").serializeArray(), function (data) {
+                    if (data["msg"] == "success") {
+                        alert("申请成功，请等待审核！");
+                    } else {
+                        alert("出现错误,请稍后再试！");
                     }
-                    if (/(^\_)|(\__)|(\_+$)/.test(value)) {
-                        return '登录帐号首尾不能出现下划线\'_\'';
-                    }
-                    if (/^\d+\d+\d$/.test(value)) {
-                        return '登录帐号不能全为数字';
-                    }
-                    if (!/{6,18}$/.test(value)) {
-                        return '登录帐号必须在6到18位之间'
-                    }
-                }
-                //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
-                ,
-                pass: [
-                    /^[\S]{6,18}$/, '密码必须在6到18位之间，且不能出现空格'
-                ],
-                username: [
-                    /^[\u4e00-\u9fa5]{2,8}$/, '姓名必须在2到8个汉字之间'
-                ],
-                studentNumber: [
-                    /^[0-9]{11}$/, '学号必须位11位，且都是数字'
-                ]
+                    $("#manager").html(buffer);
+                });
+                //$.ajax({
+                //    url: "/Activity/Create",
+                    
+                //    type: "post",
+                //    data: $("#form1").serializeArray(),
+                //    datatype: "json",
+                //    success:function (data) {
+                           
+                //        }
+                //});               
             });
-        });
+        }
+
+        //数据绑定
+        function beforeSubmit() {
+            var Politicalresult = ",";
+            $("input[typename='PoliticalDict']:checked").each(function () {
+                Politicalresult += $(this).val() + ',';
+            });
+            $("#ActivityPolitical").val(Politicalresult);
+
+            var Majorresult = ",";
+            $("input[typename='MajorDict']:checked").each(function () {
+                Majorresult += $(this).val() + ',';
+            });
+            $("#ActivityMajor").val(Majorresult);
+
+            var Departmentresult = ",";
+            $("input[typename='DepartmentDict']:checked").each(function () {
+                Departmentresult += $(this).val() + ',';
+            });
+            $("#ActivityDepartment").val(Departmentresult);
+         }
+
         //日期组件
         layui.use('laydate', function () {
             var laydate = layui.laydate;
@@ -203,10 +248,23 @@
                 type: 'datetime',
                 range: true
             });
+
+            var laydate1 = layui.laydate;
+            laydate.render({
+                elem: '#timeEnrollRange',
+                type: 'datetime',
+                range: true
+            });
         });
         //富文本框
         layui.use('layedit', function () {
             var layedit = layui.layedit;
+            layedit.set({
+                uploadImage: {
+                    url: '/Activity/UploadContentImage',
+                    type:'post'
+                }
+            });
             layedit.build('demo', {
                 tool: [
                     'strong' //加粗
@@ -225,7 +283,6 @@
         layui.use('element', function () {
             var element = layui.element;
 
-            //…
         });
 
 
@@ -234,8 +291,8 @@
             return document.getElementById(id);
         }
         var map = new BMap.Map("l-map");
-        map.centerAndZoom("温州", 12);     
-        
+        map.centerAndZoom("温州", 12);
+
         var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
             {
                 "input": "suggestId"
@@ -265,17 +322,22 @@
             myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
             G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
 
-            setPlace();
+            setPlace(myValue);
         });
-        function setPlace() {
+        function setPlace(myValue) {
             map.clearOverlays();    //清除地图上所有覆盖物
             function myFun() {
                 var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
                 //
                 var poi = local.getResults().getPoi(0);
-                var str = "<div>位置" + poi.title;
-                var path = "<a  target='_blank' href='https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=" + poi.title + "/vt=map'>" + poi.title + "</a>";
+                
+                
+                var path = "<a  target='_blank' href='https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=" + myValue + "/vt=map'>点击查看位置详情</a>";
                 $("#address").html(path);
+                var lng = String(pp.lng);
+                var lat = String(pp.lat);
+                $("#ActivityAddressX").val(lng.substring(0, lng.indexOf(".") + 3));
+                $("#ActivityAddressY").val(lat.substring(0, lng.indexOf(".") + 3));
 
                 map.centerAndZoom(pp, 18);
                 map.addOverlay(new BMap.Marker(pp));    //添加标注

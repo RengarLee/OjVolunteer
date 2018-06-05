@@ -9,5 +9,6 @@ namespace OjVolunteer.IBLL
     public partial interface IActivityService
     {
         Boolean AddTime(int actId);
+
     }
 }

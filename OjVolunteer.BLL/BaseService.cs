@@ -57,16 +57,11 @@ namespace OjVolunteer.BLL
         #region 添加
         public T Add(T entity)
         {
-            try
-            {
+
                 CurrentDal.Add(entity);
                 DbSession.SaveChanges();
                 return entity;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+
         }
 
         #endregion
@@ -143,6 +138,8 @@ namespace OjVolunteer.BLL
                 return false;
             }
         }
+
+
 
         #endregion
 
