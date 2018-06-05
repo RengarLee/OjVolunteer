@@ -34,9 +34,13 @@ namespace OjVolunteer.UIPortal.Controllers
         #region UserRegister 个人用户注册
         public ActionResult UserRegister(string loginname, string pwd, string nickname, string phone, string OrganizeInfoList, string PoliticalList)
         {
-
+            if (!ValidateName(loginname))
+            {
+                return Content("exist");
+            }
             Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
-            if (!regex.IsMatch(loginname))
+            Regex regex1 = new Regex(@"^[0-9]{6,12}$");
+            if (!regex.IsMatch(loginname)||regex1.IsMatch(loginname))
             {
                 return Content("fail");
             }
@@ -85,10 +89,15 @@ namespace OjVolunteer.UIPortal.Controllers
 
         public ActionResult OrganizeRegister(string loginname, string pwd, string nickname, string people, string phone)
         {
+            if (!ValidateName(loginname))
+            {
+                return Content("exist");
+            }
             //验证
             //登录名
             Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
-            if (!regex.IsMatch(loginname))
+            Regex regex1 = new Regex(@"^[0-9]{6,12}$");
+            if (!regex.IsMatch(loginname)|| regex1.IsMatch(loginname))
             {
                 return Content("fail");
             }
@@ -140,19 +149,26 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region ValidateName 验证用户名是否重复
-        public ActionResult ValidateName()
+        public Boolean ValidateName( string loginId)
         {
-            string loginId = Request["name"];
-            int usertype = Convert.ToInt32(Request["usertype"]);
-            if (usertype == 0)
+            bool flag = false;
+            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == loginId).FirstOrDefault();
+            if (userInfo == null)
             {
-                UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == loginId).FirstOrDefault();
-                if (userInfo == null)
+                OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId == loginId).FirstOrDefault();
+                if (organizeInfo == null)
                 {
-                    return Content("success");
+                    flag = true;
                 }
             }
-            if (usertype == 1)
+            return flag;
+        }
+
+        public ActionResult ValName()
+        {
+            string loginId = Request["name"];
+            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == loginId).FirstOrDefault();
+            if (userInfo == null)
             {
                 OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId == loginId).FirstOrDefault();
                 if (organizeInfo == null)
