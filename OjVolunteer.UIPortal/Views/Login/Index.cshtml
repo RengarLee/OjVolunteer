@@ -41,12 +41,16 @@
             layui.use('layer', function () {
                 var layer = layui.layer;
             }); 
-            if (data == "userinfo") {
+            if (data == "Userinfo") {
                 window.top.location.href = "/UserInfo/Index";
             } else if (data == "OrganizeInfo") {
                 window.top.location.href = "/OrganizeInfo/Index";
             } else if (data == "fail") {
                 layer.msg('密码或帐号错误！请重新输入', { icon: 5 });
+            } else if (data == "Delete") {
+                layer.msg('该账号禁止登录！请联系管理员', { icon: 5 });
+            } else if (data == "Auditing") {
+                layer.msg('该账号正在审核！请耐心等待', { icon: 5 });
             }
         }
     </script>
