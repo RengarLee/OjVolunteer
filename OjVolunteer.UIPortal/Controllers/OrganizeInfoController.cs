@@ -120,6 +120,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(new { msg },JsonRequestBehavior.AllowGet);
         }
         #endregion
+
         #region ValidateName 验证用户名是否重复
         public Boolean ValidateName(string loginId)
         {
@@ -136,6 +137,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return flag;
         }
         #endregion
+
         #region 组织账号申请审核
         /// <summary>
         /// 进入组织信息审核界面
@@ -363,6 +365,25 @@ namespace OjVolunteer.UIPortal.Controllers
                 }
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
+        }
+
+        //重置密码
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult ResetPwd(int id)
+        {
+
+            OrganizeInfo organize = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == id).FirstOrDefault();
+            //TODO:
+            organize.OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5("000000");
+            if (OrganizeInfoService.Update(organize))
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
         }
         #endregion
 

@@ -145,7 +145,7 @@
 
          $(function () {
             $("#orgcancel").click(function () {
-                $.post("/UserInfo/ResetPwd", { "id": $("#UserInfoID").val() }, function (data) {
+                $.post("/OrganizeInfo/ResetPwd", { "id": $("#OrganizeInfoID").val() }, function (data) {
                     if (data == "success") {
                         alert("密码重置为000000");
                     } else {
