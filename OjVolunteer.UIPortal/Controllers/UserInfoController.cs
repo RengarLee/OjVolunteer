@@ -36,7 +36,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        #region Query
+        #region 查找活动负责人
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public JsonResult SearchActivityPeople()
         {
@@ -195,6 +195,11 @@ namespace OjVolunteer.UIPortal.Controllers
         public JsonResult Create(UserInfo userInfo)
         {
             String msg = String.Empty;
+            Regex regex1 = new Regex(@"^[0-9]{6,12}$");
+            if (regex1.IsMatch(userInfo.UserInfoLoginId))
+            {
+                return Json(new { msg ="fail" }, JsonRequestBehavior.AllowGet);
+            }
             if (ModelState.IsValid)
             {
                 string pwd = "000000";
