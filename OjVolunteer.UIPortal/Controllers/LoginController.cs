@@ -28,7 +28,7 @@ namespace OjVolunteer.UIPortal.Controllers
             String pwd = MD5Helper.Get_MD5(Request["LoginPwd"]);
             short delDeleted = (short)DelFlagEnum.Deleted;
             short delInvalid = (short)DelFlagEnum.Invalid;
-            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd && o.Status != delDeleted && o.Status != delInvalid).FirstOrDefault();
+            var organizeInfo = OrganizeInfoService.GetEntities(o => o.OrganizeInfoLoginId == name && o.OrganizeInfoPwd == pwd &&  o.Status != delInvalid).FirstOrDefault();
             if (organizeInfo != null)
             {
                 if (organizeInfo.Status == (short)Model.Enum.DelFlagEnum.Auditing)
