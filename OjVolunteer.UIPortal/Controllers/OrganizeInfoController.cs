@@ -36,7 +36,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        #region  Query
+        #region  组织信息管理
         /// <summary>
         /// 进入组织信息管理界面
         /// </summary>
@@ -99,6 +99,11 @@ namespace OjVolunteer.UIPortal.Controllers
         public JsonResult Create(OrganizeInfo organizeInfo)
         {
             string msg = "fail";
+            Regex regex1 = new Regex(@"^[0-9]{6,12}$");
+            if (regex1.IsMatch(organizeInfo.OrganizeInfoLoginId))
+            {
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+            }
             if (ModelState.IsValid)
             {
                 organizeInfo.OrganizeInfoManageId = LoginOrganize.OrganizeInfoID;
