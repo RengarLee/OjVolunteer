@@ -243,6 +243,7 @@ a:active{
 /*登录界面样式*/
 	/*由于导航栏有50px高所以下面的元素至少要有50px的上边距*/
 	.login-content{
+        margin:0 auto;
 		margin-top: 60px;
 		text-align: center;
 		border:1px solid #ccc;
