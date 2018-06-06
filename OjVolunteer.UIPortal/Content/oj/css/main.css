@@ -34,7 +34,6 @@ a:focus{
 a:active{
 	text-decoration: none;
 }
-/*---------
 工具样式
 -----------*/
 
@@ -91,7 +90,6 @@ a:active{
 }
 
 /*主界面样式*/
-
 	header{
 		width: 100%;
 	}
@@ -112,7 +110,7 @@ a:active{
 	}
 	/*轮播图部分*/
 	header .ad{
-		width: 96%;
+		width: 95%;
 		height: 200px;
 		margin: 10px auto;
 		margin-top: 60px;
@@ -123,7 +121,7 @@ a:active{
 	}
 	/*图标导航部分*/
 	header .icons{
-		padding: 10px 15px 10px;
+		padding: 5px 10px 10px;
 	}
 	header .icons .icons-row{
 		margin: 0 auto;
@@ -131,7 +129,13 @@ a:active{
 	}
 	.icon-huodong,
 	.icon-paixingbang,
-	.icon-scanning{
+	.icon-scanning,
+	.icon-calendar,
+	.icon-office,
+	.icon-rejectedorder,
+	.icon-pin,
+	.icon-edit
+	{
 		font-size: 40px;
 		color: #C62F2F;
 		vertical-align: middle;
@@ -163,64 +167,52 @@ a:active{
 		margin-bottom: 70px;
 		margin-top: -10px;
 	}
-	.hot-action .kinds{
-		margin-left: 15px;
-		margin-bottom: -5px;
-	}
-	.action{
-		width: 98%;
-		border: 1px solid rgb(242,242,242);
-		box-shadow: 0 0 20px rgb(242,242,242);
+	.hot-content{
+		background-color: #eee;
 		margin: 0 auto;
-		margin-bottom: 10px;
-		padding:10px 15px;
+		padding-top: 15px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
 	}
-	/*头像和用户名样式*/
-	.action .userinfo img{
-		width: 30px;
-		height: 30px;
-		border-radius: 50%;
-	}
-	.action .userinfo .ac-username{
-		margin-left: 5px;
-		color: #8e8e93;
-	}
-	/*活动标题样式*/
-	.action .ac-left{
-		float: left;
-		width: 70%;
-	}
-	.action .ac-left .ac-title{
-		font-weight: bold;
-	}
-	.action .ac-left .ac-time{
-		margin-top: 30px;
-	}
-	.action .ac-left .ac-time span{
-		color: red;
-	}
-	/*活动图片样式*/
-	.action .ac-right{
-		float: left;
-		width: 30%;
+	.hot-list{
 		text-align: center;
 	}
-	.action .ac-right img{
-		width: 99%;
-		margin-top: 5px;
+	.hot-inline{
+		display: inline-block;
+		width: 45%;
+		background-color: #fff;
+		margin-bottom: 10px;
+		border-radius: 5px;
+	}
+	.hot-inline:last-child{
+		margin-left: 10px;
+	}
+	.hot-inline p{
+		padding: 5px;
+		font-size: 12px;
+		width:100%;
+		text-align: left;
+	}
+	.hot-img img{
+		width: 100%;
+		height: 100%;
+		border-top-left-radius:5px;
+		border-top-right-radius:5px;
 	}
 
 
 	/*底部导航*/
 	.navbt{
 		background-color: #fff;
-		border-top: 1px solid #e7e7e7e7;
+		border-top: 1px solid #eee;
 		position: fixed;
 		left: 0;
 		bottom: 0;
 		width: 100%;
 		display: flex;
-		z-index: 9999;
+		z-index: 999;
+		height: 55px;
+		padding-top: 5px;
 	}
 	.navbt .btBar{
 		flex: 1;
@@ -236,7 +228,7 @@ a:active{
 	.navbt .btBar .icon-zhuye,
 	.navbt .btBar .icon-account
 	{
-		font-size: 25px;
+		font-size: 24px;
 		color: #000000;
 	}
 	.this-icon{
@@ -378,28 +370,30 @@ a:active{
 	.toplist .toplist-userinfo img{
 		border-radius: 50%;
 		width: 100px;
+		height: 100px;
 	}
 	.toplist .toplist-userinfo p{
 		padding-top: 10px;
+		padding-bottom: 10px;
 	}
 	.toplist .toplist-userinfo p span{
 		color: #C62F2F;
 	}
 	/*非第一名样式*/
 	.untop{
-
+		margin-bottom: 60px;
 	}
 	.untop .untop-item{
-		padding-top: 5px;
-		padding-left: 10px;
-		padding-bottom: 0;
 		border-bottom: 1px solid #eee;
+		height: 60px;
+		padding: 5px 0;
 	}
 	.untop .untop-item .rank{
 		float: left;
 		width: 20%;
 		line-height: 50px;
 		color: #C62F2F;
+		padding-left: 20px;
 	}
 	.untop .untop-item .untop-item-wrap{
 		float: left;
@@ -407,16 +401,63 @@ a:active{
 	}
 	.untop .untop-item img{
 		width: 50px;
+		height: 50px;
 		border-radius: 50%;
 	}
 	.untop .untop-item .rankinfo{
-		float: left;
+		float: right;
 		width: 60%;
 		height: 50px;
 	}
-	.untop .untop-item .rankinfo span{
+	.untop .untop-item .rankinfo p{
+		margin-bottom: 15px;
+	}
+	.untop .untop-item .rankinfo i{
 		color: #C62F2F;
 	}
+	/*排行榜中我的排行榜样式*/
+	.myRank{
+		position: fixed;
+		bottom: -1px;
+		border-top: 1px solid #eee;
+		box-shadow: 0 0 20px #ddd;
+		width: 100%;
+		background-color: #228FBD;
+	}
+	.myRank .untop-item{
+		border-bottom: 1px solid #eee;
+		height: 60px;
+		padding: 5px 0;
+	}
+	.myRank .untop-item .rank{
+		float: left;
+		width: 20%;
+		line-height: 50px;
+		color: #fff;
+		padding-left: 20px;
+	}
+	.myRank .untop-item .untop-item-wrap{
+		float: left;
+		width: 20%;
+	}
+	.myRank .untop-item img{
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+	}
+	.myRank .untop-item .rankinfo{
+		float: right;
+		width: 60%;
+		height: 50px;
+		color: #fff;
+	}
+	.myRank .untop-item .rankinfo p{
+		margin-bottom: 15px;
+	}
+	
+	
+	
+	
 
 	/*选择栏*/
 	.selectbox{
@@ -426,17 +467,8 @@ a:active{
 		float: left;
 		width: 50%;
 		font-size: 20px;
-		text-align: center;
+		text-align: left;
 	}
-	/*下面2个是更改了妹子UI的的样式*/
-	.selectbox .am-btn{
-		font-size: 2rem;
-		font-weight: bold;
-	}
-	.selectbox .am-selected{
-		width: 100%;
-	}
-
 /*活动界面样式*/
 	/*活动类型选择栏*/
 	.action-bg{
@@ -694,7 +726,7 @@ a:active{
 
 /*我的义工心得界面样式*/
 	.myfeel{
-		margin-top: 50px;
+		margin-top: 60px;
 		margin-bottom: 10px;
 	}
 	.myfeel .myfeel-list{
@@ -714,6 +746,26 @@ a:active{
 		border-radius: 3px;
 		position: relative;
 	}
+	/*审核图标样式*/
+	.myfeel-item .feel-item-icon{
+		font-size: 70px;
+		position: absolute;
+		right: 40px;
+		z-index: 999;
+		color:#C62F2F;
+		transform:rotate(-30deg);
+		-ms-transform:rotate(-30deg); /* Internet Explorer */
+		-moz-transform:rotate(-30deg); /* Firefox */
+		-webkit-transform:rotate(-30deg); /* Safari 和 Chrome */
+		-o-transform:rotate(-30deg); /* Opera */
+	}
+	/*审核通过变绿*/
+	.icon-green{
+		color:#5FB878 !important ;
+	}
+	/*审核失败变灰色*/
+	.icon-gray{
+		color: #666 !important;	}
 	/*心得第一行,用户头像、姓名、发布时间*/
 	.myfeel-item .feel-item-info{
 		text-align: center;
@@ -885,6 +937,7 @@ a:active{
 	left: 20px;
 	bottom: 20px;
 }
+
 /*layui框架选择从绿色变成其他颜色*/
 .layui-form-select dl dd.layui-this{
 	background-color: #C62F2F;

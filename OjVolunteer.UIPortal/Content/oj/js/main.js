@@ -1,5 +1,20 @@
 $(document).ready(function(){
-    
+
+    var topback = $('#topback');
+    // 返回顶部按钮点击事件
+    topback.on("click",function(){
+        $('html,body').animate({
+        	scrollTop:0
+        },200)
+
+    })
+    $(window).on('scroll',function(){
+    	if($(window).scrollTop()>200)
+    		topback.fadeIn();
+    	else
+    		topback.fadeOut();
+    })
+    $(window).trigger('scroll');
 
 
     // 调用layui弹出层
@@ -11,6 +26,8 @@ $(document).ready(function(){
     dianZan();
     // 点击加载更多功能
     addMore();
+// 	演示所用(后删)
+    hidediv();
 })
 
  // 点赞功能
@@ -29,13 +46,12 @@ function dianZan(){
 
     })
 }
-// 点击加载更多
+// 点击加载更多(演示)
 function addMore(){
     $('.addMore').find('p').click(function(){
-        layer.load(1);
-        //此处演示关闭
-        setTimeout(function(){
-          layer.closeAll('loading');
-        }, 800);
+        $('#showajax').show();
     })
+}
+function hidediv(){
+	$('#showajax').hide();
 }

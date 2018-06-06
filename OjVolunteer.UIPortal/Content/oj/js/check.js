@@ -11,13 +11,13 @@ layui.use(['form','layer'],function(){
 		    if(/^\d+\d+\d$/.test(value)){
 		      return '登录帐号不能全为数字';
 		    }
-		    if(! /^.{6,12}$/.test(value)){
-		    	return '登录帐号必须在6到12位之间';
+		    if(! /^.{6,18}$/.test(value)){
+		    	return '登录帐号必须在6到18位之间';
 		    }
 		  }
 		  //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
 		  ,pass: [
-		    /^[\S]{6,12}$/
+		    /^[\S]{6,18}$/
 		    ,'密码必须在6到18位之间，且不能出现空格'
 		  ]
 		  ,repass:function(value){
@@ -33,12 +33,12 @@ layui.use(['form','layer'],function(){
 		  	}
 		  }
 		  ,username:[
-		   	/^[\u4e00-\u9fa5]{2,10}$/
-		   	,'姓名必须在2到10个汉字之间'
+		   	/^[\u4e00-\u9fa5]{2,8}$/
+		   	,'姓名必须在2到8个汉字之间'
 		  ]
 		  ,orgname: [
-            /^[\u4e00-\u9fa5]{2,12}$/
-            , '组织名称必须在2到12个汉字之间'
+            /^[\u4e00-\u9fa5]{2,20}$/
+            , '组织名称必须在2到20个汉字之间'
           ]
 		  ,studentNumber:[
 		  	/^[0-9]{11}$/
@@ -46,5 +46,20 @@ layui.use(['form','layer'],function(){
 		  ]
 		});      
 });
-
+$(function(){
+	layui.use('layer', function() {
+ 		var layer = layui.layer;
+ });
+	checkPass('#phonenum');
+})
+function checkPass(index){
+	$(index).blur(function(){
+		var reg = /^[0-9]{11}$/;
+	if($(this).val() != reg){
+			alert("错误");
+		}
+	else
+		alert('正确');
+	});
+}
 

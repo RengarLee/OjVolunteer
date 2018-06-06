@@ -342,6 +342,7 @@
     <Content Include="Content\oj\css\toast.style.min.css" />
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\oj\images\1.jpg" />
+    <Content Include="Content\oj\images\3.jpg" />
     <Content Include="Content\oj\images\66763879_p0.jpg" />
     <Content Include="Content\oj\images\acimg.png" />
     <Content Include="Content\oj\images\acmoreimg.jpg" />

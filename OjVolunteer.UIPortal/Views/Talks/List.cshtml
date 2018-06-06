@@ -40,7 +40,7 @@
         function GetTalksData(pageIndex, pageSize) {
             $.post("/Talks/GetListData", { pageIndex: pageIndex, pageSize: pageSize }, function (data) {
                 $("#btnevent").remove();
-                if (data["msg"] == "success") {                   
+                if (data["msg"] == "success") { 
                     for (var i in data["data"]) {
                         var temp = data["data"][i];
                         //上
