@@ -81,7 +81,7 @@
                     {
                         field: 'UserInfoID',
                         title: '义工ID',
-                        visible: false,
+                        visible: true,
                         align: 'center',
                         width: '6%',
                         filterControl: 'input',
@@ -244,6 +244,9 @@
                             } else if (row["Status"] == 0) {
                                 return '正常'
                             }
+                        },
+                        end: function () {
+                            initTable();
                         },
                         filterControl: 'input',
                     }

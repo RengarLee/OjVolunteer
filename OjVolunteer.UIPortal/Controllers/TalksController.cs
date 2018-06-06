@@ -334,13 +334,19 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = TalksService.GetEntities(t => t.Status == delAuditing).Select(t => new { t.TalkID, t.UserInfoID, t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status }).AsQueryable();
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                pageData = pageData.Where(t => t.OrganizeInfoID == LoginOrganize.OrganizeInfoID && t.UserInfoID != null).AsQueryable();
+                var pageData = TalksService.GetEntities(t => t.Status == delAuditing&& t.OrganizeInfoID == LoginOrganize.OrganizeInfoID && t.UserInfoID != null).Select(t => new { t.TalkID, t.UserInfoID, t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status }).AsQueryable();
+                var data = new { total = pageData.Count(), rows = pageData.ToList() };
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
-            var data = new { total = pageData.Count(), rows = pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
+            else
+            {
+                var pageData = TalksService.GetEntities(t => t.Status == delAuditing).Select(t => new { t.TalkID, t.UserInfoID, t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status }).AsQueryable();
+                var data = new { total = pageData.Count(), rows = pageData.ToList() };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         #region 评论审核
