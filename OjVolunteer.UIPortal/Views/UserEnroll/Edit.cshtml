@@ -22,18 +22,21 @@
     </style>
 </head>
 <body>
-    <form class="layui-form layui-form-pane stuInfo-form">
-
+    <form class="layui-form layui-form-pane stuInfo-form" id="from1">
+        @Html.HiddenFor(Model => Model.UserEnrollID)
         <div class="layui-form-item">
             <label class="layui-form-label">签到时间</label>
             <div class="layui-input-block">
-                <input type="text" name="title" class="layui-input" id="timeRange" lay-verify="require">
+                @Html.EditorFor(Model=>Model.UserEnrollActivityStart,new { @class="layui-input", id="timeRange" ,lay_verify="require"})
+                @*<input type="text" name="title" class="layui-input" id="timeRange" lay-verify="require">*@
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">签退时间</label>
             <div class="layui-input-block">
-                <input type="text" name="title" class="layui-input" id="timeEnrollRange" lay-verify="require">
+                @Html.EditorFor(Model => Model.UserEnrollActivityEnd, new { @class = "layui-input", id = "timeRange", lay_verify = "require" })
+
+                @*<input type="text" name="title" class="layui-input" id="timeEnrollRange" lay-verify="require">*@
             </div>
         </div>
         <div class="footer-btn">
@@ -51,8 +54,15 @@
         var timeRange = $('#timeRange');
         var timeEnrollRange = $('#timeEnrollRange');
         BaoCun.click(function () {
-            if (timeEnrollRange.val() > timeRange.val())
-                ture;
+            if (timeEnrollRange.val() > timeRange.val()) {
+                $.post("/UserEnroll/Edit", $("#from1").serialize(), function (data) {
+                    if (data["msg"] == "success") {
+                        alert("修改成功");
+                    } else {
+                        alert("出现异常，请稍后再试！")
+                    }
+                });
+            }
             else {
                 alert("时间选择错误，签退时间应该比签到时间晚！");
             }

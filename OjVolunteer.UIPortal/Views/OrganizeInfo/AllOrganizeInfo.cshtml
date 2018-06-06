@@ -205,7 +205,10 @@
                         shadeClose: true,
                         closeBtn: 1,
                         area: ['1000px', '680px'],
-                        content: '/OrganizeInfo/OrganizeDetail/' + row["OrganizeInfoID"]
+                        content: '/OrganizeInfo/OrganizeDetail/' + row["OrganizeInfoID"],
+                        end: function () {
+                            initTable();
+                        },
                     });
                 }
             });

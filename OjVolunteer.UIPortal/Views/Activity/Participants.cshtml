@@ -126,9 +126,11 @@
                     var index = layer.open({
                         title: '修改',
                         type: 2,
-
                         content: '/UserEnroll/Edit?userEnrollId='+row['UserEnrollID'],
-                        area: ['600px', '400px']
+                        area: ['600px', '400px'],
+                        end: function () {
+                            initTable();
+                        },
                     });
                 }
             });
