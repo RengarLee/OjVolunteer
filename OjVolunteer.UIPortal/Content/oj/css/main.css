@@ -518,6 +518,7 @@ a:active{
 	}
 	.aclist-box-img img{
 		width: 130px;
+        height:90px;
 	}
 	.aclist-box-info{
 		float: left;
