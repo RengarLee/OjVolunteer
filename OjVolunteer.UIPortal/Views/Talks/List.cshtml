@@ -16,7 +16,7 @@
 
 
 <footer class="addMore">
-    <p>点击加载更多</p>
+   
 </footer>
 
 <a href="/Talks/Create" class="writefeel">
@@ -103,8 +103,8 @@
 
                         $("#feelul").append(li);
                     }
-                    var btn_li = $("<li></li>");
-                    var btn_input = $("<input type='button' id='btnevent' value='查看更多'/>");
+                    var btn_li = $("<li style='text-align:center;'></li>");
+                    var btn_input = $("<input type='button' id='btnevent' value='查看更多' style='border:none;background:#eee;'/>");
                     pageIndex++;
                     btn_input.attr("pageIndex", pageIndex);
                     btn_li.append(btn_input);
@@ -113,7 +113,7 @@
                     Photos();
                     BindActivtyListClickEvent();
                 } else {
-                    var btn_li = $("<li></li>");
+                    var btn_li = $("<li style='text-align:center;'></li>");
                     btn_li.text("无新内容");
                     $("#feelul").append(btn_li);
                 }
@@ -142,16 +142,17 @@
                     layer.msg('只能点赞一次哦~');
                 }
                 else {
+                    var flag = false;
                     var talkId = $(this).attr("tId");
                     $.post("/Favors/Create/", { talkId: talkId }, function (data) {
                         if (data["msg"] == "success") {
-                            
                             layer.msg('点赞成功！');
-                            var zanNums = Number($(this).find('span').text());
-                            zanNums++;
-                            $(this).find('span').text(zanNums);
+                            flag = true;
                         }
                     });
+                    var zanNums = Number($(this).find('span').text());
+                    zanNums++;
+                    $(this).find('span').text(zanNums);
                     $(this).addClass('yiZan');
                 }
             })

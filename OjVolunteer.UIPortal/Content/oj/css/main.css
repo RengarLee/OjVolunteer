@@ -300,6 +300,7 @@ a:active{
 	}
 	.usertitle img{
 		width: 100px;
+        height:100px;
 		border-radius: 50%;
 	
 	}
@@ -327,6 +328,13 @@ a:active{
 		margin-top: -10px;
 	}
 	/*右箭头*/
+.info-item .icon-edit,
+.icon-compass,
+.icon-password
+.icon-set{
+    font-size: 20px;
+    color: #000;
+}
 	.baseinfo .info-item{
 		background-image: url(../images/goin.png);
 		background-repeat: no-repeat;
@@ -575,6 +583,7 @@ a:active{
 	}
 	.acmore-userinfo img{
 		width: 30px;
+        height:30px;
 		border-radius: 50%;
 	}
 	.acmore-userinfo i{
@@ -640,7 +649,8 @@ a:active{
 		float: left;
 	}
 	.feel-item .feel-item-info .info-img img{
-		width: 50px;
+		width: 40px;
+        height:40px;
 		border-radius: 50%;
 	}
 	.feel-item .feel-item-info .info-name{
