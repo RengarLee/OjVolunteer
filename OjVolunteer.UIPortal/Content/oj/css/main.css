@@ -939,7 +939,8 @@ a:active{
 	position: relative;
 }
 .write-content textarea{
-	height: 400px;
+	height: 300px;
+    font-size:16px;
 }
 
 .write-icon{

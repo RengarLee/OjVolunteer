@@ -15,13 +15,8 @@
 </div>
 
 
-<footer class="addMore">
-    <p>点击加载更多</p>
-</footer>
 
-<a href="write.html" class="writefeel">
-    <span class="glyphicon glyphicon-edit"></span>
-</a>
+
 
 @section Script{
     <script type="text/javascript">
@@ -103,8 +98,8 @@
 
                         $("#feelul").append(li);
                     }
-                    var btn_li = $("<li></li>");
-                    var btn_input = $("<input type='button' id='btnevent' value='查看更多'/>");
+                    var btn_li = $("<li style='text-align:center;'></li>");
+                    var btn_input = $("<input type='button' id='btnevent' value='查看更多' style='border:none;background:#eee;'/>");
                     pageIndex++;
                     btn_input.attr("pageIndex", pageIndex);
                     btn_li.append(btn_input);
@@ -112,7 +107,7 @@
                     Photos();
                     BindActivtyListClickEvent();
                 } else {
-                    var btn_li = $("<li></li>");
+                    var btn_li = $("<li style='text-align:center;></li>");
                     btn_li.text("无新内容");
                     $("#feelul").append(btn_li);
                 }

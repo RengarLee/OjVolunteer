@@ -41,14 +41,16 @@
             <textarea name="TalkContent" required lay-verify="required" placeholder="请输入" class="layui-textarea"> </textarea>
             <div class="write-icon" id="write-icon">
                 <input type="file" id="choose" accept="image/*" multiple>
-                <img id="upload" src="~/Content/oj/images/update-img.png">
+                @*<img id="upload" src="~/Content/oj/images/update-img.png">*@
+                <i class="iconfont icon-add" id="upload" style="font-size:40px;border:1px solid #999;color:#999;border-radius:3px;"></i>
             </div>
         </div>
         <input type="hidden" name="TalkImagePath" id="path" value="" />
         <div class="write-btn">
-            <button id="btnSubmit" type="submit" value="发布" class="layui-btn" />
+            <button id="btnSubmit" type="submit" value="发布" class="layui-btn">发布</button>
         </div>
     </form>
+
     <ul class="img-list"></ul>
     <a href="javascript:history.go(-1)" class="write-back">
         <span class="glyphicon glyphicon-chevron-left"> </span>
