@@ -62,6 +62,29 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             var activity = ActivityService.GetEntities(u => u.ActivityID == id).FirstOrDefault();
             ViewData.Model = activity;
+            var MajorStr = String.Empty;
+            String[] MajorIds = activity.ActivityMajor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var i in MajorIds)
+            {
+                MajorStr += MajorService.GetEntities(u => u.MajorID.ToString().Equals(i)).FirstOrDefault().MajorName;
+            }
+            ViewBag.MajorStr = MajorStr;
+
+            var DepartmentStr = String.Empty;
+            String[] DepartmentIds = activity.ActivityDepartment.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var i in DepartmentIds)
+            {
+                DepartmentStr += DepartmentService.GetEntities(u => u.DepartmentID.ToString().Equals(i)).FirstOrDefault().DepartmentName;
+            }
+            ViewBag.DepartmentStr = DepartmentStr;
+
+            var PoliticalStr = String.Empty;
+            String[] PoliticalIds = activity.ActivityPolitical.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var i in PoliticalIds)
+            {
+                PoliticalStr += PoliticalService.GetEntities(u => u.PoliticalID.ToString().Equals(i)).FirstOrDefault().PoliticalName+"  ";
+            }
+            ViewBag.PoliticalStr = PoliticalStr;
             return View();
         } 
         #endregion

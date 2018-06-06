@@ -23,7 +23,7 @@
     <form class="layui-form layui-form-pane stuInfo-form">
         <div class="header clearfix">
             <div class="header-left">
-                <img src="image/1.jpg" width="150px" height="100px">
+                <img src="@Model.ActivityIcon" width="150px" height="100px">
             </div>
             <div class="header-right">
 
@@ -31,99 +31,101 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">活动名称</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityName">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">活动类型</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityType.ActivityTypeName">
                     </div>
                 </div>
-                disabled
             </div>
         </div>
         <div class="content clearfix">
            
             <div class="content-footer">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">申请人</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" value="" class="layui-input" disabled>
-                    </div>
+                @{ if (Model.ActivityApplyUserInfoID != null)
+        {
+            <div class="layui-form-item">
+                <label class="layui-form-label">申请人</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" value="@Model.ApplyUserInfo.UserInfoShowName" class="layui-input" disabled>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">申请组织</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
-                    </div>
+            </div>
+}
+else
+{
+            <div class="layui-form-item">
+                <label class="layui-form-label">申请组织</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" value="@Model.ApplyOrganizeInfo.OrganizeInfoShowName" class="layui-input" disabled>
                 </div>
+            </div>
+}
+                }
+
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">活动地址</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityAddress">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">活动人数名额</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityPrediNum">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">点击量</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityClicks">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">报名开始时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityEnrollStart">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">报名结束时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityEnrollEnd">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">活动开始时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityStart">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">活动结束时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityEnd">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">政治面貌</label>
+                    <label class="layui-form-label">不符合活动的政治面貌条件</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" value="@ViewBag.PoliticalStr" disabled>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">专业条件</label>
+                    <label class="layui-form-label">>不符合活动的专业条件</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" value="@ViewBag.MajorStr" disabled>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">分院条件</label>
+                    <label class="layui-form-label">>不符合活动的分院条件</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input" disabled>
+                        <input type="text" name="title" class="layui-input" value="@ViewBag.DepartmentStr" disabled>
                     </div>
-                </div>
-            </div>
-            <div class="footer-btn">
-                <div class="layui-form-item">
-                    <button class="layui-btn red-btn" lay-submit>审核通过</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">不通过</button>
                 </div>
             </div>
        </div>
