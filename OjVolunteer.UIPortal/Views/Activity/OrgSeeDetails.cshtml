@@ -10,201 +10,322 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>OrgSeeDetails</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+    <style>
+        .layui-form-pane .layui-form-label{
+            overflow:visible;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <h4>Activity</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityIcon)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityIcon)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityTypeID)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityTypeID)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityAddress)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityAddress)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityAddressX)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityAddressX)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityAddressY)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityAddressY)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityContent)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityContent)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityPrediNum)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityPrediNum)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityManagerID)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityManagerID)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityApplyUserInfoID)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityApplyUserInfoID)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityApplyOrganizeID)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityApplyOrganizeID)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityClicks)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityClicks)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityEnrollEnd)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityEnrollEnd)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityEnrollStart)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityEnrollStart)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityStart)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityStart)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityEnd)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityEnd)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityPolitical)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityPolitical)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityMajor)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityMajor)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ActivityDepartment)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ActivityDepartment)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CreateTime)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CreateTime)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.ModfiedOn)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.ModfiedOn)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Remark)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Remark)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Status)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Status)
-            </dd>
-    
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ActivityID }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    <form class="layui-form layui-form-pane stuInfo-form">
+        <div class="header clearfix">
+            <div class="header-left">
+                <img src="image/1.jpg" width="150px" height="100px">
+            </div>
+            <div class="header-right">
+
+                <!-- 每一个item代表一行 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">活动名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">活动类型</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                disabled
+            </div>
+        </div>
+        <div class="content clearfix">
+           
+            <div class="content-footer">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">申请人</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" value="" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">申请组织</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">活动地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">活动人数名额</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">点击量</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">报名开始时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">报名结束时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">活动开始时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">活动结束时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">政治面貌</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">专业条件</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分院条件</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" class="layui-input" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-btn">
+                <div class="layui-form-item">
+                    <button class="layui-btn red-btn" lay-submit>审核通过</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">不通过</button>
+                </div>
+            </div>
+       </div>
+    </form>
+
+
+
+
+    @*<div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityIcon)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityIcon)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityTypeID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityTypeID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityAddress)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityAddress)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityAddressX)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityAddressX)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityAddressY)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityAddressY)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityContent)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityContent)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityPrediNum)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityPrediNum)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityManagerID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityManagerID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityApplyUserInfoID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityApplyUserInfoID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityApplyOrganizeID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityApplyOrganizeID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityClicks)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityClicks)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityEnrollEnd)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityEnrollEnd)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityEnrollStart)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityEnrollStart)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityStart)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityStart)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityEnd)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityEnd)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityPolitical)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityPolitical)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityMajor)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityMajor)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ActivityDepartment)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ActivityDepartment)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreateTime)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CreateTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ModfiedOn)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ModfiedOn)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Remark)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Remark)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ActivityID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>*@
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
 </body>
 </html>

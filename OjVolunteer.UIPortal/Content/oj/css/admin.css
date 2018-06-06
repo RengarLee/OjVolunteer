@@ -239,3 +239,9 @@
 .footer-btn {
     text-align: center;
 }
+
+/*双击弹出活动详情样式*/
+.acmore-form {
+    width: 600px;
+    margin: 0 auto;
+}
