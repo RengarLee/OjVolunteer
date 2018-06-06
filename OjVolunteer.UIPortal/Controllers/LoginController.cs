@@ -64,7 +64,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public void UserToCache(Object info)
         {
             String userLoginId = Guid.NewGuid().ToString();
-            Common.Cache.CacheHelper.AddCache(userLoginId,info);
+            Common.Cache.CacheHelper.AddCache(userLoginId,info,DateTime.Now.AddMinutes(40));
             Response.Cookies["userLoginId"].Value = userLoginId;
         }
         #endregion

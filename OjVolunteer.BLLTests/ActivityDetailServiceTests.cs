@@ -15,7 +15,8 @@ namespace OjVolunteer.BLL.Tests
         [TestMethod()]
         public void GetTopTest()
         {
-            var temp = activity.GetTop(-1, 6, 3, 1);
+            var temp = activity.GetTop(-1, 1, 3, 1);
+            return;
         }
     }
 }

@@ -76,7 +76,4 @@
     <property name="FavorsService" ref="FavorsService" ></property>
     <property name="TalksService" ref="TalksService" ></property>
   </object>
-  <object type="OjVolunteer.UIPortal.Controllers.TopController, OjVolunteer.UIPortal" singleton="false" >
-    <property name="ActivityDetailService" ref="ActivityDetailService" ></property>
-  </object>
 </objects>

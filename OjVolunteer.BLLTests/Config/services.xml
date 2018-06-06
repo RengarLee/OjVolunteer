@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="UserInfoService" type="OjVolunteer.BLL.UserInfoService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="OrganizeInfoService" type="OjVolunteer.BLL.OrganizeInfoService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="PoliticalService" type="OjVolunteer.BLL.PoliticalService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="UserDurationService" type="OjVolunteer.BLL.UserDurationService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="DepartmentService" type="OjVolunteer.BLL.DepartmentService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="ActivityTypeService" type="OjVolunteer.BLL.ActivityTypeService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="ActivityService" type="OjVolunteer.BLL.ActivityService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="ActivityDetailService" type="OjVolunteer.BLL.ActivityDetailService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="MajorService" type="OjVolunteer.BLL.MajorService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="TalksService" type="OjVolunteer.BLL.TalksService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="UserEnrollService" type="OjVolunteer.BLL.UserEnrollService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="FavorsService" type="OjVolunteer.BLL.FavorsService, OjVolunteer.BLL" singleton="false" >
+  </object>
+  <object name="UserBadgeService" type="OjVolunteer.BLL.UserBadgeService, OjVolunteer.BLL" singleton="false" >
+  </object>
+</objects>
