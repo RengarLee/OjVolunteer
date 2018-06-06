@@ -1,0 +1,193 @@
+﻿<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="top">
+            <p>义工排行</p>
+        </nav>
+    </header>
+
+    <!-- 选择栏 -->
+    <form class="layui-form">
+        <div class="selectbox clearfix">
+            <div class="seleleft">
+                <select name="city" lay-verify="required">
+                    <option value="">选择分院</option>
+                    <option value="0">数信</option>
+                    <option value="1">经管</option>
+                    <option value="2">文法</option>
+                    <option value="3">机电</option>
+                    <option value="4">艺术</option>
+                </select>
+            </div>
+            <div class="seleleft">
+                <select name="city" lay-verify="required">
+                    <option value="">选择时间范围</option>
+                    <option value="0">周</option>
+                    <option value="1">月</option>
+                    <option value="2">年</option>
+                    <option value="3">至今</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <div class="toplist">
+        <div class="toplist-userinfo">
+            <img src="images/hot-img5.jpg">
+            <p>
+                李华伟
+                <br /> 义工时长：
+                <span>300</span>小时
+            </p>
+        </div>
+    </div>
+    <ul class="untop">
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.2
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>250</i>小时</span>
+            </div>
+        </li>
+
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.3
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>250</i>小时</span>
+            </div>
+        </li>
+
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.4
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>250</i>小时</span>
+            </div>
+        </li>
+
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.5
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>250</i>小时</span>
+            </div>
+        </li>
+
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.6
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>250</i>小时</span>
+            </div>
+        </li>
+
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.7
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>250</i>小时</span>
+            </div>
+        </li>
+
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.7
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>250</i>小时</span>
+            </div>
+        </li>
+
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.7
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>250</i>小时</span>
+            </div>
+        </li>
+
+    </ul>
+
+    <button class="layui-btn" id="test">弹出层</button>
+
+    <!--显示该用户目前排行栏-->
+    <div class="myRank">
+        <li class="untop-item clearfix">
+            <p class="rank">
+                NO.230
+            </p>
+            <div class="untop-item-wrap">
+                <img src="images/1.jpg">
+            </div>
+            <div class="rankinfo">
+                <p>叶舟</p>
+                <span>义工时长：<i>50</i>小时</span>
+            </div>
+        </li>
+    </div>
+    <!-- 返回上一层组件 -->
+    <a href="javascript:history.go(-1)" class="header-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script type="text/javascript">
+        layui.use('layer', function () {
+            var layer = layui.layer;
+        });
+        $('#test').click(function () {
+            layer.msg('不开心。。', { icon: 9 });
+        });
+    </script>
+</body>
+</html>

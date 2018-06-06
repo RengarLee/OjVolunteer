@@ -23,7 +23,13 @@ namespace OjVolunteer.UIPortal.Controllers.Tests
             //int TimeSpan = int.Parse(Request["TimeSpan"] ?? "-1");
             int TimeSpan = -1;
 
-            var PageData = ActivityDetailService.GetTop(OrgId, TimeSpan);
+            var PageData = ActivityDetailService.GetTop(OrgId, TimeSpan,2,1);
+
+
+            foreach(var temp in PageData)
+            {
+                        
+            }
         }
     }
 }

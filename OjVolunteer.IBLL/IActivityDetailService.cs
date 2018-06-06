@@ -9,6 +9,6 @@ namespace OjVolunteer.IBLL
 {
     public partial interface IActivityDetailService
     {
-        //TopView GetTop(int OrdId, int DateTime);
+        List<TopView> GetTop(int OrdId, int DateTime,int pageSize, int pageIndex);
     }
 }

@@ -63,6 +63,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ActivityDetailServiceTests.cs" />
     <Compile Include="ActivityServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserEnrollServiceTests.cs" />
@@ -75,6 +76,10 @@
     <ProjectReference Include="..\OjVolunteer.BLL\OjVolunteer.BLL.csproj">
       <Project>{36FBEDE8-5F42-42A3-BE3B-9224290BF6CC}</Project>
       <Name>OjVolunteer.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OjVolunteer.Model\OjVolunteer.Model.csproj">
+      <Project>{CB830E1C-2A16-4993-A641-C3CA9D7FE762}</Project>
+      <Name>OjVolunteer.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
