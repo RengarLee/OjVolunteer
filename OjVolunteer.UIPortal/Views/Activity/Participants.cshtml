@@ -8,16 +8,31 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+    <style>
+        .footer-btn{
+            margin-top:20px;
+        }
+    </style>
 </head>
 <body>
 
     <div>
         <table id="tb_user"></table>
     </div>
-    <button id="agree">
+
+
+    <div class="footer-btn">
+        <div class="layui-form-item">
+            <button class="layui-btn" lay-submit id="agree">审核通过</button>
+            <button type="reset" class="layui-btn layui-btn-primary" id="cancel">不通过</button>
+        </div>
+    </div>
+    @*<button id="agree">
         通过
     </button>
-    <button id="cancel">不通过</button>
+    <button id="cancel">不通过</button>*@
 
 
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
@@ -106,7 +121,7 @@
                         align: 'center',
                         width: '25%',
                     },
-                ],   
+                ],
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
                         title: '修改',
