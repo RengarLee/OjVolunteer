@@ -9,12 +9,15 @@
 
 namespace OjVolunteer.Model
 {
+    
     using System;
     using System.Collections.Generic;
     
+    [Serializable]
     public partial class OrganizeInfo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    
         public OrganizeInfo()
         {
             this.ApplyActivity = new HashSet<Activity>();

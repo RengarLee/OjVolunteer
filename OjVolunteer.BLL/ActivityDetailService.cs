@@ -44,7 +44,6 @@ namespace OjVolunteer.BLL
             int i = 1;
             foreach (var temp in tempList)
             {
-                temp.NoId = (pageIndex - 1) * pageSize + i++;
                 temp.UserInfoShowName = CurrentDal.GetEntities(u => u.UserInfoId == temp.UserInfoID).FirstOrDefault().UserInfo.UserInfoShowName;
             }
             return tempList;

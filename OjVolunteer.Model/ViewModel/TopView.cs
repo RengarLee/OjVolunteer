@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OjVolunteer.Model.ViewModel
 {
+    [Serializable]
     public class TopView
     {
-        public int NoId { get; set; }
         public int UserInfoID { get; set; }
         public string UserInfoShowName { get; set; }
         public decimal ActivityTime { get; set; }

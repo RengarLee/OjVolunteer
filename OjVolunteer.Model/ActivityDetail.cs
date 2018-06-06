@@ -9,9 +9,11 @@
 
 namespace OjVolunteer.Model
 {
+    
     using System;
     using System.Collections.Generic;
     
+    [Serializable]
     public partial class ActivityDetail
     {
         public int ActivityDetailID { get; set; }

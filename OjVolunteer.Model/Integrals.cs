@@ -9,9 +9,11 @@
 
 namespace OjVolunteer.Model
 {
+    
     using System;
     using System.Collections.Generic;
     
+    [Serializable]
     public partial class Integrals
     {
         public int IntegralID { get; set; }

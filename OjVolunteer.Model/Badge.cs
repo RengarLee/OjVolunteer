@@ -9,12 +9,15 @@
 
 namespace OjVolunteer.Model
 {
+    
     using System;
     using System.Collections.Generic;
     
+    [Serializable]
     public partial class Badge
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    
         public Badge()
         {
             this.UserBadge = new HashSet<UserBadge>();
