@@ -110,7 +110,10 @@
                         title: '活动参加人员',
                         type: 2,
                         content: '/Activity/Participants/' + row['ActivityID'],
-                        area: ['1000px', '500px']
+                        area: ['1000px', '500px'],
+                        end: function () {
+                            initTable();
+                        },
                     });
 
                 }

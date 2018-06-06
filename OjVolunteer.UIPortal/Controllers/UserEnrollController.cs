@@ -277,6 +277,7 @@ namespace OjVolunteer.UIPortal.Controllers
             TimeSpan timeSpan = (TimeSpan)(userEnroll.UserEnrollActivityEnd - userEnroll.UserEnrollActivityStart);
             decimal Time = timeSpan.Hours * 60 + timeSpan.Minutes;
             userEnroll.ActivityTime = Time;
+            userEnroll.Status = delNormal;
             if (UserEnrollService.Update(userEnroll))
             {
                 return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
