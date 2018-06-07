@@ -47,6 +47,8 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Redirect("/UserInfo/Index");
             }
+            activity.ActivityClicks++;
+            ActivityService.Update(activity);
             ViewBag.UserId = LoginUser.UserInfoID;
             ViewData.Model = activity;
             return View();
