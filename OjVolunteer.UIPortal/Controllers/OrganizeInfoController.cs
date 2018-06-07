@@ -224,15 +224,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region 退出操作
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult Exit()
-        {
-            Response.Cookies["userLoginId"].Value = String.Empty;
-            return Redirect("/Login/index");
-        }
-        #endregion
-
         #region 导出Excel文件
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public FileResult ExportExcel()
@@ -387,5 +378,13 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 退出操作
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult Exit()
+        {
+            Response.Cookies["userLoginId"].Value = String.Empty;
+            return Redirect("/Login/index");
+        }
+        #endregion
     }
 }
