@@ -34,8 +34,6 @@ a:focus{
 a:active{
 	text-decoration: none;
 }
-工具样式
------------*/
 
 /*居中显示*/
 .conter-block{
@@ -269,7 +267,6 @@ a:active{
 		margin:0 auto;
 		width: 250px;
 		font-size: 1.3rem;
-		vertical-align: middle;
 		border: 1px solid #ccc;
 		border-radius: 3px;		
 		margin-bottom: 20px;
@@ -678,8 +675,6 @@ a:active{
 	}
 	.yiZan{
 		color: #C62F2F;
-	}
-	.fell-item-content p{
 	}
 
 	.fell-item-imgs {
