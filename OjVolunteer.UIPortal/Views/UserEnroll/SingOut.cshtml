@@ -97,18 +97,11 @@
         }
         //活动结束
         function ActivityEnd() {
-            $.post("/Activity/End/", { aId: @ViewBag.ActivityId }, function (data) {
-
-                //if (data["msg"] == "fall") {
-                //    alert("出现错误,请稍后再试");
-                //} else {
-                //    window.history.go(-1);
-                //}
-                layer.confirm('确定结束活动吗？', {
+            layer.confirm('确定结束活动吗？', {
                     btn: ['确定', '取消']
-                }, function () {
-                    if (data["msg"] == "fall") {
-                        //alert("出现错误,请稍后再试");
+                 }, function () {
+                         $.post("/Activity/End/", { aId: @ViewBag.ActivityId }, function (data) {
+                    if (data["msg"] == "fail") {
                         layer.alert('出现错误,请稍后再试', { icon: 2 });
                     } else {
                         layer.alert('活动已经结束！', {

@@ -99,6 +99,17 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             int aId = Convert.ToInt32(Request["aId"]);
             Activity activity = ActivityService.GetEntities(u => u.ActivityID == aId && u.Status == delUndone).FirstOrDefault();
+            try
+            {
+                if (DateTime.Compare((DateTime)activity.ActivityStart, (DateTime)activity.ModfiedOn) == 0)
+                {
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch 
+            {
+
+            }
             if (activity.ActivityManagerID == LoginUser.UserInfoID)
             {
                 activity.ActivityStart = DateTime.Now;
