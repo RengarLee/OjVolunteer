@@ -36,16 +36,16 @@ namespace OjVolunteer.UIPortal.Controllers
             int activityId = Convert.ToInt32(Request["activityId"]);
             string msg = String.Empty;
 
-            if (LoginUser.Status == delAuditing)
-            {
-                return Json(new { msg = "您的政治面貌尚未审核，无法参加活动，请耐心等待！" }, JsonRequestBehavior.AllowGet);
-            }
             //已报名
             if (UserEnrollService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.ActivityID == activityId).Count() > 0)
             {
                 return Json(new { msg = "您已报名" }, JsonRequestBehavior.AllowGet);
             }
 
+            if (LoginUser.Status == delAuditing)
+            {
+                return Json(new { msg = "您的政治面貌尚未审核，无法报名活动，请耐心等待审核！" }, JsonRequestBehavior.AllowGet);
+            }
             Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
             //报名条件
             if (activity == null)
