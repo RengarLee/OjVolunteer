@@ -161,7 +161,7 @@ namespace OjVolunteer.UIPortal.Controllers
                     u.Status,
                     u.ModfiedOn
                 }).ToList();
-                var data = new { total = pageData.Count(), rows = pageData };
+                var data = new { total = total, rows = pageData };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             else
@@ -183,7 +183,7 @@ namespace OjVolunteer.UIPortal.Controllers
                     u.Status,
                     u.ModfiedOn
                 }).ToList();
-                var data = new { total = pageData.Count(), rows = pageData };
+                var data = new { total = total, rows = pageData };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
 
