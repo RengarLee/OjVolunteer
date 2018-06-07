@@ -35,7 +35,7 @@
             <tbody id="trlist"></tbody>
         </table>
         <div style="text-align: center;">
-            <button class="layui-btn">签到二维码</button>
+            <button class="layui-btn" id="scanimg">签到二维码</button>
             <button class="layui-btn" id="SingBtn">签到</button>
             <button class="layui-btn" id="Start">活动开始</button>
         </div>
@@ -66,7 +66,7 @@
             $("#SingBtn").click(function () {
                 SingInClick();
             });
-
+            ScanImgShow();
             $("#Start").click(function () {
                 ActivityStart();
             });
@@ -76,6 +76,20 @@
             new QRCode(document.getElementById("qrcode"), URL);
         });
 
+        //点击弹出签到二维码
+        function ScanImgShow() {
+            $('#scanimg').click(function () {
+                layer.open({
+                    type: 1,
+                    shade: true,
+                    title: false, //不显示标题
+                    closeBtn: 0,
+                    shadeClose: true,
+                    content: $('#qrcode') //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                });
+            })
+        }
+        
         //活动开始
         function ActivityStart() {
             $.post("/Activity/Start/", { aId: @ViewBag.ActivityId }, function (data) {
