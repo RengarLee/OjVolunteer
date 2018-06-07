@@ -38,7 +38,7 @@
     </header>
     <form id="from1">
         <div class="write-content">
-            <textarea name="TalkContent" class="layui-textarea" placeholder="分享你的心得（6-150字以内）" maxlength=150></textarea>
+            <textarea name="TalkContent" id="TalkContent" class="layui-textarea" placeholder="分享你的心得（6-150字以内）" maxlength=150></textarea>
             <div class="write-icon" id="write-icon">
                 <input type="file" id="choose" accept="image/*" multiple>
                 <i class="iconfont icon-add" id="upload" style="font-size:40px;border:1px solid #999;color:#999;border-radius:3px;"></i>
@@ -46,7 +46,7 @@
         </div>
         <input type="hidden" name="TalkImagePath" id="path" value="" />
         <div class="write-btn">
-            <button id="btnSubmit" type="submit" value="发布" class="layui-btn">发布</button>
+            <button id="btnSubmit" type="button" value="发布" class="layui-btn">发布</button>
         </div>
     </form>
 
@@ -54,8 +54,6 @@
     <a href="javascript:history.go(-1)" class="write-back">
         <span class="glyphicon glyphicon-chevron-left"> </span>
     </a>
-
-    <script>[^\s] *</script>[^\s]*
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
@@ -63,9 +61,9 @@
     <script>
         $(function () {
             $("#btnSubmit").click(function () {
-                var str = document.getElementById('btnSubmit').value.trim();
-                var reg = /^[^\s]*<script>[^\s]*<\script>[^\s]*$/;
-                if (!str.test(reg)) {
+                var str = document.getElementById('TalkContent').value.trim();
+                var reg = /[\s\S]*<script>[\s\S]*<\/script>[\s\S]*$/;
+                if (!reg.test(str)) {
                     $.post("/Talks/Create", $("#from1").serializeArray(), function (data) {
                         if (data == "success") {
                             layer.alert("心得发表成功！,请等待审核！");
@@ -74,6 +72,8 @@
                             layer.alert('心得发表失败，请稍后再试！', { icon: 2 });
                         }
                     });
+                } else {
+                    layer.alert('不能包含<script><//script>', { icon: 2 });
                 }
             });
         });
@@ -103,7 +103,6 @@
         if (!this.files.length) return;
         var files = Array.prototype.slice.call(this.files);
         if (files.length > 1) {
-            //alert("最多同时只可上传1张图片");
             layer.alert('最多同时只可上传1张图片', { icon: 5 });
             return;
         }
