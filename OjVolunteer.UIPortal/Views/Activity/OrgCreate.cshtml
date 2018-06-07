@@ -14,6 +14,7 @@
             width: 300px;
             display: none;
         }
+
         img {
             height: 300px;
             width: 300px;
@@ -22,7 +23,7 @@
 </head>
 <body>
     <div class="layui-layout layui-layout-admin">
-            <form id="form1" class="layui-form layui-form-pane acStart">
+        <form id="form1" class="layui-form layui-form-pane acStart">
             <h2 class="acStart-title">发布活动</h2>
             <hr />
             <div class="acStart-box">
@@ -97,13 +98,13 @@
                 <!--富文本框-->
                 <h4 class="acArticle">活动详情</h4>
                 @*<textarea id="demo" name="ActivityContent" style="display: none;"></textarea>*@
-                @Html.TextAreaFor(Model=>Model.ActivityContent, new { style = "display: none;" , id = "demo" })
+                @Html.TextAreaFor(Model => Model.ActivityContent, new { style = "display: none;", id = "demo" })
                 <div class="acStart-Condition">
                     <div class="layui-collapse">
                         <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">政治面貌条件</h2>
+                            <h2 class="layui-colla-title">参与人员政治面貌筛选</h2>
                             <div class="layui-colla-content">
-                                @Html.HiddenFor(model=>model.ActivityPolitical)
+                                @Html.HiddenFor(model => model.ActivityPolitical)
                                 @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
                                 @foreach (var key in PoliticalDict.Keys)
                                 {
@@ -112,25 +113,25 @@
                             </div>
                         </div>
                         <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">学院条件</h2>
+                            <h2 class="layui-colla-title">参与人员学院筛选</h2>
                             <div class="layui-colla-content">
                                 @Html.HiddenFor(model => model.ActivityMajor)
                                 @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
                                 @foreach (var key in MajorDict.Keys)
-    {
-                            <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]" checked/>
-}
+                                {
+                                    <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]" checked/>
+                                }
                             </div>
                         </div>
                         <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">专业条件</h2>
+                            <h2 class="layui-colla-title">参与人员专业筛选</h2>
                             <div class="layui-colla-content">
                                 @Html.HiddenFor(model => model.ActivityDepartment)
                                 @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
                                 @foreach (var key in DepartmentDict.Keys)
-    {
-                            <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" checked/>
-}
+                                {
+                                    <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" checked/>
+                                }
                             </div>
                         </div>
                     </div>
@@ -164,7 +165,7 @@
                 var upload = layui.upload;
                 var uploadInst = upload.render({
                     elem: '#test1'
-                    , url: '/Activity/UploadIcon' //上传接口
+                    , url: '/Activity/UploadIcon' 
                     , accept: 'images'
                     , size: 2048
                     , done: function (res) {
@@ -181,7 +182,6 @@
                 });
             });
         });
-
         //查找负责人
         function BindSearchKey() {
             $('#btnSer').click(function () {
@@ -192,20 +192,21 @@
                     } else {
                         var buffer = "查无此人";
                     }
+                    $("#manager").html(buffer);
                 });
             });
         }
         function BindSubmit() {
             $("#btnSubmit").click(function () {
                 beforeSubmit();
+                layedit.sync(index);
                 $.post("/Activity/Create", $("#form1").serializeArray(), function (data) {
                     if (data["msg"] == "success") {
                         alert("申请成功，请等待审核！");
                     } else {
                         alert("出现错误,请稍后再试！");
                     }
-                    $("#manager").html(buffer);
-                });           
+                });
             });
         }
 
@@ -228,7 +229,7 @@
                 Departmentresult += $(this).val() + ',';
             });
             $("#ActivityDepartment").val(Departmentresult);
-         }
+        }
 
         //日期组件
         layui.use('laydate', function () {
@@ -247,15 +248,17 @@
             });
         });
         //富文本框
+        var index;
+        var layedit;
         layui.use('layedit', function () {
-            var layedit = layui.layedit;
+            layedit = layui.layedit;
             layedit.set({
                 uploadImage: {
                     url: '/Activity/UploadContentImage',
-                    type:'post'
+                    type: 'post'
                 }
             });
-            layedit.build('demo', {
+            index =layedit.build('demo', {
                 tool: [
                     'strong' //加粗
                     , 'italic' //斜体
@@ -268,6 +271,7 @@
                     , 'image' //插入图片
                 ]
             }); //建立编辑器
+
         })
         //折叠面板
         layui.use('element', function () {
@@ -320,8 +324,8 @@
                 var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
                 //
                 var poi = local.getResults().getPoi(0);
-                
-                
+
+
                 var path = "<a  target='_blank' href='https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=" + myValue + "/vt=map'>点击查看位置详情</a>";
                 $("#address").html(path);
                 var lng = String(pp.lng);
