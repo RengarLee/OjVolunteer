@@ -272,7 +272,11 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Self()
         {
-            ViewBag.Duration = UserDurationService.GetEntities(u => u.UserDurationID == LoginUser.UserInfoID).FirstOrDefault().UserDurationTotal;
+            var duration = UserDurationService.GetEntities(u => u.UserDurationID == LoginUser.UserInfoID).FirstOrDefault();
+            ViewBag.Total = duration.UserDurationTotal;
+            ViewBag.Proparty = duration.UserDurationPropartyTotal;
+            ViewBag.Party = duration.UserDurationPartyTotal;
+            ViewBag.Normal = duration.UserDurationNormalTotal;
             ViewData.Model = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
             return View();
         }
@@ -284,8 +288,11 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Redirect("/UserInfo/Self");
             }
-            UserDuration userDuration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
-            ViewBag.Duration = UserDurationService.GetEntities(u => u.UserDurationID == LoginUser.UserInfoID).FirstOrDefault().UserDurationTotal;
+            var duration = UserDurationService.GetEntities(u => u.UserDurationID == Id).FirstOrDefault();
+            ViewBag.Total = duration.UserDurationTotal;
+            ViewBag.Proparty = duration.UserDurationPropartyTotal;
+            ViewBag.Party = duration.UserDurationPartyTotal;
+            ViewBag.Normal = duration.UserDurationNormalTotal;
             ViewData.Model = UserInfoService.GetEntities(u => u.UserInfoID == Id).FirstOrDefault();
             return View();
         }
