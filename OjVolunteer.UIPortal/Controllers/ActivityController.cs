@@ -60,7 +60,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult OrgSeeDetails(int id)
         {
-            var activity = ActivityService.(u => u.ActivityID == id).FirstOrDefault();
+            var activity = ActivityService.GetEntities(u => u.ActivityID == id).FirstOrDefault();
             ViewData.Model = activity;
             var MajorStr = String.Empty;
             String[] MajorIds = activity.ActivityMajor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -528,6 +528,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 图片上传
         public ActionResult UploadContentImage()
         {
             try
@@ -545,10 +546,11 @@ namespace OjVolunteer.UIPortal.Controllers
                 file.SaveAs(Request.MapPath(fileName));
 
                 LoginOrganize.OrganizeInfoIcon = fileName;
-                return Json(new { data=new { src = fileName }, msg = "success",code=0 }, JsonRequestBehavior.AllowGet);
+                return Json(new { data = new { src = fileName }, msg = "success", code = 0 }, JsonRequestBehavior.AllowGet);
             }
-            catch {
-                return Json(new { data = new { src = "" } , msg = "fail",code=1 }, JsonRequestBehavior.AllowGet);
+            catch
+            {
+                return Json(new { data = new { src = "" }, msg = "fail", code = 1 }, JsonRequestBehavior.AllowGet);
             }
 
         }
@@ -568,14 +570,37 @@ namespace OjVolunteer.UIPortal.Controllers
                 string fileName = path + Guid.NewGuid().ToString().Substring(1, 10) + ".jpg";
 
                 file.SaveAs(Request.MapPath(fileName));
-                
-                return Json(new { src = fileName , msg = "success",  }, JsonRequestBehavior.AllowGet);
+
+                return Json(new { src = fileName, msg = "success", }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { msg = "fail",  }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "fail", }, JsonRequestBehavior.AllowGet);
             }
 
         }
+        #endregion
+
+        #region 查看活动是否结束
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult IsEnd()
+        {
+            int Id = Convert.ToInt32(Request["Id"]);
+            int Type = Convert.ToInt32(Request["TypeId"]);
+            String msg = "success";
+            if (ActivityService.GetEntities(u => u.ActivityID == Id).FirstOrDefault().Status == delDoneAuditing)
+            {
+                return Json(new { msg = "msg" }, JsonRequestBehavior.AllowGet);
+            }
+            if (Type == 0)
+            {
+                return Json(new { msg = 0 }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { msg = 1 }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
     }
 }
