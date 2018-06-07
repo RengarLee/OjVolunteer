@@ -135,132 +135,80 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 活动信息管理
-        public ActionResult ActivityManager()
+        #region 组织申请活动
+        /// <summary>
+        /// 组织进入活动申请界面
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true)]
+        public ActionResult OrgCreate()
         {
+            var allActivityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewBag.ActivityTypeID = (from u in allActivityType select new SelectListItem() { Selected = false, Text = u.ActivityTypeName, Value = u.ActivityTypeID + "" }).ToList();
+            ViewBag.MajorDict = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.MajorID, u => u.MajorName);
+            ViewBag.PoliticalDict = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.PoliticalID, u => u.PoliticalName);
+            ViewBag.DepartmentDict = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.DepartmentID, u => u.DepartmentName);
             return View();
         }
 
-        public JsonResult ActManData()
+        [HttpPost]
+        [ValidateInput(false)]
+        [ActionAuthentication(AbleOrganize = true)]
+        public JsonResult Create(Activity activity)
         {
-            int pageSize = int.Parse(Request["limit"] ?? "5");
-            int offset = int.Parse(Request["offset"] ?? "0");
-            int pageIndex = (offset / pageSize) + 1;
-            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u=>u.Status==delNormal, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
-            if (LoginOrganize.OrganizeInfoManageId != null)
+            try
             {
-                pageData = pageData.Where(u => u.ActivityManagerID == LoginOrganize.OrganizeInfoID).AsQueryable();
-            }
-            var data = new { total = pageData.Count(), rows = pageData.ToList() };
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        #endregion
-
-        #region 活动完成后审核
-        /// <summary>
-        /// 进入活动完成审核界面
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult ActAccAuditing()
-        {
-            return View();
-        }
-        
-        /// <summary>
-        /// 加载需审核数据
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult ActAccAuditingData()
-        {
-            int pageSize = int.Parse(Request["limit"] ?? "5");
-            int offset = int.Parse(Request["offset"] ?? "0");
-            int pageIndex = (offset / pageSize) + 1;
-            if (LoginOrganize.OrganizeInfoManageId != null)
-            {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing && o.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
-                var data = new { total = pageData.Count(), rows = pageData.ToList() };
-                return Json(data, JsonRequestBehavior.AllowGet);
-
-            }
-            else
-            {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing , u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
-                var data = new { total = pageData.Count(), rows = pageData.ToList() };
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-
-        }
-
-        /// <summary>
-        /// 参考参与人员
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult Participants(int id)
-        {
-            ViewBag.Id = id;
-            return View();
-        }
-
-        /// <summary>
-        /// 参加该活动的人员数据
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public JsonResult ParticipantsData(int id)
-        {
-            int pageSize = int.Parse(Request["limit"] ?? "5");
-            int offset = int.Parse(Request["offset"] ?? "0");
-            int pageIndex = (offset / pageSize) + 1;
-            var pageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == id, u => u.ActivityID, true).Select(u => new { u.UserEnrollID,u.UserInfoID,u.UserInfo.UserInfoShowName, u.UserEnrollActivityStart, u.UserEnrollActivityEnd,u.ActivityTime }).AsQueryable();
-            //var data = new { total = pageData.Count(), rows = pageData.ToList() };
-            return Json(pageData, JsonRequestBehavior.AllowGet);
-        }
-        
-        /// <summary>
-        /// 通过
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult ActAccPass()
-        {
-            string msg = String.Empty;
-            int aId = Convert.ToInt32(Request["aId"]);
-            if (ActivityService.AddTime(aId))
-                msg = "success";
-            else
-                msg = "fail";
-            return Json(msg, JsonRequestBehavior.AllowGet);
-        }
-
-        /// <summary>
-        /// 不通过
-        /// </summary>
-        /// <returns></returns>
-        public JsonResult ActAccNotPass()
-        {
-            string msg = String.Empty;
-            int aId = Convert.ToInt32(Request["aId"]);
-            Activity activity = ActivityService.GetEntities(u => u.ActivityID == aId&&u.Status==delDoneAuditing).FirstOrDefault();
-            if (activity == null)
-            {
-                msg = "fail";
-            }
-            else {
-                activity.ModfiedOn = DateTime.Now;
-                activity.Status = delInvalid;
-                if (ActivityService.Update(activity))
+                string[] EnrollTime = Request["EnrollTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
+                string[] ActivtiyTime = Request["ActivityTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
+                activity.ActivityEnrollStart = DateTime.Parse(EnrollTime[0]);
+                activity.ActivityEnrollEnd = DateTime.Parse(EnrollTime[1]);
+                activity.ActivityStart = DateTime.Parse(ActivtiyTime[0]);
+                activity.ActivityEnd = DateTime.Parse(ActivtiyTime[1]);
+                if (activity.ActivityEnrollEnd > activity.ActivityStart)
                 {
-                    msg = "success";
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
                 }
-                else
+                if (UserInfoService.GetEntities(u => u.UserInfoID == activity.ActivityManagerID).FirstOrDefault() == null)
                 {
-                    msg = "fail";
+                    return Json(new { msg = "noexist" }, JsonRequestBehavior.AllowGet);
                 }
             }
-            return Json(msg, JsonRequestBehavior.AllowGet);
-        }
+            catch
+            {
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+            }
 
+            if (ModelState.IsValid)
+            {
+                if (string.IsNullOrEmpty(activity.ActivityIcon))
+                {
+                    activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+                }
+                activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
+                activity.ActivityClicks = 0;
+                activity.CreateTime = DateTime.Now;
+                activity.ModfiedOn = activity.CreateTime;
+                activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
+
+                if (ActivityService.Add(activity) != null)
+                {
+                    UserEnroll userEnroll = new UserEnroll()
+                    {
+                        ActivityID = activity.ActivityID,
+                        UserInfoID = activity.ActivityManagerID,
+                        UserEnrollStart = activity.ActivityEnrollStart,
+                        ModfiedOn = DateTime.Now,
+                        CreateTime = DateTime.Now,
+                        Status = delInvalid,
+                    };
+                    if (UserEnrollService.Add(userEnroll) != null)
+                    {
+                        return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+            }
+            return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region 活动申请审核
@@ -288,7 +236,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing &&o.ActivityApplyUserInfoID!=null &&o.ApplyUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo.OrganizeInfoID, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, }).AsQueryable();
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing && o.ActivityApplyUserInfoID != null && o.ApplyUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo.OrganizeInfoID, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, }).AsQueryable();
                 var data = new { total = pageData.Count(), rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -299,7 +247,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
 
-        }      
+        }
 
         /// <summary>
         /// 批量同意活动申请
@@ -319,7 +267,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (ActivityService.UpdateListStatus(idList,delUndone))
+            if (ActivityService.UpdateListStatus(idList, delUndone))
             {
                 return Content("success");
             }
@@ -357,6 +305,135 @@ namespace OjVolunteer.UIPortal.Controllers
 
 
         }
+        #endregion
+
+        #region 活动完成后审核
+        /// <summary>
+        /// 进入活动完成审核界面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ActAccAuditing()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 加载需审核数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ActAccAuditingData()
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing && o.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
+                var data = new { total = pageData.Count(), rows = pageData.ToList() };
+                return Json(data, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
+                var data = new { total = pageData.Count(), rows = pageData.ToList() };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        /// <summary>
+        /// 参考参与人员
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Participants(int id)
+        {
+            ViewBag.Id = id;
+            return View();
+        }
+
+        /// <summary>
+        /// 参加该活动的人员数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public JsonResult ParticipantsData(int id)
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == id, u => u.ActivityID, true).Select(u => new { u.UserEnrollID, u.UserInfoID, u.UserInfo.UserInfoShowName, u.UserEnrollActivityStart, u.UserEnrollActivityEnd, u.ActivityTime }).AsQueryable();
+            //var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            return Json(pageData, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 通过
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ActAccPass()
+        {
+            string msg = String.Empty;
+            int aId = Convert.ToInt32(Request["aId"]);
+            if (ActivityService.AddTime(aId))
+                msg = "success";
+            else
+                msg = "fail";
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 不通过
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult ActAccNotPass()
+        {
+            string msg = String.Empty;
+            int aId = Convert.ToInt32(Request["aId"]);
+            Activity activity = ActivityService.GetEntities(u => u.ActivityID == aId && u.Status == delDoneAuditing).FirstOrDefault();
+            if (activity == null)
+            {
+                msg = "fail";
+            }
+            else
+            {
+                activity.ModfiedOn = DateTime.Now;
+                activity.Status = delInvalid;
+                if (ActivityService.Update(activity))
+                {
+                    msg = "success";
+                }
+                else
+                {
+                    msg = "fail";
+                }
+            }
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region 活动信息管理
+        public ActionResult ActivityManager()
+        {
+            return View();
+        }
+
+        public JsonResult ActManData()
+        {
+            int pageSize = int.Parse(Request["limit"] ?? "5");
+            int offset = int.Parse(Request["offset"] ?? "0");
+            int pageIndex = (offset / pageSize) + 1;
+            var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u=>u.Status==delNormal, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
+            if (LoginOrganize.OrganizeInfoManageId != null)
+            {
+                pageData = pageData.Where(u => u.ActivityManagerID == LoginOrganize.OrganizeInfoID).AsQueryable();
+            }
+            var data = new { total = pageData.Count(), rows = pageData.ToList() };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region 义工浏览义工商场
@@ -412,81 +489,6 @@ namespace OjVolunteer.UIPortal.Controllers
 
             DataPage = DataPage.Where(u => u.ActivityEnrollStart < DateTime.Now).AsQueryable();
             return DataPage;
-        }
-        #endregion
-
-        #region 组织申请活动
-        /// <summary>
-        /// 组织进入活动申请界面
-        /// </summary>
-        /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = true)]
-        public ActionResult OrgCreate()
-        {
-            var allActivityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
-            ViewBag.ActivityTypeID = (from u in allActivityType select new SelectListItem() { Selected = false, Text = u.ActivityTypeName, Value = u.ActivityTypeID + "" }).ToList();
-            ViewBag.MajorDict = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.MajorID, u => u.MajorName);
-            ViewBag.PoliticalDict = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.PoliticalID, u => u.PoliticalName);
-            ViewBag.DepartmentDict = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.DepartmentID, u => u.DepartmentName);
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        [ActionAuthentication(AbleOrganize = true)]
-        public JsonResult Create(Activity activity)
-        {
-            try
-            {
-                string[] EnrollTime = Request["EnrollTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
-                string[] ActivtiyTime = Request["ActivityTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
-                activity.ActivityEnrollStart = DateTime.Parse(EnrollTime[0]);
-                activity.ActivityEnrollEnd = DateTime.Parse(EnrollTime[1]);
-                activity.ActivityStart = DateTime.Parse(ActivtiyTime[0]);
-                activity.ActivityEnd = DateTime.Parse(ActivtiyTime[1]);
-                if (activity.ActivityEnrollEnd > activity.ActivityStart)
-                {
-                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
-                }
-                if (UserInfoService.GetEntities(u => u.UserInfoID == activity.ActivityManagerID).FirstOrDefault() == null)
-                {
-                    return Json(new { msg = "noexist" }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch {
-                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
-            }
-            
-            if (ModelState.IsValid)
-            {
-                if (string.IsNullOrEmpty(activity.ActivityIcon))
-                {
-                    activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
-                }
-                activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
-                activity.ActivityClicks = 0;
-                activity.CreateTime = DateTime.Now;
-                activity.ModfiedOn = activity.CreateTime;
-                activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
-
-                if (ActivityService.Add(activity) != null)
-                {
-                    UserEnroll userEnroll = new UserEnroll()
-                    {
-                        ActivityID = activity.ActivityID,
-                        UserInfoID = activity.ActivityManagerID,
-                        UserEnrollStart = activity.ActivityEnrollStart,
-                        ModfiedOn = DateTime.Now,
-                        CreateTime = DateTime.Now,
-                        Status = delInvalid,
-                    };
-                    if (UserEnrollService.Add(userEnroll) != null)
-                    {
-                        return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
-                    }
-                }
-            }
-            return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
