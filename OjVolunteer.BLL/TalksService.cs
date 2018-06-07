@@ -14,35 +14,29 @@ namespace OjVolunteer.BLL
     public partial class TalksService: BaseService<Talks>, ITalksService
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+        short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
+        short delDeleted = (short)Model.Enum.DelFlagEnum.Deleted;
+
         #region 多条件查询
         public IQueryable<Talks> LoadPageData(TalkQueryParam talkQueryParam)
         {
-            var temp = DbSession.TalksDal.GetEntities(u => true);
+            var temp = DbSession.TalksDal.GetEntities(u => u.Status == delNormal).AsQueryable(); ;
 
             #region 状态
-            short delFlag = -1;
-            if (!String.IsNullOrEmpty(talkQueryParam.Status))
-            {
-                if (("正常").Contains(talkQueryParam.Status))
-                {
-                    delFlag = 0;
-                }
-                else if (("待审核").Contains(talkQueryParam.Status))
-                {
-                    delFlag = 2;
-                }
-                else if (("删除").Contains(talkQueryParam.Status))
-                {
-                    delFlag = 1;
-                }
-            }
-            if (delFlag > -1)
-            {
-                temp = temp.Where(u => u.Status == delFlag);
-            }
-            #endregion
+            //short delFlag = -1;
+            //if (!String.IsNullOrEmpty(talkQueryParam.Status))
+            //{
+            //    if (("正常").Contains(talkQueryParam.Status))
+            //    {
+            //        delFlag = 0;
+            //    }
 
-            //TODO:Test
+            //}delNormal
+            //if (delFlag > -1)
+            //{
+            //    temp = temp.Where(u => u.Status == delFlag);
+            //}
+            #endregion
 
             #region 组织ID
             if (!talkQueryParam.isSuper)
@@ -85,8 +79,6 @@ namespace OjVolunteer.BLL
             return temp.OrderBy(u => u.TalkID).Skip(talkQueryParam.PageSize * (talkQueryParam.PageIndex - 1)).Take(talkQueryParam.PageSize).AsQueryable();
         }
         #endregion
-
-
-        
+   
     }
 }

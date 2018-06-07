@@ -506,8 +506,6 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-
-
         #region 评论删除
         [HttpPost]
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
@@ -531,7 +529,7 @@ namespace OjVolunteer.UIPortal.Controllers
             //{
             //    return Content("error");
             //}
-            int tId = Convert.ToInt32(Request["talksId"]);
+            int tId = Convert.ToInt32(Request["ids"]);
             Talks talks = TalksService.GetEntities(u => u.TalkID == tId).FirstOrDefault();
             if (talks == null)
             {
@@ -539,7 +537,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             else
             {
-                talks.Status = delDeleted;
+                 talks.Status = delDeleted;
                 if (TalksService.Update(talks))
                     return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
                 else

@@ -61,56 +61,56 @@
 
                 columns: [
                     {
-                        field: 'TalkID',//域值
-                        title: 'Id',//标题
-                        visible: false,
+                        field: 'TalkID',
+                        title: 'Id',
+                        visible: true,
                         align: 'center',
                         width: '6%',
                         filterControl: 'input',
                     },
                     {
-                        field: 'UserInfoShowName',//域值
-                        title: '义工名称',//标题
-                        visible: true,//false表示不显示
+                        field: 'UserInfoShowName',
+                        title: '义工名称',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
                     },
                     {
-                        field: 'OrganizeInfoShowName',//域值
-                        title: '组织名称',//标题
-                        visible: true,//false表示不显示
+                        field: 'OrganizeInfoShowName',
+                        title: '组织名称',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
                     },
                     {
-                        field: 'TalkFavorsNum',//域值
-                        title: '点赞数',//标题
-                        visible: true,//false表示不显示
+                        field: 'TalkFavorsNum',
+                        title: '点赞数',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
                     },
                     {
-                        field: 'CreateTime',//域值
-                        title: '创建时间',//标题
-                        visible: true,//false表示不显示
+                        field: 'CreateTime',
+                        title: '创建时间',
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
-                            if (row["UserInfoPhone"] == null) {
-                                return '未填写';
-                            }
-                            return value;
+                            if (value == null)
+                                return null;
+                            else
+                                return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
                         },
                         filterControl: 'input',
                     },
                     {
-                        field: 'Status',//域值
-                        title: '状态',//内容
-                        visible: true,//false表示不显示
-                        sortable: true,//启用排序
+                        field: 'Status',
+                        title: '状态',
+                        visible: false,
+                        sortable: true,
                         width: '6%',
                         align: 'center',
                         formatter: function (value, row, index) {
@@ -123,11 +123,18 @@
                             }
                         },
                         filterControl: 'input',
+                    },
+                    {
+                        field: 'operate',
+                        title: '操作',
+                        align: 'center',
+                        width: '6%',
+                        formatter: operateFormatter,
                     }
                 ],
                 onLoadSuccess: function (data) {
-                    $(".editLink").click(function () {
-                        editClickEvent($(this).attr("uid"));
+                    $(".delete").click(function () {
+                        deleteClickEvent($(this).attr("uid"));
                         return false;
                     });
                 },
@@ -145,6 +152,27 @@
             });
         };
 
+        function operateFormatter(value, row, index) {
+            return [
+                '<a  href="javascript:void(0)" class="delete" uid="' + row['TalkID'] + '">',
+                '<i class="glyphicon glyphicon-ok"></i>&nbsp;&nbsp;<span>删除</span>',
+                '</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+
+            ].join('');
+        }
+
+        //单项删除事件
+        function deleteClickEvent(data) {
+            //再次确认
+            $.post("/Talks/Delete", { ids: data }, function (data) {
+                initTable();
+                if (data["msg"] == "success") {
+                    alert("操作成功");
+                } else {
+                    alert("操作失败,请稍后再试");
+                }
+            })
+        }
     </script>
 </body>
 </html>
