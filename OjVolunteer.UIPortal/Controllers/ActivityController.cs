@@ -237,13 +237,13 @@ namespace OjVolunteer.UIPortal.Controllers
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
                 var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing && o.ActivityApplyUserInfoID != null && o.ApplyUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo.OrganizeInfoID, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, }).AsQueryable();
-                var data = new { total = pageData.Count(), rows = pageData.ToList() };
+                var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             else
             {
                 var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delAuditing, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ManagerUserInfo.OrganizeInfoID, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.CreateTime, u.Status, }).AsQueryable();
-                var data = new { total = pageData.Count(), rows = pageData.ToList() };
+                var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
 
@@ -329,14 +329,14 @@ namespace OjVolunteer.UIPortal.Controllers
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
                 var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing && o.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
-                var data = new { total = pageData.Count(), rows = pageData.ToList() };
+                var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
 
             }
             else
             {
                 var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
-                var data = new { total = pageData.Count(), rows = pageData.ToList() };
+                var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
 

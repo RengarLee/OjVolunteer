@@ -55,13 +55,13 @@
                         field: 'ActivityID',
                         title: '活动Id',
                         width: '5%',
-                        sortable: true,
+                        align: 'center',
                     },
                     {
                         field: 'ActivityName',
                         title: '活动名称',
                         visible: true,
-                        sortable: true,
+                        align: 'center',
                         width: '10%',
 
                     },
@@ -75,7 +75,7 @@
                         field: 'ActivityStart',
                         title: '活动开始时间',
                         visible: true,
-                        sortable: true,
+                        align: 'center',
                         width: '20%',
                         formatter: function (value, row, index) {
                             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
@@ -85,7 +85,7 @@
                         field: 'ActivityEnd',
                         title: '活动结束时间',
                         visible: true,
-                        sortable: true,
+                        align: 'center',
                         width: '20%',
                         formatter: function (value, row, index) {
                             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
