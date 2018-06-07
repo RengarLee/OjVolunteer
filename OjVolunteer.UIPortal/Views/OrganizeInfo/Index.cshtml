@@ -61,39 +61,38 @@
                                 </a>
                             </dd>
                             <dd>
-                                <a href="javascript:;" data-url="/Talks/AllTalks" data-id="22" tab-item>
-                                    心得信息
-                                </a>
-                            </dd>
-                            <dd>
                                 <a href="javascript:;" data-url="/Activity/ActivityManager" data-id="23" tab-item>
                                     活动信息
                                 </a>
                             </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/Talks/AllTalks" data-id="22" tab-item>
+                                    心得信息
+                                </a>
+                            </dd>
                             @if (Model.OrganizeInfoManageId == null)
-            {
-                <dd>
-                    <a href="javascript:;" data-url="/OrganizeInfo/AllOrganizeInfo" data-id="24" tab-item>
-                        组织信息
-                    </a>
-                </dd>
-                <dd>
-                    <a href="javascript:;" data-url="/Major/" data-id="25" tab-item>
-                        专业信息
-                    </a>
-                </dd>
-                <dd>
-                    <a href="javascript:;" data-url="/Department/" data-id="26" tab-item>
-                        学院信息
-                    </a>
-                </dd>
-                <dd>
-                    <a href="javascript:;" data-url="/Political/" data-id="27" tab-item>
-                        政治面貌信息
-                    </a>
-                </dd>
+    {
+                        <dd>
+                            <a href="javascript:;" data-url="/OrganizeInfo/AllOrganizeInfo" data-id="24" tab-item>
+                                下属组织信息
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="/Major/" data-id="25" tab-item>
+                                专业信息
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="/Department/" data-id="26" tab-item>
+                                学院信息
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="/Political/" data-id="27" tab-item>
+                                政治面貌信息
+                            </a>
+                        </dd>
 }
-
 
                         </dl>
                     </li>
@@ -103,11 +102,6 @@
                             信息审核
                         </a>
                         <dl class="layui-nav-child">
-                            <dd>
-                                <a href="javascript:;" data-url="/UserInfo/UserOfAuditing" data-id="31" tab-item>
-                                    政治面貌更改审核
-                                </a>
-                            </dd>
                             <dd>
                                 <a href="javascript:;" data-url="/Talks/TalksOfAuditing" data-id="32" tab-item>
                                     心得审核
@@ -123,13 +117,18 @@
                                     活动完成审核
                                 </a>
                             </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="/UserInfo/UserOfAuditing" data-id="31" tab-item>
+                                    政治面貌更改审核
+                                </a>
+                            </dd>
                             @if (Model.OrganizeInfoManageId == null)
-            {
-                <dd>
-                    <a href="javascript:;" data-url="/OrganizeInfo/OrganizeOfAuditing" data-id="34" tab-item>
-                        组织账号申请审核
-                    </a>
-                </dd>
+    {
+                        <dd>
+                            <a href="javascript:;" data-url="/OrganizeInfo/OrganizeOfAuditing" data-id="34" tab-item>
+                                组织账号申请审核
+                            </a>
+                        </dd>
 }
                         </dl>
                     </li>
