@@ -92,15 +92,14 @@
                 });
             })
         }
-        
+
         //活动开始
         function ActivityStart() {
-            $.post("/Activity/Start/", { aId: @ViewBag.ActivityId }, function (data) {
-                layer.confirm('确定开始活动吗？', {
+            layer.confirm('确定开始活动吗？', {
                     btn: ['确定', '取消']
                 }, function () {
-                    if (data["msg"] == "fall") {
-                        //alert("出现错误,请稍后再试");
+                    $.post("/Activity/Start/", { aId: @ViewBag.ActivityId }, function (data) {
+                    if (data["msg"] == "fail") {
                         layer.alert('出现错误,请稍后再试', { icon: 2 });
                     } else {
                         layer.alert('活动已经开始！', {
@@ -110,7 +109,7 @@
                             }
                         });
                     }
-                    });
+                 });
             });
         }
 

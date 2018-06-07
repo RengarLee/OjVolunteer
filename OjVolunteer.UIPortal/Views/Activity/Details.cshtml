@@ -53,12 +53,12 @@
         @if (Model.ActivityManagerID == ViewBag.UserId)
     {
         <div class="acmore-button">
-            <a class="am-btn am-btn-primary" href="/UserEnroll/SingIn/?aId=@Model.ActivityID">
+            <button class="am-btn am-btn-primary"  onclick="SingBtn(0)" >
                 签到界面
-            </a>
-            <a class="am-btn am-btn-primary" href="/UserEnroll/SingOut/?aId=@Model.ActivityID">
+            </button>
+            <button class="am-btn am-btn-primary"  onclick="SingBtn(1)">
                 签退界面
-            </a>
+            </button>
         </div>
 
 }
@@ -96,8 +96,7 @@
         });
         function BindEnrollClickEvent() {
             $(".btnEnroll").click(function () {
-                var activityId = $(this).attr("activity");
-                $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
+                $.post("/UserEnroll/Create/", { activityId: @Model.ActivityID }, function (data) {
                     alert(data["msg"]);
                 });
             });
@@ -105,6 +104,20 @@
         //时间戳转为时间
         function TimeFormat(value) {
             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+        }
+
+        function SingBtn(typeId) {
+            $.post("/Activity/IsEnd/", { Id: @Model.ActivityID,TypeId:typeId }, function (data) {
+                if (data["msg"] == 0) {
+                    window.location.href = "/UserEnroll/SingIn/?aId=@Model.ActivityID";
+
+                } else if (data["msg"] == 1) {
+                    window.location.href = "/UserEnroll/SingOut/?aId=@Model.ActivityID";
+                } else {
+                    alert("活动已结束");
+                }
+                
+            })
         }
     </script>
 </body>
