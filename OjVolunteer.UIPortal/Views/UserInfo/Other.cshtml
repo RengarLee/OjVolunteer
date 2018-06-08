@@ -6,7 +6,7 @@
 
 <header>
     <nav class="top">
-        <p>个人中心</p>
+        <p>他人信息</p>
     </nav>
 </header>
 <div class="usertitle clearfix">
@@ -32,7 +32,7 @@
 <div class="baseinfo">
     <ul class="info-list">
         <li class="info-item">
-            <a href="/Talks/TalksOfUser/" class="clearfix">
+            <a href="/Talks/TalksOfUser/?Id=@Model.UserInfoID" class="clearfix">
                 <i class="iconfont icon-edit"></i>
                 <span>历史心得</span>
             </a>
@@ -45,9 +45,6 @@
             </a>
         </li>
     </ul>
-</div>
-<div class="userout">
-    <a href="/UserInfo/Exit" class="btn btn-danger">退出</a>
 </div>
 
 @section Script{
