@@ -523,7 +523,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = false,AbleUser =true)]
-        public ActionResult TalksOfUser()
+        public ActionResult ActivityOfUser()
         {
             return View();
         }
@@ -532,17 +532,35 @@ namespace OjVolunteer.UIPortal.Controllers
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = false,AbleUser =true)]
-        public JsonResult TalkOfUserData()
+        public JsonResult ActivityOfUserData()
         {
             int pageSize = int.Parse(Request["pageSize"] ?? "5");
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int UserInfoId = Convert.ToInt32(Request["userInfoId"]);
-            var PageData = ActivityDetailService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoId== UserInfoId, u => u.CreateTime, false).AsQueryable();
             if (UserInfoId != LoginUser.UserInfoID)
             {
-                PageData = PageData.Where(u => u.Activity.Status == delNormal).AsQueryable();
+                var PageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId && u.Status == delNormal, u => u.CreateTime, false).ToList();
+                if (PageData.Count > 0)
+                {
+                    return Json(new { msg = "success", PageData }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
             }
-            return Json(new { PageData }, JsonRequestBehavior.AllowGet);
+            else
+            {
+                var PageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).ToList();
+                if (PageData.Count > 0)
+                {
+                    return Json(new { msg = "success", PageData }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
+            }
         }
         #endregion
 
