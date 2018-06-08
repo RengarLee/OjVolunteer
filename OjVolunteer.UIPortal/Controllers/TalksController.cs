@@ -137,20 +137,33 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["pageSize"] ?? "5");
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int UserInfoId = Convert.ToInt32(Request["userInfoId"]);
-            var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).AsQueryable();
             if (UserInfoId != LoginUser.UserInfoID)
             {
-                PageData = PageData.Where(u => u.Status == delNormal).AsQueryable();
-            }
-            var data = LoadImagePath(PageData);
-            if (data.Count > 0)
-            {
-                return Json(new { msg = "success", data }, JsonRequestBehavior.AllowGet);
+                var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId&&u.Status==delNormal, u => u.CreateTime, false).AsQueryable();
+                var data = LoadImagePath(PageData);
+                if (data.Count > 0)
+                {
+                    return Json(new { msg = "success", data }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
             }
             else
             {
-                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                var PageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).AsQueryable();
+                var data = LoadImagePath(PageData);
+                if (data.Count > 0)
+                {
+                    return Json(new { msg = "success", data }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
             }
+            
         }
         #endregion
 
@@ -166,7 +179,8 @@ namespace OjVolunteer.UIPortal.Controllers
                     {
                         TalkID = data.TalkID,
                         TalkFavorsNum = (int)data.TalkFavorsNum,
-                        CreateTime = (DateTime)data.CreateTime
+                        CreateTime = (DateTime)data.CreateTime,
+                        Status = data.Status
                     };
                     if (data.UserInfo != null)
                     {
@@ -237,7 +251,8 @@ namespace OjVolunteer.UIPortal.Controllers
                 u.OrganizeInfo.OrganizeInfoShowName,
                 u.TalkFavorsNum,
                 u.CreateTime,
-                u.Status
+                u.Status,
+                u.UserInfo.UserInfoLoginId
             }).AsQueryable();
             var data = new { total = talkQueryParam.Total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);

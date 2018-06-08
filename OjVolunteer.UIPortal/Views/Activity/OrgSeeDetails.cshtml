@@ -116,19 +116,19 @@ else
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label htmlLable">不符合活动的政治面貌条件</label>
+                    <label class="layui-form-label htmlLable">下列政治面貌无法参加活动</label>
                     <div class="layui-input-block">
                         <input type="text" name="title" class="layui-input htmlInput" value="@ViewBag.PoliticalStr" disabled>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label htmlLable">不符合活动的专业条件</label>
+                    <label class="layui-form-label htmlLable">下列专业无法参加活动</label>
                     <div class="layui-input-block">
                         <input type="text" name="title" class="layui-input htmlInput" value="@ViewBag.MajorStr" disabled>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label htmlLable">不符合活动的分院条件</label>
+                    <label class="layui-form-label htmlLable">下列分院无法参加活动</label>
                     <div class="layui-input-block">
                         <input type="text" name="title" class="layui-input htmlInput" value="@ViewBag.DepartmentStr" disabled>
                     </div>
@@ -136,7 +136,10 @@ else
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label" style="text-align:center;margin-bottom:0;">活动详情</label>
                     <div class="layui-input-block">
-                        <textarea class="layui-textarea" style="height:300px;" disabled>这里放入活动详情！</textarea>
+                        <div  class="layui-textarea"  disabled>
+                            @Html.Raw(Model.ActivityContent)
+                        </div>
+
                     </div>
                 </div>
             </div>
