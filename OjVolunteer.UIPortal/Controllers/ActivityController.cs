@@ -325,6 +325,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 进入活动完成审核界面
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true)]
         public ActionResult ActAccAuditing()
         {
             return View();
@@ -341,14 +342,13 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageIndex = (offset / pageSize) + 1;
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing && o.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing && o.ManagerUserInfo.OrganizeInfoID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.ActivityDetail.Count() }).AsQueryable();
                 var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
-
             }
             else
             {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID }).AsQueryable();
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.UserEnroll.Where(s=>s.Status==delNormal).Count() }).AsQueryable();
                 var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -360,6 +360,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true)]
         public ActionResult Participants(int id)
         {
             ViewBag.Id = id;
@@ -385,6 +386,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 通过
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true)]
         public JsonResult ActAccPass()
         {
             string msg = String.Empty;
@@ -400,6 +402,8 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 不通过
         /// </summary>
         /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true)]
+
         public JsonResult ActAccNotPass()
         {
             string msg = String.Empty;
@@ -428,6 +432,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 活动信息管理
+        [ActionAuthentication(AbleOrganize = true)]
         public ActionResult ActivityManager()
         {
             return View();
