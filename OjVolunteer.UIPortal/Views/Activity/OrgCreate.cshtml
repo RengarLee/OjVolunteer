@@ -102,7 +102,7 @@
                 <div class="acStart-Condition">
                     <div class="layui-collapse">
                         <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">参与人员政治面貌筛选</h2>
+                            <h2 class="layui-colla-title">可参加活动的政治面貌</h2>
                             <div class="layui-colla-content">
                                 @Html.HiddenFor(model => model.ActivityPolitical)
                                 @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">参与人员学院筛选</h2>
+                            <h2 class="layui-colla-title">可参加活动的学院</h2>
                             <div class="layui-colla-content">
                                 @Html.HiddenFor(model => model.ActivityMajor)
                                 @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                         <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">参与人员专业筛选</h2>
+                            <h2 class="layui-colla-title">可参加活动的专业</h2>
                             <div class="layui-colla-content">
                                 @Html.HiddenFor(model => model.ActivityDepartment)
                                 @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
