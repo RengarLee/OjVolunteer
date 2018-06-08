@@ -163,15 +163,22 @@
 
         //单项删除事件
         function deleteClickEvent(data) {
+            layer.confirm('确定删除该条心得？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                $.post("/Talks/Delete", { ids: data }, function (data) {
+                    initTable();
+                    if (data["msg"] == "success") {
+                        layer.msg('已删除', { icon: 1 });
+                    } else {
+                        layer.msg('删除失败,请稍后再试', { icon: 2 });
+                    }
+                })
+            }, function () {
+                layer.msg('已取消！',);
+            });
             //再次确认
-            $.post("/Talks/Delete", { ids: data }, function (data) {
-                initTable();
-                if (data["msg"] == "success") {
-                    alert("操作成功");
-                } else {
-                    alert("操作失败,请稍后再试");
-                }
-            })
+
         }
     </script>
 </body>
