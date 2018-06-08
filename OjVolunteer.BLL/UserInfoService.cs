@@ -10,23 +10,24 @@ using System.Threading.Tasks;
 
 namespace OjVolunteer.BLL
 {
-    public partial class UserInfoService :BaseService<UserInfo>, IUserInfoService
+    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+        short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         #region Excel导出
-        public Stream ExportToExecl(bool isSuper,int orgId)
+        public Stream ExportToExecl(bool isSuper, int orgId)
         {
             NPOI.HSSF.UserModel.HSSFWorkbook book = new NPOI.HSSF.UserModel.HSSFWorkbook();
 
             NPOI.SS.UserModel.ISheet sheet1 = book.CreateSheet("Sheet1"); //添加一个sheet
             var userData = CurrentDal.GetEntities(u => true).AsQueryable();//获取list数据，也可以分页获取数据，以获得更高效的性能
-            
+
             //判断是否为最高权限用户
             if (!isSuper)//不是
             {
                 userData = userData.Where(u => u.OrganizeInfoID == orgId).AsQueryable();
             }
-            var _data = userData.ToList(); 
+            var _data = userData.ToList();
             NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);
             row1.CreateCell(0).SetCellValue("义工用户ID");
             row1.CreateCell(1).SetCellValue("义工用户名");
@@ -56,14 +57,14 @@ namespace OjVolunteer.BLL
                 rowtemp.CreateCell(2).SetCellValue(_data[i].UserInfoShowName);
                 rowtemp.CreateCell(3).SetCellValue(string.IsNullOrEmpty(_data[i].UserInfoStuId) ? "无" : _data[i].UserInfoStuId);
                 rowtemp.CreateCell(4).SetCellValue(string.IsNullOrEmpty(_data[i].UserInfoPhone) ? "无" : _data[i].UserInfoPhone);
-                rowtemp.CreateCell(5).SetCellValue(string.IsNullOrEmpty(_data[i].UserInfoEmail) ? "无": _data[i].UserInfoEmail);
-                rowtemp.CreateCell(6).SetCellValue(_data[i].MajorID == null ? "无":_data[i].Major.MajorName);
+                rowtemp.CreateCell(5).SetCellValue(string.IsNullOrEmpty(_data[i].UserInfoEmail) ? "无" : _data[i].UserInfoEmail);
+                rowtemp.CreateCell(6).SetCellValue(_data[i].MajorID == null ? "无" : _data[i].Major.MajorName);
                 rowtemp.CreateCell(7).SetCellValue(_data[i].Department == null ? "无" : _data[i].Department.DepartmentName);
                 rowtemp.CreateCell(8).SetCellValue(_data[i].OrganizeInfo == null ? "无" : _data[i].OrganizeInfo.OrganizeInfoShowName);
                 rowtemp.CreateCell(9).SetCellValue(_data[i].UserInfoTalkCount.ToString());
                 rowtemp.CreateCell(10).SetCellValue(_data[i].CreateTime.ToString());
                 rowtemp.CreateCell(11).SetCellValue(_data[i].UserInfoLastTime.ToString());
-                rowtemp.CreateCell(12).SetCellValue( _data[i].Status == 0 ? "正常": _data[i].Status == 1?"删除":"审核中");
+                rowtemp.CreateCell(12).SetCellValue(_data[i].Status == 0 ? "正常" : _data[i].Status == 1 ? "删除" : "审核中");
             }
 
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
@@ -86,7 +87,7 @@ namespace OjVolunteer.BLL
 
             #region 状态
             short delFlag = -1;
-          if (!String.IsNullOrEmpty(userQueryParam.Status))
+            if (!String.IsNullOrEmpty(userQueryParam.Status))
             {
                 if (("正常").Contains(userQueryParam.Status))
                 {
@@ -175,7 +176,7 @@ namespace OjVolunteer.BLL
             #region 组织ID
             if (!userQueryParam.isSuper)
             {
-                temp = temp.Where(u => u.OrganizeInfoID==userQueryParam.OrganizeInfoID).AsQueryable();
+                temp = temp.Where(u => u.OrganizeInfoID == userQueryParam.OrganizeInfoID).AsQueryable();
             }
             #endregion
 
@@ -260,7 +261,7 @@ namespace OjVolunteer.BLL
         #region 用户添加
         public bool AddUser(UserInfo userInfo)
         {
-            bool flag = false ;
+            bool flag = false;
             //用户添加
             userInfo.UserInfoTalkCount = 0;
             userInfo.CreateTime = DateTime.Now;
@@ -284,8 +285,16 @@ namespace OjVolunteer.BLL
             if (DbSession.SaveChanges() > 0)
                 flag = true;
             return flag;
-            
+
         }
         #endregion
+
+        public List<UserInfo> SearchUser(String key)
+        {
+            //&& (u.Status == delNormal || u.Status == delAuditing)
+            var list = DbSession.UserInfoDal.GetPageEntities(20, 1, out int total, u => u.UserInfoShowName.Contains(key)&&(u.Status == delNormal || u.Status == delAuditing), t=>t.UserInfoShowName,true).ToList();;
+
+            return list;
+        }
     }
 }

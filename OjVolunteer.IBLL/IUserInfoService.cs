@@ -18,5 +18,7 @@ namespace OjVolunteer.IBLL
         bool ListUpdatePolical(List<int> ids);
 
         bool AddUser(UserInfo userInfo);
+
+        List<UserInfo> SearchUser(String key);
     }
 }

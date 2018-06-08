@@ -67,6 +67,7 @@
     <Compile Include="ActivityServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserEnrollServiceTests.cs" />
+    <Compile Include="UserInfoServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

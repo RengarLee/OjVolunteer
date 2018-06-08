@@ -37,18 +37,36 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #region 查找活动负责人
+
+        public ActionResult Test()
+        {
+            return View();
+        }
+
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public JsonResult SearchActivityPeople()
         {
-            int key = int.Parse(Request["key"]);
-            var user = UserInfoService.GetEntities(u => u.UserInfoID == key).FirstOrDefault();
-            if (user == null)
+            //int key = int.Parse(Request["key"]);
+            //var user = UserInfoService.GetEntities(u => u.UserInfoID == key).FirstOrDefault();
+            //if (user == null)
+            //{
+            //    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+            //}
+            //else
+            //{
+            //    return Json(new { msg = "success", phone = user.UserInfoPhone, login = user.UserInfoLoginId, showname = user.UserInfoShowName }, JsonRequestBehavior.AllowGet);
+            //}
+
+           String key = Request["key"];
+            if (string.IsNullOrEmpty(key)) return Json(new { msg ="fail"}, JsonRequestBehavior.AllowGet);
+            var list = UserInfoService.SearchUser(key).Select(u=>new {u.UserInfoShowName ,u.UserInfoLoginId ,u.UserInfoPhone ,u.UserInfoID  });
+            if (list.Count() > 0)
             {
-                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "success", data = list.ToList() }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { msg = "success", phone = user.UserInfoPhone, login = user.UserInfoLoginId, showname = user.UserInfoShowName }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
             }
         }
 
