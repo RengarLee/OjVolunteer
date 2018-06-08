@@ -1,25 +1,58 @@
 ﻿
-@{
-    Layout = "~/Views/Shared/User_Layout.cshtml";
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/iconfont.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
 
-<header>
-    <nav class="top">
-        <p>历史心得</p>
-    </nav>
-</header>
-<div class="feelbg">
-    <div class="feel">
-        <ul id="feelul" class="feel-list"></ul>
+</head>
+<body>
+
+    <header>
+        <nav class="top">
+            <p>历史心得</p>
+        </nav>
+    </header>
+    <div class="myfeel">
+
+            <ul id="feelul" class="myfeel-list"></ul>
     </div>
-</div>
 
 
+    <a href="javascript:history.go(-1)" class="write-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <div class="topback" id="topback">
+        <i class="iconfont icon-less"></i>
+    </div>
 
 
-
-@section Script{
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+    <script src="~/Scripts/App/datapattern.js"></script>
     <script type="text/javascript">
+        var topback = $('#topback');
+        // 返回顶部按钮点击事件
+        topback.on("click", function () {
+            $('html,body').animate({
+                scrollTop: 0
+            }, 200)
+
+        })
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > 200)
+                topback.fadeIn();
+            else
+                topback.fadeOut();
+        })
+        $(window).trigger('scroll');
         function Photos() {
             layer.photos({
                 photos: '.fell-item-imgs'
@@ -39,7 +72,17 @@
                     for (var i in data["data"]) {
                         var temp = data["data"][i];
                         //上
-                        var li = $("<li class='feel-item'></li>");
+                        var li = $("<li class='myfeel-item'></li>");
+                        if (temp.Status == 0) {
+                            var i = $("<i class='iconfont icon-shenhetongguo feel-item-icon icon-green'></i>");
+                            li.append(i);
+                        } else if (temp.Status = 1) {
+                            var i = $("<i class='iconfont icon-shenhe-copy feel-item-icon'></i>");
+                            li.append(i);
+                        } else if (temp.Status = 2) {
+                            var i = $("<i class='iconfont icon-shenheshibai feel-item-icon icon-gray'></i>");
+                            li.append(i);
+                        }
 
                         var li_div = $("<div class='feel-item-info clearfix'></div>");
                         //头像
@@ -130,12 +173,6 @@
         }
 
     </script>
-}
+</body>
+</html>
 
-@*点亮图标*@
-@section Talks_i{
-    this-icon
-}
-@section Talks_s{
-    this-icon
-}

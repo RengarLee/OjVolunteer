@@ -10,6 +10,7 @@ namespace OjVolunteer.Model.ViewModel
     {
         public int TalkID { get; set; }
         public int TalkFavorsNum { get; set; }
+        public int Status { get; set; }
         public DateTime CreateTime { get; set; }
         public String ShowName { get; set; }
         public String Icon { get; set; }
