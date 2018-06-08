@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OjVolunteer.Model.ViewModel
 {
     [Serializable]
-    public class TopView
+    public class ActTopView
     {
         public int UserInfoID { get; set; }
         public string ShowName { get; set; }

@@ -79,6 +79,107 @@ namespace OjVolunteer.BLL
             return temp.OrderBy(u => u.TalkID).Skip(talkQueryParam.PageSize * (talkQueryParam.PageIndex - 1)).Take(talkQueryParam.PageSize).AsQueryable();
         }
         #endregion
-   
+
+
+        public List<TalkTopView> GetTop(int OrdId, int TimeType, int pageSize, int pageIndex)
+        {
+            List<TalkTopView> list = null;
+            DateTime dateTime;
+            short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+            if (TimeType == 1)//月排行
+            {
+                list = Common.Cache.CacheHelper.GetCache("TalkMonthTop") as List<TalkTopView>;
+                if (list == null)
+                {
+                    dateTime = DateTime.Now.AddDays(-1 * 30);
+                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
+                    list = (from u in Data
+                            group u by u.UserInfoID into grouped
+                            orderby grouped.Sum(m => m.TalkFavorsNum) descending, grouped.Key
+                            select new TalkTopView { UserInfoID = (int)grouped.Key, TalkNum =(int)grouped.Sum(m => m.TalkFavorsNum) }).ToList();
+                    foreach (var temp in list)
+                    {
+                        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
+                        temp.ShowName = t.UserInfoShowName;
+                        temp.OrgId = t.OrganizeInfoID;
+                        temp.Icon = t.UserInfoIcon;
+                    }
+                    Common.Cache.CacheHelper.SetCache("TalkMonthTop", list, DateTime.Now.AddMinutes(20));
+                }
+
+            }
+            if (TimeType == 2)//季排行
+            {
+                list = Common.Cache.CacheHelper.GetCache("TalkSeasonTop") as List<TalkTopView>;
+                if (list == null)
+                {
+                    dateTime = DateTime.Now.AddDays(-1 * 90);
+                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
+                    list = (from u in Data
+                            group u by u.UserInfoID into grouped
+                            orderby grouped.Sum(m => m.TalkFavorsNum) descending, grouped.Key
+                            select new TalkTopView { UserInfoID = (int)grouped.Key, TalkNum = (int)grouped.Sum(m => m.TalkFavorsNum) }).ToList();
+                    foreach (var temp in list)
+                    {
+                        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
+                        temp.ShowName = t.UserInfoShowName;
+                        temp.OrgId = t.OrganizeInfoID;
+                        temp.Icon = t.UserInfoIcon;
+
+                    }
+                    Common.Cache.CacheHelper.SetCache("TalkSeasonTop", list, DateTime.Now.AddMinutes(20));
+                }
+
+            }
+            if (TimeType == 3)//年排行
+            {
+                list = Common.Cache.CacheHelper.GetCache("TalkYearTop") as List<TalkTopView>;
+                if (list == null)
+                {
+                    dateTime = DateTime.Now.AddDays(-1 * 365);
+                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
+                    list = (from u in Data
+                            group u by u.UserInfoID into grouped
+                            orderby grouped.Sum(m => m.TalkFavorsNum) descending, grouped.Key
+                            select new TalkTopView { UserInfoID = (int)grouped.Key, TalkNum = (int)grouped.Sum(m => m.TalkFavorsNum) }).ToList();
+                    foreach (var temp in list)
+                    {
+                        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
+                        temp.ShowName = t.UserInfoShowName;
+                        temp.OrgId = t.OrganizeInfoID;
+                        temp.Icon = t.UserInfoIcon;
+                    }
+                    Common.Cache.CacheHelper.SetCache("TalkYearTop", list, DateTime.Now.AddMinutes(20));
+                }
+            }
+            if (TimeType == 4)//排行
+            {
+                list = Common.Cache.CacheHelper.GetCache("TalkAllTop") as List<TalkTopView>;
+                if (list == null)
+                {
+                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal).AsQueryable();
+                    list = (from u in Data
+                            group u by u.UserInfoID into grouped
+                            orderby grouped.Sum(m => m.TalkFavorsNum) descending, grouped.Key
+                            select new TalkTopView { UserInfoID = (int)grouped.Key, TalkNum = (int)grouped.Sum(m => m.TalkFavorsNum) }).ToList();
+                    foreach (var temp in list)
+                    {
+                        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
+                        temp.ShowName = t.UserInfoShowName;
+                        temp.OrgId = t.OrganizeInfoID;
+                        temp.Icon = t.UserInfoIcon;
+                    }
+                    Common.Cache.CacheHelper.SetCache("TalkAllTop", list, DateTime.Now.AddMinutes(20));
+                }
+            }
+
+            if (OrdId != -1)
+            {
+                list = list.Where(u => u.OrgId == OrdId).ToList();
+            }
+            list = list.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return list;
+        }
+
     }
 }
