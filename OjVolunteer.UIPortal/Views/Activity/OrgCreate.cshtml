@@ -30,14 +30,14 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">活动名称</label>
                     <div class="layui-input-block">
-                        @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
+                        @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|actionName" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-inline acStart-left">
                         <label class="layui-form-label ">负责人ID</label>
                         <div class="layui-input-block">
-                            @Html.EditorFor(model => model.ActivityManagerID, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|" } })
+                            @Html.EditorFor(model => model.ActivityManagerID, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
                         </div>
                     </div>
                     <div class="layui-inline acStart-left">
@@ -72,7 +72,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">报名时间</label>
                     <div class="layui-input-block">
-                        <input type="text" name="EnrollTime" required placeholder="请输入活动时间范围" class="layui-input" id="timeEnrollRange">
+                        <input type="text" name="EnrollTime" required placeholder="请输入报名时间范围" class="layui-input" id="timeEnrollRange">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -85,7 +85,7 @@
                     <div class="layui-inline acStart-short">
                         <label class="layui-form-label ">人数上限</label>
                         <div class="layui-input-block">
-                            @Html.EditorFor(model => model.ActivityPrediNum, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
+                            @Html.EditorFor(model => model.ActivityPrediNum, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|joinNumber|MaxNumber" } })
                         </div>
                     </div>
                     <div class="layui-inline acStart-short">
@@ -108,7 +108,7 @@
                                 @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
                                 @foreach (var key in PoliticalDict.Keys)
                                 {
-                                    <input type="checkbox" value="@key" typename="PoliticalDict" id="@key" title="@PoliticalDict[key]"  checked/>
+                                    <input type="checkbox" value="@key" typename="PoliticalDict" id="@key" title="@PoliticalDict[key]" checked />
                                 }
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                                 @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
                                 @foreach (var key in MajorDict.Keys)
                                 {
-                                    <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]" checked/>
+                                    <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]" checked />
                                 }
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                 @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
                                 @foreach (var key in DepartmentDict.Keys)
                                 {
-                                    <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" checked/>
+                                    <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" checked />
                                 }
                             </div>
                         </div>
@@ -140,8 +140,8 @@
 
                 <div class="acArticle-btn">
                     <div class="layui-form-item">
-                        <button class="layui-btn" id="btnSubmit" type="button">发布</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">取消发布</button>
+                        <button class="layui-btn" id="btnSubmit" type="button" lay-submit>发布</button>
+                        <button type="reset" class="layui-btn layui-btn-primary" id="testbtn">取消发布</button>
                     </div>
                 </div>
             </div>
@@ -156,16 +156,15 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/App/simple-ajax-form.js"></script>
     <script src="~/Content/oj/js/admin.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
     <script type="text/javascript">
-        $(function () {
             BindSubmit();
             BindSearchKey();
-
             layui.use('upload', function () {
                 var upload = layui.upload;
                 var uploadInst = upload.render({
                     elem: '#test1'
-                    , url: '/Activity/UploadIcon' 
+                    , url: '/Activity/UploadIcon'
                     , accept: 'images'
                     , size: 2048
                     , done: function (res) {
@@ -180,8 +179,74 @@
                         alert("上传失败，请稍后再试")
                     }
                 });
-            });
         });
+
+            //日期组件
+            var huodong;
+            var baoming;
+            layui.use('laydate', function () {
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: '#timeRange',
+                    type: 'datetime',
+                    range: true
+                    , done: function (value, date, endDate) {
+                        huodong = date;
+                        console.log(huodong);
+                    }
+                });
+
+                var laydate1 = layui.laydate;
+                laydate.render({
+                    elem: '#timeEnrollRange',
+                    type: 'datetime',
+                    range: true
+                    , ready: function () {
+                        layer.tips('报名结束时间应比活动开始时间早！', '#timeEnrollRange', {
+                            tips: [1] //还可配置颜色
+                        });
+                    }
+                    , done: function (value, date, endDate) {
+                        baoming = endDate;
+                        console.log(baoming);
+                    }
+                });
+            });
+
+        function checktime() {
+            if (baoming.year > huodong.year) {
+                alert("活动时间早于报名时间");
+            }
+            else {
+                if (baoming.month > huodong.month) {
+                    alert("活动时间早于报名时间");
+                }
+                else {
+                    if (baoming.date > huodong.date) {
+                        alert("活动时间早于报名时间");
+                    }
+                    else {
+                        if (baoming.hours > huodong.date) {
+                            alert("活动时间早于报名时间");
+                        }
+                        else {
+                            if (baoming.minutes > huodong.minutes) {
+                                alert("活动时间早于报名时间");
+                            }
+                            else {
+                                if (baoming.seconds > huodong.seconds) {
+                                    alert("活动时间早于报名时间");
+                                }
+                                else {
+                                    alert("验证通过！");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
         //查找负责人
         function BindSearchKey() {
             $('#btnSer').click(function () {
@@ -197,9 +262,11 @@
             });
         }
         function BindSubmit() {
+
             $("#btnSubmit").click(function () {
                 beforeSubmit();
                 layedit.sync(index);
+                checktime()
                 $.post("/Activity/Create", $("#form1").serializeArray(), function (data) {
                     if (data["msg"] == "success") {
                         alert("申请成功，请等待审核！");
@@ -231,22 +298,7 @@
             $("#ActivityDepartment").val(Departmentresult);
         }
 
-        //日期组件
-        layui.use('laydate', function () {
-            var laydate = layui.laydate;
-            laydate.render({
-                elem: '#timeRange',
-                type: 'datetime',
-                range: true
-            });
-
-            var laydate1 = layui.laydate;
-            laydate.render({
-                elem: '#timeEnrollRange',
-                type: 'datetime',
-                range: true
-            });
-        });
+       
         //富文本框
         var index;
         var layedit;
@@ -258,7 +310,7 @@
                     type: 'post'
                 }
             });
-            index =layedit.build('demo', {
+            index = layedit.build('demo', {
                 tool: [
                     'strong' //加粗
                     , 'italic' //斜体

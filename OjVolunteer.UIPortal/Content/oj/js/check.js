@@ -43,7 +43,20 @@ layui.use(['form','layer'],function(){
 		  ,studentNumber:[
 		  	/^[0-9]{11}$/
 		  	,'学号必须位11位，且都是数字'
-		  ]
+            ]
+          ,actionName:[
+		  	/^[\S]{5,20}$/
+		  	,'活动名称只能在5-20个字之间,且不能出现空格'
+            ]
+          ,joinNumber:[
+		  	/^[0-9]*[1-9][0-9]*$/
+		  	,'人数上上限不能为负数'
+            ]
+          ,MaxNumber:function(value){
+		  	if(Number(value ) > 99){
+		  		return '人数上限最多只为99人';
+		  	}
+		  }
 		});      
 });
 $(function(){
