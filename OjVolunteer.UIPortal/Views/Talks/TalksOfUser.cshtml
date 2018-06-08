@@ -76,11 +76,11 @@
                         if (temp.Status == 0) {
                             var i = $("<i class='iconfont icon-shenhetongguo feel-item-icon icon-green'></i>");
                             li.append(i);
-                        } else if (temp.Status = 1) {
-                            var i = $("<i class='iconfont icon-shenhe-copy feel-item-icon'></i>");
-                            li.append(i);
-                        } else if (temp.Status = 2) {
+                        } else if (temp.Status == 1||temp.Status == 3) {
                             var i = $("<i class='iconfont icon-shenheshibai feel-item-icon icon-gray'></i>");
+                            li.append(i);
+                        } else if (temp.Status == 2) {
+                            var i = $("<i class='iconfont icon-shenhe-copy feel-item-icon'></i>");
                             li.append(i);
                         }
 

@@ -251,7 +251,8 @@ namespace OjVolunteer.UIPortal.Controllers
                 u.OrganizeInfo.OrganizeInfoShowName,
                 u.TalkFavorsNum,
                 u.CreateTime,
-                u.Status
+                u.Status,
+                u.UserInfo.UserInfoLoginId
             }).AsQueryable();
             var data = new { total = talkQueryParam.Total, rows = pageData.ToList() };
             return Json(data, JsonRequestBehavior.AllowGet);
