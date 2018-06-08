@@ -13,5 +13,6 @@ namespace OjVolunteer.Model.ViewModel
         public string ShowName { get; set; }
         public decimal ActivityTime { get; set; }
         public int OrgId { get; set; }
+        public string Icon { get; set; }
     }
 }
