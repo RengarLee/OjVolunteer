@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model OjVolunteer.Model.UserInfo
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +21,7 @@
         <div class="selectbox clearfix">
             <div class="seleleft">
                 <select id="org" lay-verify="required" lay-filter="aihao">
-                    <option value="@ViewBag.OrgId">所属组织</option>
+                    <option value="@Model.OrganizeInfoID">所属组织</option>
                     <option value="-1">全部</option>
                 </select>
             </div>
@@ -41,15 +42,14 @@
     <!--显示该用户目前排行栏-->
     <div class="myRank">
         <li class="untop-item clearfix">
-            <p class="rank">
-                NO.230
+            <p class="rank" id="rank">
             </p>
             <div class="untop-item-wrap">
-                <img src="images/1.jpg">
+                <img src="@Model.UserInfoIcon">
             </div>
-            <div class="rankinfo">
-                <p>叶舟</p>
-                <span>义工时长：<i>50</i>小时</span>
+            <div class="rankinfo" >
+                <p>@Model.UserInfoShowName</p>
+                <span id="self"></span>
             </div>
         </li>
     </div>
@@ -62,7 +62,8 @@
     <script src="~/Content/oj/js/main.js"></script>
     <script type="text/javascript">
         $(function () {
-            GetActivityData(1, 5,@ViewBag.OrgId,1);
+            GetActivityData(1, 5,@Model.OrganizeInfoID, 1);
+            GetRank(0, -1, 1);
         });
 
         function GetActivityData(pageIndex, pageSize, orgId, timeId) {
@@ -111,6 +112,7 @@
                 }
             });
         }
+
         function BindTopClickEvent() {
             $("#btnevent").click(function () {
                 var pageIndex = parseInt($("#btnevent").attr("pageIndex"));
@@ -121,6 +123,16 @@
             });
         }
 
+        function GetRank(typeId, orgId, timeId) {
+            $.post("/Top/GetRank", { typeId: typeId, OrgId: orgId, TimeType: timeId }, function (data) {
+                $("#rank").html("NO."+data.Rank);
+                if (typeId == 0) {
+                    $("#self").html("义工时长：<i>" + data.Num + "</i>小时");
+                } else {
+                    $("#self").html("点赞数：<i>" + data.Num + "</i>");
+                }
+            });
+        }
         layui.use('form', function () {
             var form1 = layui.form;
             form1.on('select(aihao)', function (data) {
@@ -130,6 +142,7 @@
                 var orgId = $("#org option:selected").val();
                 var timeId = $("#time option:selected").val();
                 GetActivityData(pageIndex, pageSize, orgId, timeId);
+                GetRank(0, orgId, timeId);
             });
         });
     </script>

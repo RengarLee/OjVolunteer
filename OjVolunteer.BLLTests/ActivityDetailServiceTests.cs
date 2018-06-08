@@ -18,5 +18,12 @@ namespace OjVolunteer.BLL.Tests
             var temp = activity.GetTop(-1, 1, 3, 1);
             return;
         }
+
+        [TestMethod()]
+        public void GetRankTest()
+        {
+            var temp = activity.GetRank(3, -1, 4, out decimal time);
+            return;
+        }
     }
 }

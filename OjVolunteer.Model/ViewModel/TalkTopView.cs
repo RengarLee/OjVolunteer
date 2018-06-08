@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace OjVolunteer.Model.ViewModel
 {
-   public  class TalkTopView
+    [Serializable]
+    public  class TalkTopView
     {
         public int UserInfoID { get; set; }
         public string ShowName { get; set; }
