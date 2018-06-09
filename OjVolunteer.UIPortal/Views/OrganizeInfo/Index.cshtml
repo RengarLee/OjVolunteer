@@ -30,7 +30,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd id="Info"><a>基本资料</a></dd>
-                        <dd><a href="">更改密码</a></dd>
+                        <dd id="Pass"><a>更改密码</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="/OrganizeInfo/Exit">退出</a></li>
@@ -248,6 +248,18 @@
                 shadeClose: true, //点击遮罩关闭层
                 area: ['600px', '700px'],
                 content: '/OrganizeInfo/Edit/@Model.OrganizeInfoID'
+            });
+        });
+
+        $('#Pass').on('click', function () {
+            var index = layer.open({
+                type: 2,
+                title: false,
+                closeBtn: 0,
+                maxmin: false,
+                shadeClose: true,
+                area: ['600px', '700px'],
+                content: '/OrganizeInfo/UpdatePwd/'
             });
         });
     </script>

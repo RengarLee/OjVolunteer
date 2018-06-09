@@ -335,26 +335,23 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 更改密码
         /// </summary>
         /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult UpdatePwd()
         {
-            String msg = "fail";
-            string oldPwd = Request["old"];
-            string newPwd = Request["new"];
+            return View();
+        }
 
-            if (LoginOrganize.OrganizeInfoPwd.Equals(MD5Helper.Get_MD5(oldPwd)))
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult UpdatePwd(string oldPwd, string newPwd)
+        {
+            String msg = "fail";
+            //密码验证
+            Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
+            if (!regex.IsMatch(newPwd))
             {
-                Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
-                if (regex.IsMatch(newPwd))
-                {
-                    LoginOrganize.OrganizeInfoPwd = MD5Helper.Get_MD5(newPwd);
-                    LoginOrganize.ModfiedOn = DateTime.Now;
-                    if (OrganizeInfoService.Update(LoginOrganize))
-                    {
-                        msg = "success";
-                    }
-                }
+                return Json(new { msg }, JsonRequestBehavior.AllowGet);
             }
+            msg = OrganizeInfoService.UpdatePassWord(LoginOrganize, oldPwd, newPwd);
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
 
@@ -365,7 +362,6 @@ namespace OjVolunteer.UIPortal.Controllers
         {
 
             OrganizeInfo organize = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == id).FirstOrDefault();
-            //TODO:
             organize.OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5("000000");
             if (OrganizeInfoService.Update(organize))
             {

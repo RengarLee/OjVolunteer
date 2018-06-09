@@ -712,6 +712,7 @@
     <Content Include="Views\UserInfo\UpdatePwd.cshtml" />
     <Content Include="Views\Activity\UserCreate.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\OrganizeInfo\UpdatePwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Upload\TalkImages\2018\4\17\" />
