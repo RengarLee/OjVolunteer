@@ -376,30 +376,30 @@ namespace OjVolunteer.UIPortal.Controllers
         /// <returns></returns>
         public ActionResult UploadIcon()
         {
+
             var file = Request.Files["file"];
             String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultIconSavePath"];
-            string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
-            string dirPath = Request.MapPath(path);
-            if (!Directory.Exists(dirPath))
+            string dirPath = Request.MapPath(filePath);
+            //
+            if (Common.FileUpload.FileHelper.ImageUpload(file, dirPath, filePath, out string fileName))
             {
-                Directory.CreateDirectory(dirPath);
-            }
-            string fileName = path + Guid.NewGuid().ToString().Substring(1, 5) + "-" + file.FileName;
-            file.SaveAs(Request.MapPath(fileName));
-            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
-            userInfo.UserInfoIcon = fileName;
-            userInfo.ModfiedOn = DateTime.Now;
-
-            if (UserInfoService.Update(userInfo))
-            {
-                UpSessionUserInfo(userInfo);
-                return Json(new { src = fileName, msg = "success" }, JsonRequestBehavior.AllowGet);
+                UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+                userInfo.UserInfoIcon = fileName;
+                userInfo.ModfiedOn = DateTime.Now;
+                if (UserInfoService.Update(userInfo))
+                {
+                    UpSessionUserInfo(userInfo);
+                    return Json(new { src = fileName, msg = "success" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }             
             }
             else
             {
                 return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
             }
-
         }
 
         /// <summary>
