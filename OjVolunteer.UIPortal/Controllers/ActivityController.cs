@@ -148,6 +148,13 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
+        #region 志愿者申请活动
+        public ActionResult UserCreate()
+        {
+            return View();
+        }
+        #endregion
+
         #region 组织申请活动
         /// <summary>
         /// 组织进入活动申请界面

@@ -1,0 +1,114 @@
+﻿<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江义工网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+</head>
+<body>
+
+    <header>
+        <nav class="top">
+            <p>活动发布</p>
+        </nav>
+    </header>
+    <!-- 表单主体部分 -->
+    <div class="release">
+        <form class="layui-form" " action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动主题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入活动主题" autocomplete="off" class="layui-input" value="呵呵呵">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">负责人姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入负责人姓名" autocomplete="off" class="layui-input" value="桂花糕">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系方式</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input" value="哈哈哈">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动类型</label>
+                <div class="layui-input-block">
+                    <select name="city" lay-verify="required">
+                        <option value="2">社区服务</option>
+                        <option value="3">学校服务</option>
+                        <option value="4">社会服务</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">开始时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required placeholder="请输入活动开始时间" autocomplete="off" class="layui-input" id="start-time">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">结束时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required placeholder="请输入活动结束时间" autocomplete="off" class="layui-input" id="end-time">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动地址</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required placeholder="请输入活动结束时间" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动详情</label>
+                <textarea name="" required lay-verify="required" placeholder="请输入活动具体描述" class="layui-textarea"></textarea>
+            </div>
+
+
+            <div class="">
+                <div class="">
+                    <button class="layui-btn layui-btn-primary" lay-submit>发布</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <!-- 返回上一层组件 -->
+    <a href="javascript:history.go(-1)" class="header-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/main.js"></script>
+    <script type="text/javascript">
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#start-time'
+                , type: 'datetime'
+            });
+
+            laydate.render({
+                elem: '#end-time'
+                , type: 'datetime'
+            });
+        });
+    </script>
+</body>
+</html>
