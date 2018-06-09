@@ -121,23 +121,6 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region ValidateName 验证用户名是否重复
-        public Boolean ValidateName(string loginId)
-        {
-            bool flag = false;
-            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == loginId).FirstOrDefault();
-            if (userInfo == null)
-            {
-                OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId == loginId).FirstOrDefault();
-                if (organizeInfo == null)
-                {
-                    flag = true;
-                }
-            }
-            return flag;
-        }
-        #endregion
-
         #region 组织账号申请审核
         /// <summary>
         /// 进入组织信息审核界面
@@ -238,6 +221,23 @@ namespace OjVolunteer.UIPortal.Controllers
             var reslut = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId.Equals(username)).AsQueryable().Count() == 0;
             return Json(reslut, JsonRequestBehavior.AllowGet);
         }
+
+        #region 验证用户名是否重复
+        public Boolean ValidateName(string loginId)
+        {
+            bool flag = false;
+            UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoLoginId == loginId).FirstOrDefault();
+            if (userInfo == null)
+            {
+                OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoLoginId == loginId).FirstOrDefault();
+                if (organizeInfo == null)
+                {
+                    flag = true;
+                }
+            }
+            return flag;
+        }
+        #endregion
         #endregion
 
         #region 组织修改组织信息

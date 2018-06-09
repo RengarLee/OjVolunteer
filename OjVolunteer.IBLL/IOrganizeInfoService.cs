@@ -17,5 +17,7 @@ namespace OjVolunteer.IBLL
         IQueryable<OrganizeInfo> LoadPageData(OrganizeQueryParam organizeQueryParam ,int loginUserId);
 
         bool AddOrg(OrganizeInfo organizeInfo);
+
+        String UpdatePassWord(OrganizeInfo org, string oldPwd, string newPwd);
     }
 }

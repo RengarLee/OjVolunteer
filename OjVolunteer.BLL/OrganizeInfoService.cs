@@ -188,5 +188,28 @@ namespace OjVolunteer.BLL
             return flag;
         }
         #endregion
+
+        #region 更改密码
+        public String UpdatePassWord(OrganizeInfo org, string oldPwd, string newPwd)
+        {
+            //密码匹配
+            if (org.OrganizeInfoPwd.Equals(Common.Encryption.MD5Helper.Get_MD5(oldPwd)))
+            {
+                //密码更改
+                org.OrganizeInfoPwd = Common.Encryption.MD5Helper.Get_MD5(newPwd);
+                org.ModfiedOn = DateTime.Now;
+                CurrentDal.Update(org);
+                if (DbSession.SaveChanges() > 0)
+                {
+                    //更改成功
+                    return "success";
+                }
+                //更改失败
+                return "fail";
+            }
+            //旧密码不正确
+            return "error";
+        }
+        #endregion
     }
 }
