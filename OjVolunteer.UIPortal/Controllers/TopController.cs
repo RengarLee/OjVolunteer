@@ -12,10 +12,28 @@ namespace OjVolunteer.UIPortal.Controllers
     {
         IActivityDetailService ActivityDetailService { get; set; }
 
+        /// <summary>
+        /// 义工查看排行榜界面
+        /// </summary>
+        /// <returns></returns>
         [ActionAuthentication(AbleUser = true)]
         public ActionResult Index()
         {
             ViewData.Model = LoginUser;
+            return View();
+        }
+
+        /// <summary>
+        /// 组织查看排行榜界面
+        /// </summary>
+        /// <returns></returns>
+        [ActionAuthentication(AbleOrganize = true)]
+        public ActionResult OrgIndex()
+        {
+            if (LoginOrganize.OrganizeInfoManageId == null)
+            {
+                ViewBag.Org = null;      
+            }
             return View();
         }
 

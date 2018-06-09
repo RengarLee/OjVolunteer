@@ -1,0 +1,143 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瓯江志愿者网</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-table/bootstrap-table-filter-control.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div id="toolbar_activity" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <a href="/OrganizeInfo/ExportExcel" class="btn btn-default">
+            <span class="glyphicon glyphicon-open" aria-hidden="true"></span>数据导出
+        </a>
+    </div>
+    <div>
+        <table id="tb_activity" data-filter-control="true"></table>
+    </div>
+    <br />
+    <div id="toolbar_talks" class="btn-group">
+        <button id="btn_add" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <a href="/OrganizeInfo/ExportExcel" class="btn btn-default">
+            <span class="glyphicon glyphicon-open" aria-hidden="true"></span>数据导出
+        </a>
+    </div>
+    <div>
+        <table id="tb_table" data-filter-control="true"></table>
+    </div>
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/bootstrap-table.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Content/bootstrap-table/bootstrap-table-filter-control.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            initTable_Activity();
+            $("#btn_add").on('click', function () {
+                layer.open({
+                    type: 2,
+                    content: "/OrganizeInfo/Create",
+                    title: '添加组织',
+                    area: ['800px', '400px'],
+                });
+            });
+        });
+
+        function initTable_Activity(queryParam) {
+            var offset_a;
+            $("#tb_activity").bootstrapTable('destroy');
+            $('#tb_activity').bootstrapTable({
+                contentType: "application/x-www-form-urlencoded",
+                url: '/OrganizeInfo/GetAllOrganizeInfo',
+                method: 'post',
+                toolbar: '#toolbar1',
+                striped: true,
+                cache: false,
+                pagination: true,
+                queryParams: function (param) {
+                    var temp = {
+                        pageSize: param.limit,   
+                        pageIndex: ((param.offset) / (param.limit)) + 1,
+                        OrgId: -1,
+                        TimeType:1,
+                    }
+                    offset_a = param.offset;
+                    return temp;
+                },
+                sidePagination: "server",
+                pageNumber: 1,
+                pageSize: 10,
+                pageList: [10, 20, 50, 100],
+                smartDisplay: false,
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 3,
+                clickToSelect: true,
+                uniqueId: "UserInfoID",
+                columns: [
+                    {
+                        title: '排名',
+                        visible: true,
+                        width: '6%',
+                        align: 'center',
+                        formatter: function (value, row, index) {
+                            return offset_a+index+1;
+                        },
+                    },
+                    {
+                        field: 'ShowName',
+                        title: '用户名称',
+                        visible: true,
+                        width: '6%',
+                        align: 'center',
+                        filterControl: 'input',
+                    },
+                    {
+                        field: 'ActivityTime',
+                        title: '志愿者活动总时长',
+                        visible: true,
+                        width: '10%',
+                        align: 'center',
+                        filterControl: 'input',
+                    },
+                ],
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        type: 2,
+                        title: false,
+                        closeBtn: 0,
+                        maxmin: false,
+                        shadeClose: true,
+                        area: ['800px', '830px'],
+                        content: '/UserInfo/OrgEditUser/' + row["UserInfoID"]
+                    });
+                }
+            });
+        };
+
+    </script>
+</body>
+</html>
+
+
+
+
