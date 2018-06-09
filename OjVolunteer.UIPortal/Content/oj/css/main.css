@@ -715,7 +715,7 @@ a:active{
 	}
 	.write-back{
 	display: block;
-	position: absolute;
+	position: fixed;
 	top: 12px;
 	left: 15px;
 	z-index: 9999;

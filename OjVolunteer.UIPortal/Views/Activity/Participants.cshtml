@@ -50,14 +50,41 @@
         $(function () {
             initTable();
             $("#agree").click(function (data) {
-                $.post("/Activity/ActAccPass", { aId:@ViewBag.Id}, function (data) {
-                    alert(data);
+                layer.confirm('确定通过审核吗', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                     $.post("/Activity/ActAccPass", { aId:@ViewBag.Id}, function (data) {
+                         layer.msg('已审核通过');
                 });
+                }, function () {
+                    layer.msg('已取消');
+                });
+               
             });
+
             $("#cancel").click(function (data) {
-                $.post("/Activity/ActAccNotPass", { aId:@ViewBag.Id}, function (data) {
-                    alert(data);
+
+                layer.confirm('确定不通过审核吗', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.post("/Activity/ActAccNotPass", { aId:@ViewBag.Id}, function (data) {
+                         layer.msg('已审核不通过');
                 });
+                }, function () {
+                    layer.msg('已取消');
+                });
+
+
+
+
+
+
+                @*$.post("/Activity/ActAccNotPass", { aId:@ViewBag.Id}, function (data) {
+                    alert(data);
+                });*@
+
+
+
             });
         });
 
