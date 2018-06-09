@@ -380,9 +380,10 @@ namespace OjVolunteer.UIPortal.Controllers
             var file = Request.Files["file"];
             String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultIconSavePath"];
             string dirPath = Request.MapPath(filePath);
-            //
+            //图片保存
             if (Common.FileUpload.FileHelper.ImageUpload(file, dirPath, filePath, out string fileName))
             {
+                //用户信息修改
                 UserInfo userInfo = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
                 userInfo.UserInfoIcon = fileName;
                 userInfo.ModfiedOn = DateTime.Now;

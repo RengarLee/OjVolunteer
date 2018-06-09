@@ -307,23 +307,23 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult UploadIcon()
         {
             var file = Request.Files["file"];
-            String filePath =  System.Configuration.ConfigurationManager.AppSettings["DefaultIconSavePath"];
-            string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
-            string dirPath = Request.MapPath(path);
-            if (!Directory.Exists(dirPath))
+            String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultIconSavePath"];
+            string dirPath = Request.MapPath(filePath);
+            if (Common.FileUpload.FileHelper.ImageUpload(file, dirPath, filePath, out string fileName))
             {
-                Directory.CreateDirectory(dirPath);
-            }
-            string fileName = path + Guid.NewGuid().ToString().Substring(1, 10)+".jpg";
-           
-            file.SaveAs(Request.MapPath(fileName));
-            OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).FirstOrDefault();
-            organizeInfo.OrganizeInfoIcon = fileName;
-            organizeInfo.ModfiedOn = DateTime.Now;
-            if (OrganizeInfoService.Update(organizeInfo))
-            {
-                LoginOrganize.OrganizeInfoIcon = fileName;
-                return Json(new { src = fileName, msg = "success" }, JsonRequestBehavior.AllowGet);
+
+                OrganizeInfo organizeInfo = OrganizeInfoService.GetEntities(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).FirstOrDefault();
+                organizeInfo.OrganizeInfoIcon = fileName;
+                organizeInfo.ModfiedOn = DateTime.Now;
+                if (OrganizeInfoService.Update(organizeInfo))
+                {
+                    LoginOrganize.OrganizeInfoIcon = fileName;
+                    return Json(new { src = fileName, msg = "success" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
             }
             else
             {
