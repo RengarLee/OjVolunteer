@@ -59,20 +59,22 @@ layui.use(['form','layer'],function(){
 		  }
 		});      
 });
+
+function checkPass(index) {
+    $(index).blur(function () {
+        var reg = /^[0-9]{11}$/;
+        if ($(this).val() != reg) {
+            alert("错误");
+        }
+        else
+            alert('正确');
+    });
+}
 $(function(){
 	layui.use('layer', function() {
  		var layer = layui.layer;
  });
 	checkPass('#phonenum');
 })
-function checkPass(index){
-	$(index).blur(function(){
-		var reg = /^[0-9]{11}$/;
-	if($(this).val() != reg){
-			alert("错误");
-		}
-	else
-		alert('正确');
-	});
-}
+
 

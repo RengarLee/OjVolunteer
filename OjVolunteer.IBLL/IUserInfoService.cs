@@ -15,12 +15,12 @@ namespace OjVolunteer.IBLL
 
         IQueryable<UserInfo> LoadPageData(UserQueryParam userQueryParam);
 
-        bool ListUpdatePolical(List<int> ids);
+        Boolean ListUpdatePolical(List<int> ids);
 
-        bool AddUser(UserInfo userInfo);
+        Boolean AddUser(UserInfo userInfo);
 
         List<UserInfo> SearchUser(String key);
 
-        bool UpdatePassWord(UserInfo user, string oldPwd, string newPwd);
+        String UpdatePassWord(UserInfo user, string oldPwd, string newPwd);
     }
 }

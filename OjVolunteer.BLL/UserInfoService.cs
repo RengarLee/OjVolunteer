@@ -299,21 +299,25 @@ namespace OjVolunteer.BLL
         #endregion
 
         #region 更改密码
-        public bool UpdatePassWord(UserInfo user, string oldPwd, string newPwd)
+        public String UpdatePassWord(UserInfo user, string oldPwd, string newPwd)
         {
-            bool flag = false;
             //密码匹配
             if (user.UserInfoPwd.Equals(Common.Encryption.MD5Helper.Get_MD5(oldPwd)))
             {
                 //密码更改
                 user.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(newPwd);
                 user.ModfiedOn = DateTime.Now;
-                if (CurrentDal.Update(user))
+                CurrentDal.Update(user);
+                if (DbSession.SaveChanges()>0)
                 {
-                    flag = true;
+                    //更改成功
+                    return "success";
                 }
+                //更改失败
+                return "fail";
             }
-            return flag;
+            //旧密码不正确
+            return "error";
         } 
         #endregion
     }

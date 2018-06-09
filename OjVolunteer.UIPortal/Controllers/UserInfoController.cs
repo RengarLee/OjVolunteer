@@ -569,10 +569,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Json(new { msg }, JsonRequestBehavior.AllowGet);
             }
-            if (UserInfoService.UpdatePassWord(LoginUser, oldPwd, newPwd))
-            {
-                msg = "success";
-            }
+            msg = UserInfoService.UpdatePassWord(LoginUser, oldPwd, newPwd);
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
         #endregion
