@@ -4,6 +4,7 @@ using OjVolunteer.Model;
 using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -572,24 +573,26 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 图片上传
+        /// <summary>
+        /// 活动正文图片上传
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UploadContentImage()
         {
             try
             {
                 var file = Request.Files[0];
                 String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultActivityImagesSavePath"];
-                string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
-                string dirPath = Request.MapPath(path);
-                if (!Directory.Exists(dirPath))
+                string dirPath = Request.MapPath(filePath);
+                if (Common.FileUpload.FileHelper.ImageUpload(file, dirPath, filePath, out string fileName))
                 {
-                    Directory.CreateDirectory(dirPath);
+                    return Json(new { code = 0, msg = "success", data = new { src = fileName } }, JsonRequestBehavior.AllowGet);
                 }
-                string fileName = path + Guid.NewGuid().ToString().Substring(1, 10) + ".jpg";
+                else
+                {
+                    return Json(new { code = 1, msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
 
-                file.SaveAs(Request.MapPath(fileName));
-
-                LoginOrganize.OrganizeInfoIcon = fileName;
-                return Json(new { data = new { src = fileName }, msg = "success", code = 0 }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -598,23 +601,45 @@ namespace OjVolunteer.UIPortal.Controllers
 
         }
 
+        /// <summary>
+        /// 活动头像上传
+        /// </summary>
+        /// <returns></returns>
         public JsonResult UploadIcon()
         {
             try
             {
+                //var file = Request.Files[0];
+                //String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultActivityImagesSavePath"];
+                //string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+                //string dirPath = Request.MapPath(path);
+                //if (!Directory.Exists(dirPath))
+                //{
+                //    Directory.CreateDirectory(dirPath);
+                //}
+                //string fileName = path + Guid.NewGuid().ToString().Substring(1, 10) + ".jpg";
+                //System.Drawing.Image srcImg = Image.FromStream(file.InputStream, true, true);
+                //Bitmap thumbImg = new Bitmap(srcImg.Width/3, srcImg.Height/3);
+                //Graphics graphics = Graphics.FromImage(thumbImg);
+                //thumbImg.SetResolution(srcImg.HorizontalResolution, srcImg.VerticalResolution); // 加上每 DPI（每英寸的点数），更精确。
+                //graphics.DrawImage(srcImg, 0, 0, thumbImg.Width, thumbImg.Height);
+                //thumbImg.Save(Server.MapPath(fileName));
+
+                //graphics.Dispose();
+                //thumbImg.Dispose();
+                //srcImg.Dispose();
+
                 var file = Request.Files[0];
                 String filePath = System.Configuration.ConfigurationManager.AppSettings["DefaultActivityImagesSavePath"];
-                string path = filePath + DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
-                string dirPath = Request.MapPath(path);
-                if (!Directory.Exists(dirPath))
+                string dirPath = Request.MapPath(filePath);
+                if (Common.FileUpload.FileHelper.ImageUpload(file, dirPath,filePath, out string fileName))
                 {
-                    Directory.CreateDirectory(dirPath);
+                    return Json(new { code = 0, msg = "success", data = new { src = fileName } }, JsonRequestBehavior.AllowGet);
                 }
-                string fileName = path + Guid.NewGuid().ToString().Substring(1, 10) + ".jpg";
-
-                file.SaveAs(Request.MapPath(fileName));
-
-                return Json(new { code = 0, msg = "success",data=new {src = fileName } }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    return Json(new { code = 1, msg = "fail" }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch
             {
