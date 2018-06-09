@@ -29,9 +29,9 @@ namespace OjVolunteer.BLL
             }
             var _data = userData.ToList();
             NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);
-            row1.CreateCell(0).SetCellValue("义工用户ID");
-            row1.CreateCell(1).SetCellValue("义工用户名");
-            row1.CreateCell(2).SetCellValue("义工昵称");
+            row1.CreateCell(0).SetCellValue("志愿者用户ID");
+            row1.CreateCell(1).SetCellValue("志愿者用户名");
+            row1.CreateCell(2).SetCellValue("志愿者昵称");
             row1.CreateCell(3).SetCellValue("学号");
             row1.CreateCell(4).SetCellValue("手机");
             row1.CreateCell(5).SetCellValue("邮箱");
@@ -42,7 +42,7 @@ namespace OjVolunteer.BLL
             row1.CreateCell(9).SetCellValue("发表心得数目");
             row1.CreateCell(10).SetCellValue("创建时间");
             row1.CreateCell(11).SetCellValue("最后登录时间");
-            row1.CreateCell(12).SetCellValue("义工用户状态");
+            row1.CreateCell(12).SetCellValue("志愿者用户状态");
             //将数据逐步写入sheet1各个行
 
             for (int i = 0; i < _data.Count; i++)
@@ -194,28 +194,28 @@ namespace OjVolunteer.BLL
             }
             #endregion
             //TODO:Test
-            #region 普通义工活动时长
+            #region 普通志愿者活动时长
             if (!String.IsNullOrEmpty(userQueryParam.UserDurationNormalTotal))
             {
                 temp = temp.Where(u => (u.UserDuration.UserDurationNormalTotal).ToString().Contains(userQueryParam.UserDurationNormalTotal)).AsQueryable();
             }
             #endregion
             //TODO:Test
-            #region 预备党员义工活动时长
+            #region 预备党员志愿者活动时长
             if (!String.IsNullOrEmpty(userQueryParam.UserDurationPropartyTotal))
             {
                 temp = temp.Where(u => (u.UserDuration.UserDurationPropartyTotal).ToString().Contains(userQueryParam.UserDurationPropartyTotal)).AsQueryable();
             }
             #endregion
             //TODO:Test
-            #region 党员义工活动时长
+            #region 党员志愿者活动时长
             if (!String.IsNullOrEmpty(userQueryParam.UserDurationPartyTotal))
             {
                 temp = temp.Where(u => (u.UserDuration.UserDurationPartyTotal).ToString().Contains(userQueryParam.UserDurationPartyTotal)).AsQueryable();
             }
             #endregion
             //TODO:Test
-            #region 义工活动总时长
+            #region 志愿者活动总时长
             if (!String.IsNullOrEmpty(userQueryParam.UserDurationTotal))
             {
                 temp = temp.Where(u => (u.UserDuration.UserDurationTotal).ToString().Contains(userQueryParam.UserDurationTotal)).AsQueryable();

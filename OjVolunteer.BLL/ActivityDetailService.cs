@@ -126,7 +126,7 @@ namespace OjVolunteer.BLL
         /// <param name="userId">用户Id</param>
         /// <param name="OrgId">组织Id</param>
         /// <param name="TimeType">时间类别</param>
-        /// <param name="time">义工时长</param>
+        /// <param name="time">志愿者时长</param>
         /// <returns></returns>
         public int GetRank(int userId, int OrgId, int TimeType, out decimal time)
         {

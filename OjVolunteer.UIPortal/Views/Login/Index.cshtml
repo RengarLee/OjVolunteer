@@ -16,7 +16,7 @@
 <body>
     <div class="login-content conter-block">
         <p class="lg-title">登录</p>
-        @using (Ajax.BeginForm("ProcessLogin", "Login", new AjaxOptions() { OnSuccess = "afterLogin" }, new { @class = "layui-form" }))
+        @using(Ajax.BeginForm("ProcessLogin", "Login", new AjaxOptions() { OnSuccess = "afterLogin" }, new { @class = "layui-form" }))
         {
             <input type="text" name="LoginCode" class="forminput clearfix" placeholder="请输入登录帐号" lay-verify="required|userID">
             <input type="password" name="LoginPwd" class="forminput clearfix" placeholder="请输入密码（6-18位）" lay-verify="required|pass">

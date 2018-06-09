@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Oj义工</title>
+    <title>Oj志愿者</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
@@ -40,7 +40,7 @@
                     }
                 </i>
                 <br>
-                义工时长：
+                志愿者时长：
                 <i>
                     @{if (ViewData["UserDuration"] == null)
                         {
@@ -65,7 +65,7 @@
                     <li class="info-item">
                         <a href="#" class="clearfix">
                             <img src="~/Content/oj/images/password.png">
-                            <span>义工时长详情</span>
+                            <span>志愿者时长详情</span>
                         </a>
                     </li>
 
@@ -105,10 +105,10 @@
     </div>
     <!-- 下边导航组件 -->
     <nav class="navbt">
-        <a href="" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
-        <a href="" class="btBar"><i class="iconfont icon-compass"></i><span>义工商城</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-paixingbang"></i><span>志愿者榜</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-compass"></i><span>志愿者商城</span></a>
         <a href="/UserInfo/Index" class="btBar"><i class="iconfont icon-zhuye this-icon"></i><span>首页</span></a>
-        <a href="" class="btBar"><i class="iconfont icon-edit"></i><span>义工心得</span></a>
+        <a href="" class="btBar"><i class="iconfont icon-edit"></i><span>志愿者心得</span></a>
         <a href="/UserInfo/UserInfoSimple/@Model.UserInfoID" class="btBar"><i class="iconfont icon-account"></i><span>个人中心</span></a>
     </nav>
     <!-- 返回上一层组件 -->

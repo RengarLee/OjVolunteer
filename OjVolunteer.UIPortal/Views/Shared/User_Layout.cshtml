@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>瓯江义工网</title>
+    <title>瓯江志愿者网</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
@@ -14,10 +14,10 @@
     @RenderBody();
     <footer></footer>
     <nav class="navbt">
-        <a href="/Top/Index" class="btBar"><i class="iconfont icon-paixingbang"></i><span>义工榜</span></a>
-        <a href="/Activity/List" class="btBar"><i class="iconfont icon-compass @RenderSection("Act_i",false)"></i><span class="@RenderSection("Act_s",false)">义工商城</span></a>
+        <a href="/Top/Index" class="btBar"><i class="iconfont icon-paixingbang"></i><span>排行榜榜</span></a>
+        <a href="/Activity/List" class="btBar"><i class="iconfont icon-compass @RenderSection("Act_i",false)"></i><span class="@RenderSection("Act_s",false)">活动列表</span></a>
         <a href="/UserInfo/Index" class="btBar"><i class="iconfont icon-zhuye @RenderSection("Index_i",false)"></i><span class="@RenderSection("Index_s",false)">首页</span></a>
-        <a href="/Talks/List" class="btBar"><i class="iconfont icon-edit @RenderSection("Talks_i",false)"></i><span class="@RenderSection("Talks_s",false)">义工心得</span></a>
+        <a href="/Talks/List" class="btBar"><i class="iconfont icon-edit @RenderSection("Talks_i",false)"></i><span class="@RenderSection("Talks_s",false)">志愿者心得</span></a>
         <a href="/UserInfo/Self" class="btBar"><i class="iconfont icon-account  @RenderSection("Self_i",false)"></i><span class="@RenderSection("Self_s",false)">个人中心</span></a>
     </nav>
 

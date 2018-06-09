@@ -40,7 +40,7 @@ namespace OjVolunteer.BLL
                     else if (userDuration.UserDurationPropartyTime != null)
                     {
                         userDuration.UserDurationPropartyTotal = userDuration.UserDurationPropartyTotal + (decimal)Enroll.ActivityTime;
-                        //50小时义工徽章
+                        //50小时志愿者徽章
                         if (userDuration.UserDurationPropartyTotal >= 50)
                         {
                             UserBadge userBadge = new UserBadge();

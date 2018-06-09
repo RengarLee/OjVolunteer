@@ -28,7 +28,7 @@ namespace OjVolunteer.UIPortal.Controllers.Tests
         public IDepartmentService DepartmentService = new DepartmentService();
 
         /// <summary>
-        /// 义工活动完成
+        /// 志愿者活动完成
         /// </summary>
         [TestMethod()]
         public void ActAccTest()

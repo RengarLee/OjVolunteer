@@ -63,9 +63,9 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region 义工信息管理
+        #region 志愿者信息管理
         /// <summary>
-        /// 进入义工信息管理界面
+        /// 进入志愿者信息管理界面
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
@@ -75,7 +75,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 加载义工信息
+        /// 加载志愿者信息
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
@@ -128,9 +128,9 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 义工政治面貌审核
+        #region 志愿者政治面貌审核
         /// <summary>
-        /// 组织进入义工政治面貌审核界面
+        /// 组织进入志愿者政治面貌审核界面
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
@@ -228,7 +228,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 驳回义工更正政治面貌申请
+        /// 驳回志愿者更正政治面貌申请
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
@@ -336,7 +336,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 用户获得用户信息
         /// <summary>
-        /// 义工查看个人中心
+        /// 志愿者查看个人中心
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
@@ -475,7 +475,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 组织修改义工详细信息
+        /// 组织修改志愿者详细信息
         /// </summary>
         /// <param name="id">用户id</param>
         /// <returns></returns>
@@ -589,7 +589,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 五小时义工提示
+        #region 五小时志愿者提示
         public JsonResult FiftyHours()
         {
             String msg = "fail";

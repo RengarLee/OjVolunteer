@@ -15,19 +15,19 @@ namespace OjVolunteer.Model
     {
 
         /// <summary>
-        /// 义工登录名
+        /// 志愿者登录名
         /// </summary>
         [Required(ErrorMessage = "登录名不为空")]
         [RegularExpression("^[A-Za-z0-9]{6,12}$", ErrorMessage = "登录名不符合规范")]
         public string UserInfoLoginId { get; set; }
 
         /// <summary>
-        /// 义工密码
+        /// 志愿者密码
         /// </summary>
         public string UserInfoPwd { get; set; }
 
         /// <summary>
-        /// 义工昵称
+        /// 志愿者昵称
         /// </summary>
         [Required(ErrorMessage = "用户名不为空")]
         [RegularExpression("^[\u4e00-\u9fa5]{2,10}$", ErrorMessage = "组织名称不符合规范")]

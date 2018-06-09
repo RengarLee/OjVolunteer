@@ -26,13 +26,13 @@
             @Html.HiddenFor(model => model.UserInfoID) 
             @Html.HiddenFor(model => model.UserInfoLoginId)
             <div class="layui-form-item">
-                <label class="layui-form-label">义工登录名</label>
+                <label class="layui-form-label">志愿者登录名</label>
                 <div class="layui-input-block">
                     @Html.TextBoxFor(Model => Model.UserInfoLoginId, new { @disabled = "", @autocomplete = "off", @class = "layui-input"})
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">义工姓名</label>
+                <label class="layui-form-label">志愿者姓名</label>
                 <div class="layui-input-block">
                     @Html.TextBoxFor(Model => Model.UserInfoShowName, new { @autocomplete = "off", @class = "layui-input", @lay_verify = "required|username" })
                 </div>
@@ -110,7 +110,7 @@
                         } else if (data == "fail") {
                             //alert("资料修改出错，请稍后再试");
                         } else if (data == "auditing") {
-                            layer.msg('修改政治面貌后，需要组织审核通过后才可以正常参加义工活动', {
+                            layer.msg('修改政治面貌后，需要组织审核通过后才可以正常参加志愿者活动', {
                                 icon: 0,
                             });
                         }

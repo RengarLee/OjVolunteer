@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>瓯江义工网</title>
+    <title>瓯江志愿者网</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
@@ -12,7 +12,7 @@
 <body>
     <header>
         <nav class="top">
-            <p>义工排行</p>
+            <p>志愿者排行</p>
         </nav>
     </header>
 
@@ -77,7 +77,7 @@
                             var div_div = $("<div class='toplist-userinfo'>");
                             var a = $("<a href='/UserInfo/Other/?Id=" + temp.UserInfoID + "'></a>");
                             var div_div_img = $("<img src='" + temp.Icon + "'>");
-                            var div_div_p = $("<p>" + temp.ShowName + "<br/>义工时长<span>" + temp.ActivityTime + "</span>小时</p>");
+                            var div_div_p = $("<p>" + temp.ShowName + "<br/>志愿者时长<span>" + temp.ActivityTime + "</span>小时</p>");
                             a.append(div_div_img);
                             div_div.append(a);
                             div_div.append(div_div_p);
@@ -89,7 +89,7 @@
                             var li_p = $("<p class='rank'>NO." + parseInt((parseInt(pageIndex) - 1) * parseInt(pageSize) + 1 + parseInt(i)) + "</p>");
                             var a = $("<a href='/UserInfo/Other/?Id=" + temp.UserInfoID + "'></a>");
                             var li_div = $("<div class='untop-item-wrap'><img src='" + temp.Icon + "'></div>");
-                            var li_p_2 = $("<div class='rankinfo'><p>" + temp.ShowName + "</p><span>义工时长：<i>" + temp.ActivityTime + "</i>小时</span></div>");
+                            var li_p_2 = $("<div class='rankinfo'><p>" + temp.ShowName + "</p><span>志愿者时长：<i>" + temp.ActivityTime + "</i>小时</span></div>");
                             li.append(li_p);
                             a.append(li_div);
                             li.append(a);
@@ -127,7 +127,7 @@
             $.post("/Top/GetRank", { typeId: typeId, OrgId: orgId, TimeType: timeId }, function (data) {
                 $("#rank").html("NO."+data.Rank);
                 if (typeId == 0) {
-                    $("#self").html("义工时长：<i>" + data.Num + "</i>小时");
+                    $("#self").html("志愿者时长：<i>" + data.Num + "</i>小时");
                 } else {
                     $("#self").html("点赞数：<i>" + data.Num + "</i>");
                 }

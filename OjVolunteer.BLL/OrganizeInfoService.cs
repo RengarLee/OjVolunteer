@@ -129,7 +129,7 @@ namespace OjVolunteer.BLL
 
             var _data = orgData.ToList();
             NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);
-            row1.CreateCell(0).SetCellValue("义工组织ID");
+            row1.CreateCell(0).SetCellValue("志愿者组织ID");
             row1.CreateCell(1).SetCellValue("组织登录名");
             row1.CreateCell(2).SetCellValue("组织昵称");
             row1.CreateCell(3).SetCellValue("负责人");

@@ -35,7 +35,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 查看活动详情
         /// <summary>
-        /// 义工用户查看活动详情
+        /// 志愿者用户查看活动详情
         /// </summary>
         /// <param name="id">活动Id</param>
         /// <returns></returns>
@@ -460,9 +460,9 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region 义工浏览义工商场
+        #region 志愿者浏览志愿者商场
         /// <summary>
-        /// 义工用户进入活动列表
+        /// 志愿者用户进入活动列表
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
@@ -476,7 +476,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 义工用户浏览活动列表
+        /// 志愿者用户浏览活动列表
         /// </summary>
         /// <returns></returns>
         public JsonResult GetListData()

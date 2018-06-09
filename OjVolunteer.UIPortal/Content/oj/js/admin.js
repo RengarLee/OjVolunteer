@@ -1,4 +1,4 @@
-// 下面是义工信息界面的table引用js
+// 下面是志愿者信息界面的table引用js
 layui.use('table', function(){
   var table = layui.table;
   

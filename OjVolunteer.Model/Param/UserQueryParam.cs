@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OjVolunteer.Model.Param
 {
     /// <summary>
-    /// 组织用户查询义工用户所使用的参数
+    /// 组织用户查询志愿者用户所使用的参数
     /// </summary>
     public class UserQueryParam:BaseParam
     {
@@ -65,19 +65,19 @@ namespace OjVolunteer.Model.Param
         /// </summary>
         public String UserInfoTalkCount { get; set; }
         /// <summary>
-        /// 普通义工活动时长
+        /// 普通志愿者活动时长
         /// </summary>
         public String UserDurationNormalTotal { get; set; }
         /// <summary>
-        /// 预备党员义工活动时长
+        /// 预备党员志愿者活动时长
         /// </summary>
         public String UserDurationPropartyTotal { get; set; }
         /// <summary>
-        /// 党员义工活动时长
+        /// 党员志愿者活动时长
         /// </summary>
         public String UserDurationPartyTotal { get; set; }
         /// <summary>
-        /// 义工活动总时长
+        /// 志愿者活动总时长
         /// </summary>
         public String UserDurationTotal { get; set; }
         /// <summary>

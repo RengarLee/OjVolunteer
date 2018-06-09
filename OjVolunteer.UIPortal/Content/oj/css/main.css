@@ -621,7 +621,7 @@ a:active{
 		margin-bottom: 50px;
 	}
 	
-/*义工心得界面样式*/
+/*志愿者心得界面样式*/
 	.feelbg{
 		background-color: #eee;
 	}
@@ -700,7 +700,7 @@ a:active{
 		position: absolute;
 	}
 
-/*编写义工心得界面样式*/
+/*编写志愿者心得界面样式*/
 	/*导航条部分-不固定*/
 	header .writertop{
 		width: 100%;
@@ -739,7 +739,7 @@ a:active{
 		border-radius: 3px;
 	}
 
-/*我的义工心得界面样式*/
+/*我的志愿者心得界面样式*/
 	.myfeel{
 		margin-top: 60px;
 		margin-bottom: 10px;
@@ -922,7 +922,7 @@ a:active{
 .pages{
 	text-align: center;
 }
-/*右上角编辑义工心得按钮组件 */
+/*右上角编辑志愿者心得按钮组件 */
 .writefeel{
 	position: fixed;
 	top: 12px;
