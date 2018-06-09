@@ -289,12 +289,13 @@ namespace OjVolunteer.BLL
         }
         #endregion
 
+        #region 查找活动负责人
         public List<UserInfo> SearchUser(String key)
         {
-            //&& (u.Status == delNormal || u.Status == delAuditing)
-            var list = DbSession.UserInfoDal.GetPageEntities(20, 1, out int total, u => u.UserInfoShowName.Contains(key)&&(u.Status == delNormal || u.Status == delAuditing), t=>t.UserInfoShowName,true).ToList();;
-
+            //查找用户 仅查找状态正常和状态审核的用户
+            var list = DbSession.UserInfoDal.GetPageEntities(20, 1, out int total, u => u.UserInfoShowName.Contains(key) && (u.Status == delNormal || u.Status == delAuditing), t => t.UserInfoShowName, true).ToList(); ;
             return list;
-        }
+        } 
+        #endregion
     }
 }
