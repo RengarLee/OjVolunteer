@@ -234,7 +234,16 @@ namespace OjVolunteer.BLL
         }
         #endregion
 
-        #region 批量更改用户政治面貌
+        #region 查找活动负责人
+        public List<UserInfo> SearchUser(String key)
+        {
+            //查找用户 仅查找状态正常和状态审核的用户
+            var list = DbSession.UserInfoDal.GetPageEntities(20, 1, out int total, u => u.UserInfoShowName.Contains(key) && (u.Status == delNormal || u.Status == delAuditing), t => t.UserInfoShowName, true).ToList(); ;
+            return list;
+        }
+        #endregion
+
+        #region 更改用户政治面貌
 
         public bool ListUpdatePolical(List<int> ids)
         {
@@ -289,12 +298,22 @@ namespace OjVolunteer.BLL
         }
         #endregion
 
-        #region 查找活动负责人
-        public List<UserInfo> SearchUser(String key)
+        #region 更改密码
+        public bool UpdatePassWord(UserInfo user, string oldPwd, string newPwd)
         {
-            //查找用户 仅查找状态正常和状态审核的用户
-            var list = DbSession.UserInfoDal.GetPageEntities(20, 1, out int total, u => u.UserInfoShowName.Contains(key) && (u.Status == delNormal || u.Status == delAuditing), t => t.UserInfoShowName, true).ToList(); ;
-            return list;
+            bool flag = false;
+            //密码匹配
+            if (user.UserInfoPwd.Equals(Common.Encryption.MD5Helper.Get_MD5(oldPwd)))
+            {
+                //密码更改
+                user.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(newPwd);
+                user.ModfiedOn = DateTime.Now;
+                if (CurrentDal.Update(user))
+                {
+                    flag = true;
+                }
+            }
+            return flag;
         } 
         #endregion
     }

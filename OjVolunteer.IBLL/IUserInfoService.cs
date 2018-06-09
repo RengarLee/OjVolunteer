@@ -20,5 +20,7 @@ namespace OjVolunteer.IBLL
         bool AddUser(UserInfo userInfo);
 
         List<UserInfo> SearchUser(String key);
+
+        bool UpdatePassWord(UserInfo user, string oldPwd, string newPwd);
     }
 }

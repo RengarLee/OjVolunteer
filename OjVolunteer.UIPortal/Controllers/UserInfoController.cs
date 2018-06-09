@@ -138,6 +138,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// 加载政治面貌变更审核信息
         /// </summary>
@@ -197,6 +198,66 @@ namespace OjVolunteer.UIPortal.Controllers
             }
 
         }
+
+        #region 政治面貌审核
+        /// <summary>
+        /// 批量处理同意用户转变政治面貌
+        /// </summary>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult EditOfList(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            if (UserInfoService.ListUpdatePolical(idList))
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+            }
+        }
+
+        /// <summary>
+        /// 驳回义工更正政治面貌申请
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        public ActionResult DeleteOfList(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return Content("null");
+            }
+            string[] strIds = Request["ids"].Split(',');
+            List<int> idList = new List<int>();
+            foreach (var strId in strIds)
+            {
+                idList.Add(int.Parse(strId));
+            }
+            if (UserInfoService.NormalListByULS(idList))
+            {
+                return Content("success");
+            }
+            else
+            {
+                return Content("fail");
+
+            }
+        }
+        #endregion
+
         #endregion
 
         #region 组织创建用户
@@ -491,91 +552,29 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 更改密码
         /// </summary>
         /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult UpdatePwd()
         {
+            return View();
+        }
+        [HttpPost]
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult UpdatePwd(string oldPwd, string newPwd)
+        {
             String msg = "fail";
-            string oldPwd = Request["old"];
-            string newPwd = Request["new"];
-
-            if (LoginUser.UserInfoPwd.Equals(Common.Encryption.MD5Helper.Get_MD5(oldPwd)))
+            //string oldPwd = Request["old"];
+            //string newPwd = Request["new"];
+            //密码验证
+            Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
+            if (!regex.IsMatch(newPwd))
             {
-                Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
-                if (regex.IsMatch(newPwd))
-                {
-                    LoginUser.UserInfoPwd = Common.Encryption.MD5Helper.Get_MD5(newPwd);
-                    LoginUser.ModfiedOn = DateTime.Now;
-                    if (UserInfoService.Update(LoginUser))
-                    {
-                        msg = "success";
-                    }
-                }
+                return Json(new { msg }, JsonRequestBehavior.AllowGet);
+            }
+            if (UserInfoService.UpdatePassWord(LoginUser, oldPwd, newPwd))
+            {
+                msg = "success";
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
-        #endregion
-
-        #region 政治面貌审核
-        /// <summary>
-        /// 批量处理同意用户转变政治面貌
-        /// </summary>
-        [HttpPost]
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult EditOfList(string ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            if (UserInfoService.ListUpdatePolical(idList))
-            {
-                return Content("success");
-            }
-            else
-            {
-                return Content("fail");
-            }
-        }
-
-        /// <summary>
-        /// 驳回义工更正政治面貌申请
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
-        public ActionResult DeleteOfList(string ids)
-        {
-            if (string.IsNullOrEmpty(ids))
-            {
-                return Content("null");
-            }
-            string[] strIds = Request["ids"].Split(',');
-            List<int> idList = new List<int>();
-            foreach (var strId in strIds)
-            {
-                idList.Add(int.Parse(strId));
-            }
-            if (UserInfoService.NormalListByULS(idList))
-            {
-                return Content("success");
-            }
-            else
-            {
-                return Content("fail");
-
-            }
-        }
-        #endregion
-
-        #region 重置密码
-
         #endregion
 
         #region 导出Excel文件
@@ -590,15 +589,6 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             var reslut = UserInfoService.GetEntities(u => u.UserInfoLoginId.Equals(username)).AsQueryable().Count() == 0;
             return Json(reslut, JsonRequestBehavior.AllowGet);
-        }
-        #endregion
-
-        #region 退出操作
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public ActionResult Exit()
-        {
-            Response.Cookies["userLoginId"].Value = String.Empty;
-            return Redirect("/Login/");
         }
         #endregion
 
@@ -617,6 +607,13 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-
+        #region 退出操作
+        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        public ActionResult Exit()
+        {
+            Response.Cookies["userLoginId"].Value = String.Empty;
+            return Redirect("/Login/");
+        }
+        #endregion
     }
 }

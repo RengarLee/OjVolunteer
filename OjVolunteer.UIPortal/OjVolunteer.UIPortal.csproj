@@ -479,6 +479,7 @@
     <Content Include="Views\Error\QrCodeError.cshtml" />
     <Content Include="Views\Top\Index.cshtml" />
     <Content Include="Views\UserInfo\Test.cshtml" />
+    <Content Include="Views\UserInfo\UpdatePwd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
