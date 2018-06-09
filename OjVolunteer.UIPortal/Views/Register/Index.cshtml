@@ -123,7 +123,12 @@
         function registerAfter(data) {
             if (data == "user")
                 //alert("注册成功！");
-                layer.msg('注册成功！', { icon: 1 });
+                layer.msg('注册成功！', {
+                    icon: 1,
+                    end: function () {
+                        window.location.href = '/Login/';
+                    }
+                });
             else if (data == "organize")
                 layer.msg('注册成功，请等待组织审核', { icon: 1 });
             else if (data == "exist")
