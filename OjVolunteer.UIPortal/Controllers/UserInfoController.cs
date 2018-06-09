@@ -561,8 +561,6 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult UpdatePwd(string oldPwd, string newPwd)
         {
             String msg = "fail";
-            //string oldPwd = Request["old"];
-            //string newPwd = Request["new"];
             //密码验证
             Regex regex = new Regex(@"^[A-Za-z0-9]{6,12}$");
             if (!regex.IsMatch(newPwd))

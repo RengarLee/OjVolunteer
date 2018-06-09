@@ -99,21 +99,16 @@
                     </div>
                     <div class="layui-inline acStart-short">
                         <div class="layui-upload">
-                            <button type="button" class="layui-btn" id="test1">上传活动封面</button>
+                            @Html.HiddenFor(Model=>Model.ActivityIcon)
+                            <button type="button" class="layui-btn" id="myimg">上传活动封面</button>
                             <div class="layui-upload-list">
                                 <img class="layui-upload-img" id="demo1">
                                 <p id="demoText"></p>
                             </div>
                         </div>
-                        @*<div class="layui-input-block">
-                            @Html.HiddenFor(model => model.ActivityIcon)
-                            <button type="button" class="layui-btn" id="test1">点击上传活动封面</button>
-                        </div>*@
                     </div>
                 </div>
                 <!--富文本框-->
-                <h4 class="acArticle">活动详情</h4>
-                @*<textarea id="demo" name="ActivityContent" style="display: none;"></textarea>*@
                 @Html.TextAreaFor(Model => Model.ActivityContent, new { style = "display: none;", id = "demo" })
                 <div class="acStart-Condition">
                     <div class="layui-collapse">
@@ -174,51 +169,31 @@
     <script src="~/Content/oj/js/admin.js"></script>
     <script src="~/Content/oj/js/check.js"></script>
     <script type="text/javascript">
-            BindSearchKey();
-
+        BindSearchKey();
 
         layui.use('upload', function () {
+            var upload = layui.upload;
+            var uploadInst = upload.render({
+                elem: '#myimg'
+                , url: '/Activity/UploadIcon'
+                , accept: 'images'
+                , done: function (res) {
+                    if (res["msg"] == "fail") {
+                        alert("图片更换失败，请稍后再试");
+                    } else {
+                        $('#demo1').attr('src', res["data"].src);
+                        $('#ActivityIcon').attr('value', res["data"].src);
+                        alert("图片更新成功");
 
-                //普通图片上传
-                var uploadInst = upload.render({
-                    elem: '#test1'
-                    , url: '/upload/'
-                    , accept: 'images' //允许上传的文件类型
-                    , multiple: false //不允许多文件上传
-                    , before: function (obj) {
-                        //预读本地文件示例，不支持ie8
-                        obj.preview(function (index, file, result) {
-                            $('#demo1').attr('src', result); //图片链接（base64）
-                        });
                     }
-                    , done: function (res) {
-                        //如果上传失败
-                        if (res.code > 0) {
-                            return layer.msg('上传失败');
-                        }
-                        //上传成功
-                    }
-                    
-                });
-                //var upload = layui.upload;
-                //var uploadInst = upload.render({
-                //    elem: '#test1'
-                //    , url: '/Activity/UploadIcon'
-                //    , accept: 'images'
-                //    , size: 2048
-                //    , done: function (res) {
-                //        if (res["msg"] == "fail") {
-                //            alert("上传失败，请稍后再试");
-                //        } else {
-                //            $("#ActivityIcon").attr("value", res["src"]);
-                //            //alert("上传成功");
-                //        }
-                //    }
-                //    , error: function () {
-                //        alert("上传失败，请稍后再试")
-                //    }
-                //});
+                }
+                , error: function () {
+                    alert("图片更换失败，请稍后再试")
+                }
+            });
         });
+
+
 
             //日期组件
             var huodong;

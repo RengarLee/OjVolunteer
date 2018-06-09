@@ -591,7 +591,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         }
 
-        public ActionResult UploadIcon()
+        public JsonResult UploadIcon()
         {
             try
             {
@@ -607,11 +607,11 @@ namespace OjVolunteer.UIPortal.Controllers
 
                 file.SaveAs(Request.MapPath(fileName));
 
-                return Json(new { src = fileName, msg = "success", }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 0, msg = "success",data=new {src = fileName } }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(new { msg = "fail", }, JsonRequestBehavior.AllowGet);
+                return Json(new { code = 1, msg = "fail"}, JsonRequestBehavior.AllowGet);
             }
 
         }
