@@ -9,7 +9,7 @@ namespace OjVolunteer.IBLL
 {
     public partial interface IActivityDetailService
     {
-        List<ActTopView> GetTop(int OrdId, int DateTime,int pageSize, int pageIndex);
+        List<ActTopView> GetTop(int OrdId, int DateTime,int pageSize, int pageIndex, out int total);
         int GetRank(int userId, int OrgId, int TimeSpan, out decimal time);
     }
 }

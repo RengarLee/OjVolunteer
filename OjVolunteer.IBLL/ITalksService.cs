@@ -13,6 +13,7 @@ namespace OjVolunteer.IBLL
     {
         IQueryable<Talks> LoadPageData(TalkQueryParam userQueryParam);
 
+        List<TalkTopView> GetTop(int OrdId, int DateTime, int pageSize, int pageIndex, out int total);
 
     }
 }

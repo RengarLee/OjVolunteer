@@ -78,5 +78,8 @@
   </object>
   <object type="OjVolunteer.UIPortal.Controllers.TopController, OjVolunteer.UIPortal" singleton="false" >
     <property name="ActivityDetailService" ref="ActivityDetailService" ></property>
+    <property name="OrganizeInfoService" ref="OrganizeInfoService" ></property>
+    <property name="TalksService" ref="TalksService" ></property>
+  
   </object>
 </objects>

@@ -112,9 +112,10 @@ namespace OjVolunteer.BLL
         }
 
         //排行榜
-        public List<ActTopView> GetTop(int OrdId, int TimeType, int pageSize, int pageIndex)
+        public List<ActTopView> GetTop(int OrdId, int TimeType, int pageSize, int pageIndex, out int total)
         {
             List<ActTopView> list = GetData(OrdId, TimeType);
+            total = list.Count();
             list = list.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return list;
         }

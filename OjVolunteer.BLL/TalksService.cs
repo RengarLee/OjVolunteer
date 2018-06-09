@@ -81,7 +81,8 @@ namespace OjVolunteer.BLL
         #endregion
 
 
-        public List<TalkTopView> GetTop(int OrdId, int TimeType, int pageSize, int pageIndex)
+        #region 排行榜
+        public List<TalkTopView> GetTop(int OrdId, int TimeType, int pageSize, int pageIndex, out int total)
         {
             List<TalkTopView> list = null;
             DateTime dateTime;
@@ -96,7 +97,7 @@ namespace OjVolunteer.BLL
                     list = (from u in Data
                             group u by u.UserInfoID into grouped
                             orderby grouped.Sum(m => m.TalkFavorsNum) descending, grouped.Key
-                            select new TalkTopView { UserInfoID = (int)grouped.Key, TalkNum =(int)grouped.Sum(m => m.TalkFavorsNum) }).ToList();
+                            select new TalkTopView { UserInfoID = (int)grouped.Key, TalkNum = (int)grouped.Sum(m => m.TalkFavorsNum) }).ToList();
                     foreach (var temp in list)
                     {
                         var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
@@ -177,9 +178,12 @@ namespace OjVolunteer.BLL
             {
                 list = list.Where(u => u.OrgId == OrdId).ToList();
             }
+            total = list.Count();
             list = list.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return list;
         }
+
+        #endregion
 
     }
 }

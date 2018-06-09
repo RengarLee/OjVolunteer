@@ -1,4 +1,5 @@
 ﻿using OjVolunteer.IBLL;
+using OjVolunteer.Model;
 using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,9 @@ namespace OjVolunteer.UIPortal.Controllers
     public class TopController : BaseController
     {
         IActivityDetailService ActivityDetailService { get; set; }
-
+        IOrganizeInfoService OrganizeInfoService { get; set; }
+        ITalksService TalksService { get; set; }
+        short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         /// <summary>
         /// 义工查看排行榜界面
         /// </summary>
@@ -32,9 +35,33 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             if (LoginOrganize.OrganizeInfoManageId == null)
             {
-                ViewBag.Org = null;      
+                ViewBag.OrganizeInfoList = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).ToList();
+            }
+            else
+            {
+                ViewBag.OrganizeInfoList = new List<OrganizeInfo>() { LoginOrganize };
             }
             return View();
+        }
+
+        public JsonResult OrgActivityData()
+        {
+            int pageSize = int.Parse(Request["pageSize"] ?? "5");
+            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
+            int OrgId = int.Parse(Request["OrgId"] ?? "-1");
+            int TimeType = int.Parse(Request["TimeType"] ?? "1");
+            var PageData = ActivityDetailService.GetTop(OrgId, TimeType, pageSize, pageIndex,out int total);
+            return Json(new { total, rows = PageData.ToList() }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult OrgTalkData()
+        {
+            int pageSize = int.Parse(Request["pageSize"] ?? "5");
+            int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
+            int OrgId = int.Parse(Request["OrgId"] ?? "-1");
+            int TimeType = int.Parse(Request["TimeType"] ?? "1");
+            var PageData = TalksService.GetTop(OrgId, TimeType, pageSize, pageIndex, out int total);
+            return Json(new { total, rows = PageData.ToList() }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ActivityData()
@@ -43,7 +70,7 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int OrgId = int.Parse(Request["OrgId"] ?? "-1");
             int TimeType = int.Parse(Request["TimeType"] ?? "1");
-            var PageData = ActivityDetailService.GetTop(OrgId, TimeType, pageSize, pageIndex);
+            var PageData = ActivityDetailService.GetTop(OrgId, TimeType, pageSize, pageIndex, out int total);
             if (PageData.Count() > 0)
             {
                 return Json(new { msg = "success", data = PageData }, JsonRequestBehavior.AllowGet);
