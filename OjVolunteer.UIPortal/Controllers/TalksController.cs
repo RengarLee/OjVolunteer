@@ -95,14 +95,20 @@ namespace OjVolunteer.UIPortal.Controllers
 
                     if (data.TalkImagePath != null)
                     {
-                        var files = Directory.GetFiles(Request.MapPath(data.TalkImagePath));
-                        List<String> pathlist = new List<String>();
-                        foreach (var file in files)
+                        try
                         {
-                            int i = file.LastIndexOf("\\");
-                            pathlist.Add(data.TalkImagePath + file.Substring(i + 1));
+                            var files = Directory.GetFiles(Request.MapPath(data.TalkImagePath));
+                            List<String> pathlist = new List<String>();
+                            foreach (var file in files)
+                            {
+                                int i = file.LastIndexOf("\\");
+                                pathlist.Add(data.TalkImagePath + file.Substring(i + 1));
+                            }
+                            talk.ImagePath = pathlist;
                         }
-                        talk.ImagePath = pathlist;
+                        catch (Exception)
+                        {
+                        }
                     }
                     talk.UserInfoId = (int)data.UserInfoID;
                     talk.Favors = FavorsService.GetEntities(u => u.TalkID == talk.TalkID && u.UserInfoID == LoginUser.UserInfoID).Count()>0;
