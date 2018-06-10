@@ -46,6 +46,7 @@
                     type: 2,
                     content: "/OrganizeInfo/Create",
                     title: '添加组织',
+                    shadeClose: true,
                     area: ['800px', '400px'],
                 });
             });
@@ -198,8 +199,7 @@
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
                         type: 2,
-                        title: false,
-                        closeBtn: 0,
+                        title: '组织详情',
                         maxmin: false,
                         shadeClose: true,
                         closeBtn: 1,
