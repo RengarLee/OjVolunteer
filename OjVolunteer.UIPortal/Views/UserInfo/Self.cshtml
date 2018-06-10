@@ -201,8 +201,13 @@
                     var jsonData = JSON.parse(xhr.responseText);
                     if (jsonData["msg"] == "success") {
                         $("#upload").attr("src", jsonData["src"]);
+                        layer.msg('修改头像成功！', { icon: 1 });
+                    } else {
+                        layer.msg('头像更换失败，请稍后再试', { icon: 2 });
                     }
                     clearInterval(loop);
+                } else {
+                    layer.msg('头像更换失败，请稍后再试', { icon: 2 });
                 }
             };
             xhr.send(formdata);

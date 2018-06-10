@@ -103,7 +103,6 @@
             $("#btnUpdate").click(function () {
                 $.post("/OrganizeInfo/Edit", $("#form1").serializeArray(), function (data) {
                     if (data != "success") {
-                        //alert("资料修改出错，请稍后再试")
                         layer.alert('资料修改出错，请稍后再试', {
                             icon: 2,
                             end: function () {
