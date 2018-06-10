@@ -57,7 +57,11 @@
                     $.post("/OrganizeInfo/UpdatePwd", $("#form1").serialize(), function (data) {
                         if (data["msg"] == "success") {
                             layer.alert('修改密码成功！', {
-                                icon: 1
+                                icon: 1,
+                                end: function () {
+                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                    parent.layer.close(index); //再执行关闭   
+                                }
                             });
                         } else if (data["msg"] == "fail") {
                             ayer.alert('更改失败请稍后再试!', {
