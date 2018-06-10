@@ -278,11 +278,14 @@ namespace OjVolunteer.UIPortal.Controllers
         [HttpPost]
         public JsonResult Edit(UserEnroll userEnroll)
         {
+            var temp = UserEnrollService.GetEntities(u => u.UserEnrollID == userEnroll.UserEnrollID).FirstOrDefault();
             TimeSpan timeSpan = (TimeSpan)(userEnroll.UserEnrollActivityEnd - userEnroll.UserEnrollActivityStart);
-            decimal Time = timeSpan.Hours * 60 + timeSpan.Minutes;
-            userEnroll.ActivityTime = Time;
-            userEnroll.Status = delNormal;
-            if (UserEnrollService.Update(userEnroll))
+            decimal Time = (decimal)(timeSpan.Hours + (double)timeSpan.Minutes/60);
+            temp.UserEnrollActivityStart = userEnroll.UserEnrollActivityStart;
+            temp.UserEnrollActivityEnd = userEnroll.UserEnrollActivityEnd;
+            temp.ActivityTime = Time;
+            temp.Status = delNormal;
+            if (UserEnrollService.Update(temp))
             {
                 return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
             }

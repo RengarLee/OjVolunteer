@@ -391,7 +391,7 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == id, u => u.ActivityID, true).Select(u => new { u.UserEnrollID, u.UserInfoID, u.UserInfo.UserInfoShowName, u.UserEnrollActivityStart, u.UserEnrollActivityEnd, u.ActivityTime }).AsQueryable();
+            var pageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == id, u => u.ActivityID, true).Select(u => new { u.UserEnrollID, u.UserInfoID,u.UserInfo.UserInfoLoginId, u.UserInfo.UserInfoShowName, u.UserEnrollActivityStart, u.UserEnrollActivityEnd, u.ActivityTime }).AsQueryable();
             //var data = new { total = pageData.Count(), rows = pageData.ToList() };
             return Json(pageData, JsonRequestBehavior.AllowGet);
         }
