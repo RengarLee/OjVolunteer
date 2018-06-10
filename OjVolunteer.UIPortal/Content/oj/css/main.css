@@ -766,7 +766,6 @@ a:active{
 		font-size: 70px;
 		position: absolute;
 		right: 40px;
-		z-index: 999;
 		color:#C62F2F;
 		transform:rotate(-30deg);
 		-ms-transform:rotate(-30deg); /* Internet Explorer */
@@ -791,6 +790,7 @@ a:active{
 	}
 	.myfeel-item .feel-item-info .info-img img{
 		width: 50px;
+        height:50px;
 		border-radius: 50%;
 	}
 	.myfeel-item .feel-item-info .info-name{
