@@ -8,8 +8,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
 
 
+    
+</head>
+<body>
+
+
+    <div id="toolbar" class="btn-group">
+        <button id="btn_agrees" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
+        </button>
+        <button id="btn_removes" type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+        </button>
+    </div>
+    <div>
+        <table id="tb_organize"></table>
+    </div>
 
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
@@ -18,6 +35,8 @@
     <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
     <script type="text/javascript">
         $(function () {
             //初始化表格
@@ -36,23 +55,23 @@
             $("#tb_organize").bootstrapTable('destroy');
             $('#tb_organize').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
-                url: '/OrganizeInfo/GetAllOrganizeOfAuditing',         
-                method: 'post',                      
+                url: '/OrganizeInfo/GetAllOrganizeOfAuditing',
+                method: 'post',
                 toolbar: '#toolbar',
-                striped: true,                      
-                cache: false,                       
-                pagination: true,                   
+                striped: true,
+                cache: false,
+                pagination: true,
                 queryParams: queryParam,
-                sidePagination: "server",           
-                pageNumber: 1,                      
-                pageSize: 10,                       
-                pageList: [10, 20, 50, 100],        
+                sidePagination: "server",
+                pageNumber: 1,
+                pageSize: 10,
+                pageList: [10, 20, 50, 100],
                 smartDisplay: false,
-                showColumns: true,                  
-                showRefresh: true,                  
-                minimumCountColumns: 3,             
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 3,
                 clickToSelect: true,
-                uniqueId: "OrganizeInfoID",                    
+                uniqueId: "OrganizeInfoID",
                 columns: [
                     {
                         field: 'checked',
@@ -148,7 +167,7 @@
                 return row;
             });
             if (selectedRows.length <= 0) {
-                alert("至少选中一个选项");
+                layer.alert("至少选中一个选项");  
             }
             var ids = "";
             for (var key in selectedRows) {
@@ -158,11 +177,11 @@
             $.post("/OrganizeInfo/EditOfList", { ids, ids }, function (data) {
                 if (data == "success") {
                     initTable();
-                    alert("操作成功");
+                    layer.alert("操作成功");
                 } else if (data == "null") {
-                    alert("至少选择一列");
+                    layer.alert("至少选择一列");
                 } else {
-                    alert("操作失败,请稍后再试");
+                    layer.alert("操作失败,请稍后再试");
                 }
             });
         }
@@ -172,11 +191,11 @@
             $.post("/OrganizeInfo/EditOfList", { ids: data }, function (data) {
                 if (data == "success") {
                     initTable();
-                    alert("操作成功");
+                    layer.alert("操作成功");
                 } else if (data == "null") {
-                    alert("至少选择一列");
+                    layer.alert("至少选择一列");
                 } else {
-                    alert("操作失败,请稍后再试");
+                    layer.alert("操作失败,请稍后再试");
                 }
             });
         }
@@ -187,7 +206,7 @@
                 return row;
             });
             if (selectedRows.length <= 0) {
-                alert("至少选中一个选项");
+                layer.alert("至少选中一个选项");
             }
             var ids = "";
             for (var key in selectedRows) {
@@ -198,11 +217,11 @@
                 //初始化表格
                 initTable();
                 if (data == "success") {
-                    alert("删除成功");
+                    layer.alert("删除成功");
                 } else if (data == "null") {
-                    alert("至少选择一列");
+                    layer.alert("至少选择一列");
                 } else {
-                    alert("删除失败,请稍后再试");
+                    layer.alert("删除失败,请稍后再试");
                 }
             });
         }
@@ -212,33 +231,16 @@
             $.post("/OrganizeInfo/DeleteOfList", { ids: data }, function (data) {
                 initTable();
                 if (data == "success") {
-                    alert("删除成功");
+                    layer.alert("删除成功");
                 } else if (data == "null") {
-                    alert("至少选择一列");
+                    layer.alert("至少选择一列");
                 } else {
-                    alert("删除失败,请稍后再试");
+                    layer.alert("删除失败,请稍后再试");
                 }
             })
         }
-
+            
 
     </script>
-</head>
-<body>
-
-
-    <div id="toolbar" class="btn-group">
-        <button id="btn_agrees" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <div>
-        <table id="tb_organize"></table>
-    </div>
-
-
 </body>
 </html>
