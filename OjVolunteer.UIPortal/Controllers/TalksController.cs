@@ -358,15 +358,13 @@ namespace OjVolunteer.UIPortal.Controllers
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
                 
-                var pageData = TalksService.GetPageEntities(pageSize,pageIndex, out int total,t => t.Status == delAuditing&& t.OrganizeInfoID == LoginOrganize.OrganizeInfoID && t.UserInfoID != null,u=>u.TalkID,true).Select(t => new { t.TalkID, t.UserInfoID, t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status }).AsQueryable();
+                var pageData = TalksService.GetPageEntities(pageSize,pageIndex, out int total,t => t.Status == delAuditing&& t.OrganizeInfoID == LoginOrganize.OrganizeInfoID && t.UserInfoID != null,u=>u.TalkID,true).Select(t => new { t.TalkID, t.UserInfoID, t.UserInfo.UserInfoShowName,t.UserInfo.UserInfoLoginId, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status }).AsQueryable();
                 var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                var pageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, t => t.Status == delAuditing && t.UserInfoID != null, u => u.TalkID, true).Select(t => new { t.TalkID, t.UserInfoID, t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status }).AsQueryable();
-
-                //var pageData = TalksService.GetEntities(t => t.Status == delAuditing).Select(t => new { t.TalkID, t.UserInfoID, t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status }).AsQueryable();
+                var pageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, t => t.Status == delAuditing && t.UserInfoID != null, u => u.TalkID, true).Select(t => new { t.TalkID, t.UserInfo.UserInfoLoginId, t.UserInfoID, t.UserInfo.UserInfoShowName, t.OrganizeInfoID, t.OrganizeInfo.OrganizeInfoShowName, t.ModfiedOn, t.TalkContent, t.Status }).AsQueryable();
                 var data = new { total =total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
