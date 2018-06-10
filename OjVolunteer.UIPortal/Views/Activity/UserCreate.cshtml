@@ -1,4 +1,5 @@
-﻿<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
+﻿@model OjVolunteer.Model.Activity
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,48 +17,49 @@
             <p>活动发布</p>
         </nav>
     </header>
-    <!-- 表单主体部分 -->
+
     <div class="release">
         <form class="layui-form" " action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">活动主题</label>
+                <label class="layui-form-label">活动名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" required lay-verify="required" placeholder="请输入活动主题" autocomplete="off" class="layui-input" value="呵呵呵">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">负责人姓名</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required lay-verify="required" placeholder="请输入负责人姓名" autocomplete="off" class="layui-input" value="桂花糕">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">联系方式</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input" value="哈哈哈">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入活动名称" autocomplete="off" class="layui-input" value="。">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">活动类型</label>
                 <div class="layui-input-block">
-                    <select name="city" lay-verify="required">
-                        <option value="2">社区服务</option>
-                        <option value="3">学校服务</option>
-                        <option value="4">社会服务</option>
-                    </select>
+                    @Html.DropDownList("ActivityTypeID", null, new { htmlAttributes = new { @lay_verify = "required" } })
                 </div>
             </div>
-
             <div class="layui-form-item">
-                <label class="layui-form-label">开始时间</label>
+                <label class="layui-form-label ">人数上限</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ActivityPrediNum, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|joinNumber|MaxNumber" } })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">报名开始时间</label>
                 <div class="layui-input-block">
                     <input type="text" name="title" required placeholder="请输入活动开始时间" autocomplete="off" class="layui-input" id="start-time">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">结束时间</label>
+                <label class="layui-form-label">报名结束时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required placeholder="请输入活动结束时间" autocomplete="off" class="layui-input" id="end-time">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动开始时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required placeholder="请输入活动开始时间" autocomplete="off" class="layui-input" id="start-time">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动结束时间</label>
                 <div class="layui-input-block">
                     <input type="text" name="title" required placeholder="请输入活动结束时间" autocomplete="off" class="layui-input" id="end-time">
                 </div>
