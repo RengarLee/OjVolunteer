@@ -4,8 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+    <style>
+        .form-content {
+            width: 96%;
+            margin: 0 auto;
+            margin-top: 70px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -37,12 +45,14 @@
                 </div>
             </div>
 
-            <div class="layui-form-item" style="text-align: center;">
+            <div class="layui-form-item" style="text-align: center;margin-top:60px;">
                 <button class="layui-btn" lay-submit lay-filter="changePass" id="passYes" style="background-color: #C62F2F;width: 250px;">确定修改</button>
             </div>
         </form>
-
     </div>
+    <a href="javascript:history.go(-1)" class="write-back">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/check.js"></script>
@@ -74,7 +84,7 @@
                         }
 
                     });
-                        
+
                 }
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
