@@ -150,7 +150,7 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 志愿者申请活动
-        [ActionAuthentication(AbleOrganize = false)]
+        [ActionAuthentication(AbleUser = true)]
         public ActionResult UserCreate()
         {
             var allActivityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
@@ -180,7 +180,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         [HttpPost]
         [ValidateInput(false)]
-        [ActionAuthentication(AbleOrganize = true)]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = true)]
         public JsonResult Create(Activity activity)
         {
             try
