@@ -28,9 +28,64 @@
             top:-340px;
             left:-585px;
         }
+
+
+
+        /*搜索按钮*/
+
+        #myInput {
+            background-image: url('https://static.runoob.com/images/mix/searchicon.png');
+            /* 搜索按钮 */
+            background-position: 10px 12px;
+            /* 定位搜索按钮 */
+            background-repeat: no-repeat;
+            /* 不重复图片*/
+            width: 100%;
+            font-size: 16px;
+            /* 加大字体 */
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myUL {
+            /* 移除默认的列表样式 */
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            position:absolute;
+            z-index:99;
+            width:610px;
+            margin-top:-12px;
+        }
+
+            #myUL li a {
+                border: 1px solid #ddd;
+                /* 链接添加边框 */
+                margin-top: -1px;
+                background-color: #f6f6f6;
+                padding: 12px;
+                text-decoration: none;
+                font-size: 18px;
+                color: black;
+                display: block;
+            }
+
+                #myUL li a.header {
+                    background-color: #e2e2e2;
+                    cursor: default;
+                }
+
+                #myUL li a:hover:not(.header) {
+                    background-color: #eee;
+                }
+        /*搜索按钮结束*/
     </style>
 </head>
 <body>
+
+
+
     <div class="layui-layout layui-layout-admin">
         <form id="form1" class="layui-form layui-form-pane acStart">
             <h2 class="acStart-title">发布活动</h2>
@@ -43,18 +98,12 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <div class="layui-inline acStart-left">
-                        <label class="layui-form-label ">负责人ID</label>
+                        <label class="layui-form-label ">负责人</label>
                         <div class="layui-input-block">
-                            @Html.EditorFor(model => model.ActivityManagerID, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
-                        </div>
-                    </div>
-                    <div class="layui-inline acStart-left">
-                        <button type="button" id="btnSer" name="btnSer" value="查找" class="layui-btn">查找</button>
-                    </div>
-                    <div class="layui-inline">
-                        <div id="manager" class="acStart-jieGuo"></div>
-                    </div>
+                            <input type="hidden" name="ActivityManager" id="ActivityMananager" />
+                            <input type="text" id="myInput" onkeyup="search(this)" placeholder="搜索..." class="layui-input">
+                            <ul id="myUL" hidden="hidden"></ul>
+                        </div>  
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label ">活动类型</label>
@@ -99,7 +148,7 @@
                     </div>
                     <div class="layui-inline acStart-short">
                         <div class="layui-upload">
-                            @Html.HiddenFor(Model=>Model.ActivityIcon)
+                            @Html.HiddenFor(Model => Model.ActivityIcon)
                             <button type="button" class="layui-btn" id="myimg">上传活动封面</button>
                             <div class="layui-upload-list">
                                 <img class="layui-upload-img" id="demo1">
@@ -169,6 +218,43 @@
     <script src="~/Content/oj/js/admin.js"></script>
     <script src="~/Content/oj/js/check.js"></script>
     <script type="text/javascript">
+
+        function search(input) {
+            var text = $(input).val();
+            if (text == null || text == "") {
+                $("#myUL").hide();
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/UserInfo/SearchActivityPeople",
+                data: { key: text },
+                dataType: "json",
+                success: function (data) {
+                    if (data["msg"] == "success") {
+                        //var usersHtml = '<li><a class="header">' + text + '</a></li>';
+                        var usersHtml = "";
+                        $.each(data["data"], function (index, val) {
+                            usersHtml += '<li><a onclick="result(this,' + val.UserInfoID + ')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
+                        });
+                        $("#myUL").html(usersHtml);
+                        $("#myUL").show();
+                    }
+                }
+            });
+        }
+
+        function result(e, value) {
+            var str = e.text
+            $("#myInput").val(e.text);
+            $("#ActivityMananager").val(value);
+        }
+        ////搜索负责人失去焦点事件
+        //$('#myInput').blur(function () {
+        //    $('#myUL').hide();
+        //})
+
+
         BindSearchKey();
 
         layui.use('upload', function () {
@@ -195,37 +281,37 @@
 
 
 
-            //日期组件
-            var huodong;
-            var baoming;
-            layui.use('laydate', function () {
-                var laydate = layui.laydate;
-                laydate.render({
-                    elem: '#timeRange',
-                    type: 'datetime',
-                    range: true
-                    , done: function (value, date, endDate) {
-                        huodong = date;
-                        console.log(huodong);
-                    }
-                });
-
-                var laydate1 = layui.laydate;
-                laydate.render({
-                    elem: '#timeEnrollRange',
-                    type: 'datetime',
-                    range: true
-                    , ready: function () {
-                        layer.tips('报名结束时间应比活动开始时间早！', '#timeEnrollRange', {
-                            tips: [1] //还可配置颜色
-                        });
-                    }
-                    , done: function (value, date, endDate) {
-                        baoming = endDate;
-                        console.log(baoming);
-                    }
-                });
+        //日期组件
+        var huodong;
+        var baoming;
+        layui.use('laydate', function () {
+            var laydate = layui.laydate;
+            laydate.render({
+                elem: '#timeRange',
+                type: 'datetime',
+                range: true
+                , done: function (value, date, endDate) {
+                    huodong = date;
+                    console.log(huodong);
+                }
             });
+
+            var laydate1 = layui.laydate;
+            laydate.render({
+                elem: '#timeEnrollRange',
+                type: 'datetime',
+                range: true
+                , ready: function () {
+                    layer.tips('报名结束时间应比活动开始时间早！', '#timeEnrollRange', {
+                        tips: [1] //还可配置颜色
+                    });
+                }
+                , done: function (value, date, endDate) {
+                    baoming = endDate;
+                    console.log(baoming);
+                }
+            });
+        });
 
         function checktime() {
             if (baoming.year > huodong.year) {
@@ -266,7 +352,7 @@
                 }
             }
         }
-        
+
         //查找负责人
         function BindSearchKey() {
             $('#btnSer').click(function () {
@@ -303,7 +389,7 @@
             $("#ActivityDepartment").val(Departmentresult);
         }
 
-       
+
         //富文本框
         var index;
         var layedit;
@@ -400,7 +486,7 @@
         }
 
         function BindSubmit() {
-                beforeSubmit();
+            beforeSubmit();
             layedit.sync(index);
             if (checktime()) {
                 layer.confirm('确定发布活动吗？', {
@@ -419,7 +505,7 @@
                 }, function () {
                     layer.msg('已取消');
                 });
-            }           
+            }
         }
         layui.use('form', function () {
             var form = layui.form;
@@ -429,7 +515,7 @@
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
         });
-       
+
     </script>
 </body>
 </html>
