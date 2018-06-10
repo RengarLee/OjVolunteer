@@ -150,8 +150,14 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
 
         #region 志愿者申请活动
+        [ActionAuthentication(AbleOrganize = false)]
         public ActionResult UserCreate()
         {
+            var allActivityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewBag.ActivityTypeID = (from u in allActivityType select new SelectListItem() { Selected = false, Text = u.ActivityTypeName, Value = u.ActivityTypeID + "" }).ToList();
+            ViewBag.MajorDict = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.MajorID, u => u.MajorName);
+            ViewBag.PoliticalDict = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.PoliticalID, u => u.PoliticalName);
+            ViewBag.DepartmentDict = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.DepartmentID, u => u.DepartmentName);
             return View();
         }
         #endregion
