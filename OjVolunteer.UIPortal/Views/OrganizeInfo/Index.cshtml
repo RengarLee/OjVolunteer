@@ -247,8 +247,8 @@
         $('#Info').on('click', function () {
             var index = layer.open({
                 type: 2,
-                title: false,
-                closeBtn: 0,
+                title: '更改资料',
+                closeBtn: 1,
                 maxmin: false,
                 shadeClose: true, //点击遮罩关闭层
                 area: ['600px', '700px'],
@@ -259,11 +259,11 @@
         $('#Pass').on('click', function () {
             var index = layer.open({
                 type: 2,
-                title: false,
-                closeBtn: 0,
+                title: '修改密码',
+                closeBtn: 1,
                 maxmin: false,
                 shadeClose: true,
-                area: ['600px', '700px'],
+                area: ['600px', '300px'],
                 content: '/OrganizeInfo/UpdatePwd/'
             });
         });

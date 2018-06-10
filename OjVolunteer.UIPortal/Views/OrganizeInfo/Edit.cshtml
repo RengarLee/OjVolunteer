@@ -107,8 +107,12 @@
                         return;
                     } else {
                         var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                        alert("资料修改成功");
+                        layer.alert('资料修改成功', {
+                            icon: 1,
+                            end: function () {
+                                parent.layer.close(index);
+                            }
+                        });
                     }
                 });
             });
