@@ -76,7 +76,7 @@
             @Html.HiddenFor(model => model.OrganizeInfoLoginId)
             <div class="form-btns">
                 <button type="button" class="layui-btn" id="btnUpdate" lay-submit>确定更改</button>
-                <button class="layui-btn" id="cancel" type="button">关闭页面</button>
+                <button class="layui-btn" id="cancel" type="button">取消更改</button>
             </div>
         </form>
     </div>
@@ -104,6 +104,12 @@
                 $.post("/OrganizeInfo/Edit", $("#form1").serializeArray(), function (data) {
                     if (data != "success") {
                         //alert("资料修改出错，请稍后再试")
+                        layer.alert('资料修改出错，请稍后再试', {
+                            icon: 2,
+                            end: function () {
+                                parent.layer.close(index);
+                            }
+                        });
                         return;
                     } else {
                         var index = parent.layer.getFrameIndex(window.name);
