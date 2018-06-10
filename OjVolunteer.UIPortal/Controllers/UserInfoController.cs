@@ -43,7 +43,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
+        [ActionAuthentication(AbleOrganize = true, AbleUser = true)]
         public JsonResult SearchActivityPeople()
         {
             //关键字
