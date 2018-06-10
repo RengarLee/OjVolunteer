@@ -7,7 +7,23 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    
+</head>
+<body>
 
+    <div id="toolbar" class="btn-group">
+        <input id="add_political" style="margin-left:15px;margin-right:10px;width:250px;"/>
+        <button id="btn_add" type="button" class="btn btn-default nofloat" style="float:none;">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
+        </button>
+        <button id="btn_removes" type="button" class="btn btn-default nofloat" style="float:none;">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
+        </button>
+        
+    </div>
+    <div>
+        <table id="tb_political"></table>
+    </div>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
@@ -94,7 +110,7 @@
                     },
                     {
                         field: 'ModfiedOn',
-                        title: '更新时间',
+                        title: '更新的时间',
                         visible: true,
                         width: '13%',
                         align: 'center',
@@ -162,21 +178,6 @@
 
 
     </script>
-</head>
-<body>
-
-    <div id="toolbar" class="btn-group">
-        <input id="add_political" />
-        <button id="btn_add" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-        </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
-        </button>
-    </div>
-    <div>
-        <table id="tb_political"></table>
-    </div>
 </body>
 </html>
 
