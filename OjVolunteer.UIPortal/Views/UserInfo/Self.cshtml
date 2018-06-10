@@ -71,6 +71,7 @@
             var uploadInst = upload.render({
                 elem: '#myimg'
                 , url: '/UserInfo/UploadIcon'
+                ,size:'2048'
                 , accept: 'images'
                 , done: function (res) {
                     if (res["msg"] == "fail") {
