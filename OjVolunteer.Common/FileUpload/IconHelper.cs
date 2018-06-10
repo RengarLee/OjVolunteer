@@ -25,17 +25,18 @@ namespace OjVolunteer.Common.FileUpload
                 filePath = filePath + str;
                 dirPath = dirPath + str;
 
-                //图片处理
-                Image srcImg = Image.FromStream(inFileBase.InputStream, true, true);
-                Bitmap outFileBase = new Bitmap(srcImg.Width / 3, srcImg.Height / 3);
-                Graphics graphics = Graphics.FromImage(outFileBase);
-                outFileBase.SetResolution(srcImg.HorizontalResolution, srcImg.VerticalResolution); 
-                graphics.DrawImage(srcImg, 0, 0, outFileBase.Width, outFileBase.Height);
+                //图片压缩处理
+                //Image srcImg = Image.FromStream(inFileBase.InputStream, true, true);
+                //Bitmap outFileBase = new Bitmap(srcImg.Width / 3, srcImg.Height / 3);
+                //Graphics graphics = Graphics.FromImage(outFileBase);
+                //outFileBase.SetResolution(srcImg.HorizontalResolution, srcImg.VerticalResolution); 
+                //graphics.DrawImage(srcImg, 0, 0, outFileBase.Width, outFileBase.Height);
 
-                outFileBase.Save(dirPath);
-                graphics.Dispose();
-                srcImg.Dispose();
-                outFileBase.Dispose();
+                //outFileBase.Save(dirPath);
+                //graphics.Dispose();
+                //srcImg.Dispose();
+                //outFileBase.Dispose();
+                inFileBase.SaveAs(dirPath);
                 fileName = filePath;
                 return true;
             }

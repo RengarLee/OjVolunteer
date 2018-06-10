@@ -623,6 +623,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\App\MobileImageUpload.js" />
+    <Content Include="Scripts\App\mobileimgupdata.js" />
     <Content Include="Scripts\bootstrap-table-filter-control.js" />
     <Content Include="Scripts\bootstrap-table-zh-CN.js" />
     <Content Include="Scripts\bootstrap-table.js" />
