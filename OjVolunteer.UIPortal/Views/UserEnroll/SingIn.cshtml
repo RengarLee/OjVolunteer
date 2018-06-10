@@ -71,7 +71,7 @@
             $("#Start").click(function () {
                 ActivityStart();
             });
-            var domain = window.location.host;
+            var domain = "http://"+window.location.host;
             var url = "/UserEnroll/QrCodeSignIn/?aid=@ViewBag.ActivityId";
             URL = domain + url;
             new QRCode(document.getElementById("qrcode"), URL);
