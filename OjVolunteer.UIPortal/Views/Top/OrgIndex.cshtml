@@ -43,29 +43,7 @@
             <table id="tb_activity"></table>
         </div>
         <br />
-        <div id="toolbar_talks" class="btn-group">
-            <select id="talk_org" lay-verify="required" lay-filter="talk">
-                <option value="-1">所有团队</option>
-                @{ 
-            foreach (var data in list)
-            {
-                <option value="@data.OrganizeInfoID">@data.OrganizeInfoShowName</option>
-    }
 
-                }
-
-            </select>
-            <select id="talk_time" lay-verify="required" lay-filter="talk">
-                <option value="1">月</option>
-                <option value="2">季</option>
-                <option value="3">年</option>
-                <option value="4">至今</option>
-            </select>
-
-        </div>
-        <div>
-            <table id="tb_talk" data-filter-control="true"></table>
-        </div>
     </form>
         <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
         <script src="~/Scripts/bootstrap-table.js"></script>
@@ -79,16 +57,12 @@
         <script type="text/javascript">
             $(function () {
                 initTable_Activity();
-                initTable_Talks();
             });
 
             layui.use('form', function () {
                 var form1 = layui.form;
                 form1.on('select(activity)', function (data) {
                     initTable_Activity();
-                });
-                form1.on('select(talk)', function (data) {
-                    initTable_Talks();
                 });
             });
 
@@ -163,76 +137,6 @@
                 });
             };
 
-            function initTable_Talks(queryParam) {
-                var offset_a;
-                $("#tb_talk").bootstrapTable('destroy');
-                $('#tb_talk').bootstrapTable({
-                    contentType: "application/x-www-form-urlencoded",
-                    url: '/Top/OrgTalkData',
-                    method: 'post',
-                    toolbar: '#toolbar_talk',
-                    striped: true,
-                    cache: false,
-                    pagination: true,
-                    queryParams: function (param) {
-                        var temp = {
-                            pageSize: param.limit,
-                            pageIndex: ((param.offset) / (param.limit)) + 1,
-                            OrgId: $("#talk_org option:selected").val(),
-                            TimeType: $("#talk_time option:selected").val(),
-                        }
-                        offset_a = param.offset;
-                        return temp;
-                    },
-                    sidePagination: "server",
-                    pageNumber: 1,
-                    pageSize: 10,
-                    pageList: [10, 20, 50, 100],
-                    smartDisplay: false,
-                    showColumns: true,
-                    showRefresh: true,
-                    minimumCountColumns: 3,
-                    clickToSelect: true,
-                    uniqueId: "UserInfoID",
-                    columns: [
-                        {
-                            field: 'ShowName',
-                            title: '排名',
-                            visible: true,
-                            width: '6%',
-                            align: 'center',
-                            formatter: function (value, row, index) {
-                                return offset_a + index + 1;
-                            },
-                        },
-                        {
-                            field: 'ShowName',
-                            title: '用户名称',
-                            visible: true,
-                            width: '6%',
-                            align: 'center',
-                        },
-                        {
-                            field: 'TalkNum',
-                            title: '点赞数',
-                            visible: true,
-                            width: '10%',
-                            align: 'center',
-                        },
-                    ],
-                    onDblClickRow: function (row, $element) {
-                        var index = layer.open({
-                            type: 2,
-                            title: false,
-                            closeBtn: 0,
-                            maxmin: false,
-                            shadeClose: true,
-                            area: ['800px', '830px'],
-                            content: '/UserInfo/OrgEditUser/' + row["UserInfoID"]
-                        });
-                    }
-                });
-            };
         </script>
 </body>
 </html>
