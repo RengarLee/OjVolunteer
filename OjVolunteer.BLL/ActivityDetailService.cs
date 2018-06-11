@@ -35,7 +35,7 @@ namespace OjVolunteer.BLL
                         temp.OrgId = t.OrganizeInfoID;
                         temp.Icon = t.UserInfoIcon;
                     }
-                    Common.Cache.CacheHelper.SetCache("ActMonthTop", list, DateTime.Now.AddMinutes(20));
+                    Common.Cache.CacheHelper.SetCache("ActMonthTop", list, DateTime.Now.AddDays(1));
                 }
 
             }
@@ -58,7 +58,7 @@ namespace OjVolunteer.BLL
                         temp.Icon = t.UserInfoIcon;
 
                     }
-                    Common.Cache.CacheHelper.SetCache("ActSeasonTop", list, DateTime.Now.AddMinutes(20));
+                    Common.Cache.CacheHelper.SetCache("ActSeasonTop", list, DateTime.Now.AddDays(1));
                 }
 
             }
@@ -80,27 +80,7 @@ namespace OjVolunteer.BLL
                         temp.OrgId = t.OrganizeInfoID;
                         temp.Icon = t.UserInfoIcon;
                     }
-                    Common.Cache.CacheHelper.SetCache("ActYearTop", list, DateTime.Now.AddMinutes(20));
-                }
-            }
-            if (TimeType == 4)//排行
-            {
-                list = Common.Cache.CacheHelper.GetCache("ActAllTop") as List<ActTopView>;
-                if (list == null)
-                {
-                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal).AsQueryable();
-                    list = (from u in Data
-                            group u by u.UserInfoId into grouped
-                            orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
-                            select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
-                    foreach (var temp in list)
-                    {
-                        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
-                        temp.ShowName = t.UserInfoShowName;
-                        temp.OrgId = t.OrganizeInfoID;
-                        temp.Icon = t.UserInfoIcon;
-                    }
-                    Common.Cache.CacheHelper.SetCache("ActAllTop", list, DateTime.Now.AddMinutes(20));
+                    Common.Cache.CacheHelper.SetCache("ActYearTop", list, DateTime.Now.AddDays (1));
                 }
             }
 
