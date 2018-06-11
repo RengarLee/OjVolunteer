@@ -66,7 +66,7 @@
         $(function () {
             GetSingData(0);
             $("#SingBtn").click(function () {
-                SingOutClick();
+                SignOutClick();
             });
             ScanImgShow();
             $("#End").click(function () {
@@ -117,7 +117,7 @@
         //签退人员数据
         function GetSingData(typeId) {
             $("#trlist tr").remove();
-            $.post("/UserEnroll/SingOutData", { activityId:@ViewBag.ActivityId, typeId: typeId }, function (data) {
+            $.post("/UserEnroll/SignOutData", { activityId:@ViewBag.ActivityId, typeId: typeId }, function (data) {
                 if (data["msg"] == "success") {
                     for (var i in data["data"]) {
                         var temp = data["data"][i];
@@ -155,7 +155,7 @@
         }
 
         //签退
-        function SingOutClick() {
+        function SignOutClick() {
             var temp = $(".layui-form-checked").prev().prev();
             var num = temp.length;
             if (temp.length < 1) {

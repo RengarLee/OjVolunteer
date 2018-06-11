@@ -109,10 +109,10 @@
         function SingBtn(typeId) {
             $.post("/Activity/IsEnd/", { Id: @Model.ActivityID,TypeId:typeId }, function (data) {
                 if (data["msg"] == 0) {
-                    window.location.href = "/UserEnroll/SingIn/?aId=@Model.ActivityID";
+                    window.location.href = "/UserEnroll/SignIn/?aId=@Model.ActivityID";
 
                 } else if (data["msg"] == 1) {
-                    window.location.href = "/UserEnroll/SingOut/?aId=@Model.ActivityID";
+                    window.location.href = "/UserEnroll/SignOut/?aId=@Model.ActivityID";
                 } else {
                     alert("活动已结束");
                 }

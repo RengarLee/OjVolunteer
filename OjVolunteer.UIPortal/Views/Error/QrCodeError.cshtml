@@ -1,18 +1,59 @@
 ﻿
-@{
-    Layout = null;
-}
-
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>QrCodeError</title>
+    <meta charset="UTF-8">
+    <title>签到</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+
+    <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+    <style type="text/css">
+        body {
+            background-color: #F7F7F7;
+        }
+
+        .qian-success {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -100px;
+            text-align: center;
+        }
+
+            .qian-success i {
+                font-size: 150px;
+                height: 150px;
+                line-height: 150px;
+            }
+
+            .qian-success p {
+                font-size: 20px;
+            }
+    </style>
 </head>
 <body>
-    <div> 
-        @ViewBag.Msg
+
+    <div class="qian-success">
+        @{if (ViewBag.IsSuccess)
+        {
+            <i class="layui-icon" style="color: #4EC895;">&#xe60c;</i>
+            <p style="color:#4EC895;">@ViewBag.Msg</p>
+    }
+    else
+    {
+        <i class="layui-icon" style="color: #C62F2F;">&#xe69c;</i>
+        <p style="color:#C62F2F;">@ViewBag.Msg</p>
+
+}}
+        <br />
+        <a href="@ViewBag.Home">返回首页</a>
     </div>
+
+    <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
 </body>
 </html>

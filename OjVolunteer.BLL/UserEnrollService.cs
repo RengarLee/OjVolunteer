@@ -20,6 +20,7 @@ namespace OjVolunteer.BLL
             {
                 temp.UserEnrollActivityStart = DateTime.Now;
                 temp.Status = delAuditing;
+                temp.ModfiedOn = temp.UserEnrollActivityStart;
             }
             return Update(Data);
         }
@@ -34,6 +35,7 @@ namespace OjVolunteer.BLL
                 TimeSpan timeSpan = (TimeSpan)(temp.UserEnrollActivityEnd - temp.UserEnrollActivityStart);
                 double Time = timeSpan.Hours + (double)timeSpan.Minutes/60;
                 temp.ActivityTime = (decimal)Time;
+                temp.ModfiedOn = temp.UserEnrollActivityEnd;
                 temp.Status = (short)Model.Enum.DelFlagEnum.Normal;
             }
             return Update(Data);

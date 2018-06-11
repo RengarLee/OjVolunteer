@@ -75,14 +75,14 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 列表活动签到签退
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public ActionResult SingIn(int aId)
+        public ActionResult SignIn(int aId)
         {
             ViewBag.ActivityId = aId;
             return View();
         }
 
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public JsonResult SingInData()
+        public JsonResult SignInData()
         {
             int typeId =Convert.ToInt32(Request["typeId"]);
             int activityId =Convert.ToInt32(Request["activityId"]);
@@ -120,14 +120,14 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public ActionResult SingOut(int aId)
+        public ActionResult SignOut(int aId)
         {
             ViewBag.ActivityId = aId;
             return View();
         }
 
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
-        public JsonResult SingOutData()
+        public JsonResult SignOutData()
         {
             int typeId = Convert.ToInt32(Request["typeId"]);
             int activityId = Convert.ToInt32(Request["activityId"]);
@@ -225,14 +225,13 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult QrCodeSignIn()
         {
             int activityId = Convert.ToInt32(Request["aid"]);
+
             var temp = UserEnrollService.GetEntities(u => u.ActivityID == activityId && u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
             if (temp != null)
             {
-                temp.ModfiedOn = DateTime.Now;
-                temp.UserEnrollActivityStart = DateTime.Now;
-                temp.Status = delAuditing;
-                if (UserEnrollService.Update(temp))
-                    return Redirect("/Activity/Details/?Id=" + activityId);
+
+                if (UserEnrollService.SignIn(activityId, new List<int> { LoginUser.UserInfoID }))
+                    return Redirect("/Error/QrCodeError/?Id=4&aId" + activityId);
                 else
                     return Redirect("/Error/QrCodeError/?Id=3");
             }
@@ -240,7 +239,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Redirect("/Error/QrCodeError/?Id=1");
             }
-            
+
         }
 
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
@@ -254,10 +253,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 {
                     return Redirect("/Error/QrCodeError/?Id=2");
                 }
-                temp.ModfiedOn = DateTime.Now;
-                temp.UserEnrollActivityEnd = DateTime.Now;
-                temp.Status = delNormal;
-                if (UserEnrollService.Update(temp))
+                if (UserEnrollService.SignOut(activityId, new List<int> { LoginUser.UserInfoID }))
                      return Redirect("/Error/QrCodeError/?Id=4&&aId="+activityId);
                 else
                     return Redirect("/Error/QrCodeError/?Id=3");
