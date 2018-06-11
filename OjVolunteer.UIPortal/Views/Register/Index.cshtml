@@ -27,7 +27,7 @@
                     个人
                 </a>
             </li>
-            <li><a href="#team" data-toggle="tab">组织</a></li>
+            <li><a href="#team" data-toggle="tab">团队</a></li>
         </ul>
 
         <div id="myTabContent" class="tab-content">
@@ -57,7 +57,7 @@
                         <input id="phonenumber" class="input forminput" name="phone" type="text" placeholder="请输入手机号" lay-verify="required|phone" />@*11位字符*@
                     </div>
                     <div class="select-item">
-                        <label class="tips">所在党组织:</label>
+                        <label class="tips">所属团队:</label>
                         @Html.DropDownList("OrganizeInfoList", null, new { @class = "input forminput", name = "organizeinfo" })
                     </div>
                     <div class="select-item">
@@ -71,7 +71,7 @@
                 }
             </div>
 
-            <!-- 下面为组织界面 -->
+            <!-- 下面为团队界面 -->
 
             <div class="tab-pane fade" id="team">
                 @using (Ajax.BeginForm("OrganizeRegister", "Register", new AjaxOptions { OnSuccess = "registerAfter" }, new { @class = "layui-form" }))
@@ -79,7 +79,7 @@
                     <h4 class="title">组 织</h4>
                     <div class="item">
                         <label class="tips">登录帐号:</label>
-                        <input id="teamname" class="input forminput" name="loginname" type="text" placeholder="用于组织登录,仅字母和数字,6-12个字符" onblur="validateName" lay-verify="required|userID" />
+                        <input id="teamname" class="input forminput" name="loginname" type="text" placeholder="用于团队登录,仅字母和数字,6-12个字符" onblur="validateName" lay-verify="required|userID" />
                     </div>
                     <div class="item">
                         <label class="tips">密码:</label>
@@ -90,8 +90,8 @@
                         <input id="r-repass" class="input forminput" name="pwd" type="password" placeholder="再次输入密码" lay-verify="required|orgrepass"/>
                     </div>
                     <div class="item">
-                        <label class="tips">组织名称:</label>
-                        <input id="r-teamname" class="input forminput" name="nickname" type="text" placeholder="请输入组织名称" lay-verify="required|orgname"/> @*2-15*@
+                        <label class="tips">团队名称:</label>
+                        <input id="r-teamname" class="input forminput" name="nickname" type="text" placeholder="请输入团队名称" lay-verify="required|orgname"/> @*2-15*@
                     </div>
                     <div class="item">
                         <label class="tips">负责人姓名:</label>
@@ -130,7 +130,7 @@
                     }
                 });
             else if (data == "organize")
-                layer.msg('注册成功，请等待组织审核', { icon: 1 });
+                layer.msg('注册成功，请等待团队审核', { icon: 1 });
             else if (data == "exist")
                 layer.msg('该登录名已存在', { icon: 2 });
             else

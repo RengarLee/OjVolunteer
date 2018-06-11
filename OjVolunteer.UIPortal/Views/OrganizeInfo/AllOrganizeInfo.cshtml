@@ -45,7 +45,7 @@
                 layer.open({
                     type: 2,
                     content: "/OrganizeInfo/Create",
-                    title: '添加组织',
+                    title: '添加团队',
                     shadeClose: true,
                     area: ['800px', '400px'],
                 });
@@ -78,7 +78,7 @@
                 columns: [
                     {
                         field: 'OrganizeInfoID',
-                        title: '组织编号',
+                        title: '团队编号',
                         visible: false,
                         align: 'center',
                         width: '6%',
@@ -86,7 +86,7 @@
                     },
                     {
                         field: 'OrganizeInfoLoginId',
-                        title: '组织用户名',
+                        title: '团队用户名',
                         visible: true,
                         width: '6%',
                         align: 'center',
@@ -94,7 +94,7 @@
                     },
                     {
                         field: 'OrganizeInfoShowName',
-                        title: '组织昵称',
+                        title: '团队名称',
                         visible: true,
                         width: '6%',
                         align: 'center',
@@ -102,7 +102,7 @@
                     },
                     {
                         field: 'OrganizeInfoPeople',
-                        title: '组织负责人',
+                        title: '负责人',
                         visible: true,
                         width: '6%',
                         align: 'center',
@@ -152,7 +152,7 @@
                     },
                     {
                         field: 'CreateTime',
-                        title: '组织创建时间',
+                        title: '团队创建时间',
                         visible: false,
                         width: '6%',
                         align: 'center',
@@ -199,7 +199,7 @@
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
                         type: 2,
-                        title: '组织详情',
+                        title: '团队详情',
                         maxmin: false,
                         shadeClose: true,
                         closeBtn: 1,

@@ -85,7 +85,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region OrganizeRegiste 组织用户注册
+        #region OrganizeRegiste 团队用户注册
 
         public ActionResult OrganizeRegister(string loginname, string pwd, string nickname, string people, string phone)
         {

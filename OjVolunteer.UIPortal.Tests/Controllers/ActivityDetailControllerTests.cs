@@ -16,7 +16,7 @@ namespace OjVolunteer.UIPortal.Controllers.Tests
         [TestMethod()]
         public void TopDataTest()
         {
-            //组织
+            //团队
             //int OrgId = int.Parse(Request["OrganizeInfoId"] ?? "-1");
             int OrgId = -1;
             //时间  全部  年 季度 月

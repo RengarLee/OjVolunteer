@@ -221,7 +221,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region 组织心得管理
+        #region 团队心得管理
         public ActionResult AllTalks()
         {
             return View();
@@ -265,7 +265,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 组织根据用户ID查看该用户发表的发表的心得列表
+        /// 团队根据用户ID查看该用户发表的发表的心得列表
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = true)]
@@ -285,7 +285,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
-        /// 组织根据组织ID获得组织其下发表的心得
+        /// 团队根据团队ID获得团队其下发表的心得
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = true)]
@@ -307,7 +307,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 组织根据心得ID查看心得详情
+        /// 团队根据心得ID查看心得详情
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -333,7 +333,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region 组织心得审核
+        #region 团队心得审核
         /// <summary>
         /// 进入心得审核界面
         /// </summary>

@@ -125,7 +125,7 @@ namespace OjVolunteer.BLL
         /// 返回用户Rank
         /// </summary>
         /// <param name="userId">用户Id</param>
-        /// <param name="OrgId">组织Id</param>
+        /// <param name="OrgId">团队Id</param>
         /// <param name="TimeType">时间类别</param>
         /// <param name="time">志愿者时长</param>
         /// <returns></returns>

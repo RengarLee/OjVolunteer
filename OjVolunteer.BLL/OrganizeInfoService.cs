@@ -129,16 +129,16 @@ namespace OjVolunteer.BLL
 
             var _data = orgData.ToList();
             NPOI.SS.UserModel.IRow row1 = sheet1.CreateRow(0);
-            row1.CreateCell(0).SetCellValue("志愿者组织ID");
-            row1.CreateCell(1).SetCellValue("组织登录名");
-            row1.CreateCell(2).SetCellValue("组织昵称");
+            row1.CreateCell(0).SetCellValue("志愿者团队ID");
+            row1.CreateCell(1).SetCellValue("团队登录名");
+            row1.CreateCell(2).SetCellValue("团队名称");
             row1.CreateCell(3).SetCellValue("负责人");
             row1.CreateCell(4).SetCellValue("联系方式");
             row1.CreateCell(5).SetCellValue("邮箱");
             row1.CreateCell(6).SetCellValue("活动数目");
             row1.CreateCell(7).SetCellValue("创建时间");
             row1.CreateCell(8).SetCellValue("最后登录时间");
-            row1.CreateCell(9).SetCellValue("组织状态");
+            row1.CreateCell(9).SetCellValue("团队状态");
             //将数据逐步写入sheet1各个行
 
             for (int i = 0; i < _data.Count; i++)
@@ -170,7 +170,7 @@ namespace OjVolunteer.BLL
         }
         #endregion
 
-        #region 组织添加
+        #region 团队添加
         public bool AddOrg(OrganizeInfo organizeInfo)
         {
             bool flag = false;

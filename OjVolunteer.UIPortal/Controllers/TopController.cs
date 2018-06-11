@@ -27,7 +27,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 组织查看排行榜界面
+        /// 团队查看排行榜界面
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true)]

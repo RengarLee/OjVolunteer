@@ -56,7 +56,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 组织查看活动详情
+        /// 团队查看活动详情
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -162,9 +162,9 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 组织申请活动
+        #region 团队申请活动
         /// <summary>
-        /// 组织进入活动申请界面
+        /// 团队进入活动申请界面
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true)]

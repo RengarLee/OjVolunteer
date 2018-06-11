@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">所属组织</label>
+                <label class="layui-form-label">所属团队</label>
                 <div class="layui-input-block">
                     @Html.DropDownListFor(Model => Model.OrganizeInfoID, ViewBag.OrganizeinfoList as IEnumerable<SelectListItem>, new { @class = "layui-input", @autocomplete = "off" })
                 </div>
@@ -108,14 +108,13 @@
                         if (data == "success") {
                             layer.msg('资料修改成功', { icon: 1 });
                         } else if (data == "fail") {
-                            //alert("资料修改出错，请稍后再试");
                         } else if (data == "auditing") {
-                            layer.msg('修改政治面貌后，需要组织审核通过后才可以正常参加志愿者活动', {
+                            layer.msg('修改政治面貌后，需要团队审核通过后才可以正常参加志愿者活动', {
                                 icon: 0,
                             });
                         }
                     });
-                    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                    return false; 
                 });
                 
             });

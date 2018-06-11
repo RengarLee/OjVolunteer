@@ -36,9 +36,9 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        #region  组织信息管理
+        #region  团队信息管理
         /// <summary>
-        /// 进入组织信息管理界面
+        /// 进入团队信息管理界面
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = false,Super =true)]
@@ -48,7 +48,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 加载组织信息
+        /// 加载团队信息
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize =true,AbleUser =false,Super = true)]
@@ -84,7 +84,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 添加组织
+        #region 添加团队
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public ActionResult Create()
         {
@@ -121,9 +121,9 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 组织账号申请审核
+        #region 团队账号申请审核
         /// <summary>
-        /// 进入组织信息审核界面
+        /// 进入团队信息审核界面
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
@@ -133,7 +133,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 加载未审核的组织信息
+        /// 加载未审核的团队信息
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
@@ -149,7 +149,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 批量删除申请的组织账号
+        /// 批量删除申请的团队账号
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
@@ -176,7 +176,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 批量通过组织申请
+        /// 批量通过团队申请
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
@@ -240,10 +240,10 @@ namespace OjVolunteer.UIPortal.Controllers
         #endregion
         #endregion
 
-        #region 组织修改组织信息
+        #region 团队修改团队信息
 
         /// <summary>
-        /// 查看组织详细页面,包括组织心得与组织活动
+        /// 查看团队详细页面,包括团队心得与团队活动
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -263,7 +263,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Edit(int id)
         {
-            //非最高等级组织用户欲编辑其他用户信息
+            //非最高等级团队用户欲编辑其他用户信息
             if (LoginOrganize.OrganizeInfoManageId != null && LoginOrganize.OrganizeInfoID != id)
             {
                 return Redirect("/OrganizeInfo/Index");

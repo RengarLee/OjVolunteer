@@ -38,21 +38,21 @@ namespace OjVolunteer.BLL
             //}
             #endregion
 
-            #region 组织ID
+            #region 团队ID
             if (!talkQueryParam.isSuper)
             {
                 temp = temp.Where(u => u.OrganizeInfoID == talkQueryParam.OrganizeInfoID).AsQueryable();
             }
             #endregion
 
-            #region 用户昵称
+            #region 用户名称
             if (!String.IsNullOrEmpty(talkQueryParam.UserInfoShowName))
             {
                 temp = temp.Where(u => u.UserInfo.UserInfoShowName.Contains(talkQueryParam.UserInfoShowName)).AsQueryable();
             }
             #endregion
 
-            #region 组织昵称
+            #region 团队名称
             if (!String.IsNullOrEmpty(talkQueryParam.OrganizeInfoShowName))
             {
                 temp = temp.Where(u => u.OrganizeInfo.OrganizeInfoShowName.Contains(talkQueryParam.UserInfoShowName)).AsQueryable();

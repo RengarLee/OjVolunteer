@@ -30,7 +30,7 @@ namespace OjVolunteer.Model
         /// 志愿者昵称
         /// </summary>
         [Required(ErrorMessage = "用户名不为空")]
-        [RegularExpression("^[\u4e00-\u9fa5]{2,10}$", ErrorMessage = "组织名称不符合规范")]
+        [RegularExpression("^[\u4e00-\u9fa5]{2,10}$", ErrorMessage = "团队名称不符合规范")]
         public string UserInfoShowName { get; set; }
 
         [RegularExpression("^\\d{11}$", ErrorMessage = "手机号不符合格式")]

@@ -22,7 +22,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region  政治面貌信息管理
         /// <summary>
-        /// 组织进入政治面貌信息管理界面
+        /// 团队进入政治面貌信息管理界面
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]

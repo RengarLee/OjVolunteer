@@ -14,11 +14,11 @@ namespace OjVolunteer.Model.Param
         public String TalkFavorsNum { get; set; }
         public String CreateTime { get; set; }
         /// <summary>
-        /// 组织ID
+        /// 团队ID
         /// </summary>
         public int OrganizeInfoID { get; set; }
         /// <summary>
-        /// 是否为最大组织
+        /// 是否为最大团队
         /// </summary>
         public bool isSuper { get; set; }
         /// <summary>

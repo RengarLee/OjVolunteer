@@ -56,7 +56,7 @@
             <div class="content-left">
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">组织名称</label>
+                    <label class="layui-form-label">团队名称</label>
                     <div class="layui-input-block">
                         @Html.EditorFor(model => model.OrganizeInfoShowName, new { htmlAttributes = new { autocomplete = "off", @class = "layui-input", lay_verify = "required|orgname" } })
                     </div>
@@ -368,7 +368,7 @@
         };
         function afterSubmit(data) {
             if (data == "success") {
-                layer.alert('更改组织信息成功！', { icon: 1 });
+                layer.alert('更改团队信息成功！', { icon: 1 });
             } else {
                 layer.alert('更改失败！', { icon: 2 });
             }

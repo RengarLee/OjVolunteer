@@ -10,7 +10,7 @@ namespace OjVolunteer.UIPortal.Filters
     public class ActionAuthenticationAttribute : ActionFilterAttribute
     {
         /// <summary>
-        /// 组织是否可以执行
+        /// 团队是否可以执行
         /// </summary>
         public bool AbleOrganize = false;
         /// <summary>
@@ -18,14 +18,14 @@ namespace OjVolunteer.UIPortal.Filters
         /// </summary>
         public bool AbleUser = false;
         /// <summary>
-        /// 是否为最高组织才可以执行
+        /// 是否为最高团队才可以执行
         /// </summary>
         public bool Super = false;
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (AbleUser && AbleOrganize)
             {
-            }//用户可以执行 组织可以执行
+            }//用户可以执行 团队可以执行
             else if (AbleUser && !AbleOrganize)
             {
                 String userLoginId = filterContext.HttpContext.Request.Cookies["userLoginId"].Value;
@@ -33,7 +33,7 @@ namespace OjVolunteer.UIPortal.Filters
                 {
                     filterContext.Result = new RedirectResult("~/OrganizeInfo/Index");
                 }
-            }//用户可以执行 组织不可以执行
+            }//用户可以执行 团队不可以执行
             else if (!AbleUser && AbleOrganize)
             {
                 String userLoginId = filterContext.HttpContext.Request.Cookies["userLoginId"].Value;
@@ -49,7 +49,7 @@ namespace OjVolunteer.UIPortal.Filters
                         filterContext.Result = new RedirectResult("~/OrganizeInfo/Index");
                     }
                 }
-            }//用户不可以执行 组织可以执行
+            }//用户不可以执行 团队可以执行
             else if (!AbleUser && !AbleOrganize)
             {
                 String userLoginId = filterContext.HttpContext.Request.Cookies["userLoginId"].Value;
@@ -62,7 +62,7 @@ namespace OjVolunteer.UIPortal.Filters
                 {
                     filterContext.Result = new RedirectResult("~/OrganizeInfo/Index");
                 }
-            }//用户不可以执行 组织不可以执行
+            }//用户不可以执行 团队不可以执行
             base.OnActionExecuting(filterContext);
         }
 

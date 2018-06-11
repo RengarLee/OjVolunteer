@@ -38,7 +38,7 @@ namespace OjVolunteer.BLL
             row1.CreateCell(6).SetCellValue("专业");
             row1.CreateCell(6).SetCellValue("学院");
             row1.CreateCell(7).SetCellValue("政治面貌");
-            row1.CreateCell(8).SetCellValue("组织名称");
+            row1.CreateCell(8).SetCellValue("团队名称");
             row1.CreateCell(9).SetCellValue("发表心得数目");
             row1.CreateCell(10).SetCellValue("创建时间");
             row1.CreateCell(11).SetCellValue("最后登录时间");
@@ -173,14 +173,14 @@ namespace OjVolunteer.BLL
             #endregion
             //TODO:Test
 
-            #region 组织ID
+            #region 团队ID
             if (!userQueryParam.isSuper)
             {
                 temp = temp.Where(u => u.OrganizeInfoID == userQueryParam.OrganizeInfoID).AsQueryable();
             }
             #endregion
 
-            #region 组织名称
+            #region 团队名称
             if (!String.IsNullOrEmpty(userQueryParam.OrganizeInfoShowName))
             {
                 temp = temp.Where(u => u.OrganizeInfo.OrganizeInfoShowName.Contains(userQueryParam.OrganizeInfoShowName)).AsQueryable();

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OjVolunteer.Model.Param
 {
     /// <summary>
-    /// 组织用户查询志愿者用户所使用的参数
+    /// 团队用户查询志愿者用户所使用的参数
     /// </summary>
     public class UserQueryParam:BaseParam
     {
@@ -49,15 +49,15 @@ namespace OjVolunteer.Model.Param
         public String DepartmentName { get; set; }
 
         /// <summary>
-        /// 组织昵ID
+        /// 团队昵ID
         /// </summary>
         public int OrganizeInfoID { get; set; }
         /// <summary>
-        /// 是否为最大组织
+        /// 是否为最大团队
         /// </summary>
         public bool isSuper { get; set; }
         /// <summary>
-        /// 组织昵称
+        /// 团队昵称
         /// </summary>
         public String OrganizeInfoShowName { get; set; }
         /// <summary>

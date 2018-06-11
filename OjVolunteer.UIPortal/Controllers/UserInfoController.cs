@@ -130,7 +130,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #region 志愿者政治面貌审核
         /// <summary>
-        /// 组织进入志愿者政治面貌审核界面
+        /// 团队进入志愿者政治面貌审核界面
         /// </summary>
         /// <returns></returns>
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
@@ -260,7 +260,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region 组织创建用户
+        #region 团队创建用户
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public ActionResult Create()
         {
@@ -476,7 +476,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         /// <summary>
-        /// 组织修改志愿者详细信息
+        /// 团队修改志愿者详细信息
         /// </summary>
         /// <param name="id">用户id</param>
         /// <returns></returns>
