@@ -720,8 +720,8 @@
     <Content Include="Views\UserInfo\Other.cshtml" />
     <Content Include="Views\Talks\TalksOfUser.cshtml" />
     <Content Include="Views\Talks\Create.cshtml" />
-    <Content Include="Views\UserEnroll\SingIn.cshtml" />
-    <Content Include="Views\UserEnroll\SingOut.cshtml" />
+    <Content Include="Views\UserEnroll\SignIn.cshtml" />
+    <Content Include="Views\UserEnroll\SignOut.cshtml" />
     <Content Include="Views\Error\QrCodeError.cshtml" />
     <Content Include="Views\Top\Index.cshtml" />
     <Content Include="Views\UserInfo\UpdatePwd.cshtml" />
