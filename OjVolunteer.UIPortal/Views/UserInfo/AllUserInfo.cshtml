@@ -79,22 +79,6 @@
                 uniqueId: "UserInfoID",
                 columns: [
                     {
-                        field: 'UserInfoID',
-                        title: '志愿者ID',
-                        visible: true,
-                        align: 'center',
-                        width: '6%',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserInfoLoginId',
-                        title: '登录名',
-                        visible: true,
-                        width: '6%',
-                        align: 'center',
-                        filterControl: 'input',
-                    },
-                    {
                         field: 'UserInfoStuId',
                         title: '学号',
                         visible: false,
@@ -104,7 +88,7 @@
                     },
                     {
                         field: 'UserInfoShowName',
-                        title: '用户名称',
+                        title: '真实姓名',
                         visible: true,
                         width: '6%',
                         align: 'center',
@@ -124,18 +108,12 @@
                         visible: false,
                         width: '6%',
                         align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["UserInfoEmail"] == null) {
-                                return '未填写';
-                            }
-                            return value;
-                        },
                         filterControl: 'input',
                     },
                     {
                         field: 'PoliticalName',
                         title: '政治面貌',
-                        visible: false,
+                        visible: true,
                         width: '6%',
                         align: 'center',
                         filterControl: 'input',
@@ -143,29 +121,25 @@
                     {
                         field: 'MajorName',
                         title: '专业',
-                        visible: false,
+                        visible: true,
                         width: '10%',
                         align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["MajorName"] == null) {
-                                return '未填写';
-                            }
-                            return value;
-                        },
                         filterControl: 'input',
                     },
                     {
                         field: 'DepartmentName',
-                        title: '所属学院',
-                        visible: false,
+                        title: '学院',
+                        visible: true,
                         width: '6%',
                         align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["DepartmentName"] == null) {
-                                return '未填写';
-                            }
-                            return value;
-                        },
+                        filterControl: 'input',
+                    },
+                    {
+                        field: 'OrganizeInfoShowName',
+                        title: '团队名称',
+                        visible: true,
+                        width: '6%',
+                        align: 'center',
                         filterControl: 'input',
                     },
                     {
@@ -180,14 +154,6 @@
                             }
                             return value;
                         },
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'OrganizeInfoShowName',
-                        title: '所属团队',
-                        visible: false,
-                        width: '6%',
-                        align: 'center',
                         filterControl: 'input',
                     },
                     {

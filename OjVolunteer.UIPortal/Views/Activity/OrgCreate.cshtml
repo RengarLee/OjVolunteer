@@ -207,7 +207,7 @@
                 <div class="acArticle-btn">
                     <div class="layui-form-item">
                         <button class="layui-btn" id="btnSubmit" type="button" lay-submit lay-filter="*">发布</button>
-                        <button type="reset" class="layui-btn layui-btn-primary" id="testbtn">取消发布</button>
+                        <button type="reset" class="layui-btn layui-btn-primary" id="testbtn">重置</button>
                     </div>
                 </div>
             </div>
@@ -238,7 +238,6 @@
                 dataType: "json",
                 success: function (data) {
                     if (data["msg"] == "success") {
-                        //var usersHtml = '<li><a class="header">' + text + '</a></li>';
                         var usersHtml = "";
                         $.each(data["data"], function (index, val) {
                             usersHtml += '<li><a onclick="result(this,' + val.UserInfoID + ')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
