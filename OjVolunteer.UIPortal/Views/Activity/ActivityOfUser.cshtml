@@ -1,171 +1,102 @@
-﻿@model OjVolunteer.Model.Activity
-
-<!-- 用的库是bootstrap和jquery，css和js文件均为main -->
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>瓯江志愿者网</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="~/Content/oj/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/oj/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/oj/css/iconfont.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+
 </head>
 <body>
-    @*@{
-            var data = ViewBag.data;
-        }*@
-    <header>
-
-        <nav class="top">
-            <p>活动详情</p>
+    <div class="action-bg">
+        <header>
+            <nav class="top">
+                <p>我的活动</p>
+            </nav>
+        </header>
+        <nav class="classnav">
+            <div class="layui-form" action="">
+                <div class="layui-form-item">
+                    <select id="TypeId" name="TypeId" lay-filter="aihao" onchange="selectchange()">
+                        <option value="0" title="0" selected="">我参加的</option>
+                        <option value="1" title="1">我负责的</option>
+                    </select>
+                </div>
+            </div>
         </nav>
-    </header>
-    <div class="acmore">
-        <img src="images/acmoreimg.jpg">
-        <div class="acmore-class">@Model.ActivityType.ActivityTypeName</div>
-    </div>
-    <!-- 活动简介 -->
-    <div class="acmoreinfo">
-        <div class="acmore-title">
 
-            <span>@Model.ActivityName</span>
-        </div>
-        <div class="acmore-title">
-            <span>时间：2018-1-13日 13:30-16:00</span>
-        </div>
-        <div class="acmore-title">
-            <span>截止：2018-1-13日  12:00</span>
-        </div>
-        <div class="acmore-title">
-            <span>活动地点：<a target="_blank" href="https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=@Model.ActivityAddress/vt=map">@Model.ActivityAddress</a></span>
-        </div>
-        <div class="acmore-title">
-            <a href="#" class="acmore-userinfo">
-                <img src="@Model.ManagerUserInfo.UserInfoIcon">
-                <span>队长：@Model.ManagerUserInfo.UserInfoShowName</span>
-                <i>查看队长详细信息</i>
-            </a>
-        </div>
-        <!-- 两个弹窗按钮 -->
-        <div class="acmore-button">
-            <!-- 联系方式按钮 -->
-            <button type="button" class="am-btn am-btn-primary"
-                    data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 200, height: 100}">
-                联系方式
-            </button>
-            <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
-                <div class="am-modal-dialog">
-                    <div class="am-modal-hd">
-                        联系方式
-                        <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-                    </div>
-                    <div class="am-modal-bd">
-                        12345678901
-                    </div>
-                </div>
-            </div>
-            <!-- 活动二维码按钮 -->
-            <button type="button" class="am-btn am-btn-primary"
-                    data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0, width: 300, height: 300}">
-                活动二维码
-            </button>
-            <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-2">
-                <div class="am-modal-dialog">
-                    <div class="am-modal-hd">
-                        二维码
-                        <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-                    </div>
-                    <div class="am-modal-bd">
-                        假装这里有个二维码
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="acmore-content">
-            <pre>
-    一、活动目的：
-   通过志愿者活动，将当代大学生乐于助人，乐于奉献的精神以一种崭新的姿态呈现给社会，将爱心的种子不断地传播下去，激起更多爱心之士加入志愿者的行列。
-活动的宗旨：
-   提供志愿服务、弘扬志愿精神。通过大批优秀大学生不断的努力，实践自我、提高自我、升华自我、大力宣传并发扬新一代中学生志愿者的奉献精神。
-活动的意义：
-  1、提升个人的精神境界。志愿者通过参与志愿服务工作，有机会为社会贡献自身的才学、能力，并在不同的岗位上发挥着自身的作用和优势，不单为社会作出了一定的贡献，弘扬了新风气、新风尚，而且人生的价值也在志愿活动当中得到体现，从中学会自觉地奉献精神和参与社会活动的责任感，精神境界得到升华。
-  2、提供学习机会。志愿者在参与志愿服务工作过程中，培养自己的团队、协调、交际及领导能力，学习新知识，提高自身素质。
-  3、 促进自身发展。在开展志愿者各项活动过程中，志愿者可通过对比发现别人的优点和自身的不足，并可以善加利用，取长补短，有助于自身的发展。
-二、注意事项
-  1、必须确保个人自身安全下参加活动，身体不适、有癫痫、哮喘等疾病的同学前提前通知报备。
-  2、活动中一定要牢记自己党员的身份，穿着志愿者马甲。
-  3、有事不能及时来时，请电话与队长联系。
-    </pre>
+        <div class="acbox">
+            <ul id="actul" class="ac-list"></ul>
         </div>
     </div>
-    @{
-        if (Model.ActivityEnrollEnd > DateTime.Now&& Model.ManagerUserInfo.UserInfoID != (int)ViewBag.UserId)
-        {
-            <a class="signnav" href="#">
-                <p>我要报名</p>
-            </a>
-        }
-        else
-        {
-            if (Model.ManagerUserInfo.UserInfoID != (int)ViewBag.UserId)
-            {
-                <a class="signnav" href="#">
-                    <p>开始签到</p>
-                </a>
-            }
-        }
-
-    }
-
-
-
-
-
-
-    <!-- 返回上一层组件 -->
-    <a href="javascript:history.go(-1)" class="header-back">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
-    <script src="~/Content/oj/js/amazeui.min.js"></script>
-    <script src="~/Content/oj/js/main.js"></script>
-    <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Content/layui/layui.all.js"></script>
+    <script src="~/Content/oj/js/admin.js"></script>
+    <script src="~/Scripts/App/datapattern.js"></script>
     <script type="text/javascript">
+        layui.use('form', function () {
+            var form = layui.form;
+            form.on('select(aihao)', function (data) {
+                $("li").remove();
+                var typeId = $("select option:selected").val();
+                GetActivityData(1, 5, typeId);
+            });
+        });
+
         $(function () {
-            GetActivityData(1, 5);
-            $("#ActivityTypeID").change(
-                function () {
-                    $("#list").empty();
-                    GetActivityData(1, 5, $(this).children('option:selected').val());
-                }
-            )
+            GetActivityData(1, 5, 0);
         });
 
         //加载活动数据
         function GetActivityData(pageIndex, pageSize, typeId) {
-            $.post("/Activity/GetListData", { pageIndex: pageIndex, pageSize: pageSize, typeId: typeId }, function (data) {
+            $.post("/Activity/ActivityOfUserData", { pageIndex: pageIndex, pageSize: pageSize, typeId: typeId }, function (data) {
+                $("#btnevent").remove();
                 if (data["msg"] == "success") {
-                    pageIndex = pageIndex + 1;
-                    var buffer = "";
-                    var item = data["data"];
-                    for (var i = 0; i < item.length; i++) {
-                        /**/
-                        buffer = buffer + "<li class='aclist-box clearfix'> <a href='#' class='aclist-box-img'><img src='" + item[i].ActivityIcon + "'></a><div class='aclist-box-info'><a href=''>" + item[i].ActivityName + "</a><span class='actime'>时间:" + TimeFormat(item[i].ActivityStart) + "-" + TimeFormat(item[i].ActivityEnd) + "</span><br> <span class='acendtime'>截止: " + TimeFormat(item[i].ActivityEnrollEnd) + "</span></div><div class='acbox-btn'><button  class='btnEnroll' activity=" + item[i].ActivityID + ">我要报名</button> </div></li>";
-                        /**/
+                    for (var i in data["data"]) {
+                        var temp = data["data"][i];
+                        //图片
+                        var li = $("<li class='aclist-box clearfix'></li>");
+                        var li_a = $("<a class='aclist-box-img' href='/Activity/Details/?Id=" + temp.ActivityID + "'></a>");
+                        var li_a_img = $("<img/>");
+                        li_a_img.attr("src", temp.ActivityIcon);
+                        li_a.append(li_a_img);
+
+                        var li_div = $("<div class='aclist-box-info'></div>");
+                        var li_div_a = $("<a href='/Activity/Details/?Id=" + temp.ActivityID + "'></a>");
+                        li_div_a.text(temp.ActivityName);
+                        var li_div_s1 = $("<span class='actime'></span>");
+                        li_div_s1.text("签到时间:" + TimeFormat(temp.UserEnrollActivityStart, "yyyy-MM-dd HH:mm"));
+                        var li_div_s2 = $("<span class='acendtime'></span>");
+                        li_div_s2.text("签退时间:" + TimeFormat(temp.UserEnrollActivityEnd, "yyyy-MM-dd HH:mm"));
+                        var li_div_s3 = $("<span class='acendtime'></span>");
+                        li_div_s3.text("活动时长:" + temp.ActivityTime+"小时");
+                        li_div.append(li_div_a);
+                        li_div.append(li_div_s1);
+                        li_div.append("<br>");
+                        li_div.append(li_div_s2);
+                        li_div.append("<br>");
+                        li_div.append(li_div_s3);
+
+                        li.append(li_a);
+                        li.append(li_div);
+                        $("#actul").append(li);
                     }
-                    buffer = buffer + "<input type='button' id='btnevent' pageIndex='";
-                    buffer = buffer + pageIndex + "' value='查看更多'/>";
-                    $("#btnevent").remove();
-                    $("#list").append(buffer);
-                    BindEnrollClickEvent();
+                    var btn_li = $("<li style='text-align:center;'></li>");
+                    var btn_input = $("<input type='button' id='btnevent' value='查看更多' style='border:none;background:#eee;'/>");
+                    pageIndex++;
+                    btn_input.attr("pageIndex", pageIndex);
+                    btn_li.append(btn_input);
+                    $("#actul").append(btn_li);
                     BindActivtyListClickEvent();
                 } else {
-                    $("#btnevent").remove();
-                    var buffer = "<p> 无更多活动</p>"
-                    $("#list").append(buffer);
+                    var btn_li = $("<li></li>");
+                    btn_li.text("无新内容");
+                    $("#actul").append(btn_li);
+
                 }
             });
 
@@ -181,21 +112,12 @@
             });
         }
 
-        //报名按钮绑定事件
-        function BindEnrollClickEvent() {
-            $(".btnEnroll").click(function () {
-                var activityId = $(this).attr("activity");
-                $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
-                    alert(data["msg"]);
-                });
-            });
-        }
-
         //时间戳转为时间
-        function TimeFormat(value) {
-            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+        function TimeFormat(value, str) {
+            return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern(str);
         }
     </script>
-
 </body>
 </html>
+
+
