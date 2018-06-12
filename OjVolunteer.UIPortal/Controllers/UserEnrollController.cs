@@ -39,35 +39,35 @@ namespace OjVolunteer.UIPortal.Controllers
             //已报名
             if (UserEnrollService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.ActivityID == activityId).Count() > 0)
             {
-                return Json(new { msg = "您已报名" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "exists" }, JsonRequestBehavior.AllowGet);
             }
 
             if (LoginUser.Status == delAuditing)
             {
-                return Json(new { msg = "您的政治面貌尚未审核，无法报名活动，请耐心等待审核！" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "audit" }, JsonRequestBehavior.AllowGet);
             }
             Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
             //报名条件
             if (activity.ActivityPrediNum <= activity.UserEnroll.Count() + 1)
             {
-                return Json(new { msg = "报名人数已满!" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "full" }, JsonRequestBehavior.AllowGet);
             }
             if (activity == null)
             {
-                return Json(new { msg = "报名失败,请稍后再试" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
             }
             if (activity.ActivityEnrollEnd < DateTime.Now)
             {
-                return Json(new { msg = "报名已结束" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "later" }, JsonRequestBehavior.AllowGet);
             }
             UserEnroll userEnroll = new UserEnroll { ActivityID = activityId, UserInfoID = LoginUser.UserInfoID, UserEnrollStart = DateTime.Now, Status = delInvalid,CreateTime = DateTime.Now };
             if (UserEnrollService.Add(userEnroll) != null)
             {
-                msg = "报名成功";
+                msg = "success";
             }
             else
             {
-                msg = "报名失败,请稍后再试";
+                msg = "fail";
             }
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }

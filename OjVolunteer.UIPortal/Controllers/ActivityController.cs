@@ -474,7 +474,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region 志愿者浏览志愿者商场
+        #region 志愿者浏览活动列表
         /// <summary>
         /// 志愿者用户进入活动列表
         /// </summary>
@@ -505,7 +505,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             if (PageData.Count() > 0)
             {
-                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID }).ToList() }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID,u.ActivityPrediNum,Count = u.UserEnroll.Count() }).ToList() }, JsonRequestBehavior.AllowGet);
             }
             else
             {
