@@ -82,10 +82,14 @@
                         li_div_s1.text("预计活动时间" + TimeFormat(temp.ActivityStart, "yyyy-MM-dd HH:mm") + "-" + TimeFormat(temp.ActivityEnd, "HH:mm"));
                         var li_div_s2 = $("<span class='acendtime'></span>");
                         li_div_s2.text("报名截止时间" + TimeFormat(temp.ActivityEnrollEnd, "yyyy-MM-dd HH:mm"));
+                        var li_div_s3 = $("<span class='acendtime'></span>");
+                        li_div_s3.text("招募:" + temp.ActivityPrediNum + "人   已报名:" + temp.Count +"人");
                         li_div.append(li_div_a);
                         li_div.append(li_div_s1);
                         li_div.append("<br>");
                         li_div.append(li_div_s2);
+                        li_div.append("<br>");
+                        li_div.append(li_div_s3);
 
                         var li_bdiv = $("<div class='acbox-btn'></div>");
                         li_bdiv.append("<button class='btn btnEnroll' activity='"+temp.ActivityID+"'>我要报名</button>");
@@ -129,7 +133,21 @@
             $(".btnEnroll").click(function () {
                 var activityId = $(this).attr("activity");
                 $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
-                    alert(data["msg"]);
+                    if (data["msg"] == "exists") {
+                        layer.msg("您已报名");
+                    } else if (data["msg"] == "audit") {
+                        layer.msg("您的政治面貌尚未审核，无法报名活动，请耐心等待审核！")
+                    } else if (data["msg"] == "full") {
+                        layer.msg("报名人数已满!");
+                    } else if (data["msg"] == "fail") {
+                        layer.msg("报名失败,请稍后再试!");
+                    } else if (data["msg"] == "later") {
+                        layer.msg("报名已结束!");
+                    } else if (data["msg"] == "success") {
+                        layer.msg("报名成功!");
+                        //操作位置
+
+                    }
                 });
             });
         }

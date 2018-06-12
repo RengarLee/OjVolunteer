@@ -474,7 +474,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         #endregion
 
-        #region 志愿者浏览志愿者商场
+        #region 志愿者浏览活动列表
         /// <summary>
         /// 志愿者用户进入活动列表
         /// </summary>
@@ -505,7 +505,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             if (PageData.Count() > 0)
             {
-                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID }).ToList() }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID,u.ActivityPrediNum,Count = u.UserEnroll.Count() }).ToList() }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -530,7 +530,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 历史活动界面
+        #region 我的界面
 
         /// <summary>
         /// 进入个人历史活动界面
@@ -550,25 +550,26 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             int pageSize = int.Parse(Request["pageSize"] ?? "5");
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
-            int UserInfoId = Convert.ToInt32(Request["userInfoId"]);
-            if (UserInfoId != LoginUser.UserInfoID)
+            int typeId = int.Parse(Request["typeId"] ?? "0");
+            int UserInfoId = LoginUser.UserInfoID;
+            if (typeId==0)//我参加的
             {
-                var PageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId && u.Status == delNormal, u => u.CreateTime, false).ToList();
+                var PageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId && u.Status == delNormal, u => u.CreateTime, false).Select(u=>new { u.Activity.ActivityName,u.Activity.ActivityIcon,u.UserEnrollActivityStart,u.UserEnrollActivityEnd,u.ActivityTime,u.ActivityID}).ToList();
                 if (PageData.Count > 0)
                 {
-                    return Json(new { msg = "success", PageData }, JsonRequestBehavior.AllowGet);
+                    return Json(new { msg = "success", data=PageData }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
                     return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
                 }
             }
-            else
+            else//我负责的
             {
-                var PageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId, u => u.CreateTime, false).ToList();
+                var PageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == UserInfoId && u.Status == delNormal&&u.Activity.ActivityManagerID == UserInfoId, u => u.CreateTime, false).Select(u => new { u.Activity.ActivityName, u.Activity.ActivityIcon, u.UserEnrollActivityStart, u.UserEnrollActivityEnd, u.ActivityTime, u.ActivityID }).ToList();
                 if (PageData.Count > 0)
                 {
-                    return Json(new { msg = "success", PageData }, JsonRequestBehavior.AllowGet);
+                    return Json(new { msg = "success", data = PageData }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

@@ -15,11 +15,18 @@
 
     <header>
         <nav class="top">
+            @{ if (@ViewBag.UserId == @ViewBag.LUserId)
+        {
             <p>我的心得</p>
+}
+else
+{
+        <p>他的心得</p>
+}
+            }
         </nav>
     </header>
     <div class="myfeel">
-
             <ul id="feelul" class="myfeel-list"></ul>
     </div>
 
@@ -68,14 +75,15 @@
             $.post("/Talks/TalkOfUserData", { userInfoId:@ViewBag.UserId, pageIndex: pageIndex, pageSize: pageSize }, function (data) {
                 $("#btnevent").remove();
                 if (data["msg"] == "success") {
-
                     for (var i in data["data"]) {
                         var temp = data["data"][i];
                         //上
                         var li = $("<li class='myfeel-item'></li>");
                         if (temp.Status == 0) {
-                            var i = $("<i class='iconfont icon-shenhetongguo feel-item-icon icon-green'></i>");
-                            li.append(i);
+                            if (@ViewBag.UserId== @ViewBag.LUserId) {
+                                var i = $("<i class='iconfont icon-shenhetongguo feel-item-icon icon-green'></i>");
+                                li.append(i);
+                            }
                         } else if (temp.Status == 1||temp.Status == 3) {
                             var i = $("<i class='iconfont icon-shenheshibai feel-item-icon icon-gray'></i>");
                             li.append(i);
@@ -83,7 +91,6 @@
                             var i = $("<i class='iconfont icon-shenhe-copy feel-item-icon'></i>");
                             li.append(i);
                         }
-
                         var li_div = $("<div class='feel-item-info clearfix'></div>");
                         //头像
                         var li_div_a = $("<a class='info-img'></a>");
