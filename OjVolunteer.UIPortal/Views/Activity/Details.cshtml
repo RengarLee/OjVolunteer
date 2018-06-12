@@ -41,6 +41,9 @@
             <span>活动地点：<a target="_blank" href="https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=@Model.ActivityAddress/vt=map">@Model.ActivityAddress</a></span>
         </div>
         <div class="acmore-title">
+            <span>详细地址：@Model.ActivityAddressDetail</span>
+        </div>
+        <div class="acmore-title">
             <a href="/UserInfo/Other/@Model.ActivityManagerID" class="acmore-userinfo">
                 <img src="@Model.ManagerUserInfo.UserInfoIcon">
                 <span>队长：@Model.ManagerUserInfo.UserInfoShowName<</span>
@@ -53,10 +56,10 @@
         @if (Model.ActivityManagerID == ViewBag.UserId)
     {
         <div class="acmore-button">
-            <button class="am-btn am-btn-primary"  onclick="SingBtn(0)" >
+            <button class="am-btn am-btn-primary" onclick="SingBtn(0)">
                 签到界面
             </button>
-            <button class="am-btn am-btn-primary"  onclick="SingBtn(1)">
+            <button class="am-btn am-btn-primary" onclick="SingBtn(1)">
                 签退界面
             </button>
         </div>

@@ -33,6 +33,7 @@
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
           <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="ActivityAddressDetail" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ActivityDetail">
           <Key>
@@ -660,6 +661,7 @@
           <NavigationProperty Name="ManagerUserInfo" Relationship="OjVolunteerModel.FK_ACTIVITYMANAGER_REFERENCE_USERINFO" FromRole="Activity" ToRole="UserInfo" />
           <NavigationProperty Name="ActivityType" Relationship="OjVolunteerModel.FK_ACTIVITYTYPE_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="ActivityType" />
           <NavigationProperty Name="UserEnroll" Relationship="OjVolunteerModel.FK_USERENRO_REFERENCE_ACTIVITY" FromRole="Activity" ToRole="UserEnroll" />
+          <Property Name="ActivityAddressDetail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ActivityDetail">
           <Key>
@@ -1166,7 +1168,8 @@
     <EntitySetMapping Name="Activity">
       <EntityTypeMapping TypeName="IsTypeOf(OjVolunteerModel.Activity)">
         <MappingFragment StoreEntitySet="Activity">
-          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+          <ScalarProperty Name="ActivityAddressDetail" ColumnName="ActivityAddressDetail" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
           <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
           <ScalarProperty Name="ActivityIcon" ColumnName="ActivityIcon" />
           <ScalarProperty Name="ActivityTypeID" ColumnName="ActivityTypeID" />
