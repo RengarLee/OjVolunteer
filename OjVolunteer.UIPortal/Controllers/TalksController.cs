@@ -131,6 +131,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult TalksOfUser(int Id)
         {
+            ViewBag.LUserId = LoginUser.UserInfoID;
             ViewBag.UserId = Id;
             return View();
         }
@@ -177,44 +178,48 @@ namespace OjVolunteer.UIPortal.Controllers
         private List<TalkView> LoadImagePath(IQueryable<Talks> Data)
         {
             List<TalkView> list = new List<TalkView>();
-            if (Data.Count() > 0)
-            {
-                foreach (var data in Data)
+
+                if (Data.Count() > 0)
                 {
-                    TalkView talk = new TalkView
+                    foreach (var data in Data)
                     {
-                        TalkID = data.TalkID,
-                        TalkFavorsNum = (int)data.TalkFavorsNum,
-                        CreateTime = (DateTime)data.CreateTime,
-                        Status = data.Status
-                    };
-                    if (data.UserInfo != null)
-                    {
-                        talk.ShowName = data.UserInfo.UserInfoShowName;
-                        talk.Icon = data.UserInfo.UserInfoIcon;
-                    }
-                    else
-                    {
-                        talk.ShowName = data.OrganizeInfo.OrganizeInfoShowName;
-                        talk.Icon = data.OrganizeInfo.OrganizeInfoIcon;
-                    }
-                    talk.TalkContent = data.TalkContent;
-
-                    if (data.TalkImagePath != null)
-                    {
-                        var files = Directory.GetFiles(Request.MapPath(data.TalkImagePath));
-                        List<String> pathlist = new List<String>();
-                        foreach (var file in files)
+                        TalkView talk = new TalkView
                         {
-                            int i = file.LastIndexOf("\\");
-                            pathlist.Add(data.TalkImagePath + file.Substring(i + 1));
+                            TalkID = data.TalkID,
+                            TalkFavorsNum = (int)data.TalkFavorsNum,
+                            CreateTime = (DateTime)data.CreateTime,
+                            Status = data.Status
+                        };
+                        if (data.UserInfo != null)
+                        {
+                            talk.ShowName = data.UserInfo.UserInfoShowName;
+                            talk.Icon = data.UserInfo.UserInfoIcon;
                         }
-                        talk.ImagePath = pathlist;
-                    }
-                    list.Add(talk);
-                }
+                        else
+                        {
+                            talk.ShowName = data.OrganizeInfo.OrganizeInfoShowName;
+                            talk.Icon = data.OrganizeInfo.OrganizeInfoIcon;
+                        }
+                        talk.TalkContent = data.TalkContent;
 
-            }
+                        if (data.TalkImagePath != null)
+                        {
+                        try
+                        {
+                            var files = Directory.GetFiles(Request.MapPath(data.TalkImagePath));
+                            List<String> pathlist = new List<String>();
+                            foreach (var file in files)
+                            {
+                                int i = file.LastIndexOf("\\");
+                                pathlist.Add(data.TalkImagePath + file.Substring(i + 1));
+                            }
+                            talk.ImagePath = pathlist;
+                        } catch { };
+                        }
+                        list.Add(talk);
+                    }
+
+                }
             return list;
         }
         #endregion
