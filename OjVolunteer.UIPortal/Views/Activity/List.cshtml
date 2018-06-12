@@ -18,29 +18,7 @@
 
     <div class="acbox">
         <ul id="actul" class="ac-list">
-            <li class="aclist-box">
-                <div class="clearfix">
-                    <a href="acmore.html" class="aclist-box-img">
-                        <img src="images/acimg.png">
-                    </a>
-                    <div class="aclist-box-info">
-                        <a href="acmore.html">1月13日（星期六下午）在温大北校区7号楼打扫703教室</a>
-                        <span class="actime">
-                            时间: 01.13 12:00-15:00
-                        </span>
-                        <br>
-                        <span class="acendtime">
-                            截止: 2018.04.06 18:00
-                        </span>
-                        <br /><br />
-                        <p>招募人数：<span>20</span>人</p>
-                        <p>已报名：<span>5</span>人</p>
-                        <div class="acbox-btn">
-                            <button class="btn">我要报名</button>
-                        </div>
-                    </div>
-                </div>
-            </li>
+            sss
         </ul>
     </div>
 </div>
@@ -79,17 +57,18 @@
                         var li_div_a = $("<a href='/Activity/Details/?Id=" + temp.ActivityID + "'></a>");
                         li_div_a.text(temp.ActivityName);
                         var li_div_s1 = $("<span class='actime'></span>"); 
-                        li_div_s1.text("预计活动时间" + TimeFormat(temp.ActivityStart, "yyyy-MM-dd HH:mm") + "-" + TimeFormat(temp.ActivityEnd, "HH:mm"));
+                        li_div_s1.text("活动时间:" + TimeFormat(temp.ActivityStart, "MM-dd HH:mm") + "-" + TimeFormat(temp.ActivityEnd, "HH:mm"));
                         var li_div_s2 = $("<span class='acendtime'></span>");
-                        li_div_s2.text("报名截止时间" + TimeFormat(temp.ActivityEnrollEnd, "yyyy-MM-dd HH:mm"));
-                        var li_div_s3 = $("<span class='acendtime'></span>");
-                        li_div_s3.text("招募:" + temp.ActivityPrediNum + "人   已报名:" + temp.Count +"人");
+                        li_div_s2.text("截止时间" + TimeFormat(temp.ActivityEnrollEnd, "yyyy-MM-dd HH:mm"));
+                        var li_div_s3 = $("<p>招募人数：<span>" + temp.ActivityPrediNum+"</span>人</p>");
+                        var li_div_s4 = $("<p>已报名：<span>" + temp.Count+"</span>人</p>");
                         li_div.append(li_div_a);
                         li_div.append(li_div_s1);
                         li_div.append("<br>");
                         li_div.append(li_div_s2);
-                        li_div.append("<br>");
+                        li_div.append("<br /><br />");
                         li_div.append(li_div_s3);
+                        li_div.append(li_div_s4);
 
                         var li_bdiv = $("<div class='acbox-btn'></div>");
                         li_bdiv.append("<button class='btn btnEnroll' activity='"+temp.ActivityID+"'>我要报名</button>");
