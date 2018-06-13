@@ -498,6 +498,9 @@ a:active{
 		margin: 0 auto;
 	}
 	/*活动列表部分*/
+    .red{
+        color:#C62F2F;
+    }
 	.acbox{
 		text-align: center;
 		margin-top: 5px;
@@ -545,9 +548,9 @@ a:active{
         margin-top:-30px;
 	}
 	.acbox-btn .btn{
-		background-color: #237B9F;
+		background-color: #C62F2F;
 		color: #fff;
-		width: 80px;
+		width: 85px;
 	}
 	.ac-bottom{
 		margin-top: -10px;

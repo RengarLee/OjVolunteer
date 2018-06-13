@@ -61,7 +61,7 @@
                         var li_div_s2 = $("<span class='acendtime'></span>");
                         li_div_s2.text("截止时间" + TimeFormat(temp.ActivityEnrollEnd, "yyyy-MM-dd HH:mm"));
                         var li_div_s3 = $("<p>招募人数：<span>" + temp.ActivityPrediNum+"</span>人</p>");
-                        var li_div_s4 = $("<p>已报名：<span>" + temp.Count+"</span>人</p>");
+                        var li_div_s4 = $("<p>已报名：<span class='red'>" + temp.Count+"</span>人</p>");
                         li_div.append(li_div_a);
                         li_div.append(li_div_s1);
                         li_div.append("<br>");
@@ -111,6 +111,7 @@
         function BindEnrollClickEvent() {
             $(".btnEnroll").click(function () {
                 var activityId = $(this).attr("activity");
+                var that = this;
                 $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
                     if (data["msg"] == "exists") {
                         layer.msg("您已报名");
@@ -123,9 +124,16 @@
                     } else if (data["msg"] == "later") {
                         layer.msg("报名已结束!");
                     } else if (data["msg"] == "success") {
-                        layer.msg("报名成功!");
-                        //操作位置
-
+                        layer.msg("报名成功!", {
+                            end: function () {
+                                var need_Num = Number($(that).parent().prev().prev().children("span").text());
+                                var join_Num = Number($(that).parent().prev().children(".red").text());
+                                if (join_Num < need_Num) {
+                                    join_Num++;
+                                    $(that).parent().prev().children(".red").text(join_Num);
+                                }
+                            }
+                        });
                     }
                 });
             });
