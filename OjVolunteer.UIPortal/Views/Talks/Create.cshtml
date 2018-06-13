@@ -60,25 +60,32 @@
     <script src="~/Content/oj/js/main.js"></script>
     <script>
     $(function () {
-            $("#btnSubmit").click(function () {
+        $("#btnSubmit").click(function () {
+            var TalkContent = $('#TalkContent');
                 var str = document.getElementById('TalkContent').value.trim();
-                var reg = /[\s\S]*<script>[\s\S]*<\/script>[\s\S]*$/;
+            var reg = /[\s\S]*<script>[\s\S]*<\/script>[\s\S]*$/;
+            if (TalkContent.val().length >= 6) {
                 if (!reg.test(str)) {
                     $.post("/Talks/Create", $("#from1").serializeArray(), function (data) {
                         if (data == "success") {
                             layer.msg("心得发表成功！,请等待审核！", {
-                                time:1000,
+                                time: 1000,
                                 end: function () {
                                     window.location.href = "/UserInfo/Index";
                                 }
                             });
                         } else {
-                            layer.msg('心得发表失败，请稍后再试！', { icon: 2 });
+                            layer.msg('心得发表失败，请稍后再试！', { time: 1000 });
                         }
                     });
                 } else {
-                    layer.alert('不能包含<script><//script>', { icon: 2 });
+                    layer.alert('不能包含非法字符', { icon: 2});
                 }
+            }
+            else {
+                layer.alert('心得不得少于6个字符', { icon:2 });
+            }
+               
             });
         });
 
