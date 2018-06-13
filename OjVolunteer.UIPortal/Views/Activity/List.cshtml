@@ -72,11 +72,12 @@
 
                         var li_bdiv = $("<div class='acbox-btn'></div>");
                         li_bdiv.append("<button class='btn btnEnroll' activity='"+temp.ActivityID+"'>我要报名</button>");
-                            
+                        li_div.append(li_bdiv);
+                        
                         li_new_div.append(li_a);
                         li_new_div.append(li_div);
                         li.append(li_new_div);
-                        li.append(li_bdiv);
+                        //li.append(li_bdiv);
                         $("#actul").append(li);
                     }
                     var btn_li = $("<li style='text-align:center;'></li>");

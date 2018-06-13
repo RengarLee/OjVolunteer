@@ -9,7 +9,8 @@ namespace OjVolunteer.BLL
 {
     public partial class ActivityService
     {
-        //private BadgeService BadgeService = new BadgeService();
+        short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
+
         public Boolean AddTime(int actId)
         {
             bool flag = false;
@@ -67,6 +68,30 @@ namespace OjVolunteer.BLL
                 flag = false;
             }
             return flag;
+        }
+
+        public Boolean AddActivity(Activity activity)
+        {
+            CurrentDal.Add(activity);
+            if (!(DbSession.SaveChanges() > 0))
+                return false;
+            UserEnroll userEnroll = new UserEnroll()
+            {
+                ActivityID = activity.ActivityID,
+                UserInfoID = activity.ActivityManagerID,
+                UserEnrollStart = activity.ActivityEnrollStart,
+                ModfiedOn = DateTime.Now,
+                CreateTime = DateTime.Now,
+                Status = delInvalid,
+            };
+            DbSession.UserEnrollDal.Add(userEnroll);
+            var org = DbSession.OrganizeInfoDal.GetEntities(u => u.OrganizeInfoID == activity.ActivityApplyOrganizeID).FirstOrDefault();
+            org.ActivityCount++;
+            DbSession.OrganizeInfoDal.Update(org);
+            if (DbSession.SaveChanges() > 0)
+                return true;
+            else
+                return false;
         }
 
     }

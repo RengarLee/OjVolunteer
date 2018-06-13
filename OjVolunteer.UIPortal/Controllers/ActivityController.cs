@@ -217,21 +217,9 @@ namespace OjVolunteer.UIPortal.Controllers
                 activity.ModfiedOn = activity.CreateTime;
                 activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
 
-                if (ActivityService.Add(activity) != null)
+                if (ActivityService.AddActivity(activity))
                 {
-                    UserEnroll userEnroll = new UserEnroll()
-                    {
-                        ActivityID = activity.ActivityID,
-                        UserInfoID = activity.ActivityManagerID,
-                        UserEnrollStart = activity.ActivityEnrollStart,
-                        ModfiedOn = DateTime.Now,
-                        CreateTime = DateTime.Now,
-                        Status = delInvalid,
-                    };
-                    if (UserEnrollService.Add(userEnroll) != null)
-                    {
-                        return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
-                    }
+                    return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
                 }
             }
             return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
