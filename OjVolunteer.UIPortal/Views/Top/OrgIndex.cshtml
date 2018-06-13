@@ -20,31 +20,35 @@
 <body>
     <form class="layui-form">
         <div id="toolbar_activity" class="btn-group">
+            <div class="layui-inline" style="margin-left:10px;width:200px;">
+                <select id="act_org" lay-verify="required" lay-filter="activity">
+                    <option value="-1">所有团队</option>
+                    @{ var list = ViewBag.OrganizeInfoList as List<OrganizeInfo>;
+            foreach (var data in list)
+            {
+                <option value="@data.OrganizeInfoID">@data.OrganizeInfoShowName</option>
+}
 
-            <select id="act_org" lay-verify="required" lay-filter="activity">
-                <option value="-1">所有团队</option>
-                @{ var list = ViewBag.OrganizeInfoList as List<OrganizeInfo>;
-                foreach (var data in list)
-                {
-                    <option value="@data.OrganizeInfoID">@data.OrganizeInfoShowName</option>
-        }
+                    }
 
-                }
+                </select>
+            </div>
+            <div class="layui-inline" style="margin-left:10px;width:200px;">
+                <select id="act_time" lay-verify="required" lay-filter="activity">
+                    <option value="1">月</option>
+                    <option value="2">季</option>
+                    <option value="3">年</option>
+                    <option value="4">至今</option>
+                </select>
+            </div>
+                
+            </div>
+            <div>
+                <table id="tb_activity"></table>
+            </div>
+            <br />
 
-            </select>
-            <select id="act_time" lay-verify="required" lay-filter="activity">
-                <option value="1">月</option>
-                <option value="2">季</option>
-                <option value="3">年</option>
-                <option value="4">至今</option>
-            </select>
-        </div>
-        <div>
-            <table id="tb_activity"></table>
-        </div>
-        <br />
-
-    </form>
+</form>
         <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
         <script src="~/Scripts/bootstrap-table.js"></script>
         <script src="~/Scripts/bootstrap.js"></script>
