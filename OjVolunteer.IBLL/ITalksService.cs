@@ -15,5 +15,6 @@ namespace OjVolunteer.IBLL
 
         List<TalkTopView> GetTop(int OrdId, int DateTime, int pageSize, int pageIndex, out int total);
 
+        bool AddTalks(Talks talks);
     }
 }

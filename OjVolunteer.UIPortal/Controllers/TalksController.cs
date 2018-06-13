@@ -457,7 +457,7 @@ namespace OjVolunteer.UIPortal.Controllers
             talks.ModfiedOn = DateTime.Now;
             talks.Status = delAuditing;
             talks.OrganizeInfoID = LoginUser.OrganizeInfoID;
-            if (TalksService.Add(talks)!=null)
+            if (TalksService.AddTalks(talks))
             {
                 return Content("success");
             }

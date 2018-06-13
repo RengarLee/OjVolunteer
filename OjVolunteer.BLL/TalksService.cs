@@ -80,7 +80,6 @@ namespace OjVolunteer.BLL
         }
         #endregion
 
-
         #region 排行榜
         public List<TalkTopView> GetTop(int OrdId, int TimeType, int pageSize, int pageIndex, out int total)
         {
@@ -185,5 +184,16 @@ namespace OjVolunteer.BLL
 
         #endregion
 
+        public bool AddTalks(Talks talks)
+        {
+            var user = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == talks.UserInfoID).FirstOrDefault();
+            user.UserInfoTalkCount++;
+            if (CurrentDal.Add(talks) != null && DbSession.UserInfoDal.Update(user)&&DbSession.SaveChanges()>0) {
+                return true;
+            }
+            else { 
+                return false;
+            }
+        }
     }
 }
