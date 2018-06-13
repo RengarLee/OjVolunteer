@@ -257,23 +257,6 @@
                             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
                         }
                     },
-                    {
-                        field: 'Status',
-                        title: '状态',
-                        visible: true,
-                        width: '6%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["Status"] == 2) {
-                                return '未审核';
-                            } else if (row["Status"] == 1) {
-                                return '已删除';
-                            } else if (row["Status"] == 0) {
-                                return '正常'
-                            }
-                        },
-                        filterControl: 'input',
-                    }
                 ],
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
@@ -319,14 +302,6 @@
                 uniqueId: "ActivityID",
                 columns: [
                     {
-                        field: 'ActivityID',
-                        title: 'Id',
-                        visible: false,
-                        align: 'center',
-                        width: '6%',
-
-                    },
-                    {
                         field: 'ActivityName',
                         title: '活动名称',
                         visible: true,
@@ -355,11 +330,10 @@
                     },
                     {
                         field: 'ActivityDetailTime',
-                        title: '志愿者时长',
+                        title: '活动时长',
                         visible: true,
                         width: '6%',
                         align: 'center',
-
                     },
                 ],
                 onDblClickRow: function (row, $element) {

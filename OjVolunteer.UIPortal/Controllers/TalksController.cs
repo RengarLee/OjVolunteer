@@ -30,8 +30,6 @@ namespace OjVolunteer.UIPortal.Controllers
             return View();
         }
 
-        #region  Query
-
         /// <summary>
         /// 通过路径查看图片
         /// </summary>
@@ -51,8 +49,6 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             return Json(new { total = imageList.Count(), data = imageList }, JsonRequestBehavior.AllowGet);
         }
-
-        #endregion
 
         #region 用户心得列表
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
@@ -284,7 +280,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 return Json(new { total = 0, rows = "" }, JsonRequestBehavior.AllowGet);
             }
             int userId = Convert.ToInt32(Request["userId"]);
-            var pageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == userId, u => u.CreateTime, false).Select(n => new { n.TalkID, n.UserInfo.UserInfoShowName, n.TalkImagePath, n.TalkFavorsNum, n.TalkContent, n.Status, n.CreateTime, n.ModfiedOn }).ToList();
+            var pageData = TalksService.GetPageEntities(pageSize, pageIndex, out int total, u => u.UserInfoID == userId&&u.Status==delNormal, u => u.CreateTime, false).Select(n => new { n.TalkID, n.UserInfo.UserInfoShowName, n.TalkImagePath, n.TalkFavorsNum, n.TalkContent, n.Status, n.CreateTime, n.ModfiedOn }).ToList();
 
             var data = new { total = total, rows = pageData };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -376,7 +372,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
         }
 
-        #region 评论审核
+        #region 心得审核
         /// <summary>
         /// 批量删除审核的心得
         /// </summary>
