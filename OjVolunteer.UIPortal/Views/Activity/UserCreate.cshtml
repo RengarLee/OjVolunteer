@@ -10,16 +10,6 @@
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
     <style>
-        #l-map {
-            height: 300px;
-            width: 300px;
-            display: none;
-        }
-
-        img {
-            height: 300px;
-            width: 300px;
-        }
 
         .layui-upload-img {
             width: 200px;
@@ -31,7 +21,13 @@
             top: -340px;
             left: -585px;
         }
-
+        .layui-form-pane .layui-form-label{
+            overflow:inherit;
+        }
+        .centerBtn{
+            text-align:center;
+            padding-bottom:20px;
+        }
     </style>
 </head>
 <body>
@@ -43,13 +39,13 @@
     </header>
 
     <div class="release">
-        <form class="layui-form" " action="" id="form1">
+        <form class="layui-form layui-form-pane" action="" id="form1">
             <input hidden name="ActivityManagerID" value="@ViewBag.UserId" />
 
             <div class="layui-form-item">
                 <label class="layui-form-label">活动名称</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|joinNumber|MaxNumber" } })
+                    @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|actionName" } })
                 </div>
             </div>
 
@@ -62,12 +58,12 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">活动地址</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityAddress, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|", id = "suggestId", size = "20" } })
+                    @Html.EditorFor(model => model.ActivityAddress, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required", id = "suggestId", size = "20" } })
                     @Html.HiddenFor(model => model.ActivityAddressX)
                     @Html.HiddenFor(model => model.ActivityAddressY)
                 </div>
                 <div class="layui-inline acStart-left">
-                    <div id="address" style="overflow:hidden;width:190px;white-space:nowrap;text-overflow:ellipsis;height:38px;line-height:38px;"></div>
+                    <div id="address" style="overflow:hidden;width:190px;white-space:nowrap;text-overflow:ellipsis;"></div>
                     <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                 </div>
             </div>
@@ -112,17 +108,15 @@
 
 
             <div class="layui-form-item">
-                <label class="layui-form-label">活动详情</label>
-                <textarea name="ActivityContent" required lay-verify="required" placeholder="请输入活动具体描述" class="layui-textarea"></textarea>
+                <label class="layui-form-label" style="width:100%;text-align:left;margin-bottom:-1px;">活动详情</label>
+                <textarea name="ActivityContent" required lay-verify="required" placeholder="请输入活动具体描述" class="layui-textarea" style="height:200px;"></textarea>
             </div>
 
 
-            <div class="">
-                <div class="">
-                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="*">发布</button>
+                <div class="centerBtn">
+                    <button class="layui-btn" lay-submit lay-filter="*" style="background-color:#C62F2F">发布</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
-            </div>
         </form>
         <div id="l-map"></div>
     </div>
