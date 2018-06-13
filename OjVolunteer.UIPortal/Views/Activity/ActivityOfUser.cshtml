@@ -8,6 +8,11 @@
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/iconfont.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+    <style>
+        .aclist-box-info{
+            padding:10px;
+        }
+    </style>
 
 </head>
 <body>
@@ -32,6 +37,9 @@
             <ul id="actul" class="ac-list"></ul>
         </div>
     </div>
+    <a href="javascript:history.go(-1)" class="write-back">
+        <span class="glyphicon glyphicon-chevron-left"> </span>
+    </a>
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Content/oj/js/bootstrap.min.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
@@ -68,12 +76,12 @@
                         var li_div = $("<div class='aclist-box-info'></div>");
                         var li_div_a = $("<a href='/Activity/Details/?Id=" + temp.ActivityID + "'></a>");
                         li_div_a.text(temp.ActivityName);
-                        var li_div_s1 = $("<span class='actime'></span>");
+                        var li_div_s1 = $("<span></span>");
                         li_div_s1.text("签到时间:" + TimeFormat(temp.UserEnrollActivityStart, "yyyy-MM-dd HH:mm"));
-                        var li_div_s2 = $("<span class='acendtime'></span>");
+                        var li_div_s2 = $("<span></span></br>");
                         li_div_s2.text("签退时间:" + TimeFormat(temp.UserEnrollActivityEnd, "yyyy-MM-dd HH:mm"));
-                        var li_div_s3 = $("<span class='acendtime'></span>");
-                        li_div_s3.text("活动时长:" + temp.ActivityTime+"小时");
+                        var li_div_s3 = $("<span></span>");
+                        li_div_s3.text("活动时长:"+temp.ActivityTime + "小时");
                         li_div.append(li_div_a);
                         li_div.append(li_div_s1);
                         li_div.append("<br>");
