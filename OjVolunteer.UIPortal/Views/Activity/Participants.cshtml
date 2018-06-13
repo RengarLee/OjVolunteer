@@ -29,11 +29,6 @@
             <button type="reset" class="layui-btn layui-btn-primary" id="cancel">不通过</button>
         </div>
     </div>
-    @*<button id="agree">
-        通过
-    </button>
-    <button id="cancel">不通过</button>*@
-
 
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Content/layui/layui.js"></script>
@@ -64,7 +59,6 @@
             });
 
             $("#cancel").click(function (data) {
-
                 layer.confirm('确定不通过审核吗', {
                     btn: ['确定', '取消'] //按钮
                 }, function () {
@@ -75,18 +69,6 @@
                 }, function () {
                     layer.msg('已取消');
                 });
-
-
-
-
-
-
-                @*$.post("/Activity/ActAccNotPass", { aId:@ViewBag.Id}, function (data) {
-                    alert(data);
-                });*@
-
-
-
             });
         });
 
@@ -98,28 +80,10 @@
                 uniqueId: "UserInfoID",
                 columns: [
                     {
-                        field: 'UserInfoID',
-                        title: '用户Id',
-                        width: '5%',
-                    },
-                    {
-                        field: 'UserInfoLoginId',
-                        title: '登录名',
-                        width: '5%',
-                    },
-                    {
                         field: 'UserInfoShowName',
-                        title: '用户昵称',
+                        title: '真实姓名',
                         visible: true,
                         width: '10%',
-                        editable: {
-                            type: 'text',
-                            title: '用户名',
-                            validate: function (v) {
-                                if (!v) return '用户名不能为空';
-
-                            }
-                        }
                     },
                     {
                         field: 'UserEnrollActivityStart',
