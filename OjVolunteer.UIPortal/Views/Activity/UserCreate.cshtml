@@ -58,7 +58,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">活动地址</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityAddress, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required", id = "suggestId", size = "20" } })
+                    @Html.EditorFor(model => model.ActivityAddress, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required", id = "suggestId", size = "20", placeholder = "请填写活动地址" } })
                     @Html.HiddenFor(model => model.ActivityAddressX)
                     @Html.HiddenFor(model => model.ActivityAddressY)
                 </div>
@@ -70,20 +70,20 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">详细地址</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityAddressDetail, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
+                    @Html.EditorFor(model => model.ActivityAddressDetail, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|moreAddress" ,maxlegth = "50" ,placeholder = "请补充上列活动地址" } })
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">报名开始时间</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityEnrollStart, new { htmlAttributes = new { @class = "layui-input", id = "enroll-start" } })
+                    @Html.EditorFor(model => model.ActivityEnrollStart, new { htmlAttributes = new { @class = "layui-input", id = "enroll-start"} })
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">报名结束时间</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityEnrollEnd, new { htmlAttributes = new { @class = "layui-input", id = "enroll-end" } })
+                    @Html.EditorFor(model => model.ActivityEnrollEnd, new { htmlAttributes = new { @class = "layui-input", id = "enroll-end", placeholder = "报名结束时间应早于活动开始时间" } })
                 </div>
             </div>
             <div class="layui-form-item">
@@ -133,6 +133,7 @@
     <script src="~/Content/layui/layui.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/main.js"></script>
+    <script src="~/Content/oj/js/check.js"></script>
     <script type="text/javascript">
         //时间控件
         layui.use('laydate', function () {

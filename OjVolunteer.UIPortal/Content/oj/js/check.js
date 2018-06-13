@@ -51,6 +51,10 @@ layui.use(['form','layer'],function(){
 		  	/^[0-9]*[1-9][0-9]*$/
 		  	,'人数上上限不能为负数'
             ]
+           ,moreAddress:[
+		  	/^[\S]{0,50}$/
+		  	,'详细地址不能超过50个字'
+            ]
           ,MaxNumber:function(value){
 		  	if(Number(value ) > 99){
 		  		return '人数上限最多只为99人';
