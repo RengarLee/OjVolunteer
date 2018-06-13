@@ -98,12 +98,12 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                        <label class="layui-form-label ">负责人</label>
-                        <div class="layui-input-block">
-                            <input type="hidden" name="ActivityManagerID" id="ActivityMananager" />
-                            <input type="text" id="myInput" onkeyup="search(this)" placeholder="搜索..." class="layui-input">
-                            <ul id="myUL" hidden="hidden"></ul>
-                        </div>  
+                    <label class="layui-form-label ">负责人</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="ActivityManagerID" id="ActivityMananager" />
+                        <input type="text" id="myInput" onkeyup="search(this)" placeholder="搜索..." class="layui-input">
+                        <ul id="myUL" hidden="hidden"></ul>
+                    </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label ">活动类型</label>
@@ -126,6 +126,12 @@
                         <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
                     </div>
 
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">详细地址</label>
+                    <div class="layui-input-block">
+                        @Html.EditorFor(model => model.ActivityAddressDetail, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
+                    </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">报名时间</label>
@@ -167,9 +173,9 @@
                                 @Html.HiddenFor(model => model.ActivityPolitical)
                                 @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
                                 @foreach (var key in PoliticalDict.Keys)
-                                {
-                                    <input type="checkbox" value="@key" typename="PoliticalDict" id="@key" title="@PoliticalDict[key]" checked />
-                                }
+                    {
+                        <input type="checkbox" value="@key" typename="PoliticalDict" id="@key" title="@PoliticalDict[key]" checked />
+        }
                             </div>
                         </div>
                         <div class="layui-colla-item">
@@ -178,9 +184,9 @@
                                 @Html.HiddenFor(model => model.ActivityMajor)
                                 @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
                                 @foreach (var key in MajorDict.Keys)
-                                {
-                                    <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]" checked />
-                                }
+                    {
+                        <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]" checked />
+        }
                             </div>
                         </div>
                         <div class="layui-colla-item">
@@ -189,9 +195,9 @@
                                 @Html.HiddenFor(model => model.ActivityDepartment)
                                 @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
                                 @foreach (var key in DepartmentDict.Keys)
-                                {
-                                    <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" checked />
-                                }
+                    {
+                        <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" checked />
+        }
                             </div>
                         </div>
                     </div>
@@ -201,7 +207,7 @@
                 <div class="acArticle-btn">
                     <div class="layui-form-item">
                         <button class="layui-btn" id="btnSubmit" type="button" lay-submit lay-filter="*">发布</button>
-                        <button type="reset" class="layui-btn layui-btn-primary" id="testbtn">取消发布</button>
+                        <button type="reset" class="layui-btn layui-btn-primary" id="testbtn">重置</button>
                     </div>
                 </div>
             </div>
@@ -232,7 +238,6 @@
                 dataType: "json",
                 success: function (data) {
                     if (data["msg"] == "success") {
-                        //var usersHtml = '<li><a class="header">' + text + '</a></li>';
                         var usersHtml = "";
                         $.each(data["data"], function (index, val) {
                             usersHtml += '<li><a onclick="result(this,' + val.UserInfoID + ')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';

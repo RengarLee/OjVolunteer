@@ -9,6 +9,30 @@
     <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+    <style>
+        #l-map {
+            height: 300px;
+            width: 300px;
+            display: none;
+        }
+
+        img {
+            height: 300px;
+            width: 300px;
+        }
+
+        .layui-upload-img {
+            width: 200px;
+            height: 130px;
+        }
+
+        .layui-code, .layui-upload-list {
+            position: absolute;
+            top: -340px;
+            left: -585px;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -20,16 +44,63 @@
 
     <div class="release">
         <form class="layui-form" " action="">
+            <input hidden name="ActivityManagerID" value="@ViewBag.UserId" />
+
             <div class="layui-form-item">
                 <label class="layui-form-label">活动名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" required lay-verify="required" placeholder="请输入活动名称" autocomplete="off" class="layui-input" value="。">
+                    @Html.EditorFor(model => model.ActivityName, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|joinNumber|MaxNumber" } })
                 </div>
             </div>
+
             <div class="layui-form-item">
                 <label class="layui-form-label">活动类型</label>
                 <div class="layui-input-block">
                     @Html.DropDownList("ActivityTypeID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动地址</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ActivityAddress, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|", id = "suggestId", size = "20" } })
+                    @Html.HiddenFor(model => model.ActivityAddressX)
+                    @Html.HiddenFor(model => model.ActivityAddressY)
+                </div>
+                <div class="layui-inline acStart-left">
+                    <div id="address" style="overflow:hidden;width:190px;white-space:nowrap;text-overflow:ellipsis;height:38px;line-height:38px;"></div>
+                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">详细地址</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ActivityAddressDetail, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required" } })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">报名开始时间</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ActivityEnrollStart, new { htmlAttributes = new { @class = "layui-input", id = "enroll-start" } })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">报名结束时间</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ActivityEnrollEnd, new { htmlAttributes = new { @class = "layui-input", id = "enroll-end" } })
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动开始时间</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ActivityStart, new { htmlAttributes = new { @class = "layui-input", id = "start" } })
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">活动结束时间</label>
+                <div class="layui-input-block">
+                    @Html.EditorFor(model => model.ActivityEnd, new { htmlAttributes = new { @class = "layui-input", id = "end" } })
                 </div>
             </div>
             <div class="layui-form-item">
@@ -38,39 +109,7 @@
                     @Html.EditorFor(model => model.ActivityPrediNum, new { htmlAttributes = new { @class = "layui-input", lay_verify = "required|joinNumber|MaxNumber" } })
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">报名开始时间</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required placeholder="请输入活动开始时间" autocomplete="off" class="layui-input" id="start-time">
-                </div>
-            </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">报名结束时间</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required placeholder="请输入活动结束时间" autocomplete="off" class="layui-input" id="end-time">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">活动开始时间</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required placeholder="请输入活动开始时间" autocomplete="off" class="layui-input" id="start-time">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">活动结束时间</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required placeholder="请输入活动结束时间" autocomplete="off" class="layui-input" id="end-time">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">活动地址</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" required placeholder="请输入活动结束时间" autocomplete="off" class="layui-input">
-                </div>
-            </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">活动详情</label>
@@ -85,6 +124,7 @@
                 </div>
             </div>
         </form>
+        <div id="l-map"></div>
     </div>
 
 
@@ -94,23 +134,122 @@
     <a href="javascript:history.go(-1)" class="header-back">
         <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=HisYFGGE2IDgsNH7xUAEQfExLIxpWwDh"></script>
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
-    <script src="~/Content/oj/js/bootstrap.min.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
     <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/oj/js/main.js"></script>
     <script type="text/javascript">
+        //时间控件
         layui.use('laydate', function () {
             var laydate = layui.laydate;
             laydate.render({
-                elem: '#start-time'
+                elem: '#enroll-start'
                 , type: 'datetime'
             });
 
             laydate.render({
-                elem: '#end-time'
+                elem: '#enroll-end'
+                , type: 'datetime'
+            });
+            laydate.render({
+                elem: '#start'
+                , type: 'datetime'
+            });
+
+            laydate.render({
+                elem: '#end'
                 , type: 'datetime'
             });
         });
+
+
+        // 百度地图API功能
+        function G(id) {
+            return document.getElementById(id);
+        }
+        var map = new BMap.Map("l-map");
+        map.centerAndZoom("温州", 12);
+
+        var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+            {
+                "input": "suggestId"
+                , "location": map
+            });
+        ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+            var str = "";
+            var _value = e.fromitem.value;
+            var value = "";
+            if (e.fromitem.index > -1) {
+                value = _value.province + _value.city + _value.district + _value.street + _value.business;
+            }
+            str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+            value = "";
+            if (e.toitem.index > -1) {
+                _value = e.toitem.value;
+                value = _value.province + _value.city + _value.district + _value.street + _value.business;
+            }
+            str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+            G("searchResultPanel").innerHTML = str;
+        });
+
+        var myValue;
+        ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+            var _value = e.item.value;
+            myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+            G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+            setPlace(myValue);
+        });
+        function setPlace(myValue) {
+            map.clearOverlays();    //清除地图上所有覆盖物
+            function myFun() {
+                var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+
+                var poi = local.getResults().getPoi(0);
+                var lng = String(pp.lng);
+                var lat = String(pp.lat);
+                $("#ActivityAddressX").val(lng.substring(0, lng.indexOf(".") + 3));
+                $("#ActivityAddressY").val(lat.substring(0, lng.indexOf(".") + 3));
+
+                map.centerAndZoom(pp, 18);
+                map.addOverlay(new BMap.Marker(pp));    //添加标注
+            }
+            var local = new BMap.LocalSearch(map, { //智能搜索
+                onSearchComplete: myFun
+            });
+            local.search(myValue);
+        }
+
+        function BindSubmit() {
+            beforeSubmit();
+            layedit.sync(index);
+            if (checktime()) {
+                layer.confirm('确定发布活动吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.post("/Activity/Create", $("#form1").serializeArray(), function (data) {
+                        if (data["msg"] == "success") {
+                            layer.msg('申请成功，请等待审核！', { icon: 1 });
+                        } else {
+                            layer.msg('出现错误,请稍后再试！', { icon: 2 });
+                        }
+                    });
+                }, function () {
+                    layer.msg('已取消');
+                });
+            }
+        }
+        layui.use('form', function () {
+            var form = layui.form;
+
+            form.on('submit(*)', function (data) {
+                BindSubmit();
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        });
+
     </script>
 </body>
 </html>

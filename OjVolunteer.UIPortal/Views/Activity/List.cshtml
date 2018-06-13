@@ -18,7 +18,6 @@
 
     <div class="acbox">
         <ul id="actul" class="ac-list">
-            sss
         </ul>
     </div>
 </div>
@@ -47,7 +46,8 @@
                     for (var i in data["data"]) {
                         var temp = data["data"][i];
                         //图片
-                        var li = $("<li class='aclist-box clearfix'></li>");
+                        var li = $("<li class='aclist-box'></li>");
+                        var li_new_div = $("<div class='clearfix'></div>");
                         var li_a = $("<a class='aclist-box-img' href='/Activity/Details/?Id=" + temp.ActivityID + "'></a>");
                         var li_a_img = $("<img/>");
                         li_a_img.attr("src", temp.ActivityIcon);
@@ -73,9 +73,9 @@
                         var li_bdiv = $("<div class='acbox-btn'></div>");
                         li_bdiv.append("<button class='btn btnEnroll' activity='"+temp.ActivityID+"'>我要报名</button>");
                             
-
-                        li.append(li_a);
-                        li.append(li_div);
+                        li_new_div.append(li_a);
+                        li_new_div.append(li_div);
+                        li.append(li_new_div);
                         li.append(li_bdiv);
                         $("#actul").append(li);
                     }
@@ -91,7 +91,6 @@
                     var btn_li = $("<li></li>");
                     btn_li.text("无新内容");
                     $("#actul").append(btn_li);
-                    
                 }
             });
 

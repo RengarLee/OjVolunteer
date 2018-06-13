@@ -66,12 +66,6 @@
                         checkbox: true,
                     },
                     {
-                        field: 'ActivityID',
-                        title: '活动Id',
-                        width: '5%',
-                        align: 'center',
-                    },
-                    {
                         field: 'ActivityName',
                         title: '活动名称',
                         visible: true,
@@ -81,7 +75,7 @@
                     },
                     {
                         field: 'UserInfoShowName',
-                        title: '活动申请人昵称',
+                        title: '活动申请人',
                         visible: true,
                         align: 'center',
                         width: '10%',
@@ -89,7 +83,7 @@
                     },
                     {
                         field: 'OrganizeInfoShowName',
-                        title: '活动申请团队名称',
+                        title: '活动申请团队',
                         width: '10%',
                         align: 'center',
                     },
@@ -113,18 +107,6 @@
                         width: '20%',
                         formatter: function (value, row, index) {
                             return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
-                        }
-                    },
-                    {
-                        field: 'Status',
-                        title: '状态',
-                        visible: true,
-                        align: 'center',
-                        width: '10%',
-                        formatter: function (value, row, index) {
-                            if (true) {
-                                return '未审核';
-                            }
                         }
                     },
                     {

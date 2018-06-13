@@ -30,7 +30,7 @@
 
     <script type="text/javascript">
         $(function () {
-            //初始化表格
+            
             initTable();
         });
 
@@ -61,24 +61,8 @@
 
                 columns: [
                     {
-                        field: 'TalkID',
-                        title: '心得ID',
-                        visible: true,
-                        align: 'center',
-                        width: '6%',
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'UserInfoLoginId',
-                        title: '志愿者登录名',
-                        visible: true,
-                        align: 'center',
-                        width: '6%',
-                        filterControl: 'input',
-                    },
-                    {
                         field: 'UserInfoShowName',
-                        title: '志愿者名称',
+                        title: '真实姓名',
                         visible: true,
                         width: '6%',
                         align: 'center',
@@ -86,7 +70,7 @@
                     },
                     {
                         field: 'OrganizeInfoShowName',
-                        title: '团队名称',
+                        title: '所属团队',
                         visible: true,
                         width: '6%',
                         align: 'center',
@@ -111,24 +95,6 @@
                                 return null;
                             else
                                 return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
-                        },
-                        filterControl: 'input',
-                    },
-                    {
-                        field: 'Status',
-                        title: '状态',
-                        visible: false,
-                        sortable: true,
-                        width: '6%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["Status"] == 2) {
-                                return '待审核';
-                            } else if (row["Status"] == 1) {
-                                return '已删除';
-                            } else if (row["Status"] == 0) {
-                                return '正常';
-                            }
                         },
                         filterControl: 'input',
                     },
