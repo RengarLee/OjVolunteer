@@ -542,13 +542,12 @@ a:active{
 	.acbox-btn{
 		text-align: right;
 		margin-right: 10px;
-        margin-top:-20px;
+        margin-top:-30px;
 	}
 	.acbox-btn .btn{
 		background-color: #237B9F;
 		color: #fff;
 		width: 80px;
-		margin-bottom: 20px;
 	}
 	.ac-bottom{
 		margin-top: -10px;
@@ -862,6 +861,7 @@ a:active{
 	}
 	.ac-list .aclist-box a{
 		display: block;
+        font-size:16px;
 	}
 	.aclist-box-img img{
 		width: 130px;
