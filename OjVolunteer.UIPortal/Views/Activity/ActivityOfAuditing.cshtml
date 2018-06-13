@@ -126,7 +126,15 @@
                         removeClickEvent($(this).attr("uid"));
                         return false;
                     })
-                }
+                },
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        title: '活动详情',
+                        type: 2,
+                        content: '/Activity/OrgSeeDetails/' + row["ActivityID"],
+                        area: ['1000px', '700px']
+                    });
+                },
             });
         };
 
