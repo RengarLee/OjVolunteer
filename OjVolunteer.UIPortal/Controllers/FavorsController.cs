@@ -1,5 +1,6 @@
 ﻿using OjVolunteer.IBLL;
 using OjVolunteer.Model;
+using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,13 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             return View();
         }
-
+        [LoginCheckFilter(BoolCheckLogin =false)]
         public ActionResult Create()
         {
+            if (LoginUser == null)
+            {
+                return Json(new { msg = "nologin" }, JsonRequestBehavior.AllowGet);
+            }
             int talkId = 0;
             if (String.IsNullOrEmpty(Request["talkId"]))
             {

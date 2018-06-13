@@ -201,6 +201,7 @@
     <Compile Include="Controllers\UserEnrollController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Filters\ActionAuthenticationAttribute.cs" />
+    <Compile Include="Filters\LoginCheckFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

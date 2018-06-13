@@ -43,7 +43,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Details(int Id)
         {
-            var activity = ActivityService.GetEntities(u=>u.ActivityID == Id).FirstOrDefault();
+            var activity = ActivityService.GetEntities(u => u.ActivityID == Id).FirstOrDefault();
             if (activity == null)
             {
                 return Redirect("/UserInfo/Index");
@@ -85,11 +85,11 @@ namespace OjVolunteer.UIPortal.Controllers
             String[] PoliticalIds = activity.ActivityPolitical.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var i in PoliticalIds)
             {
-                PoliticalStr += PoliticalService.GetEntities(u => u.PoliticalID.ToString().Equals(i)).FirstOrDefault().PoliticalName+"  ";
+                PoliticalStr += PoliticalService.GetEntities(u => u.PoliticalID.ToString().Equals(i)).FirstOrDefault().PoliticalName + "  ";
             }
             ViewBag.PoliticalStr = PoliticalStr;
             return View();
-        } 
+        }
         #endregion
 
         #region 活动开始结束
@@ -109,7 +109,7 @@ namespace OjVolunteer.UIPortal.Controllers
                     return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch 
+            catch
             {
 
             }
@@ -117,7 +117,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 activity.ActivityStart = DateTime.Now;
                 activity.ModfiedOn = activity.ActivityStart;
-                
+
                 if (ActivityService.Update(activity))
                 {
                     return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
@@ -186,7 +186,7 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             try
             {
-                if (LoginOrganize!=null)
+                if (LoginOrganize != null)
                 {
                     string[] EnrollTime = Request["EnrollTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
                     string[] ActivtiyTime = Request["ActivityTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
@@ -224,7 +224,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 {
                     activity.ActivityApplyUserInfoID = LoginUser.UserInfoID;
                     activity.ActivityApplyOrganizeID = LoginUser.OrganizeInfoID;
-                    activity.Status =delAuditing;
+                    activity.Status = delAuditing;
                     activity.ActivityDepartment = ",";
                     activity.ActivityMajor = ",";
                     activity.ActivityPolitical = ",";
@@ -366,7 +366,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             else
             {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.UserEnroll.Where(s=>s.Status==delNormal).Count() }).AsQueryable();
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, o => o.Status == delDoneAuditing, u => u.ActivityID, true).Select(u => new { u.ManagerUserInfo.OrganizeInfoID, u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.UserEnroll.Where(s => s.Status == delNormal).Count() }).AsQueryable();
                 var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -395,7 +395,7 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["limit"] ?? "5");
             int offset = int.Parse(Request["offset"] ?? "0");
             int pageIndex = (offset / pageSize) + 1;
-            var pageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == id, u => u.ActivityID, true).Select(u => new { u.UserEnrollID, u.UserInfoID,u.UserInfo.UserInfoLoginId, u.UserInfo.UserInfoShowName, u.UserEnrollActivityStart, u.UserEnrollActivityEnd, u.ActivityTime }).AsQueryable();
+            var pageData = UserEnrollService.GetPageEntities(pageSize, pageIndex, out int total, u => u.ActivityID == id, u => u.ActivityID, true).Select(u => new { u.UserEnrollID, u.UserInfoID, u.UserInfo.UserInfoLoginId, u.UserInfo.UserInfoShowName, u.UserEnrollActivityStart, u.UserEnrollActivityEnd, u.ActivityTime }).AsQueryable();
             //var data = new { total = pageData.Count(), rows = pageData.ToList() };
             return Json(pageData, JsonRequestBehavior.AllowGet);
         }
@@ -483,7 +483,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 志愿者用户进入活动列表
         /// </summary>
         /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        [LoginCheckFilter(BoolCheckLogin = false)]
         public ActionResult List()
         {
             var activityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
@@ -497,6 +497,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 志愿者用户浏览活动列表
         /// </summary>
         /// <returns></returns>
+        [LoginCheckFilter(BoolCheckLogin = false)]
         public JsonResult GetListData()
         {
             int pageSize = int.Parse(Request["pageSize"] ?? "5");
@@ -509,7 +510,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             if (PageData.Count() > 0)
             {
-                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID,u.ActivityPrediNum,Count = u.UserEnroll.Count() }).ToList() }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "success", data = PageData.Select(u => new { u.ActivityIcon, u.ActivityName, u.ActivityEnrollEnd, u.ActivityStart, u.ActivityEnd, u.ActivityID, u.ActivityPrediNum, Count = u.UserEnroll.Count() }).ToList() }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -527,8 +528,10 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             var DataPage = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delUndone, u => u.ActivityEnrollStart, false).AsQueryable();
 
-            DataPage = DataPage.Where(u => !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).AsQueryable();
-
+            if (LoginUser != null)
+            {
+                DataPage = DataPage.Where(u => !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).AsQueryable();
+            }
             DataPage = DataPage.Where(u => u.ActivityEnrollStart < DateTime.Now).AsQueryable();
             return DataPage;
         }

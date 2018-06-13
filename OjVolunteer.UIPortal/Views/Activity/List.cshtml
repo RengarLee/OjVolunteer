@@ -57,9 +57,9 @@
                         var li_div_a = $("<a href='/Activity/Details/?Id=" + temp.ActivityID + "'></a>");
                         li_div_a.text(temp.ActivityName);
                         var li_div_s1 = $("<span class='actime'></span>"); 
-                        li_div_s1.text("活动时间:" + TimeFormat(temp.ActivityStart, "MM-dd HH:mm") + "-" + TimeFormat(temp.ActivityEnd, "HH:mm"));
+                        li_div_s1.text("活动时间：" + TimeFormat(temp.ActivityStart, "MM-dd HH:mm") + "-" + TimeFormat(temp.ActivityEnd, "HH:mm"));
                         var li_div_s2 = $("<span class='acendtime'></span>");
-                        li_div_s2.text("截止时间" + TimeFormat(temp.ActivityEnrollEnd, "yyyy-MM-dd HH:mm"));
+                        li_div_s2.text("截止时间：" + TimeFormat(temp.ActivityEnrollEnd, "yyyy-MM-dd HH:mm"));
                         var li_div_s3 = $("<p>招募人数：<span>" + temp.ActivityPrediNum+"</span>人</p>");
                         var li_div_s4 = $("<p>已报名：<span class='red'>" + temp.Count+"</span>人</p>");
                         li_div.append(li_div_a);
@@ -134,6 +134,8 @@
                                 }
                             }
                         });
+                    } else if (data["msg"] == "nologin") {
+                        layer.msg("请先登录！");
                     }
                 });
             });

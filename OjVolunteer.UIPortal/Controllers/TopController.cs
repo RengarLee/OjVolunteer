@@ -19,10 +19,18 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 义工查看排行榜界面
         /// </summary>
         /// <returns></returns>
-        [ActionAuthentication(AbleUser = true)]
+        [LoginCheckFilter(BoolCheckLogin =false)]
         public ActionResult Index()
         {
-            ViewData.Model = LoginUser;
+            if (LoginUser != null)
+            {
+                ViewData.Model = LoginUser;
+                ViewBag.isLogin = true;
+            }
+            else
+            {
+                ViewBag.isLogin = false ;
+            }
             return View();
         }
 
@@ -64,6 +72,7 @@ namespace OjVolunteer.UIPortal.Controllers
             return Json(new { total, rows = PageData.ToList() }, JsonRequestBehavior.AllowGet);
         }
 
+        [LoginCheckFilter(BoolCheckLogin = false)]
         public JsonResult ActivityData()
         {
             int pageSize = int.Parse(Request["pageSize"] ?? "5");

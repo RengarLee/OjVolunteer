@@ -30,18 +30,13 @@ namespace OjVolunteer.UIPortal.Controllers
         public ITalksService TalksService { get; set; }
         public IUserBadgeService UserBadgeService { get; set; }
 
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        [LoginCheckFilter(BoolCheckLogin =false)]
         public ActionResult Index()
         {
             return View();
         }
 
         #region 查找活动负责人
-
-        public ActionResult Test()
-        {
-            return View();
-        }
 
         [ActionAuthentication(AbleOrganize = true, AbleUser = true)]
         public JsonResult SearchActivityPeople()
@@ -389,7 +384,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 userInfo.ModfiedOn = DateTime.Now;
                 if (UserInfoService.Update(userInfo))
                 {
-                    UpSessionUserInfo(userInfo);
+                    UpdateCaching(userInfo);
                     return Json(new { src = fileName, msg = "success" }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -464,7 +459,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 if (UserInfoService.Update(temp))
                 {
 
-                    UpSessionUserInfo(temp);
+                    UpdateCaching(temp);
                     if (temp.Status == delAuditing)
                     {
                         return Content("auditing");

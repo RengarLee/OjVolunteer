@@ -1,4 +1,5 @@
-﻿using OjVolunteer.UIPortal.OtherClass;
+﻿using OjVolunteer.UIPortal.Filters;
+using OjVolunteer.UIPortal.OtherClass;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,6 +11,7 @@ namespace OjVolunteer.UIPortal
         {
             //异常过滤
             filters.Add(new ExceptionLogFilterAttribute());
+            filters.Add(new LoginCheckFilterAttribute() { BoolCheckLogin = true });
         }
     }
 }

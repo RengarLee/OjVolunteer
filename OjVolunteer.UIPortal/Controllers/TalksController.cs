@@ -22,7 +22,7 @@ namespace OjVolunteer.UIPortal.Controllers
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
         short delDeleted = (short)Model.Enum.DelFlagEnum.Deleted;
-        short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
+
         public ITalksService TalksService { get; set; }
         public IFavorsService FavorsService { get; set; }
         public ActionResult Index()
@@ -51,7 +51,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
 
         #region 用户心得列表
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        [LoginCheckFilter(BoolCheckLogin = false)]
         public ActionResult List()
         {
             return View();
@@ -61,6 +61,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// 获得心得数据
         /// </summary>
         /// <returns></returns>
+        [LoginCheckFilter(BoolCheckLogin = false)]
         public JsonResult GetListData()
         {
             int pageSize = int.Parse(Request["pageSize"] ?? "5");
@@ -107,7 +108,14 @@ namespace OjVolunteer.UIPortal.Controllers
                         }
                     }
                     talk.UserInfoId = (int)data.UserInfoID;
-                    talk.Favors = FavorsService.GetEntities(u => u.TalkID == talk.TalkID && u.UserInfoID == LoginUser.UserInfoID).Count()>0;
+                    if (LoginUser != null)
+                    {
+                        talk.Favors = FavorsService.GetEntities(u => u.TalkID == talk.TalkID && u.UserInfoID == LoginUser.UserInfoID).Count() > 0;
+                    }
+                    else
+                    {
+                        talk.Favors = false;
+                    }
                     list.Add(talk);
                 }
                 return Json(new { msg = "success", data = list }, JsonRequestBehavior.AllowGet);
@@ -496,37 +504,6 @@ namespace OjVolunteer.UIPortal.Controllers
             }
         }
         
-        #endregion
-
-        #region Edit
-
-        public ActionResult Edit(int id)
-        {
-            //TODO:加载编辑对话框
-            Talks talks = TalksService.GetEntities(p => p.TalkID == id && p.Status == delNormal).FirstOrDefault();
-            return View(talks);
-        }
-
-      
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult Edit(Talks talks)
-        {
-            //TODO:Test
-            var temp = TalksService.GetEntities(u => u.TalkID == talks.TalkID).FirstOrDefault();
-            temp.TalkContent = talks.TalkContent;
-            temp.Status = delAuditing;
-            string result = String.Empty;
-            if (TalksService.Update(temp))
-            {
-                result = "ok";
-            }
-            else
-            {
-                result = "error";
-            }
-            return Content(result);
-        }
         #endregion
 
         #region 评论删除
