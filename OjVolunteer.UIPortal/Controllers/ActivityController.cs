@@ -158,6 +158,7 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewBag.MajorDict = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.MajorID, u => u.MajorName);
             ViewBag.PoliticalDict = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.PoliticalID, u => u.PoliticalName);
             ViewBag.DepartmentDict = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.DepartmentID, u => u.DepartmentName);
+            ViewBag.UserId = LoginUser.UserInfoID;
             return View();
         }
         #endregion
@@ -185,12 +186,15 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             try
             {
-                string[] EnrollTime = Request["EnrollTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
-                string[] ActivtiyTime = Request["ActivityTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
-                activity.ActivityEnrollStart = DateTime.Parse(EnrollTime[0]);
-                activity.ActivityEnrollEnd = DateTime.Parse(EnrollTime[1]);
-                activity.ActivityStart = DateTime.Parse(ActivtiyTime[0]);
-                activity.ActivityEnd = DateTime.Parse(ActivtiyTime[1]);
+                if (LoginOrganize!=null)
+                {
+                    string[] EnrollTime = Request["EnrollTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] ActivtiyTime = Request["ActivityTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
+                    activity.ActivityEnrollStart = DateTime.Parse(EnrollTime[0]);
+                    activity.ActivityEnrollEnd = DateTime.Parse(EnrollTime[1]);
+                    activity.ActivityStart = DateTime.Parse(ActivtiyTime[0]);
+                    activity.ActivityEnd = DateTime.Parse(ActivtiyTime[1]);
+                }
                 if (activity.ActivityEnrollEnd > activity.ActivityStart)
                 {
                     return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
@@ -211,11 +215,23 @@ namespace OjVolunteer.UIPortal.Controllers
                 {
                     activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
                 }
-                activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
+                if (LoginOrganize != null)//组织注册
+                {
+                    activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
+                    activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
+                }
+                else//
+                {
+                    activity.ActivityApplyUserInfoID = LoginUser.UserInfoID;
+                    activity.ActivityApplyOrganizeID = LoginUser.OrganizeInfoID;
+                    activity.Status =delAuditing;
+                    activity.ActivityDepartment = ",";
+                    activity.ActivityMajor = ",";
+                    activity.ActivityPolitical = ",";
+                }
                 activity.ActivityClicks = 0;
                 activity.CreateTime = DateTime.Now;
                 activity.ModfiedOn = activity.CreateTime;
-                activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
 
                 if (ActivityService.AddActivity(activity))
                 {

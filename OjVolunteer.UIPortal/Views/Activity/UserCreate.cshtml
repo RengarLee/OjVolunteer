@@ -43,7 +43,7 @@
     </header>
 
     <div class="release">
-        <form class="layui-form" " action="">
+        <form class="layui-form" " action="" id="form1">
             <input hidden name="ActivityManagerID" value="@ViewBag.UserId" />
 
             <div class="layui-form-item">
@@ -113,13 +113,13 @@
 
             <div class="layui-form-item">
                 <label class="layui-form-label">活动详情</label>
-                <textarea name="" required lay-verify="required" placeholder="请输入活动具体描述" class="layui-textarea"></textarea>
+                <textarea name="ActivityContent" required lay-verify="required" placeholder="请输入活动具体描述" class="layui-textarea"></textarea>
             </div>
 
 
             <div class="">
                 <div class="">
-                    <button class="layui-btn layui-btn-primary" lay-submit>发布</button>
+                    <button class="layui-btn layui-btn-primary" lay-submit lay-filter="*">发布</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -163,6 +163,73 @@
             });
         });
 
+        function checktime() {
+            //if (baoming.year > huodong.year) {
+            //    layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
+            //    return false;
+            //}
+            //else {
+            //    if (baoming.month > huodong.month) {
+            //        layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
+            //        return false;
+            //    }
+            //    else {
+            //        if (baoming.date > huodong.date) {
+            //            layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
+            //            return false;
+            //        }
+            //        else {
+            //            if (baoming.hours > huodong.date) {
+            //                layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
+            //                return false;
+            //            }
+            //            else {
+            //                if (baoming.minutes > huodong.minutes) {
+            //                    layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
+            //                    return false;
+            //                }
+            //                else {
+            //                    if (baoming.seconds > huodong.seconds) {
+            //                        layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
+            //                        return false;
+            //                    }
+            //                    else {
+            //                        return true;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            return true;
+        }
+
+        function BindSubmit() {
+            //layedit.sync(index);
+            if (checktime()) {
+                layer.confirm('确定发布活动吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.post("/Activity/Create", $("#form1").serializeArray(), function (data) {
+                        if (data["msg"] == "success") {
+                            layer.msg('申请成功，请等待审核！', { icon: 1 });
+                        } else {
+                            layer.msg('出现错误,请稍后再试！', { icon: 2 });
+                        }
+                    });
+                }, function () {
+                    layer.msg('已取消');
+                });
+            }
+        }
+        layui.use('form', function () {
+            var form = layui.form;
+
+            form.on('submit(*)', function (data) {
+                BindSubmit();
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        });
 
         // 百度地图API功能
         function G(id) {
@@ -222,33 +289,6 @@
             local.search(myValue);
         }
 
-        function BindSubmit() {
-            beforeSubmit();
-            layedit.sync(index);
-            if (checktime()) {
-                layer.confirm('确定发布活动吗？', {
-                    btn: ['确定', '取消'] //按钮
-                }, function () {
-                    $.post("/Activity/Create", $("#form1").serializeArray(), function (data) {
-                        if (data["msg"] == "success") {
-                            layer.msg('申请成功，请等待审核！', { icon: 1 });
-                        } else {
-                            layer.msg('出现错误,请稍后再试！', { icon: 2 });
-                        }
-                    });
-                }, function () {
-                    layer.msg('已取消');
-                });
-            }
-        }
-        layui.use('form', function () {
-            var form = layui.form;
-
-            form.on('submit(*)', function (data) {
-                BindSubmit();
-                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-            });
-        });
 
     </script>
 </body>
