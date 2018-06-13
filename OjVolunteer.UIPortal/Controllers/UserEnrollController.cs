@@ -48,7 +48,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             Activity activity = ActivityService.GetEntities(u => u.ActivityID == activityId && u.Status == delUndone && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).FirstOrDefault();
             //报名条件
-            if (activity.ActivityPrediNum <= activity.UserEnroll.Count() + 1)
+            if (activity.ActivityPrediNum < activity.UserEnroll.Count() + 1)
             {
                 return Json(new { msg = "full" }, JsonRequestBehavior.AllowGet);
             }
