@@ -30,9 +30,14 @@ namespace OjVolunteer.UIPortal.Controllers
         /// <param name="activityId">活动Id</param>
         /// <returns></returns>
         [HttpPost]
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        [LoginCheckFilter(BoolCheckLogin = false)]
         public JsonResult Create()
         {
+            if (LoginUser == null)
+            {
+                return Json(new { msg = "nologin" }, JsonRequestBehavior.AllowGet);
+
+            }
             int activityId = Convert.ToInt32(Request["activityId"]);
             string msg = String.Empty;
 

@@ -138,6 +138,7 @@
         // 点赞功能
         function dianZan() {
             $('.zan').click(function () {
+                var zan = this;
                 if ($(this).hasClass('yiZan')) {
                     layer.msg('只能点赞一次哦~');
                 }
@@ -147,13 +148,17 @@
                     $.post("/Favors/Create/", { talkId: talkId }, function (data) {
                         if (data["msg"] == "success") {
                             layer.msg('点赞成功！');
-                            flag = true;
+                            var zanNums = Number(zan.find('span').text());
+                            zanNums++;
+                            zan.find('span').text(zanNums);
+                            zan.addClass('yiZan');
+                        } else if (data["msg"] == "fail") {
+                            layer.msg('点赞失败,稍后再试！');
+                        } if (data["msg"] == "nologin") {
+                            layer.msg('请先登录！');
                         }
                     });
-                    var zanNums = Number($(this).find('span').text());
-                    zanNums++;
-                    $(this).find('span').text(zanNums);
-                    $(this).addClass('yiZan');
+                    
                 }
             })
         }

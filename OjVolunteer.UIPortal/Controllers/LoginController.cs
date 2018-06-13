@@ -2,6 +2,7 @@
 using OjVolunteer.IBLL;
 using OjVolunteer.Model;
 using OjVolunteer.Model.Enum;
+using OjVolunteer.UIPortal.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
+    [LoginCheckFilter(BoolCheckLogin =false)]
     public class LoginController : Controller
     {
         
@@ -51,8 +53,6 @@ namespace OjVolunteer.UIPortal.Controllers
                 {
                     return Content("Delete");
                 }
-                //userInfo.UserInfoLastTime = DateTime.Now;
-                //UserInfoService.Update(userInfo);
                 UserToCache(userInfo);
                 return Content("Userinfo");
             }
