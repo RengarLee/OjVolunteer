@@ -15,15 +15,84 @@ namespace OjVolunteer.BLL
         private List<ActTopView> GetData(int OrdId, int TimeType)
         {
             List<ActTopView> list = null;
-            DateTime dateTime;
+            int dateTime;
             short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+            #region 滑动排行
+            //if (TimeType == 1)//月排行
+            //{
+            //    list = Common.Cache.CacheHelper.GetCache("ActMonthTop") as List<ActTopView>;
+            //    if (list == null)
+            //    {
+            //        dateTime = DateTime.Now.AddDays(-1 * 30);
+            //        var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
+            //        list = (from u in Data
+            //                group u by u.UserInfoId into grouped
+            //                orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
+            //                select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
+            //        foreach (var temp in list)
+            //        {
+            //            var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
+            //            temp.ShowName = t.UserInfoShowName;
+            //            temp.OrgId = t.OrganizeInfoID;
+            //            temp.Icon = t.UserInfoIcon;
+            //        }
+            //        Common.Cache.CacheHelper.SetCache("ActMonthTop", list, DateTime.Now.AddDays(1));
+            //    }
+
+            //}
+            //if (TimeType == 2)//季排行
+            //{
+            //    list = Common.Cache.CacheHelper.GetCache("ActSeasonTop") as List<ActTopView>;
+            //    if (list == null)
+            //    {
+            //        dateTime = DateTime.Now.AddDays(-1 * 90);
+            //        var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
+            //        list = (from u in Data
+            //                group u by u.UserInfoId into grouped
+            //                orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
+            //                select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
+            //        foreach (var temp in list)
+            //        {
+            //            var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
+            //            temp.ShowName = t.UserInfoShowName;
+            //            temp.OrgId = t.OrganizeInfoID;
+            //            temp.Icon = t.UserInfoIcon;
+
+            //        }
+            //        Common.Cache.CacheHelper.SetCache("ActSeasonTop", list, DateTime.Now.AddDays(1));
+            //    }
+
+            //}
+            //if (TimeType == 3)//年排行
+            //{
+            //    list = Common.Cache.CacheHelper.GetCache("ActYearTop") as List<ActTopView>;
+            //    if (list == null)
+            //    {
+            //        dateTime = DateTime.Now.AddDays(-1 * 365);
+            //        var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
+            //        list = (from u in Data
+            //                group u by u.UserInfoId into grouped
+            //                orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
+            //                select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
+            //        foreach (var temp in list)
+            //        {
+            //            var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
+            //            temp.ShowName = t.UserInfoShowName;
+            //            temp.OrgId = t.OrganizeInfoID;
+            //            temp.Icon = t.UserInfoIcon;
+            //        }
+            //        Common.Cache.CacheHelper.SetCache("ActYearTop", list, DateTime.Now.AddDays (1));
+            //    }
+            //} 
+            #endregion
+
             if (TimeType == 1)//月排行
             {
                 list = Common.Cache.CacheHelper.GetCache("ActMonthTop") as List<ActTopView>;
                 if (list == null)
                 {
-                    dateTime = DateTime.Now.AddDays(-1 * 30);
-                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
+                    dateTime = DateTime.Now.Month;
+                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Month == dateTime).AsQueryable();
                     list = (from u in Data
                             group u by u.UserInfoId into grouped
                             orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
@@ -39,36 +108,13 @@ namespace OjVolunteer.BLL
                 }
 
             }
-            if (TimeType == 2)//季排行
-            {
-                list = Common.Cache.CacheHelper.GetCache("ActSeasonTop") as List<ActTopView>;
-                if (list == null)
-                {
-                    dateTime = DateTime.Now.AddDays(-1 * 90);
-                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
-                    list = (from u in Data
-                            group u by u.UserInfoId into grouped
-                            orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
-                            select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
-                    foreach (var temp in list)
-                    {
-                        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
-                        temp.ShowName = t.UserInfoShowName;
-                        temp.OrgId = t.OrganizeInfoID;
-                        temp.Icon = t.UserInfoIcon;
-
-                    }
-                    Common.Cache.CacheHelper.SetCache("ActSeasonTop", list, DateTime.Now.AddDays(1));
-                }
-
-            }
-            if (TimeType == 3)//年排行
+            else//年排行
             {
                 list = Common.Cache.CacheHelper.GetCache("ActYearTop") as List<ActTopView>;
                 if (list == null)
                 {
-                    dateTime = DateTime.Now.AddDays(-1 * 365);
-                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime > dateTime).AsQueryable();
+                    dateTime = DateTime.Now.Year;
+                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Year == dateTime).AsQueryable();
                     list = (from u in Data
                             group u by u.UserInfoId into grouped
                             orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
@@ -80,7 +126,7 @@ namespace OjVolunteer.BLL
                         temp.OrgId = t.OrganizeInfoID;
                         temp.Icon = t.UserInfoIcon;
                     }
-                    Common.Cache.CacheHelper.SetCache("ActYearTop", list, DateTime.Now.AddDays (1));
+                    Common.Cache.CacheHelper.SetCache("ActYearTop", list, DateTime.Now.AddDays(1));
                 }
             }
 
