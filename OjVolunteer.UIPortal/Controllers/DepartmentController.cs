@@ -79,26 +79,28 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false, Super = true)]
         public ActionResult Edit(Department department)
         {
-            string result = String.Empty;
+            string result = "fail";
             department.ModfiedOn = DateTime.Now;
             Department temp = DepartmentService.GetEntities(d => d.DepartmentName.Equals(department.DepartmentName)&&d.Status==delNormal).FirstOrDefault();
-            if (temp != null)
+            if(ModelState.IsValid)
             {
-                result = ("exist");
-            }
-            else
-            {
-                if (DepartmentService.Update(department))
+                if (temp != null)
                 {
-                    result = "success";
+                    result = ("exist");
                 }
                 else
                 {
-                    result = "fail";
+                    if (DepartmentService.Update(department))
+                    {
+                        result = "success";
+                    }
+                    else
+                    {
+                        result = "fail";
+                    }
                 }
             }
-            
-            return Json(new { result=result},JsonRequestBehavior.AllowGet);
+            return Json(new { msg=result},JsonRequestBehavior.AllowGet);
         }
         #endregion
 
