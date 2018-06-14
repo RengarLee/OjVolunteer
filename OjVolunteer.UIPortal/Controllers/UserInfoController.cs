@@ -282,7 +282,7 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = true, AbleUser = false)]
         public JsonResult Create(UserInfo userInfo)
         {
-            String msg = String.Empty;
+            String msg = "fail";
             Regex regex1 = new Regex(@"^[0-9]{6,12}$");
             if (regex1.IsMatch(userInfo.UserInfoLoginId))
             {
@@ -307,7 +307,6 @@ namespace OjVolunteer.UIPortal.Controllers
                     msg = "fail";
                 }
             }
-            msg = "fail";
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
         #region ValidateName 验证用户名是否重复
