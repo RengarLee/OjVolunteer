@@ -76,25 +76,28 @@ namespace OjVolunteer.UIPortal.Controllers
         [HttpPost]
         public ActionResult Edit(Political political)
         {
-            string result = String.Empty;
+            string result = "fail";
             political.ModfiedOn = DateTime.Now;
             Political temp = PoliticalService.GetEntities(d => d.PoliticalName.Equals(political.PoliticalName) && d.Status == delNormal).FirstOrDefault();
-            if (temp != null)
+            if (ModelState.IsValid)
             {
-                result = ("exist");
-            }
-            else
-            {
-                if (PoliticalService.Update(political))
+                if (temp != null)
                 {
-                    result = "success";
+                    result = ("exist");
                 }
                 else
                 {
-                    result = "fail";
+                    if (PoliticalService.Update(political))
+                    {
+                        result = "success";
+                    }
+                    else
+                    {
+                        result = "fail";
+                    }
                 }
             }
-            return Json(new { result = result }, JsonRequestBehavior.AllowGet);
+            return Json(new { msg = result }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

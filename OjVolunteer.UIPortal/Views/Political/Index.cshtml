@@ -100,17 +100,10 @@
                         visible: true,
                         width: '10%',
                         align: 'center',
-                        editable: {
-                            type: 'text',
-                            title: '政治面貌名称',
-                            validate: function (v) {
-                                if (!v) return '政治面貌名称不能为空';
-                            }
-                        }
                     },
                     {
                         field: 'ModfiedOn',
-                        title: '更新的时间',
+                        title: '更新时间',
                         visible: true,
                         width: '13%',
                         align: 'center',
@@ -122,32 +115,25 @@
                         }
                     }
                 ],
-                onEditableSave: function (field, row, oldValue, $el) {
-                    $.ajax({
-                        type: "post",
-                        url: "/Political/Edit",
-                        data: row,
-                        dataType: 'JSON',
-                        success: function (data, status) {
-                            if (data["result"] == "success") {
-                                alert('操作成功');
-
-                            } else if (data["result"] == "fail") {
-                                alert("操作失败");
-
-                            } else if (data["result"] == "exist") {
-                                alert("已存在");
-                            }
-                        },
-                        error: function (data, status) {
-                            alert("操作失败")
-                        },
-                        complete: function () {
-                            initTable();
+                onDblClickRow: function (row, $element) {
+                    layer.prompt({ title: '编辑', value: row["PoliticalName"] }, function (val, index) {
+                        if (val == row["PoliticalName"]) {
+                            layer.close(index);
+                            return;
                         }
-
+                        $.post("/Political/Edit", { PoliticalID: row["PoliticalID"], PoliticalName: val }, function (data) {
+                            if (data["msg"] == "success") {
+                                layer.msg("修改成功！");
+                                initTable();
+                            } else if (data["msg"] == "exist") {
+                                layer.msg("该名称已存在！");
+                            } else {
+                                layer.msg("修改失败！")
+                            }
+                        })
+                        layer.close(index);
                     });
-                }
+                },
             });
         };
 
