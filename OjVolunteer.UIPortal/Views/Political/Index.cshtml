@@ -32,26 +32,35 @@
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
     <script type="text/javascript">
         $(function () {
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                if ($("#add_political").val() == "") {
-                    alert("名称不为空");
-                    return;
-                }
-                $.post("/Political/Create", { PoliticalName: $("#add_political").val() }, function (data) {
-                    if (data == "success") {
-                        initTable();
-                        $("#add_political").val("");
-                        alert("资料修改成功");
-                    } else if (data == "fail") {
-                        alert("修改失败");
-                    } else if (data == "exist") {
-                        alert("该政治面貌名存在");
+                var addInput = $('#add_political');
+                if (addInput.val().length <= 20 && addInput.val().length >= 2) {
+                    if ($("#add_political").val() == "") {
+                        layer.alert("名称不为空");
+                        return;
                     }
-                });
+                    $.post("/Political/Create", { PoliticalName: $("#add_political").val() }, function (data) {
+                        if (data == "success") {
+                            initTable();
+                            $("#add_political").val("");
+                            layer.alert("资料修改成功");
+                        } else if (data == "fail") {
+                            layer.alert("修改失败");
+                        } else if (data == "exist") {
+                            layer.alert("该政治面貌名存在");
+                        }
+                    });
+                }
+                else {
+                    layer.alert('政治面貌添加应在2-20个字之间');
+                }
+               
+
             });
             $("#btn_removes").click(function () {
                 removeSelectClickEvent();
@@ -142,7 +151,7 @@
                 return row;
             });
             if (selectedRows.length <= 0) {
-                alert("至少选中一个选项");
+                layer.alert("至少选中一个选项");
                 return;
             }
             var ids = "";
@@ -154,11 +163,11 @@
 
                 if (data == "success") {
                     initTable();
-                    alert("操作成功");
+                    layer.alert("操作成功");
                 } else if (data == "null") {
-                    alert("至少选择一列");
+                    layer.alert("至少选择一列");
                 } else {
-                    alert("删操作失败,请稍后再试");
+                    layer.alert("删操作失败,请稍后再试");
                 }
             });
         }
