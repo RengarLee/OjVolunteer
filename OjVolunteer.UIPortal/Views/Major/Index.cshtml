@@ -16,26 +16,35 @@
     <script src="~/Content/bootstrap3-editable/js/bootstrap-editable.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-editable.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
+    <link href="~/Content/oj/css/admin.css" rel="stylesheet" />
     <script type="text/javascript">
         $(function () {
             //初始化表格
             initTable();
             $("#btn_add").click(function () {
-                if ($("#add").val() == "") {
-                    alert("名称不为空");
-                    return;
-                }
-                $.post("/Major/Create", { MajorName: $("#add").val() }, function (data) {
-                    if (data == "success") {
-                        initTable();
-                        alert("资料修改成功");
-                        $("#add").val("");
-                    } else if (data == "fail") {
-                        alert("修改失败");
-                    } else if (data == "exist") {
-                        alert("该专业名存在");
+                var addInput = $('#add');
+                if (addInput.val().length <= 20 && addInput.val().length >= 2) {
+                    if ($("#add").val() == "") {
+                        layer.alert("名称不为空");
+                        return;
                     }
-                });
+                    $.post("/Major/Create", { MajorName: $("#add").val() }, function (data) {
+                        if (data == "success") {
+                            initTable();
+                            layer.alert("资料修改成功");
+                            $("#add").val("");
+                        } else if (data == "fail") {
+                            layer.alert("修改失败");
+                        } else if (data == "exist") {
+                            layer.alert("该专业名存在");
+                        }
+                    });
+                }
+                else {
+                    layer.alert('专业名称添加应在2-20个字之间');
+                }
+
+                
             });
             $("#btn_removes").click(function () {
                 removeSelectClickEvent();
@@ -134,7 +143,7 @@
                 return row;
             });
             if (selectedRows.length <= 0) {
-                alert("至少选中一个选项");
+                layer.alert("至少选中一个选项");
                 return;
             }
             var ids = "";
@@ -145,11 +154,11 @@
             $.post("/Major/DeleteOfList", { ids, ids }, function (data) {
                 if (data == "success") {
                     initTable();
-                    alert("删除成功");
+                    layer.alert("删除成功");
                 } else if (data == "null") {
-                    alert("至少选择一列");
+                    layer.alert("至少选择一列");
                 } else {
-                    alert("删除失败,请稍后再试");
+                    layer.alert("删除失败,请稍后再试");
                 }
             });
         }
@@ -158,11 +167,11 @@
 
 <body>
     <div id="toolbar" class="btn-group">
-        <input id="add" />
-        <button id="btn_add" type="button" class="btn btn-default">
+        <input id="add" style="margin-left:15px;margin-right:10px;width:250px;"/>
+        <button id="btn_add" type="button" class="btn btn-default" style="float:none;">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
         </button>
-        <button id="btn_removes" type="button" class="btn btn-default">
+        <button id="btn_removes" type="button" class="btn btn-default" style="float:none;">
             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>删除
         </button>
     </div>
