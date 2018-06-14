@@ -73,25 +73,28 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult Edit(Major major)
         {
 
-            string result = String.Empty;
+            string result = "fail";
             major.ModfiedOn = DateTime.Now;
-            Major temp = MajorService.GetEntities(d => d.MajorName.Equals(major.MajorName) && d.Status == delNormal).FirstOrDefault();
-            if (temp != null)
+            if (ModelState.IsValid)
             {
-                result = ("exist");
-            }
-            else
-            {
-                if (MajorService.Update(major))
+                Major temp = MajorService.GetEntities(d => d.MajorName.Equals(major.MajorName) && d.Status == delNormal).FirstOrDefault();
+                if (temp != null)
                 {
-                    result = "success";
+                    result = "exist";
                 }
                 else
                 {
-                    result = "fail";
+                    if (MajorService.Update(major))
+                    {
+                        result = "success";
+                    }
+                    else
+                    {
+                        result = "fail";
+                    }
                 }
             }
-            return Json(new { result = result }, JsonRequestBehavior.AllowGet);   
+            return Json(new { msg = result }, JsonRequestBehavior.AllowGet);   
         }
         #endregion
 
