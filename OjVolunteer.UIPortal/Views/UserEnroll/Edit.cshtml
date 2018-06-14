@@ -56,6 +56,8 @@
                 $.post("/UserEnroll/Edit", $("#from1").serialize(), function (data) {
                     if (data["msg"] == "success") {
                         alert("修改成功");
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭   
                     } else {
                         alert("出现异常，请稍后再试！")
                     }

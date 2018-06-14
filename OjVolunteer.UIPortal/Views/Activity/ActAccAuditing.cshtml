@@ -108,6 +108,7 @@
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
                         title: '活动参加人员',
+                        shadeClose: true,
                         type: 2,
                         content: '/Activity/Participants/' + row['ActivityID'],
                         area: ['1000px', '700px'],
@@ -133,6 +134,7 @@
         function detailClickEvent(data) {
             var index = layer.open({
                 title: '活动详情',
+                shadeClose: true,
                 type: 2,
                 content: '/Activity/OrgSeeDetails/' + data,
                 area: ['1000px', '700px']
