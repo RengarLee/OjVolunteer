@@ -297,7 +297,7 @@ a:active{
 		padding: 20px 10px;
 	}
     .info-img {
-        padding-top: 15px;
+        padding-right:10px;
     }
 	.usertitle img{
 		width: 100px;
@@ -666,6 +666,7 @@ a:active{
 	.feel-item .feel-item-info .info-name{
 		color: #333;
 		float: left;
+        text-align:left;
 	}
 	.feel-item .feel-item-info .info-name p{
 		margin-top: 10px;
@@ -785,7 +786,6 @@ a:active{
 		color: #666 !important;	}
 	/*心得第一行,用户头像、姓名、发布时间*/
 	.myfeel-item .feel-item-info{
-		text-align: center;
 		padding: 0 5px;
 	}
 	.myfeel-item .feel-item-info .info-img{
