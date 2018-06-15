@@ -8,6 +8,14 @@
     <link href="~/Content/oj/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <link href="~/Content/oj/css/main.css" rel="stylesheet" />
+    <style>
+        .topBtn{
+            margin:0 auto;
+            background:none;
+            border:none;
+            margin-top:10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -105,8 +113,8 @@
                             $("#ullist").append(li);
                         }
                     }
-                    var btn_li = $("<li></li>");
-                    var btn_input = $("<input type='button' id='btnevent' value='查看更多'/>");
+                    var btn_li = $("<li style='text-align:center;'></li>");
+                    var btn_input = $("<input type='button' id='btnevent' value='查看更多' class='topBtn'/>");
                     pageIndex++;
                     btn_input.attr("pageIndex", pageIndex);
                     btn_li.append(btn_input);
