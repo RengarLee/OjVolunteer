@@ -13,7 +13,7 @@
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
-
+    <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
@@ -34,23 +34,23 @@
             $("#tb_user").bootstrapTable('destroy');
             $('#tb_user').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
-                url: '/UserInfo/GetAllUserOfAuditing',        
-                method: 'post',                    
+                url: '/UserInfo/GetAllUserOfAuditing',
+                method: 'post',
                 toolbar: '#toolbar',
-                striped: true,                     
-                cache: false,                       
-                pagination: true,                 
+                striped: true,
+                cache: false,
+                pagination: true,
                 queryParams: queryParam,
-                sidePagination: "server",           
-                pageNumber: 1,                      
-                pageSize: 10,                      
-                pageList: [10, 20, 50, 100],      
+                sidePagination: "server",
+                pageNumber: 1,
+                pageSize: 10,
+                pageList: [10, 20, 50, 100],
                 smartDisplay: false,
-                showColumns: true,                
-                showRefresh: true,                 
-                minimumCountColumns: 3,         
+                showColumns: true,
+                showRefresh: true,
+                minimumCountColumns: 3,
                 clickToSelect: true,
-                uniqueId: "UserInfoID",                
+                uniqueId: "UserInfoID",
                 columns: [
                     {
                         field: 'checked',
@@ -114,6 +114,17 @@
                         opposeClickEvent($(this).attr("uid"));
                         return false;
                     })
+                },
+                onDblClickRow: function (row, $element) {
+                    var index = layer.open({
+                        type: 2,
+                        title: false,
+                        closeBtn: 0,
+                        maxmin: false,
+                        shadeClose: true,
+                        area: ['800px', '830px'],
+                        content: '/UserInfo/OrgEditUser/' + row["UserInfoID"]
+                    });
                 }
             });
         };

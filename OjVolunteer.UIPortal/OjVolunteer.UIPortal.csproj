@@ -695,7 +695,6 @@
     <Content Include="Views\Talks\TalksOfAuditing.cshtml" />
     <Content Include="Views\OrganizeInfo\Edit.cshtml" />
     <Content Include="Views\UserInfo\OrgEditUser.cshtml" />
-    <Content Include="Views\UserInfo\UserInfoSimple.cshtml" />
     <Content Include="Views\UserInfo\UserEditUser.cshtml" />
     <Content Include="Views\OrganizeInfo\Create.cshtml" />
     <Content Include="Views\UserInfo\Create.cshtml" />
