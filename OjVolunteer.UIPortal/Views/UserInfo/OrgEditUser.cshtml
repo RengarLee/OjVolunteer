@@ -193,7 +193,13 @@
 
         function afterSubmit(data) {
             if (data == "success") {
-                layer.alert('更改志愿者信息成功！', { icon: 1 });
+                layer.alert('更改志愿者信息成功！', {
+                    icon: 1,
+                    end: function () {
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭   
+                    }
+                });
             } else {
                 layer.alert('更改失败！', { icon: 2 });
             }
