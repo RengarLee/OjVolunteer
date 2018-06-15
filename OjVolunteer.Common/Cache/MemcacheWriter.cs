@@ -18,9 +18,9 @@ namespace OjVolunteer.Common.Cache
             //初始化池
             SockIOPool pool = SockIOPool.GetInstance();
             pool.SetServers(servers);
-            pool.InitConnections = 3;
-            pool.MinConnections = 3;
-            pool.MaxConnections = 5;
+            pool.InitConnections = 400;
+            pool.MinConnections = 400;
+            pool.MaxConnections = 1024;
             pool.SocketConnectTimeout = 1000;
             pool.SocketTimeout = 3000;
             pool.MaintenanceSleep = 30;

@@ -441,7 +441,7 @@
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\oj\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\oj\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\oj\images\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\oj\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\oj\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\oj\fonts\fontawesome-webfont.woff" />

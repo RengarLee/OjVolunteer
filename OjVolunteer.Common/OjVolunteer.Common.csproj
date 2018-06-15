@@ -84,7 +84,6 @@
     <Compile Include="LogWriter\LogHelper.cs" />
     <Compile Include="LogWriter\SqlServerWriter.cs" />
     <Compile Include="LogWriter\TextFileWriter.cs" />
-    <Compile Include="NPOI\ExelNPOIHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
