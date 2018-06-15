@@ -24,7 +24,7 @@
     <script src="~/Content/oj/js/jquery-1.12.4.js"></script>
     <script src="~/Scripts/bootstrap-table.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
-
+    <script src="~/Content/layui/layui.all.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table.js"></script>
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
@@ -123,16 +123,6 @@
                         formatter: operateFormatter
                     }
                 ],
-                onLoadSuccess: function (data) {
-                    $(".agreeLink").click(function () {
-                        agreeClickEvent($(this).attr("uid"));
-                        return false;
-                    });
-                    $(".opposeLink").click(function () {
-                        removeClickEvent($(this).attr("uid"));
-                        return false;
-                    })
-                },
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
                         title: '活动详情',
