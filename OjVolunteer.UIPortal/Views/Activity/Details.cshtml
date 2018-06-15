@@ -100,7 +100,7 @@
         function BindEnrollClickEvent() {
             $(".btnEnroll").click(function () {
                 $.post("/UserEnroll/Create/", { activityId: @Model.ActivityID }, function (data) {
-                    alert(data["msg"]);
+                    layer.alert(data["msg"]);
                 });
             });
         }
@@ -117,7 +117,7 @@
                 } else if (data["msg"] == 1) {
                     window.location.href = "/UserEnroll/SignOut/?aId=@Model.ActivityID";
                 } else {
-                    alert("活动已结束");
+                    layer.alert("活动已结束");
                 }
                 
             })

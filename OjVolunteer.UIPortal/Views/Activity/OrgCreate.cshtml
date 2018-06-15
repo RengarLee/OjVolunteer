@@ -265,16 +265,16 @@
                 , size: 2048
                 , done: function (res) {
                     if (res["msg"] == "fail") {
-                        alert("图片更换失败，请稍后再试");
+                        layer.alert("图片更换失败，请稍后再试");
                     } else {
                         $('#demo1').attr('src', res["data"].src);
                         $('#ActivityIcon').attr('value', res["data"].src);
-                        alert("图片更新成功");
+                        layer.alert("图片更新成功");
 
                     }
                 }
                 , error: function () {
-                    alert("图片更换失败，请稍后再试")
+                    layer.alert("图片更换失败，请稍后再试")
                 }
             });
         });
