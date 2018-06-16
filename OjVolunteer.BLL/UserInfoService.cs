@@ -257,7 +257,17 @@ namespace OjVolunteer.BLL
                     var user = CurrentDal.GetEntities(u => u.UserInfoID == id).First();
                     if (user.UpdatePoliticalID != user.PoliticalID)
                     {
+                        var duration = DbSession.UserDurationDal.GetEntities(u => u.UserDurationID == user.UserInfoID).FirstOrDefault();
                         user.PoliticalID = (int)user.UpdatePoliticalID;
+                        if (user.PoliticalID == polParty && duration.UserDurationPartyTime == null)
+                        {
+                            duration.UserDurationPartyTime = DateTime.Now;
+                        }
+                        else if (user.PoliticalID == polPreparatory && duration.UserDurationPropartyTime == null)
+                        {
+                            duration.UserDurationPropartyTime = DateTime.Now;
+                        }
+                        DbSession.UserDurationDal.Update(duration);
                     }
                 }
                 return NormalListByULS(ids);
