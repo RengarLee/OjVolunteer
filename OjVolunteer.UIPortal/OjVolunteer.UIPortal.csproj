@@ -200,6 +200,7 @@
     <Compile Include="Controllers\TopController.cs" />
     <Compile Include="Controllers\UserEnrollController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
+    <Compile Include="Controllers\WeiXinController.cs" />
     <Compile Include="Filters\ActionAuthenticationAttribute.cs" />
     <Compile Include="Filters\LoginCheckFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -530,6 +531,7 @@
   <ItemGroup>
     <Folder Include="Content\Upload\ActivityImages\" />
     <Folder Include="Content\Upload\TalkImages\" />
+    <Folder Include="Views\WeiXin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

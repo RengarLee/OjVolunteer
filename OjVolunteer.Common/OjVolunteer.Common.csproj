@@ -85,6 +85,8 @@
     <Compile Include="LogWriter\SqlServerWriter.cs" />
     <Compile Include="LogWriter\TextFileWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WxHelper\WxConfig.cs" />
+    <Compile Include="WxHelper\WxHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
