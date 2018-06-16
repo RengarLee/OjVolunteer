@@ -244,15 +244,15 @@ namespace OjVolunteer.BLL
         #endregion
 
         #region 更改用户政治面貌
-
-        public bool ListUpdatePolical(List<int> ids)
+        //通过
+        public bool AListUpdatePolical(List<int> ids)
         {
             try
             {
                 foreach (int id in ids)
                 {
                     var user = CurrentDal.GetEntities(u => u.UserInfoID == id).First();
-                    if (user.UpdatePoliticalID != null)
+                    if (user.UpdatePoliticalID != user.PoliticalID)
                     {
                         user.PoliticalID = (int)user.UpdatePoliticalID;
                     }
@@ -264,7 +264,26 @@ namespace OjVolunteer.BLL
                 return false;
             }
         }
-
+        //拒绝
+        public bool OListUpdatePolical(List<int> ids)
+        {
+            try
+            {
+                foreach (int id in ids)
+                {
+                    var user = CurrentDal.GetEntities(u => u.UserInfoID == id).First();
+                    if (user.UpdatePoliticalID != user.PoliticalID)
+                    {
+                        user.UpdatePoliticalID = user.PoliticalID;
+                    }
+                }
+                return NormalListByULS(ids);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region 用户添加

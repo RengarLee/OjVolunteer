@@ -231,7 +231,10 @@
                         maxmin: false,
                         shadeClose: true,
                         area: ['800px', '830px'],
-                        content: '/UserInfo/OrgEditUser/' + row["UserInfoID"]
+                        content: '/UserInfo/OrgEditUser/' + row["UserInfoID"],
+                        end: function () {
+                            initTable();
+                        },
                     });
                 }
             });

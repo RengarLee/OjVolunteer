@@ -15,7 +15,8 @@ namespace OjVolunteer.IBLL
 
         IQueryable<UserInfo> LoadPageData(UserQueryParam userQueryParam);
 
-        Boolean ListUpdatePolical(List<int> ids);
+        Boolean AListUpdatePolical(List<int> ids);
+        Boolean OListUpdatePolical(List<int> ids);
 
         Boolean AddUser(UserInfo userInfo);
 

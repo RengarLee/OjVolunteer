@@ -28,7 +28,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">志愿者登录名</label>
                 <div class="layui-input-block">
-                    @Html.TextBoxFor(Model => Model.UserInfoLoginId, new { @disabled = "", @autocomplete = "off", @class = "layui-input"})
+                    @Html.TextBoxFor(Model => Model.UserInfoLoginId, new { @disabled = "", @autocomplete = "off", @class = "layui-input" })
                 </div>
             </div>
             <div class="layui-form-item">
@@ -78,6 +78,7 @@
                 <label class="layui-form-label">政治面貌</label>
                 <div class="layui-input-block">
                     @Html.DropDownListFor(Model => Model.UpdatePoliticalID, ViewBag.UpdatePoliticalList as IEnumerable<SelectListItem>, new { @class = "layui-input", @autocomplete = "off" })
+
                 </div>
 
             </div>
@@ -106,7 +107,8 @@
                 form.on('submit(*)', function (data) {
                     $.post("/UserInfo/UserEditUser", $("#form1").serializeArray(), function (data) {
                         if (data == "success") {
-                            layer.msg('资料修改成功', { icon: 1 });
+                            layer.msg('资料修改成功', { icon: 1, time: 2000 } );
+                            window.location.href ="/UserInfo/UserEditUser"
                         } else if (data == "fail") {
                         } else if (data == "auditing") {
                             layer.msg('修改政治面貌后，需要团队审核通过后才可以正常参加志愿者活动', {

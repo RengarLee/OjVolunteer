@@ -212,7 +212,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (UserInfoService.ListUpdatePolical(idList))
+            if (UserInfoService.AListUpdatePolical(idList))
             {
                 return Content("success");
             }
@@ -241,7 +241,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 idList.Add(int.Parse(strId));
             }
-            if (UserInfoService.NormalListByULS(idList))
+            if (UserInfoService.OListUpdatePolical(idList))
             {
                 return Content("success");
             }
@@ -341,7 +341,9 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewBag.Proparty = duration.UserDurationPropartyTotal;
             ViewBag.Party = duration.UserDurationPartyTotal;
             ViewBag.Normal = duration.UserDurationNormalTotal;
-            ViewData.Model = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+            var temp = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault();
+            ViewData.Model = temp;
+            UpdateCaching(temp);
             return View();
         }
 
@@ -419,7 +421,8 @@ namespace OjVolunteer.UIPortal.Controllers
             var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).AsQueryable();
             ViewData["OrganizeinfoList"] = (from u in allOrganizeInfo
                                             select new SelectListItem() { Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
-
+            LoginUser = UserInfoService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID).FirstOrDefault() ;
+            UpdateCaching(LoginUser);
             return View(LoginUser);
         }
 
@@ -440,11 +443,16 @@ namespace OjVolunteer.UIPortal.Controllers
                 {
                     return Content(msg);
                 }
-                if (temp.UpdatePoliticalID != userInfo.UpdatePoliticalID)
+                //重新更改政治面貌
+                if (temp.PoliticalID != userInfo.UpdatePoliticalID)
                 {
                     temp.Status = delAuditing;
                 }
-                //赋值
+                else
+                {
+                    temp.Status = delNormal;
+                }
+                temp.UpdatePoliticalID = userInfo.UpdatePoliticalID;
                 temp.UserInfoShowName = userInfo.UserInfoShowName;
                 temp.UserInfoStuId = userInfo.UserInfoStuId;
                 temp.UserInfoPhone = userInfo.UserInfoPhone;
@@ -452,7 +460,6 @@ namespace OjVolunteer.UIPortal.Controllers
                 temp.MajorID = userInfo.MajorID;
                 temp.DepartmentID = userInfo.DepartmentID;
                 temp.OrganizeInfoID = userInfo.OrganizeInfoID;
-                temp.UpdatePoliticalID = userInfo.UpdatePoliticalID;
                 temp.ModfiedOn = DateTime.Now;
 
                 if (UserInfoService.Update(temp))
@@ -508,6 +515,7 @@ namespace OjVolunteer.UIPortal.Controllers
             if (ModelState.IsValid)
             {
                 userInfo.ModfiedOn = DateTime.Now;
+                userInfo.UpdatePoliticalID = userInfo.PoliticalID;
                 if (userInfo.OrganizeInfoID != LoginOrganize.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
                 {
                     return Content("fail");
