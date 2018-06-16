@@ -33,6 +33,17 @@ namespace OjVolunteer.UIPortal.Controllers
         [LoginCheckFilter(BoolCheckLogin =false)]
         public ActionResult Index()
         {
+            ViewBag.isShow = false ;
+            if (LoginUser != null)
+            {
+                UserBadge userBadge = UserBadgeService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.BadgeID == 1).FirstOrDefault();
+                if (userBadge != null && LoginUser.UserInfoLastTime < userBadge.CreateTime)
+                {
+                    ViewBag.isShow =true ;
+                }
+                LoginUser.UserInfoLastTime = DateTime.Now;
+                UserInfoService.Update(LoginUser);
+            }
             return View();
         }
 
@@ -592,13 +603,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public JsonResult FiftyHours()
         {
             String msg = "fail";
-            UserBadge userBadge = UserBadgeService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.BadgeID == 1).FirstOrDefault();
-            if (userBadge != null && LoginUser.UserInfoLastTime < userBadge.CreateTime)
-            {
-                msg = "success";
-            }
-            LoginUser.UserInfoLastTime = DateTime.Now;
-            UserInfoService.Update(LoginUser);
+            
             return Json(new { msg }, JsonRequestBehavior.AllowGet);
         }
         #endregion

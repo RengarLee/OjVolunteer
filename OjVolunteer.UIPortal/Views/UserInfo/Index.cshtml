@@ -57,6 +57,9 @@
         });
 
         $(function () {
+            if (@ViewBag.isShow) {
+                layer.msg("50小时");
+            }
             GetActivityData(1, 8);
         });
         function GetActivityData(pageIndex, pageSize) {

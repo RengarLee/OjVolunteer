@@ -10,6 +10,10 @@ namespace OjVolunteer.BLL
     public partial class ActivityService
     {
         short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
+        
+        //政治面貌编号
+        short polParty = (short)Model.Enum.PoliticalEnum.Party;
+        short polPreparatory = (short)Model.Enum.PoliticalEnum.Preparatory;
 
         public Boolean AddTime(int actId)
         {
@@ -34,11 +38,20 @@ namespace OjVolunteer.BLL
 
                     //用户总时长累积
                     UserDuration userDuration = DbSession.UserDurationDal.GetEntities(u => u.UserDurationID == Enroll.UserInfoID).FirstOrDefault();
+
+                    //政治面貌
+                    int pId = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == userDuration.UserDurationID).FirstOrDefault().PoliticalID;
+
                     //总时长
                     userDuration.UserDurationTotal = userDuration.UserDurationTotal + (decimal)Enroll.ActivityTime;
-                    if (userDuration.UserDurationPartyTime != null)
+
+                    //用户为党员
+                    if (pId == polParty)
+                    {
                         userDuration.UserDurationPartyTotal = userDuration.UserDurationPartyTotal + (decimal)Enroll.ActivityTime;
-                    else if (userDuration.UserDurationPropartyTime != null)
+                    }
+                    //用户为预备党员
+                    else if (pId == polPreparatory)
                     {
                         userDuration.UserDurationPropartyTotal = userDuration.UserDurationPropartyTotal + (decimal)Enroll.ActivityTime;
                         //50小时志愿者徽章
