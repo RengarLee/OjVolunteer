@@ -166,7 +166,9 @@
                     layer.alert("操作成功");
                 } else if (data == "null") {
                     layer.alert("至少选择一列");
-                } else {
+                } else if (data == "no") {
+                    layer.alert("该政治面貌无法删除");
+                }else {
                     layer.alert("删操作失败,请稍后再试");
                 }
             });

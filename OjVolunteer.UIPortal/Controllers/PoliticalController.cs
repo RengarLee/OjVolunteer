@@ -12,8 +12,12 @@ namespace OjVolunteer.UIPortal.Controllers
     public class PoliticalController : BaseController
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
-        public IPoliticalService PoliticalService { get; set; }
 
+        //政治面貌编号
+        short polParty = (short)Model.Enum.PoliticalEnum.Party;
+        short polPreparatory = (short)Model.Enum.PoliticalEnum.Preparatory;
+
+        public IPoliticalService PoliticalService { get; set; }
 
         public ActionResult Index()
         {
@@ -113,6 +117,10 @@ namespace OjVolunteer.UIPortal.Controllers
             foreach (var strId in strIds)
             {
                 idList.Add(int.Parse(strId));
+            }
+            if (idList.Contains(polParty) || idList.Contains(polPreparatory))
+            {
+                return Content("no");
             }
             if (PoliticalService.DeleteListByLogical(idList))
             {
