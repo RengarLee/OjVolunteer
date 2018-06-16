@@ -14,6 +14,9 @@ namespace OjVolunteer.BLL
     {
         short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
         short delAuditing = (short)Model.Enum.DelFlagEnum.Auditing;
+        short polParty = (short)Model.Enum.PoliticalEnum.Party;
+        short polPreparatory = (short)Model.Enum.PoliticalEnum.Preparatory;
+
         #region Excel导出
         public Stream ExportToExecl(bool isSuper, int orgId)
         {
@@ -337,7 +340,31 @@ namespace OjVolunteer.BLL
             }
             //旧密码不正确
             return "error";
-        } 
+        }
         #endregion
+
+        #region 更新用户
+        public Boolean UpdateUser(UserInfo userInfo)
+        {
+            //该用户的时长
+            var duration = DbSession.UserDurationDal.GetEntities(u => u.UserDurationID == userInfo.UserInfoID).FirstOrDefault();
+            userInfo.ModfiedOn = DateTime.Now;
+            userInfo.UpdatePoliticalID = userInfo.PoliticalID;
+
+            //
+            if (userInfo.PoliticalID == polParty && duration.UserDurationPartyTime == null)
+            {
+                duration.UserDurationPartyTime = DateTime.Now;
+            }
+            else if (userInfo.PoliticalID == polPreparatory && duration.UserDurationPropartyTime == null)
+            {
+                duration.UserDurationPropartyTime = DateTime.Now;
+            }
+            DbSession.UserDurationDal.Update(duration);
+            DbSession.UserInfoDal.Update(userInfo);
+            return DbSession.SaveChanges() > 0;
+        }
+        #endregion
+
     }
 }

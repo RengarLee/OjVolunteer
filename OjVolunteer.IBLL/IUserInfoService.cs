@@ -23,5 +23,7 @@ namespace OjVolunteer.IBLL
         List<UserInfo> SearchUser(String key);
 
         String UpdatePassWord(UserInfo user, string oldPwd, string newPwd);
+
+        Boolean UpdateUser(UserInfo userInfo);
     }
 }

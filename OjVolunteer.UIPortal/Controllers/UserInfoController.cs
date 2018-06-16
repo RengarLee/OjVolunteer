@@ -514,13 +514,11 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                userInfo.ModfiedOn = DateTime.Now;
-                userInfo.UpdatePoliticalID = userInfo.PoliticalID;
                 if (userInfo.OrganizeInfoID != LoginOrganize.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
                 {
                     return Content("fail");
                 }
-                if (UserInfoService.Update(userInfo))
+                if (UserInfoService.UpdateUser(userInfo))
                 {
                     return Content("success");
                 }
