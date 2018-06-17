@@ -463,7 +463,7 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageIndex = (offset / pageSize) + 1;
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal && u.ActivityManagerID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.ActivityDetail.Count() }).AsQueryable();
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal && u.ActivityApplyOrganizeID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.ActivityDetail.Count() }).AsQueryable();
                 var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
