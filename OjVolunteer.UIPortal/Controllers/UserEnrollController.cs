@@ -235,13 +235,13 @@ namespace OjVolunteer.UIPortal.Controllers
             {
 
                 if (UserEnrollService.SignIn(activityId, new List<int> { LoginUser.UserInfoID }))
-                    return Redirect("/Error/QrCodeError/?Id=4&aId" + activityId);
+                    return Redirect("~/Error/QrCodeError/?Id=4&aId" + activityId+"&type=0");
                 else
-                    return Redirect("/Error/QrCodeError/?Id=3");
+                    return Redirect("~/Error/QrCodeError/?Id=3&aId" + activityId + "&type=0");
             }
             else
             {
-                return Redirect("/Error/QrCodeError/?Id=1");
+                return Redirect("~/Error/QrCodeError/?Id=1&aId" + activityId + "&type=0");
             }
 
         }
@@ -255,16 +255,16 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 if (temp.Status != delAuditing&&temp.Status != delNormal)
                 {
-                    return Redirect("/Error/QrCodeError/?Id=2");
+                    return Redirect("~/Error/QrCodeError/?Id=2aId=" + activityId);
                 }
                 if (UserEnrollService.SignOut(activityId, new List<int> { LoginUser.UserInfoID }))
-                     return Redirect("/Error/QrCodeError/?Id=4&&aId="+activityId);
+                     return Redirect("~/Error/QrCodeError/?Id=4&&aId=" + activityId+ "&type=1");
                 else
-                    return Redirect("/Error/QrCodeError/?Id=3");
+                    return Redirect("~/Error/QrCodeError/?Id=3&aId" + activityId + "&type=1");
             }
             else
             {
-                return Redirect("/Error/QrCodeError/?Id=1");
+                return Redirect("~/Error/QrCodeError/?Id=1&aId" + activityId + "&type=1");
             }
         }
         #endregion
