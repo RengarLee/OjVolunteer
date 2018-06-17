@@ -138,7 +138,7 @@
         // 点赞功能
         function dianZan() {
             $('.zan').click(function () {
-                var zan = this;
+                var zan = $(this);
                 if ($(this).hasClass('yiZan')) {
                     layer.msg('只能点赞一次哦~');
                 }
@@ -154,7 +154,8 @@
                             zan.addClass('yiZan');
                         } else if (data["msg"] == "fail") {
                             layer.msg('点赞失败,稍后再试！');
-                        } if (data["msg"] == "nologin") {
+                        }
+                        if (data["msg"] == "nologin") {
                             layer.msg('请先登录！');
                         }
                     });
