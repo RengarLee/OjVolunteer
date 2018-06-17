@@ -532,7 +532,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 DataPage = DataPage.Where(u => !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).AsQueryable();
             }
-            DataPage = DataPage.Where(u => u.ActivityEnrollStart < DateTime.Now).AsQueryable();
+            //DataPage = DataPage.Where(u => u.ActivityEnrollStart < DateTime.Now).AsQueryable();
             return DataPage;
         }
         #endregion
