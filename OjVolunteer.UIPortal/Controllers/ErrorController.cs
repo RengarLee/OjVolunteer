@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OjVolunteer.UIPortal.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,6 +7,7 @@ using System.Web.Mvc;
 
 namespace OjVolunteer.UIPortal.Controllers
 {
+    [LoginCheckFilter(BoolCheckLogin = false)]
     public class ErrorController : Controller
     {
         // GET: Error
