@@ -123,6 +123,17 @@
                         formatter: operateFormatter
                     }
                 ],
+                onLoadSuccess: function (data) {
+
+                    $(".agreeLink").click(function () {
+                        agreeClickEvent($(this).attr("uid"));
+                        return false;
+                    });
+                    $(".opposeLink").click(function () {
+                        opposeClickEvent($(this).attr("uid"));
+                        return false;
+                    })
+                },
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
                         title: '活动详情',
