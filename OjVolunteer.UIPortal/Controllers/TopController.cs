@@ -86,7 +86,7 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             else
             {
-                return Json(new { msg = "fail" });
+                return Json(new { msg = "fail",total });
             }
         }
 
