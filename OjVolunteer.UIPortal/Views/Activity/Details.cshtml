@@ -100,33 +100,40 @@
         function BindEnrollClickEvent() {
            $(".btnEnroll").click(function () {
                 var activityId = $(this).attr("activity");
-                var that = this;
-                $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
-                    if (data["msg"] == "exists") {
-                        layer.msg("您已报名");
-                    } else if (data["msg"] == "audit") {
-                        layer.msg("您的政治面貌尚未审核，无法报名活动，请耐心等待审核！")
-                    } else if (data["msg"] == "full") {
-                        layer.msg("报名人数已满!");
-                    } else if (data["msg"] == "fail") {
-                        layer.msg("报名失败,请稍后再试!");
-                    } else if (data["msg"] == "later") {
-                        layer.msg("报名已结束!");
-                    } else if (data["msg"] == "success") {
-                        layer.msg("报名成功!", {
-                            end: function () {
-                                var need_Num = Number($(that).parent().prev().prev().children("span").text());
-                                var join_Num = Number($(that).parent().prev().children(".red").text());
-                                if (join_Num < need_Num) {
-                                    join_Num++;
-                                    $(that).parent().prev().children(".red").text(join_Num);
-                                }
-                            }
-                        });
-                    } else if (data["msg"] == "nologin") {
-                        layer.msg("请先登录！");
-                    }
-                });
+               var that = this;
+
+               //活动是否结束
+               if (@Model.Status == 4) {
+                   $.post("/UserEnroll/Create/", { activityId: activityId }, function (data) {
+                       if (data["msg"] == "exists") {
+                           layer.msg("您已报名");
+                       } else if (data["msg"] == "audit") {
+                           layer.msg("您的政治面貌尚未审核，无法报名活动，请耐心等待审核！")
+                       } else if (data["msg"] == "full") {
+                           layer.msg("报名人数已满!");
+                       } else if (data["msg"] == "fail") {
+                           layer.msg("报名失败,请稍后再试!");
+                       } else if (data["msg"] == "later") {
+                           layer.msg("报名已结束!");
+                       } else if (data["msg"] == "success") {
+                           layer.msg("报名成功!", {
+                               end: function () {
+                                   var need_Num = Number($(that).parent().prev().prev().children("span").text());
+                                   var join_Num = Number($(that).parent().prev().children(".red").text());
+                                   if (join_Num < need_Num) {
+                                       join_Num++;
+                                       $(that).parent().prev().children(".red").text(join_Num);
+                                   }
+                               }
+                           });
+                       } else if (data["msg"] == "nologin") {
+                           layer.msg("请先登录！");
+                       }
+                   });
+               }
+               else {
+                   layer.msg("活动已结束");
+               }
             });
         }
         //时间戳转为时间
@@ -142,9 +149,8 @@
                 } else if (data["msg"] == 1) {
                     window.location.href = "/UserEnroll/SignOut/?aId=@Model.ActivityID";
                 } else {
-                    alert("活动已结束");
+                    layer.msg("活动已结束");
                 }
-                
             })
         }
     </script>

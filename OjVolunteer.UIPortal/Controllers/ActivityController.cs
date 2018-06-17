@@ -537,7 +537,7 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-        #region 我的界面
+        #region 我的活动
 
         /// <summary>
         /// 进入个人历史活动界面
@@ -669,10 +669,9 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             int Id = Convert.ToInt32(Request["Id"]);
             int Type = Convert.ToInt32(Request["TypeId"]);
-            String msg = "success";
-            if (ActivityService.GetEntities(u => u.ActivityID == Id).FirstOrDefault().Status == delDoneAuditing)
+            if (ActivityService.GetEntities(u => u.ActivityID == Id).FirstOrDefault().Status != delUndone)
             {
-                return Json(new { msg = "msg" }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
             }
             if (Type == 0)
             {

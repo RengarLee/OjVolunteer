@@ -459,6 +459,7 @@
     <Content Include="fonts\iconfont.eot" />
     <Content Include="fonts\iconfont.ttf" />
     <Content Include="fonts\iconfont.woff" />
+    <Content Include="Content\oj\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

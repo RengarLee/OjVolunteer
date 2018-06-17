@@ -61,8 +61,7 @@
         });
 
         $(function () {
-            var flag = @ViewBag.isShow as Boolean;
-            if (flag) {
+            if (@ViewBag.isShow==1) {
                 layer.msg("50小时");
             }
             GetActivityData(1, 8);

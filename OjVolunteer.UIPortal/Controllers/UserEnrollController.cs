@@ -40,7 +40,6 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             int activityId = Convert.ToInt32(Request["activityId"]);
             string msg = String.Empty;
-
             //已报名
             if (UserEnrollService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.ActivityID == activityId).Count() > 0)
             {

@@ -33,13 +33,13 @@ namespace OjVolunteer.UIPortal.Controllers
         [LoginCheckFilter(BoolCheckLogin =false)]
         public ActionResult Index()
         {
-            ViewBag.isShow = false ;
+            ViewBag.isShow = 0 ;
             if (LoginUser != null)
             {
                 UserBadge userBadge = UserBadgeService.GetEntities(u => u.UserInfoID == LoginUser.UserInfoID && u.BadgeID == 1).FirstOrDefault();
                 if (userBadge != null && LoginUser.UserInfoLastTime < userBadge.CreateTime)
                 {
-                    ViewBag.isShow =true ;
+                    ViewBag.isShow =1 ;
                 }
                 LoginUser.UserInfoLastTime = DateTime.Now;
                 UserInfoService.Update(LoginUser);
