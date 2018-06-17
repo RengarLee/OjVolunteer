@@ -43,6 +43,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 }
                 LoginUser.UserInfoLastTime = DateTime.Now;
                 UserInfoService.Update(LoginUser);
+                UpdateCaching(LoginUser);
             }
             return View();
         }
