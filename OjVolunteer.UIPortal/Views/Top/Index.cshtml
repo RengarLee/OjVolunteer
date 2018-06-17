@@ -140,9 +140,13 @@
 
         function GetRank(typeId, orgId, timeId) {
             $.post("/Top/GetRank", { typeId: typeId, OrgId: orgId, TimeType: timeId }, function (data) {
-                $("#rank").html("NO."+data.Rank);
-                if (typeId == 0) {
-                    $("#self").html("服务时长：<i>" + data.Num + "</i>小时");
+                if (data.Rank == 0) {
+                    $("#rank").html("NO." + data.Rank);
+                    if (typeId == 0) {
+                        $("#self").html("服务时长：<i>" + data.Num + "</i>小时");
+                    }
+                } else {
+                    $("#self").html("未上榜");
                 }
             });
         }
