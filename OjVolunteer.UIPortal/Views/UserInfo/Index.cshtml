@@ -42,7 +42,7 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
     <script>
 
-    
+
 
         $('.poor').click(function () {
             layer.msg('该功能尚未完成！');
@@ -61,7 +61,8 @@
         });
 
         $(function () {
-            if (@ViewBag.isShow) {
+            var flag = @ViewBag.isShow as Boolean;
+            if (flag) {
                 layer.msg("50小时");
             }
             GetActivityData(1, 8);
@@ -110,7 +111,7 @@
 
                         li.append(li_a1);
                         li.append(li_a2);
-                        
+
                         $("#lilist").append(li);
                     }
                 } else {
