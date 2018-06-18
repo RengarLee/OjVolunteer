@@ -69,9 +69,9 @@
                     for (var i = 0; i < length;i++) {
                         var temp = data["data"][i];
                         //图片
-                        var li = $("<li class='hot-list'></li>");
+                        var li = $("<li class='hot-list clearfix'></li>");
                         var li_a1 = $("<a  href='/Activity/Details/?Id=" + temp.ActivityID + "'></a>");
-                        var li_a1_div = $("<div class='hot-inline'></div>");
+                        var li_a1_div = $("<div class='hot-inline pull-left'></div>");
                         var li_a1_div_div = $("<div class='hot-img'></div>");
 
                         var li_a1_div_div_img = $("<img/>");
@@ -90,7 +90,7 @@
                             return;
                         temp = data["data"][i];
                         var li_a2 = $("<a  href='/Activity/Details/?Id=" + temp.ActivityID + "'></a>");
-                        var li_a2_div = $("<div class='hot-inline'></div>");
+                        var li_a2_div = $("<div class='hot-inline pull-right'></div>");
                         var li_a2_div_div = $("<div class='hot-img'></div>");
 
                         var li_a2_div_div_img = $("<img/>");
