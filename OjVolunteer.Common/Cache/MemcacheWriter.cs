@@ -21,8 +21,8 @@ namespace OjVolunteer.Common.Cache
             pool.InitConnections = 3;
             pool.MinConnections = 3;
             pool.MaxConnections = 5;
-            pool.SocketConnectTimeout = 1000;
-            pool.SocketTimeout = 3000;
+            pool.SocketConnectTimeout = 5000;
+            pool.SocketTimeout = 5000;
             pool.MaintenanceSleep = 30;
             pool.Failover = true;
             pool.Nagle = false;

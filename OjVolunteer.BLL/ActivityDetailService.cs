@@ -87,86 +87,82 @@ namespace OjVolunteer.BLL
             #endregion
 
             #region 缓存
-            //if (TimeType == 1)//月排行
-            //{
-            //    list = Common.Cache.CacheHelper.GetCache("ActMonthTop") as List<ActTopView>;
-            //    if (list == null)
-            //    {
-            //        dateTime = DateTime.Now.Month;
-            //        var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Month == dateTime).AsQueryable();
-            //        list = (from u in Data
-            //                group u by u.UserInfoId into grouped
-            //                orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
-            //                select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
-            //        foreach (var temp in list)
-            //        {
-            //            var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
-            //            temp.ShowName = t.UserInfoShowName;
-            //            temp.OrgId = t.OrganizeInfoID;
-            //            temp.Icon = t.UserInfoIcon;
-            //        }
-            //        Common.Cache.CacheHelper.SetCache("ActMonthTop", list, DateTime.Now.AddDays(1));
-            //    }
-            //}
-            //else//年排行
-            //{
-            //    list = Common.Cache.CacheHelper.GetCache("ActYearTop") as List<ActTopView>;
-            //    if (list == null)
-            //    {
-            //        dateTime = DateTime.Now.Year;
-            //        var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Year == dateTime).AsQueryable();
-            //        list = (from u in Data
-            //                group u by u.UserInfoId into grouped
-            //                orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
-            //                select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
-            //        foreach (var temp in list)
-            //        {
-            //            var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
-            //            temp.ShowName = t.UserInfoShowName;
-            //            temp.OrgId = t.OrganizeInfoID;
-            //            temp.Icon = t.UserInfoIcon;
-            //        }
-            //        Common.Cache.CacheHelper.SetCache("ActYearTop", list, DateTime.Now.AddDays(1));
-            //    }
-            //} 
-            #endregion
-
             if (TimeType == 1)//月排行
             {
-                dateTime = DateTime.Now.Month;
-                var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Month == dateTime).AsQueryable();
-                list = (from u in Data
-                        group u by u.UserInfoId into grouped
-                        orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
-                        select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
-                int id;
-                for (int i = 0; i < list.Count; i++)
+                list = Common.Cache.CacheHelper.GetCache("ActMonthTop") as List<ActTopView>;
+                if (list == null)
                 {
-                    id = list[i].UserInfoID;
-                    var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
-                    list[i].ShowName = t.UserInfoShowName;
-                    list[i].OrgId = t.OrganizeInfoID;
-                    list[i].Icon = t.UserInfoIcon;
+                    dateTime = DateTime.Now.Month;
+                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Month == dateTime).AsQueryable();
+                    list = (from u in Data
+                            group u by u.UserInfoId into grouped
+                            orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
+                            select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
+                    int id;
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        id = list[i].UserInfoID;
+                        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
+                        list[i].ShowName = t.UserInfoShowName;
+                        list[i].OrgId = t.OrganizeInfoID;
+                        list[i].Icon = t.UserInfoIcon;
+                    }
+                    Common.Cache.CacheHelper.SetCache("ActMonthTop", list, DateTime.Now.AddDays(1));
                 }
             }
             else//年排行
             {
-                dateTime = DateTime.Now.Year;
-                var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Year == dateTime).AsQueryable();
-                list = (from u in Data
-                        group u by u.UserInfoId into grouped
-                        orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
-                        select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
-                int id;
-                for (int i = 0; i < list.Count; i++)
+                list = Common.Cache.CacheHelper.GetCache("ActYearTop") as List<ActTopView>;
+                if (list == null)
                 {
-                    id = list[i].UserInfoID;
-                    var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
-                    list[i].ShowName = t.UserInfoShowName;
-                    list[i].OrgId = t.OrganizeInfoID;
-                    list[i].Icon = t.UserInfoIcon;
+                    dateTime = DateTime.Now.Year;
+                    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Year == dateTime).AsQueryable();
+                    list = (from u in Data
+                            group u by u.UserInfoId into grouped
+                            orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
+                            select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
+                    foreach (var temp in list)
+                    {
+                        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == temp.UserInfoID).FirstOrDefault();
+                        temp.ShowName = t.UserInfoShowName;
+                        temp.OrgId = t.OrganizeInfoID;
+                        temp.Icon = t.UserInfoIcon;
+                    }
+                    Common.Cache.CacheHelper.SetCache("ActYearTop", list, DateTime.Now.AddDays(1));
                 }
             }
+            #endregion
+
+            #region 无缓存
+            //if (TimeType == 1)//月排行
+            //{
+            //    dateTime = DateTime.Now.Month;
+            //    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Month == dateTime).AsQueryable();
+            //    list = (from u in Data
+            //            group u by u.UserInfoId into grouped
+            //            orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
+            //            select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
+            //    
+            //}
+            //else//年排行
+            //{
+            //    dateTime = DateTime.Now.Year;
+            //    var Data = CurrentDal.GetEntities(u => u.Status == delNormal && u.CreateTime.Value.Year == dateTime).AsQueryable();
+            //    list = (from u in Data
+            //            group u by u.UserInfoId into grouped
+            //            orderby grouped.Sum(m => m.ActivityDetailTime) descending, grouped.Key
+            //            select new ActTopView { UserInfoID = grouped.Key, ActivityTime = grouped.Sum(m => m.ActivityDetailTime) }).ToList();
+            //    int id;
+            //    for (int i = 0; i < list.Count; i++)
+            //    {
+            //        id = list[i].UserInfoID;
+            //        var t = DbSession.UserInfoDal.GetEntities(u => u.UserInfoID == id).FirstOrDefault();
+            //        list[i].ShowName = t.UserInfoShowName;
+            //        list[i].OrgId = t.OrganizeInfoID;
+            //        list[i].Icon = t.UserInfoIcon;
+            //    }
+            //} 
+            #endregion
 
             if (OrdId != -1)
             {
