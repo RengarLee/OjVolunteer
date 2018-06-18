@@ -476,13 +476,16 @@
                 }, function () {
                     $.post("/Activity/Create", $("#form1").serializeArray(), function (data) {
                         if (data["msg"] == "success") {
-                            //alert("申请成功，请等待审核！");
-                            layer.msg('申请成功，请等待审核！', { icon: 1 });
+                            layer.msg('申请成功，请等待审核！', {
+                                icon: 1,
+                                end: function () {
+                                    location.reload();
+                                }
+                            });
                         } else {
                             layer.msg('出现错误,请稍后再试！', { icon: 2 });
                         }
                     });
-                    //layer.msg('的确很重要', { icon: 1 });
                 }, function () {
                     layer.msg('已取消');
                 });
