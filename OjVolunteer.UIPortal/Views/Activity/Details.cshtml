@@ -32,10 +32,10 @@
             <span>@Model.ActivityName</span>
         </div>
         <div class="acmore-title">
-            <span>报名时间：@{ var Estart = ((DateTime)(Model.ActivityEnrollStart)).ToString("yyyy-MM-dd HH:mm"); @Estart} - @{ var Eend = ((DateTime)(Model.ActivityEnrollEnd)).ToString("HH:mm"); @Eend}</span>
+            <span>报名时间：@{ var Estart = ((DateTime)(Model.ActivityEnrollStart)).ToString("MM月dd日 HH:mm"); @Estart} - @{ var Eend = ((DateTime)(Model.ActivityEnrollEnd)).ToString("MM月dd日 HH:mm"); @Eend}</span>
         </div>
         <div class="acmore-title">
-            <span>活动时间：@{ var start = ((DateTime)(Model.ActivityStart)).ToString("yyyy-MM-dd HH:mm"); @start} - @{ var end = ((DateTime)(Model.ActivityEnd)).ToString("HH:mm"); @end}</span>
+            <span>活动时间：@{ var start = ((DateTime)(Model.ActivityStart)).ToString("yyyy年 MM月dd日 HH:mm"); @start} - @{ var end = ((DateTime)(Model.ActivityEnd)).ToString("HH:mm"); @end}</span>
         </div>
         <div class="acmore-title">
             <span>活动地点：<a target="_blank" href="https://map.baidu.com/mobile/webapp/search/search/qt=s&amp;wd=@Model.ActivityAddress/vt=map">@Model.ActivityAddress</a></span>
