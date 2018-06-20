@@ -613,7 +613,8 @@ namespace OjVolunteer.UIPortal.Controllers
         [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
         public ActionResult Exit()
         {
-            Response.Cookies["userLoginId"].Value = String.Empty;
+            //Response.Cookies["userLoginId"].Value = String.Empty;
+            Response.Cookies["userLoginId"].Expires = DateTime.Now.AddDays(-1);
             return Redirect("/Login/");
         }
         #endregion

@@ -40,7 +40,7 @@ namespace OjVolunteer.UIPortal.Controllers
         /// </summary>
         /// <param name="id">活动Id</param>
         /// <returns></returns>
-        [ActionAuthentication(AbleOrganize = false, AbleUser = true)]
+        [LoginCheckFilter(BoolCheckLogin = false)]
         public ActionResult Details(int Id)
         {
             var activity = ActivityService.GetEntities(u => u.ActivityID == Id).FirstOrDefault();
@@ -50,7 +50,14 @@ namespace OjVolunteer.UIPortal.Controllers
             }
             activity.ActivityClicks++;
             ActivityService.Update(activity);
-            ViewBag.UserId = LoginUser.UserInfoID;
+            if (LoginUser != null)
+            {
+                ViewBag.UserId = LoginUser.UserInfoID;
+            }
+            else
+            {
+                ViewBag.UserId = -1;
+            }
             ViewData.Model = activity;
             return View();
         }
