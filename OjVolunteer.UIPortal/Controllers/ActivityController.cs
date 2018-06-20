@@ -220,7 +220,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 if (string.IsNullOrEmpty(activity.ActivityIcon))
                 {
-                    activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"];
+                    activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultActivityIconPath"];
                 }
                 if (LoginOrganize != null)//组织注册
                 {
