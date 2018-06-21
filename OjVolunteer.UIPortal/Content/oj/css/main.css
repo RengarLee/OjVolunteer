@@ -260,7 +260,6 @@ a:active{
 	}
 	.login-content form{
 		width: 100%;
-		overflow: hidden;
 	}
 	/*把input的类单独写出来，可以给其他表单的元素使用*/
 	.forminput{
