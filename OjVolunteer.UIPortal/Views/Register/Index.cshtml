@@ -144,7 +144,7 @@
                 $.post("/Register/ValName", { "name": str }, function (data) {
                     if (data != "success")
                         //alert("登录名重复,请更换登录名！");
-                        layer.msg('登录名重复,请更换登录名！', { icon: 2 });
+                        layer.msg('登录账号重复,请更换登录账号！', { icon: 2 });
                 });
             });
             $("#teamname").blur(function () {
@@ -152,7 +152,7 @@
                 $.post("Register/ValName", { "name": str }, function (data) {
                     if (data != "success")
                         //alert("登录名重复,请更换登录名！");
-                        layer.msg('登录名重复,请更换登录名！', { icon: 2 });
+                        layer.msg('登录账号重复,请更换登录账号！', { icon: 2 });
                 });
             });
         });
