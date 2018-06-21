@@ -177,7 +177,7 @@
                                 @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
                                 @foreach (var key in PoliticalDict.Keys)
                     {
-                        <input type="checkbox" value="@key" typename="PoliticalDict" id="@key" title="@PoliticalDict[key]" checked />
+                        <input type="checkbox" value="@key" typename="PoliticalDict" id="@key" title="@PoliticalDict[key]" />
         }
                             </div>
                         </div>
@@ -188,7 +188,7 @@
                                 @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
                                 @foreach (var key in MajorDict.Keys)
                     {
-                        <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]" checked />
+                        <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]"  />
         }
                             </div>
                         </div>
@@ -199,7 +199,7 @@
                                 @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
                                 @foreach (var key in DepartmentDict.Keys)
                     {
-                        <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" checked />
+                        <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" />
         }
                             </div>
                         </div>
@@ -357,19 +357,19 @@
         //数据绑定
         function beforeSubmit() {
             var Politicalresult = ",";
-            $("input[typename='PoliticalDict']:not(:checked)").each(function () {
+            $("input[typename='PoliticalDict']:checked").each(function () {
                 Politicalresult += $(this).val() + ',';
             });
             $("#ActivityPolitical").val(Politicalresult);
 
             var Majorresult = ",";
-            $("input[typename='MajorDict']:not(:checked)").each(function () {
+            $("input[typename='MajorDict']:checked").each(function () {
                 Majorresult += $(this).val() + ',';
             });
             $("#ActivityMajor").val(Majorresult);
 
             var Departmentresult = ",";
-            $("input[typename='DepartmentDict']:not(:checked)").each(function () {
+            $("input[typename='DepartmentDict']:checked").each(function () {
                 Departmentresult += $(this).val() + ',';
             });
             $("#ActivityDepartment").val(Departmentresult);

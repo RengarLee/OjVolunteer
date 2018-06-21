@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 namespace OjVolunteer.UIPortal.Controllers
@@ -72,27 +73,28 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             var activity = ActivityService.GetEntities(u => u.ActivityID == id).FirstOrDefault();
             ViewData.Model = activity;
-            var MajorStr = String.Empty;
-            String[] MajorIds = activity.ActivityMajor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var i in MajorIds)
+
+            var major = MajorService.GetEntities(u => !activity.ActivityMajor.Contains(("," + u.MajorID.ToString() + ","))).AsQueryable(); ;
+            StringBuilder MajorStr = new StringBuilder();
+            foreach (var i in major)
             {
-                MajorStr += MajorService.GetEntities(u => u.MajorID.ToString().Equals(i)).FirstOrDefault().MajorName;
+                MajorStr.Append(i.MajorName+" ");
             }
             ViewBag.MajorStr = MajorStr;
 
-            var DepartmentStr = String.Empty;
-            String[] DepartmentIds = activity.ActivityDepartment.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var i in DepartmentIds)
+            StringBuilder DepartmentStr = new StringBuilder();
+            var department = DepartmentService.GetEntities(u => !activity.ActivityDepartment.Contains(("," + u.DepartmentID.ToString() + ","))).AsQueryable();
+            foreach (var i in department)
             {
-                DepartmentStr += DepartmentService.GetEntities(u => u.DepartmentID.ToString().Equals(i)).FirstOrDefault().DepartmentName;
+                DepartmentStr.Append(i.DepartmentName + " ");
             }
             ViewBag.DepartmentStr = DepartmentStr;
 
-            var PoliticalStr = String.Empty;
-            String[] PoliticalIds = activity.ActivityPolitical.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var i in PoliticalIds)
+            StringBuilder PoliticalStr = new StringBuilder();
+            var political = PoliticalService.GetEntities(u=> !activity.ActivityDepartment.Contains(("," + u.PoliticalID.ToString() + ","))).AsQueryable();
+            foreach (var i in political)
             {
-                PoliticalStr += PoliticalService.GetEntities(u => u.PoliticalID.ToString().Equals(i)).FirstOrDefault().PoliticalName + "  ";
+                PoliticalStr.Append(i.PoliticalName + " ");
             }
             ViewBag.PoliticalStr = PoliticalStr;
             return View();
