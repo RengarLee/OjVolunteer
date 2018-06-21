@@ -251,7 +251,6 @@ a:active{
 		border-radius: 5px;
 		box-shadow: 0 0 5px gray;
 		max-width: 750px;
-		overflow: hidden;
 	}
 	.login-content .lg-title{
 		font-size: 20px;
