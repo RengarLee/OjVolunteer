@@ -36,7 +36,7 @@ namespace OjVolunteer.Model
         [Display(Name = "报名结束时间")]
         public System.DateTime ActivityEnrollEnd { get; set; }
 
-        [StringLength(50,MinimumLength = 5,ErrorMessage = "长度在2到50字符之内")]
+        [StringLength(50,ErrorMessage = "长度在2到50字符之内")]
         [Display(Name = "活动详细地址")]
         public string ActivityAddress { get; set; }
 

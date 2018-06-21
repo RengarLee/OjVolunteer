@@ -39,7 +39,7 @@ namespace OjVolunteer.Model
         /// </summary>
 
         [Required(ErrorMessage = "联系人不能为空")]
-        [RegularExpression("^[\u4e00-\u9fa5]{2,10}$", ErrorMessage = "联系人不符合规范")]
+        [RegularExpression("^[\u4e00-\u9fa5]{2,8}$", ErrorMessage = "联系人不符合规范")]
         public string OrganizeInfoPeople { get; set; }
 
         /// <summary>

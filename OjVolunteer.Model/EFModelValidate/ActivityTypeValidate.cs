@@ -15,7 +15,7 @@ namespace OjVolunteer.Model
 
     public class ActivityTypeValidate
     {
-        [StringLength(15,MinimumLength =2,ErrorMessage ="活动名称长度在2到15长度之内")]
+     
         public string ActivityTypeName { get; set; }
     }
 }
