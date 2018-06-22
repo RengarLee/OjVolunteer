@@ -53,7 +53,6 @@
         });
 
         function initTable(queryParam) {
-            $("#tb_organize").bootstrapTable('destroy');
             $('#tb_organize').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/OrganizeInfo/GetAllOrganizeInfo',
@@ -68,7 +67,7 @@
                 sidePagination: "server",
                 pageNumber: 1,
                 pageSize: 10,
-                pageList: [10, 20, 50, 100],
+                pageList: [10, 20, 50],
                 smartDisplay: false,
                 showColumns: true,
                 showRefresh: true,
@@ -205,9 +204,6 @@
                         closeBtn: 1,
                         area: ['1000px', '680px'],
                         content: '/OrganizeInfo/OrganizeDetail/' + row["OrganizeInfoID"],
-                        end: function () {
-                            initTable();
-                        },
                     });
                 }
             });
