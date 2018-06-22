@@ -55,7 +55,6 @@
         });
 
         function initTable(queryParam) {
-            $("#tb_user").bootstrapTable('destroy');
             $('#tb_user').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/UserInfo/GetAllUserInfo',
@@ -69,8 +68,8 @@
                 },
                 sidePagination: "server",
                 pageNumber: 1,
-                pageSize: 5,
-                pageList: [5, 10, 20, 50],
+                pageSize: 10,
+                pageList: [ 10, 20, 50],
                 smartDisplay: false,
                 showColumns: true,
                 showRefresh: true,
@@ -211,18 +210,9 @@
                                 return '正常'
                             }
                         },
-                        end: function () {
-                            initTable();
-                        },
                         filterControl: 'input',
                     }
                 ],
-                onLoadSuccess: function (data) {
-                    $(".editLink").click(function () {
-                        editClickEvent($(this).attr("uid"));
-                        return false;
-                    });
-                },
                 onDblClickRow: function (row, $element) {
                     var index = layer.open({
                         type: 2,
@@ -232,9 +222,6 @@
                         shadeClose: true,
                         area: ['800px', '830px'],
                         content: '/UserInfo/OrgEditUser/' + row["UserInfoID"],
-                        end: function () {
-                            initTable();
-                        },
                     });
                 }
             });
