@@ -693,7 +693,6 @@ namespace OjVolunteer.UIPortal.Controllers
         }
         #endregion
 
-
         #region 添加之前活动
 
         public ActionResult Test()
