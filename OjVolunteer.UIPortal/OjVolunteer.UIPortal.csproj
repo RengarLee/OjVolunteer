@@ -537,6 +537,7 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\OrganizeInfo\UpdatePwd.cshtml" />
     <Content Include="Views\Top\OrgIndex.cshtml" />
+    <Content Include="Views\Activity\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Upload\ActivityImages\" />

@@ -16,8 +16,8 @@ layui.use(['form','layer'],function(){
 		    }
 		  }
 		  ,pass: [
-		    /^[\S]{6,12}$/
-		    ,'密码必须在6到12位之间，且不能出现空格'
+		    /^[A-Za-z0-9]{6,12}$/
+		    ,'密码必须为数字或字符并在6到12位之间'
 		  ]
 		  ,repass:function(value){
 		  	var passvalue = document.getElementById("userpass").value;
