@@ -46,7 +46,6 @@
         });
 
         function initTable(queryParam) {
-            $("#tb_activity").bootstrapTable('destroy');
             $('#tb_activity').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/Activity/GetAllActivityOfAuditing',
@@ -59,7 +58,7 @@
                 sidePagination: "server",
                 pageNumber: 1,
                 pageSize: 10,
-                pageList: [10, 20, 50, 100],
+                pageList: [10, 20, 50],
                 smartDisplay: false,
                 showColumns: true,
                 showRefresh: true,
