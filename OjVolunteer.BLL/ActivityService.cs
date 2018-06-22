@@ -56,13 +56,15 @@ namespace OjVolunteer.BLL
                     {
                         userDuration.UserDurationPropartyTotal = userDuration.UserDurationPropartyTotal + (decimal)Enroll.ActivityTime;
                         //50小时志愿者徽章
-                        if (userDuration.UserDurationPropartyTotal >= 50)
+                        if (userDuration.UserDurationPropartyTotal >= 50&& DbSession.UserBadgeDal.GetEntities(u => u.BadgeID == 1 && u.UserInfoID == userDuration.UserDurationID).FirstOrDefault() == null)
                         {
-                            UserBadge userBadge = new UserBadge();
-                            //徽章ID
-                            userBadge.BadgeID = 1;
-                            userBadge.UserInfoID = userDuration.UserDurationID;
-                            userBadge.CreateTime = DateTime.Now;
+                            UserBadge userBadge = new UserBadge
+                            {
+                                //徽章ID
+                                BadgeID = 1,
+                                UserInfoID = userDuration.UserDurationID,
+                                CreateTime = DateTime.Now
+                            };
                             userDuration.Status = delNormal;
                             DbSession.UserBadgeDal.Add(userBadge);
                         }
