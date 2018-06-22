@@ -28,7 +28,6 @@
         });
 
         function initTable(queryParam) {
-            $("#tb_activity").bootstrapTable('destroy');
             $('#tb_activity').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/Activity/ActManData',
@@ -41,8 +40,8 @@
                 queryParams: queryParam,
                 sidePagination: "server",
                 pageNumber: 1,
-                pageSize: 20,
-                pageList: [10, 20, 50, 100],
+                pageSize: 10,
+                pageList: [10, 20, 50],
                 smartDisplay: false,
                 showColumns: true,
                 showRefresh: true,
