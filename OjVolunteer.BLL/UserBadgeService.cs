@@ -10,6 +10,7 @@ namespace OjVolunteer.BLL
     {
         public Boolean AddBadge(int bId, int uId)
         {
+            return true;
         }
     }
 }
