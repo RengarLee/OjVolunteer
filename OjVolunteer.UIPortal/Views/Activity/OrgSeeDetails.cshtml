@@ -124,14 +124,19 @@ else
                         <input type="text" name="title" class="layui-input" disabled value="@Model.ActivityEnd">
                     </div>
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label htmlLable">以下条件可以参加活动</label>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label" style="text-align:center;margin-bottom:0;">以下条件可以参加该活动</label>
                     <div class="layui-input-block">
-                        <input type="text" name="title" class="layui-input htmlInput" value="@ViewBag.PoliticalStr @ViewBag.MajorStr @ViewBag.DepartmentStr" disabled>
+                        <div class="layui-textarea" disabled>
+                            @ViewBag.PoliticalStr @ViewBag.MajorStr @ViewBag.DepartmentStr
+                        </div>
+                        @*<input type="text" name="title" class="layui-input htmlInput" value="@ViewBag.PoliticalStr @ViewBag.MajorStr @ViewBag.DepartmentStr" disabled>*@
                     </div>
                 </div>
+
                 <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label" style="text-align:center;margin-bottom:0;">活动详情</label>
+                    <label class="layui-form-label" style="text-align:center;margin-bottom:0;">活动的详情</label>
                     <div class="layui-input-block">
                         <div class="layui-textarea" disabled>
                             @Html.Raw(Model.ActivityContent)
