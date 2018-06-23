@@ -408,6 +408,7 @@
     <Content Include="Content\qrcode\qrcode.js" />
     <Content Include="Content\Upload\Icon\1.jpg" />
     <Content Include="Content\Upload\Images\1.jpg" />
+    <Content Include="Content\Upload\Images\2.jpg" />
     <Content Include="Content\Upload\Images\arrow.png" />
     <Content Include="Content\Upload\Images\goin.png" />
     <Content Include="Content\Upload\Images\icon1.png" />
