@@ -46,6 +46,7 @@
         });
 
         function initTable(queryParam) {
+            $('#tb_activity').bootstrapTable('destroy');
             $('#tb_activity').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/Activity/GetAllActivityOfAuditing',
@@ -129,7 +130,7 @@
                         return false;
                     });
                     $(".opposeLink").click(function () {
-                        opposeClickEvent($(this).attr("uid"));
+                        removeClickEvent($(this).attr("uid"));
                         return false;
                     })
                 },

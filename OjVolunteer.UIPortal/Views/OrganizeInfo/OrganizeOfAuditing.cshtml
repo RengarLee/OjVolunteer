@@ -52,6 +52,7 @@
 
         //初始化表格
         function initTable(queryParam) {
+            $('#tb_organize').bootstrapTable('destroy');
             $('#tb_organize').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/OrganizeInfo/GetAllOrganizeOfAuditing',

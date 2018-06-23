@@ -31,6 +31,7 @@
 
         //初始化表格
         function initTable(queryParam) {
+            $('#tb_talks').bootstrapTable('destroy');
             $('#tb_talks').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/Talks/GetTalksOfAuditing',        

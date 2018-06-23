@@ -30,6 +30,7 @@
         });
 
         function initTable(queryParam) {
+            $('#tb_activity').bootstrapTable('destroy');
             $('#tb_activity').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/Activity/ActAccAuditingData',
@@ -111,6 +112,9 @@
                         type: 2,
                         content: '/Activity/Participants/' + row['ActivityID'],
                         area: ['1000px', '700px'],
+                        end: function () {
+                            initTable();
+                        }
                     });
                 }
             });

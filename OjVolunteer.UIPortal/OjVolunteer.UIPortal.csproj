@@ -408,11 +408,7 @@
     <Content Include="Content\qrcode\qrcode.js" />
     <Content Include="Content\Upload\Icon\1.jpg" />
     <Content Include="Content\Upload\Images\1.jpg" />
-    <Content Include="Content\Upload\Images\66763879_p0.jpg" />
-    <Content Include="Content\Upload\Images\acimg.png" />
-    <Content Include="Content\Upload\Images\acmoreimg.jpg" />
     <Content Include="Content\Upload\Images\arrow.png" />
-    <Content Include="Content\Upload\Images\c386bed0-0c9f-4f8f-85fe-2950611046da-1.jpg" />
     <Content Include="Content\Upload\Images\goin.png" />
     <Content Include="Content\Upload\Images\icon1.png" />
     <Content Include="Content\Upload\Images\password.png" />
