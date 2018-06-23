@@ -293,6 +293,7 @@
                 range: true
                 , done: function (value, date, endDate) {
                     huodong = date;
+                    console.log('活动开始时间');
                     console.log(huodong);
                 }
             });
@@ -304,54 +305,92 @@
                 range: true
                 , ready: function () {
                     layer.tips('报名结束时间应比活动开始时间早！', '#timeEnrollRange', {
-                        tips: [1] //还可配置颜色
+                        tips: [1] 
                     });
                 }
                 , done: function (value, date, endDate) {
                     baoming = endDate;
+                    console.log('报名结束时间');
                     console.log(baoming);
                 }
             });
         });
 
         function checktime() {
-            if (baoming.year > huodong.year) {
+            if (baoming.year < huodong.year) {
+                return true;
+            }
+            else if (baoming.year > huodong.year) {
                 layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
                 return false;
             }
-            else {
-                if (baoming.month > huodong.month) {
+            else{
+                if (baoming.month < huodong.month) {
+                    return true;
+                }
+                else if (baoming.month > huodong.month) {
                     layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
                     return false;
                 }
                 else {
-                    if (baoming.date > huodong.date) {
+                    if (baoming.date < huodong.date) {
+                        return true;
+                    }
+                    else if (baoming.date > huodong.date) {
                         layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
                         return false;
                     }
                     else {
-                        if (baoming.hours > huodong.date) {
+                        if (baoming.hours < huodong.hours) {
+                            return true;
+                        }
+                        else if (baoming.hours > huodong.hours) {
                             layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
                             return false;
                         }
                         else {
-                            if (baoming.minutes > huodong.minutes) {
+                            if (baoming.minutes < huodong.minutes) {
+                                return true;
+                            }
+                            else if (baoming.minutes > huodong.minutes) {
                                 layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
                                 return false;
                             }
                             else {
-                                if (baoming.seconds > huodong.seconds) {
+                                if (baoming.seconds < huodong.seconds) {
+                                    return true;
+                                }
+                                else if (baoming.seconds > huodong.seconds) {
                                     layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
                                     return false;
                                 }
                                 else {
-                                    return true;
+                                    layer.alert('报名结束时间不能和活动时间相同', { icon: 2, anim: 6 });
                                 }
                             }
                         }
                     }
                 }
             }
+            
+                
+                //else {
+
+                //    else {
+
+                //        else {
+
+                //            else {
+
+                //                else {
+                //                    layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
+                //                    return false;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
+            
         }
 
         //数据绑定
@@ -482,7 +521,7 @@
                             layer.msg('申请成功，请等待审核！', {
                                 icon: 1,
                                 end: function () {
-                                    location.reload();
+                                    console.log('成功');
                                 }
                             });
                         } else {
