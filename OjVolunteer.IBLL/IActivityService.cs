@@ -12,5 +12,7 @@ namespace OjVolunteer.IBLL
         Boolean AddTime(int actId);
 
         Boolean AddActivity(Activity activity);
+
+        Boolean AddBeforeActivity(Activity activity, List<int> ids);
     }
 }

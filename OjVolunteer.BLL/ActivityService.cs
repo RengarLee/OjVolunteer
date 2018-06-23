@@ -10,7 +10,8 @@ namespace OjVolunteer.BLL
     public partial class ActivityService
     {
         short delInvalid = (short)Model.Enum.DelFlagEnum.Invalid;
-        
+        short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+
         //政治面貌编号
         short polParty = (short)Model.Enum.PoliticalEnum.Party;
         short polPreparatory = (short)Model.Enum.PoliticalEnum.Preparatory;
@@ -55,13 +56,15 @@ namespace OjVolunteer.BLL
                     {
                         userDuration.UserDurationPropartyTotal = userDuration.UserDurationPropartyTotal + (decimal)Enroll.ActivityTime;
                         //50小时志愿者徽章
-                        if (userDuration.UserDurationPropartyTotal >= 50)
+                        if (userDuration.UserDurationPropartyTotal >= 50&& DbSession.UserBadgeDal.GetEntities(u => u.BadgeID == 1 && u.UserInfoID == userDuration.UserDurationID).FirstOrDefault() == null)
                         {
-                            UserBadge userBadge = new UserBadge();
-                            //徽章ID
-                            userBadge.BadgeID = 1;
-                            userBadge.UserInfoID = userDuration.UserDurationID;
-                            userBadge.CreateTime = DateTime.Now;
+                            UserBadge userBadge = new UserBadge
+                            {
+                                //徽章ID
+                                BadgeID = 1,
+                                UserInfoID = userDuration.UserDurationID,
+                                CreateTime = DateTime.Now
+                            };
                             userDuration.Status = delNormal;
                             DbSession.UserBadgeDal.Add(userBadge);
                         }
@@ -107,5 +110,42 @@ namespace OjVolunteer.BLL
                 return false;
         }
 
+        /// <summary>
+        /// 添加以往已完成的活动  仅测试用
+        /// </summary>
+        /// <param name="activity">活动</param>
+        /// <param name="ids">参与人Id</param>
+        /// <returns></returns>
+        public Boolean AddBeforeActivity(Activity activity, List<int> ids)
+        {
+            CurrentDal.Add(activity);
+            if (!(DbSession.SaveChanges() > 0))
+                return false;
+            TimeSpan timeSpan = (TimeSpan)(activity.ActivityEnd - activity.ActivityStart);
+            double Time = timeSpan.Hours + (double)timeSpan.Minutes / 60;
+            //集体报名 集体及时
+            foreach (var id in ids)
+            {
+                UserEnroll userEnroll = new UserEnroll()
+                {
+                    ActivityID = activity.ActivityID,
+                    UserInfoID = id,
+                    UserEnrollStart = activity.ActivityEnrollStart,
+                    UserEnrollActivityStart = activity.ActivityStart,
+                    UserEnrollActivityEnd = activity.ActivityEnd,
+                    ActivityTime = (decimal)Time,
+                    CreateTime = DateTime.Now,
+                    Status = delNormal,
+                };
+                DbSession.UserEnrollDal.Add(userEnroll);
+            } 
+
+            var org = DbSession.OrganizeInfoDal.GetEntities(u => u.OrganizeInfoID == activity.ActivityApplyOrganizeID).FirstOrDefault();
+            org.ActivityCount++;
+            DbSession.OrganizeInfoDal.Update(org);
+            if (!(DbSession.SaveChanges() > 0))
+                return false;
+            return AddTime(activity.ActivityID);
+        }
     }
 }

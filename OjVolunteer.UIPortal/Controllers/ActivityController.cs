@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 namespace OjVolunteer.UIPortal.Controllers
@@ -72,27 +73,28 @@ namespace OjVolunteer.UIPortal.Controllers
         {
             var activity = ActivityService.GetEntities(u => u.ActivityID == id).FirstOrDefault();
             ViewData.Model = activity;
-            var MajorStr = String.Empty;
-            String[] MajorIds = activity.ActivityMajor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var i in MajorIds)
+
+            var major = MajorService.GetEntities(u => !activity.ActivityMajor.Contains(("," + u.MajorID.ToString() + ","))).AsQueryable(); ;
+            StringBuilder MajorStr = new StringBuilder();
+            foreach (var i in major)
             {
-                MajorStr += MajorService.GetEntities(u => u.MajorID.ToString().Equals(i)).FirstOrDefault().MajorName;
+                MajorStr.Append(i.MajorName+" ");
             }
             ViewBag.MajorStr = MajorStr;
 
-            var DepartmentStr = String.Empty;
-            String[] DepartmentIds = activity.ActivityDepartment.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var i in DepartmentIds)
+            StringBuilder DepartmentStr = new StringBuilder();
+            var department = DepartmentService.GetEntities(u => !activity.ActivityDepartment.Contains(("," + u.DepartmentID.ToString() + ","))).AsQueryable();
+            foreach (var i in department)
             {
-                DepartmentStr += DepartmentService.GetEntities(u => u.DepartmentID.ToString().Equals(i)).FirstOrDefault().DepartmentName;
+                DepartmentStr.Append(i.DepartmentName + " ");
             }
             ViewBag.DepartmentStr = DepartmentStr;
 
-            var PoliticalStr = String.Empty;
-            String[] PoliticalIds = activity.ActivityPolitical.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var i in PoliticalIds)
+            StringBuilder PoliticalStr = new StringBuilder();
+            var political = PoliticalService.GetEntities(u=> !activity.ActivityDepartment.Contains(("," + u.PoliticalID.ToString() + ","))).AsQueryable();
+            foreach (var i in political)
             {
-                PoliticalStr += PoliticalService.GetEntities(u => u.PoliticalID.ToString().Equals(i)).FirstOrDefault().PoliticalName + "  ";
+                PoliticalStr.Append(i.PoliticalName + " ");
             }
             ViewBag.PoliticalStr = PoliticalStr;
             return View();
@@ -225,7 +227,8 @@ namespace OjVolunteer.UIPortal.Controllers
                 if (LoginOrganize != null)//组织注册
                 {
                     activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
-                    activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
+                    //activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
+                    activity.Status = activity.ActivityTypeID == 1 ? LoginOrganize.OrganizeInfoManageId == null? delUndone:delAuditing : delAuditing;
                 }
                 else//
                 {
@@ -470,13 +473,13 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageIndex = (offset / pageSize) + 1;
             if (LoginOrganize.OrganizeInfoManageId != null)
             {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal && u.ActivityApplyOrganizeID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.ActivityDetail.Count() }).AsQueryable();
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal && u.ActivityApplyOrganizeID == LoginOrganize.OrganizeInfoID, u => u.ActivityID, false).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.ActivityDetail.Count() }).AsQueryable();
                 var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.ActivityID, true).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.ActivityDetail.Count() }).AsQueryable();
+                var pageData = ActivityService.GetPageEntities(pageSize, pageIndex, out int total, u => u.Status == delNormal, u => u.ActivityID, false).Select(u => new { u.ActivityID, u.ActivityName, u.ApplyUserInfo.UserInfoShowName, u.ApplyOrganizeInfo.OrganizeInfoShowName, u.ActivityPrediNum, u.ActivityType.ActivityTypeName, u.ActivityStart, u.ActivityEnd, u.Status, u.ActivityManagerID, EnrollNum = u.UserEnroll.Count(), DetailNum = u.ActivityDetail.Count() }).AsQueryable();
                 var data = new { total = total, rows = pageData.ToList() };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -688,6 +691,54 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 return Json(new { msg = 1 }, JsonRequestBehavior.AllowGet);
             }
+        }
+        #endregion
+
+        #region 添加之前活动
+
+        public ActionResult Test()
+        {
+            var allActivityType = ActivityTypeService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal).AsQueryable();
+            ViewBag.ActivityTypeID = (from u in allActivityType select new SelectListItem() { Selected = false, Text = u.ActivityTypeName, Value = u.ActivityTypeID + "" }).ToList();
+            ViewBag.ActivityApplyOrganizeID = (from u in allOrganizeInfo select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
+            ViewBag.MajorDict = MajorService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.MajorID, u => u.MajorName);
+            ViewBag.PoliticalDict = PoliticalService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.PoliticalID, u => u.PoliticalName);
+            ViewBag.DepartmentDict = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable().ToDictionary(u => u.DepartmentID, u => u.DepartmentName);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult CreateBeforeActiivty(Activity activity)
+        {
+            string[] ActivtiyTime = Request["ActivityTime"].Split(new string[] { " - " }, StringSplitOptions.RemoveEmptyEntries);
+            activity.ActivityStart = DateTime.Parse(ActivtiyTime[0]);
+            activity.ActivityEnd = DateTime.Parse(ActivtiyTime[1]);
+            activity.ActivityEnrollStart = (DateTime)activity.ActivityStart;
+            activity.ActivityEnrollEnd = (DateTime)activity.ActivityStart;
+            if (string.IsNullOrEmpty(activity.ActivityIcon))
+            {
+                activity.ActivityIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultActivityIconPath"];
+            }
+            activity.Status = delDoneAuditing;
+            activity.ActivityClicks = 0;
+            activity.CreateTime = DateTime.Now;
+            activity.ModfiedOn = activity.CreateTime;
+
+            List<int> ids = new List<int>();
+            String[] strIds = Request["UserIds"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var str in strIds)
+            {
+                ids.Add(Convert.ToInt32(str));
+            }
+            if (ActivityService.AddBeforeActivity(activity,ids))
+            {
+                return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+                return Json(new { msg = "fail" }, JsonRequestBehavior.AllowGet);
+
         }
         #endregion
     }

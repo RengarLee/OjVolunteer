@@ -19,18 +19,20 @@
             height: 300px;
             width: 300px;
         }
-        .layui-upload-img{
-            width:200px;
-            height:130px;
+
+        .layui-upload-img {
+            width: 200px;
+            height: 130px;
         }
-        .layui-code, .layui-upload-list{
-            position:absolute;
-            top:-340px;
-            left:-585px;
+
+        .layui-code, .layui-upload-list {
+            position: absolute;
+            top: -340px;
+            left: -585px;
         }
 
         #choose {
-        display:none;
+            display: none;
         }
 
         /*搜索按钮*/
@@ -55,10 +57,10 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
-            position:absolute;
-            z-index:99;
-            width:610px;
-            margin-top:-12px;
+            position: absolute;
+            z-index: 99;
+            width: 610px;
+            margin-top: -12px;
         }
 
             #myUL li a {
@@ -79,6 +81,38 @@
                 }
 
                 #myUL li a:hover:not(.header) {
+                    background-color: #eee;
+                }
+
+        #myULUser {
+            /* 移除默认的列表样式 */
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            z-index: 99;
+            width: 610px;
+            margin-top: -12px;
+        }
+
+            #myULUser li a {
+                border: 1px solid #ddd;
+                /* 链接添加边框 */
+                margin-top: -1px;
+                background-color: #f6f6f6;
+                padding: 12px;
+                text-decoration: none;
+                font-size: 18px;
+                color: black;
+                display: block;
+            }
+
+                #myULUser li a.header {
+                    background-color: #e2e2e2;
+                    cursor: default;
+                }
+
+                #myULUser li a:hover:not(.header) {
                     background-color: #eee;
                 }
         /*搜索按钮结束*/
@@ -103,14 +137,28 @@
                     <label class="layui-form-label ">负责人</label>
                     <div class="layui-input-block">
                         <input type="hidden" name="ActivityManagerID" id="ActivityMananager" />
-                        <input type="text" id="myInput" onkeyup="search(this)" placeholder="搜索..." class="layui-input" lay-verify = "required">
+                        <input type="text" id="myInput" onkeyup="search(this)" placeholder="搜索..." class="layui-input" lay-verify="required">
                         <ul id="myUL" hidden="hidden"></ul>
                     </div>
                 </div>
+                <label class="layui-form-label ">参加人员</label>
+                <div class="layui-input-block">
+                    <input type="hidden" name="UserIds" id="UserIds" class="layui-input" />
+                    <input type="text"  id="UserName" class="layui-input" />
+                </div>
+
+                <input type="text" id="myInputUser" onkeyup="searchUser(this)" placeholder="搜索..." class="layui-input">
+                <ul id="myULUser" hidden="hidden"></ul>
                 <div class="layui-form-item">
                     <label class="layui-form-label ">活动类型</label>
                     <div class="layui-input-block">
                         @Html.DropDownList("ActivityTypeID", null, new { htmlAttributes = new { @lay_verify = "required" } })
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">活动申请组织</label>
+                    <div class="layui-input-block">
+                        @Html.DropDownList("ActivityApplyOrganizeID", null, new { htmlAttributes = new { @lay_verify = "required" } })
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -136,12 +184,6 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">报名时间</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="EnrollTime" required placeholder="请输入报名时间范围" class="layui-input" id="timeEnrollRange">
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label">活动时间</label>
                     <div class="layui-input-block">
                         <input type="text" name="ActivityTime" required placeholder="请输入活动时间范围" class="layui-input" id="timeRange">
@@ -158,7 +200,7 @@
                         <div class="layui-upload">
                             @Html.HiddenFor(Model => Model.ActivityIcon)
                             <button type="button" class="layui-btn" id="myimg">上传活动封面</button>
-                            <input type="file" id="choose"/>
+                            <input type="file" id="choose" />
                             <div class="layui-upload-list">
                                 <img class="layui-upload-img" id="demo1">
                                 <p id="demoText"></p>
@@ -169,44 +211,11 @@
                 <!--富文本框-->
                 @Html.TextAreaFor(Model => Model.ActivityContent, new { style = "display: none;", id = "demo" })
                 <div class="acStart-Condition">
-                    <div class="layui-collapse">
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">可参加人员</h2>
-                            <div class="layui-colla-content">
-                                @Html.HiddenFor(model => model.ActivityPolitical)
-                                @{ Dictionary<int, String> PoliticalDict = (Dictionary<int, String>)ViewBag.PoliticalDict;}
-                                @foreach (var key in PoliticalDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" typename="PoliticalDict" id="@key" title="@PoliticalDict[key]" />
-        }
-                            </div>
-                        </div>
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">可参加活动的专业</h2>
-                            <div class="layui-colla-content">
-                                @Html.HiddenFor(model => model.ActivityMajor)
-                                @{ Dictionary<int, String> MajorDict = (Dictionary<int, String>)ViewBag.MajorDict;}
-                                @foreach (var key in MajorDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" typename="MajorDict" id="@key" title="@MajorDict[key]"  />
-        }
-                            </div>
-                        </div>
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">可参加活动的分院</h2>
-                            <div class="layui-colla-content">
-                                @Html.HiddenFor(model => model.ActivityDepartment)
-                                @{ Dictionary<int, String> DepartmentDict = (Dictionary<int, String>)ViewBag.DepartmentDict;}
-                                @foreach (var key in DepartmentDict.Keys)
-                    {
-                        <input type="checkbox" value="@key" typename="DepartmentDict" id="@key" title="@DepartmentDict[key]" />
-        }
-                            </div>
-                        </div>
-                    </div>
+                    <input type="hidden" name="ActivityPolitical" value="," />
+                    <input type="hidden" name="ActivityMajor" value="," />
+                    <input type="hidden" name="ActivityDepartment" value="," />
+
                 </div>
-
-
                 <div class="acArticle-btn">
                     <div class="layui-form-item">
                         <button class="layui-btn" id="btnSubmit" type="button" lay-submit lay-filter="*">发布</button>
@@ -242,7 +251,7 @@
                     if (data["msg"] == "success") {
                         var usersHtml = "";
                         $.each(data["data"], function (index, val) {
-                            usersHtml += '<li><a onclick="result(this,' + val.UserInfoID + ')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
+                            usersHtml += '<li><a name="'+ val.UserInfoShowName+'" onclick="result(this,' + val.UserInfoID+')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
                         });
                         $("#myUL").html(usersHtml);
                         $("#myUL").show();
@@ -252,35 +261,79 @@
         }
 
         function result(e, value) {
-            var str = e.text
+            var str = e.text;
+            var name = e.getAttribute("name");
+            $("#UserName").val(name);
+            $("#UserIds").val("," + value);
             $("#myInput").val(e.text);
             $("#ActivityMananager").val(value);
             $('#myUL').hide();
         }
 
-        //layui.use('upload', function () {
-        //    var upload = layui.upload;
-        //    var uploadInst = upload.render({
-        //        elem: '#myimg'
-        //        , url: '/Activity/UploadIcon'
-        //        , accept: 'images'
-        //        , size: 2048
-        //        , done: function (res) {
-        //            if (res["msg"] == "fail") {
-        //                layer.alert("图片更换失败，请稍后再试");
-        //            } else {
-        //                $('#demo1').attr('src', res["data"].src);
-        //                $('#ActivityIcon').attr('value', res["data"].src);
-        //                layer.alert("图片更新成功");
+        function searchUser(input) {
+            var text = $(input).val();
+            if (text == null || text == "") {
+                $("#myULUser").hide();
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/UserInfo/SearchActivityPeople",
+                data: { key: text },
+                dataType: "json",
+                success: function (data) {
+                    if (data["msg"] == "success") {
+                        var usersHtml = "";
+                        $.each(data["data"], function (index, val) {
+                            usersHtml += '<li><a name="' + val.UserInfoShowName +'" onclick="resultUser(this,' + val.UserInfoID +')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
+                        });
+                        $("#myULUser").html(usersHtml);
+                        $("#myULUser").show();
+                    }
+                }
+            });
+        }
 
-        //            }
-        //        }
-        //        , error: function () {
-        //            layer.alert("图片更换失败，请稍后再试");
-        //        }
-        //    });
-        //});
+        //查找参加用户
+        function resultUser(e, value) {
+            var s = $("#UserIds").val();
+            var t = $("#UserName").val();
+            var name = e.getAttribute("name");
+            $("#UserName").val(t+","+name);
+            $("#UserIds").val(s + "," + value);
+            $('#myULUser').hide();
+            $('#myInputUser').val("");
+        }
 
+        function BindSubmit() {
+            layedit.sync(index);
+                layer.confirm('确定发布活动吗？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.post("/Activity/CreateBeforeActiivty", $("#form1").serializeArray(), function (data) {
+                        if (data["msg"] == "success") {
+                            layer.msg('申请成功，请等待审核！', {
+                                icon: 1,
+                                end: function () {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            layer.msg('出现错误,请稍后再试！', { icon: 2 });
+                        }
+                    });
+                }, function () {
+                    layer.msg('已取消');
+                });
+        }
+        layui.use('form', function () {
+            var form = layui.form;
+
+            form.on('submit(*)', function (data) {
+                BindSubmit();
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+        });
 
         //日期组件
         var huodong;
@@ -313,67 +366,6 @@
                 }
             });
         });
-
-        function checktime() {
-            if (baoming.year > huodong.year) {
-                layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-                return false;
-            }
-            else {
-                if (baoming.month > huodong.month) {
-                    layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-                    return false;
-                }
-                else {
-                    if (baoming.date > huodong.date) {
-                        layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-                        return false;
-                    }
-                    else {
-                        if (baoming.hours > huodong.date) {
-                            layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-                            return false;
-                        }
-                        else {
-                            if (baoming.minutes > huodong.minutes) {
-                                layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-                                return false;
-                            }
-                            else {
-                                if (baoming.seconds > huodong.seconds) {
-                                    layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-                                    return false;
-                                }
-                                else {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //数据绑定
-        function beforeSubmit() {
-            var Politicalresult = ",";
-            $("input[typename='PoliticalDict']:checked").each(function () {
-                Politicalresult += $(this).val() + ',';
-            });
-            $("#ActivityPolitical").val(Politicalresult);
-
-            var Majorresult = ",";
-            $("input[typename='MajorDict']:checked").each(function () {
-                Majorresult += $(this).val() + ',';
-            });
-            $("#ActivityMajor").val(Majorresult);
-
-            var Departmentresult = ",";
-            $("input[typename='DepartmentDict']:checked").each(function () {
-                Departmentresult += $(this).val() + ',';
-            });
-            $("#ActivityDepartment").val(Departmentresult);
-        }
 
         //富文本框
         var index;
@@ -469,40 +461,6 @@
             });
             local.search(myValue);
         }
-
-        function BindSubmit() {
-            beforeSubmit();
-            layedit.sync(index);
-            if (checktime()) {
-                layer.confirm('确定发布活动吗？', {
-                    btn: ['确定', '取消'] //按钮
-                }, function () {
-                    $.post("/Activity/Create", $("#form1").serializeArray(), function (data) {
-                        if (data["msg"] == "success") {
-                            layer.msg('申请成功，请等待审核！', {
-                                icon: 1,
-                                end: function () {
-                                    location.reload();
-                                }
-                            });
-                        } else {
-                            layer.msg('出现错误,请稍后再试！', { icon: 2 });
-                        }
-                    });
-                }, function () {
-                    layer.msg('已取消');
-                });
-            }
-        }
-        layui.use('form', function () {
-            var form = layui.form;
-
-            form.on('submit(*)', function (data) {
-                BindSubmit();
-                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-            });
-        });
-
 
         var filechooser = document.getElementById("choose");
 

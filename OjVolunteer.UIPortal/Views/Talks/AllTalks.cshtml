@@ -30,13 +30,11 @@
 
     <script type="text/javascript">
         $(function () {
-            
             initTable();
         });
 
         //初始化表格
         function initTable(queryParam) {
-            $("#tb_talk").bootstrapTable('destroy');
             $('#tb_talk').bootstrapTable({
                 contentType: "application/x-www-form-urlencoded",
                 url: '/Talks/GetAllTalks',
@@ -50,8 +48,8 @@
                 },
                 sidePagination: "server",
                 pageNumber: 1,
-                pageSize: 5,
-                pageList: [5, 10, 20, 50],
+                pageSize: 10,
+                pageList: [10, 20, 50],
                 smartDisplay: false,
                 showColumns: true,
                 showRefresh: true,
