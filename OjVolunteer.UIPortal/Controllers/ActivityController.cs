@@ -228,7 +228,7 @@ namespace OjVolunteer.UIPortal.Controllers
                 {
                     activity.ActivityApplyOrganizeID = LoginOrganize.OrganizeInfoID;
                     //activity.Status = LoginOrganize.OrganizeInfoManageId == null ? delUndone : delAuditing;
-                    activity.Status = activity.ActivityTypeID == 1 ? LoginOrganize.OrganizeInfoManageId == null? delUndone:delAuditing : delAuditing;
+                    activity.Status = activity.ActivityTypeID == 1 ? (LoginOrganize.OrganizeInfoManageId == null? delUndone:delAuditing) : delUndone;
                 }
                 else//
                 {
