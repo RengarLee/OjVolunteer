@@ -43,13 +43,15 @@ layui.use(['form','layer'],function(){
 		  	/^[0-9]{11}$/
 		  	,'学号必须位11位，且都是数字'
             ]
-          ,actionName:[
-		  	/^[\S]{5,20}$/
-		  	,'活动名称只能在5-20个字之间,且不能出现空格'
-            ]
+            ,actionName: function (value) {
+                if (Number(value) > 20 || Number(value) < 2) {
+                    return '活动名称必须在2-20个字符之间';
+                }
+            }
+
           ,joinNumber:[
 		  	/^[0-9]*[1-9][0-9]*$/
-		  	,'人数上上限不能为负数'
+		  	,'人数上限不能为负数'
             ]
            ,moreAddress:[
 		  	/^[\S]{0,50}$/
