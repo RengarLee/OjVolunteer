@@ -143,7 +143,8 @@
                 </div>
                 <label class="layui-form-label ">参加人员</label>
                 <div class="layui-input-block">
-                    <input type="text" name="UserIds" id="UserIds" class="layui-input" />
+                    <input type="hidden" name="UserIds" id="UserIds" class="layui-input" />
+                    <input type="text"  id="UserName" class="layui-input" />
                 </div>
 
                 <input type="text" id="myInputUser" onkeyup="searchUser(this)" placeholder="搜索..." class="layui-input">
@@ -250,7 +251,7 @@
                     if (data["msg"] == "success") {
                         var usersHtml = "";
                         $.each(data["data"], function (index, val) {
-                            usersHtml += '<li><a onclick="result(this,' + val.UserInfoID + ')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
+                            usersHtml += '<li><a name="'+ val.UserInfoShowName+'" onclick="result(this,' + val.UserInfoID+')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
                         });
                         $("#myUL").html(usersHtml);
                         $("#myUL").show();
@@ -261,7 +262,8 @@
 
         function result(e, value) {
             var str = e.text;
-
+            var name = e.getAttribute("name");
+            $("#UserName").val(name);
             $("#UserIds").val("," + value);
             $("#myInput").val(e.text);
             $("#ActivityMananager").val(value);
@@ -283,7 +285,7 @@
                     if (data["msg"] == "success") {
                         var usersHtml = "";
                         $.each(data["data"], function (index, val) {
-                            usersHtml += '<li><a onclick="resultUser(this,' + val.UserInfoID + ')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
+                            usersHtml += '<li><a name="' + val.UserInfoShowName +'" onclick="resultUser(this,' + val.UserInfoID +')">真实姓名: ' + val.UserInfoShowName + " 登录名:" + val.UserInfoLoginId + " 手机号:" + val.UserInfoPhone + '</a></li>';
                         });
                         $("#myULUser").html(usersHtml);
                         $("#myULUser").show();
@@ -295,6 +297,9 @@
         //查找参加用户
         function resultUser(e, value) {
             var s = $("#UserIds").val();
+            var t = $("#UserName").val();
+            var name = e.getAttribute("name");
+            $("#UserName").val(t+","+name);
             $("#UserIds").val(s + "," + value);
             $('#myULUser').hide();
             $('#myInputUser').val("");
