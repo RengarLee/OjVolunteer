@@ -39,7 +39,8 @@
             initTable();
             $("#btn_add").click(function () {
                 var addInput = $('#add_political');
-                if (addInput.val().length <= 20 && addInput.val().length >= 2) {
+                var pattern = /^[\u4E00-\u9FA5]{2,20}$/;
+                if (addInput.val().match(pattern)) {
                     if ($("#add_political").val() == "") {
                         layer.alert("名称不为空");
                         return;
@@ -57,7 +58,7 @@
                     });
                 }
                 else {
-                    layer.alert('政治面貌添加应在2-20个字之间');
+                    layer.alert('政治面貌添加应在2-20个汉字之间');
                 }
                
 
