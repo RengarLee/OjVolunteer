@@ -258,30 +258,6 @@
             $('#myUL').hide();
         }
 
-        //layui.use('upload', function () {
-        //    var upload = layui.upload;
-        //    var uploadInst = upload.render({
-        //        elem: '#myimg'
-        //        , url: '/Activity/UploadIcon'
-        //        , accept: 'images'
-        //        , size: 2048
-        //        , done: function (res) {
-        //            if (res["msg"] == "fail") {
-        //                layer.alert("图片更换失败，请稍后再试");
-        //            } else {
-        //                $('#demo1').attr('src', res["data"].src);
-        //                $('#ActivityIcon').attr('value', res["data"].src);
-        //                layer.alert("图片更新成功");
-
-        //            }
-        //        }
-        //        , error: function () {
-        //            layer.alert("图片更换失败，请稍后再试");
-        //        }
-        //    });
-        //});
-
-
         //日期组件
         var huodong;
         var baoming;
@@ -396,19 +372,19 @@
         //数据绑定
         function beforeSubmit() {
             var Politicalresult = ",";
-            $("input[typename='PoliticalDict']:checked").each(function () {
+            $("input[typename='PoliticalDict']:not(:checked)").each(function () {
                 Politicalresult += $(this).val() + ',';
             });
             $("#ActivityPolitical").val(Politicalresult);
 
             var Majorresult = ",";
-            $("input[typename='MajorDict']:checked").each(function () {
+            $("input[typename='MajorDict']:not(:checked)").each(function () {
                 Majorresult += $(this).val() + ',';
             });
             $("#ActivityMajor").val(Majorresult);
 
             var Departmentresult = ",";
-            $("input[typename='DepartmentDict']:checked").each(function () {
+            $("input[typename='DepartmentDict']:not(:checked)").each(function () {
                 Departmentresult += $(this).val() + ',';
             });
             $("#ActivityDepartment").val(Departmentresult);
@@ -524,6 +500,7 @@
                                     console.log('成功');
                                 }
                             });
+                            
                         } else {
                             layer.msg('出现错误,请稍后再试！', { icon: 2 });
                         }
