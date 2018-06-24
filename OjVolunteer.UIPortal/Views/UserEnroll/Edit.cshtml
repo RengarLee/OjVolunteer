@@ -51,21 +51,32 @@
         var BaoCun = $('#need');
         var timeRange = $('#timeRange');
         var timeEnrollRange = $('#timeEnrollRange');
+        
         BaoCun.click(function () {
-            if (timeEnrollRange.val() > timeRange.val()) {
-                $.post("/UserEnroll/Edit", $("#from1").serialize(), function (data) {
-                    if (data["msg"] == "success") {
-                        alert("修改成功");
-                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                        parent.layer.close(index); //再执行关闭   
-                    } else {
-                        alert("出现异常，请稍后再试！")
-                    }
-                });
+            var date1 = timeRange.val().substring(0, 10);
+            var date2 = timeEnrollRange.val().substring(0, 10);
+            console.log(date2);
+            console.log(date1);
+            if (date1 != date2) {
+                alert('签到时间和签退时间应在同一天')
             }
             else {
-                alert("时间选择错误，签退时间应该比签到时间晚！");
+                if (timeEnrollRange.val() > timeRange.val()) {
+                    $.post("/UserEnroll/Edit", $("#from1").serialize(), function (data) {
+                        if (data["msg"] == "success") {
+                            alert("修改成功");
+                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                            parent.layer.close(index); //再执行关闭   
+                        } else {
+                            alert("出现异常，请稍后再试！")
+                        }
+                    });
+                }
+                else {
+                    alert("时间选择错误，签退时间应该比签到时间晚！");
+                }
             }
+
         });
         //日期组件
         layui.use('laydate', function () {
