@@ -127,20 +127,27 @@
                 ],
                 onDblClickRow: function (row, $element) {
                     layer.prompt({ title: '编辑', value: row["PoliticalName"] }, function (val, index) {
-                        if (val == row["PoliticalName"]) {
+                        var reg = /^[\u4E00-\u9FA5]{2,20}$/;
+                        if (val.match(reg)) {
+                            $.post("/Political/Edit", { PoliticalID: row["PoliticalID"], PoliticalName: val }, function (data) {
+                                if (data["msg"] == "success") {
+                                    layer.msg("修改成功！");
+                                    initTable();
+                                } else if (data["msg"] == "exist") {
+                                    layer.msg("该名称已存在！");
+                                } else {
+                                    layer.msg("修改失败！")
+                                }
+                            })
+                        }
+                        else if (val == row["PoliticalName"]) {
                             layer.close(index);
                             return;
                         }
-                        $.post("/Political/Edit", { PoliticalID: row["PoliticalID"], PoliticalName: val }, function (data) {
-                            if (data["msg"] == "success") {
-                                layer.msg("修改成功！");
-                                initTable();
-                            } else if (data["msg"] == "exist") {
-                                layer.msg("该名称已存在！");
-                            } else {
-                                layer.msg("修改失败！")
-                            }
-                        })
+                        else {
+                            layer.msg('修改失败！政治面貌应在2-20个汉字之间');
+                        }
+                        
                         layer.close(index);
                     });
                 },
