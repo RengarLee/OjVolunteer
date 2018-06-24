@@ -17,7 +17,7 @@ namespace OjVolunteer.Model
         /// <summary>
         /// 活动名称
         /// </summary>  
-        [StringLength(30 ,MinimumLength = 5, ErrorMessage ="活动名称不少于5个字")]
+        [StringLength(45 ,MinimumLength = 4, ErrorMessage ="活动名称不少于5个字")]
         [Display(Name ="活动名称")]
         public string ActivityName{ get; set; }      
         /// <summary>

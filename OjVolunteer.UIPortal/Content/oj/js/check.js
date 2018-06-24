@@ -44,8 +44,8 @@ layui.use(['form','layer'],function(){
 		  	,'学号必须位11位，且都是数字'
             ]
             ,actionName: function (value) {
-                if (Number(value) > 20 || Number(value) < 2) {
-                    return '活动名称必须在2-20个字符之间';
+                if (Number(value) > 40 || Number(value) < 5) {
+                    return '活动名称必须在5-40个字符之间';
                 }
             }
 
