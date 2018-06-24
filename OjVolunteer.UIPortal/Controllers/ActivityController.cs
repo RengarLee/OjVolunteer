@@ -74,7 +74,7 @@ namespace OjVolunteer.UIPortal.Controllers
             var activity = ActivityService.GetEntities(u => u.ActivityID == id).FirstOrDefault();
             ViewData.Model = activity;
 
-            var major = MajorService.GetEntities(u => !activity.ActivityMajor.Contains(("," + u.MajorID.ToString() + ","))).AsQueryable(); ;
+            var major = MajorService.GetEntities(u => !activity.ActivityMajor.Contains(("," + u.MajorID.ToString() + ","))&&u.Status==delNormal).AsQueryable(); ;
             StringBuilder MajorStr = new StringBuilder();
             foreach (var i in major)
             {
@@ -83,7 +83,7 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewBag.MajorStr = MajorStr;
 
             StringBuilder DepartmentStr = new StringBuilder();
-            var department = DepartmentService.GetEntities(u => !activity.ActivityDepartment.Contains(("," + u.DepartmentID.ToString() + ","))).AsQueryable();
+            var department = DepartmentService.GetEntities(u => !activity.ActivityDepartment.Contains(("," + u.DepartmentID.ToString() + ",")) && u.Status == delNormal).AsQueryable();
             foreach (var i in department)
             {
                 DepartmentStr.Append(i.DepartmentName + " ");
@@ -91,7 +91,7 @@ namespace OjVolunteer.UIPortal.Controllers
             ViewBag.DepartmentStr = DepartmentStr;
 
             StringBuilder PoliticalStr = new StringBuilder();
-            var political = PoliticalService.GetEntities(u=> !activity.ActivityDepartment.Contains(("," + u.PoliticalID.ToString() + ","))).AsQueryable();
+            var political = PoliticalService.GetEntities(u=> !activity.ActivityPolitical.Contains(("," + u.PoliticalID.ToString() + ",")) && u.Status == delNormal).AsQueryable();
             foreach (var i in political)
             {
                 PoliticalStr.Append(i.PoliticalName + " ");
@@ -540,9 +540,8 @@ namespace OjVolunteer.UIPortal.Controllers
 
             if (LoginUser != null)
             {
-                DataPage = DataPage.Where(u => !u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ",")).AsQueryable();
+                DataPage = DataPage.Where(u => u.ActivityManagerID == LoginUser.UserInfoID||(!u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ","))).AsQueryable();
             }
-            //DataPage = DataPage.Where(u => u.ActivityEnrollStart < DateTime.Now).AsQueryable();
             return DataPage;
         }
         #endregion

@@ -26,9 +26,9 @@
           <Property Name="ActivityEnrollStart" Type="datetime" Nullable="false" />
           <Property Name="ActivityStart" Type="datetime" />
           <Property Name="ActivityEnd" Type="datetime" />
-          <Property Name="ActivityPolitical" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ActivityMajor" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="ActivityDepartment" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ActivityPolitical" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ActivityMajor" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ActivityDepartment" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="ModfiedOn" Type="datetime" />
           <Property Name="Remark" Type="nvarchar" MaxLength="100" />
@@ -648,9 +648,9 @@
           <Property Name="ActivityEnrollStart" Nullable="false" Precision="3" Type="DateTime" />
           <Property Name="ActivityStart" Precision="3" Type="DateTime" />
           <Property Name="ActivityEnd" Precision="3" Type="DateTime" />
-          <Property Name="ActivityPolitical" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="ActivityMajor" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="ActivityDepartment" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityPolitical" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityMajor" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="ActivityDepartment" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" Type="String" />
           <Property Name="CreateTime" Precision="3" Type="DateTime" />
           <Property Name="ModfiedOn" Precision="3" Type="DateTime" />
           <Property Name="Remark" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
