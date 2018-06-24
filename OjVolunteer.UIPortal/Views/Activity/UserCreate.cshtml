@@ -76,27 +76,27 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">报名开始时间</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityEnrollStart, new { htmlAttributes = new { @class = "layui-input", id = "enroll-start"} })
+                    @Html.EditorFor(model => model.ActivityEnrollStart, new { htmlAttributes = new { @class = "layui-input", id = "enroll-start", lay_verify = "required" } })
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">报名结束时间</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityEnrollEnd, new { htmlAttributes = new { @class = "layui-input", id = "enroll-end", placeholder = "报名结束时间应早于活动开始时间" } })
+                    @Html.EditorFor(model => model.ActivityEnrollEnd, new { htmlAttributes = new { @class = "layui-input", id = "enroll-end", placeholder = "报名结束时间应早于活动开始时间" , lay_verify = "required"} })
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">活动开始时间</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityStart, new { htmlAttributes = new { @class = "layui-input", id = "start" } })
+                    @Html.EditorFor(model => model.ActivityStart, new { htmlAttributes = new { @class = "layui-input", id = "start", lay_verify = "required" } })
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">活动结束时间</label>
                 <div class="layui-input-block">
-                    @Html.EditorFor(model => model.ActivityEnd, new { htmlAttributes = new { @class = "layui-input", id = "end" } })
+                    @Html.EditorFor(model => model.ActivityEnd, new { htmlAttributes = new { @class = "layui-input", id = "end", lay_verify = "required" } })
                 </div>
             </div>
             <div class="layui-form-item">
@@ -159,44 +159,29 @@
         });
 
         function checktime() {
-            //if (baoming.year > huodong.year) {
-            //    layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-            //    return false;
-            //}
-            //else {
-            //    if (baoming.month > huodong.month) {
-            //        layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-            //        return false;
-            //    }
-            //    else {
-            //        if (baoming.date > huodong.date) {
-            //            layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-            //            return false;
-            //        }
-            //        else {
-            //            if (baoming.hours > huodong.date) {
-            //                layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-            //                return false;
-            //            }
-            //            else {
-            //                if (baoming.minutes > huodong.minutes) {
-            //                    layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-            //                    return false;
-            //                }
-            //                else {
-            //                    if (baoming.seconds > huodong.seconds) {
-            //                        layer.alert('活动时间早于报名时间', { icon: 2, anim: 6 });
-            //                        return false;
-            //                    }
-            //                    else {
-            //                        return true;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            return true;
+            var EnrollStart = $('#enroll-start').val();// 获得报名开始对象
+            var EnrollEnd = $('#enroll-end').val();//	获得报名结束对象
+            var AcStart = $('#start').val();//	获得活动开始对象
+            var AcEnd = $('#end').val();//	获得活动结束对象
+            console.log(EnrollStart);
+            console.log(EnrollEnd);
+            console.log(AcStart);
+            console.log(AcEnd);
+            if (EnrollStart > EnrollEnd) {
+                layer.alert('报名开始时间应早于报名结束时间');
+                return false;
+            }
+            else if (EnrollEnd > AcStart) {
+                layer.alert('报名时间应早于活动时间');
+                return false
+            }
+            else if (AcStart > AcEnd) {
+                layer.alert('活动开始时间应早于活动结束时间');
+                return false;
+            }
+            else {
+                return true;
+            }
         }
 
         function BindSubmit() {
