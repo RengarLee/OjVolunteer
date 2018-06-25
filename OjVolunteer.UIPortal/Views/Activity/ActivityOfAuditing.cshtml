@@ -33,9 +33,12 @@
     <script type="text/javascript">
         layui.use('layer', function () {
             var layer = layui.layer;
-        });       
+        });   
+
+        var oTable;
         $(function () {
-            initTable();
+            oTable = new TableInit();
+            oTable.Init();
             $("#btn_agrees").click(function () {
                 agreeSelectClickEvent();
             });
@@ -44,6 +47,120 @@
             });
 
         });
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function() {
+                $('#tb_activity').bootstrapTable('refresh', oTableInit.queryParams);
+                $('#tb_activity').bootstrapTable({
+                    contentType: "application/x-www-form-urlencoded",
+                    url: '/Activity/GetAllActivityOfAuditing',
+                    method: 'post',
+                    toolbar: '#toolbar',
+                    striped: true,
+                    cache: false,
+                    pagination: true,
+                    queryParams: oTableInit.queryParam,
+                    sidePagination: "server",
+                    pageNumber: 1,
+                    pageSize: 10,
+                    pageList: [10, 20, 50],
+                    smartDisplay: false,
+                    showColumns: true,
+                    showRefresh: true,
+                    minimumCountColumns: 3,
+                    clickToSelect: true,
+                    uniqueId: "ActivityID",
+                    columns: [
+                        {
+                            field: 'checked',
+                            checkbox: true,
+                        },
+                        {
+                            field: 'ActivityName',
+                            title: '活动名称',
+                            visible: true,
+                            align: 'center',
+                            width: '10%',
+
+                        },
+                        {
+                            field: 'UserInfoShowName',
+                            title: '活动申请人',
+                            visible: true,
+                            align: 'center',
+                            width: '10%',
+
+                        },
+                        {
+                            field: 'OrganizeInfoShowName',
+                            title: '活动申请团队',
+                            width: '10%',
+                            align: 'center',
+                        },
+                        {
+                            field: 'ActivityPrediNum',
+                            title: '活动人数名额',
+                            align: 'center',
+                            width: '10%',
+                        },
+                        {
+                            field: 'ActivityTypeName',
+                            title: '活动类型名称',
+                            align: 'center',
+                            width: '10%',
+                        },
+                        {
+                            field: 'CreateTime',
+                            title: '申请时间',
+                            visible: true,
+                            align: 'center',
+                            width: '20%',
+                            formatter: function (value, row, index) {
+                                return new Date(parseInt(value.replace("/Date(", "").replace(")/", ""), 10)).pattern("yyyy-MM-dd HH:mm");
+                            }
+                        },
+                        {
+                            field: 'operate',
+                            title: '操作',
+                            align: 'center',
+                            width: '25%',
+                            formatter: operateFormatter
+                        }
+                    ],
+                    onLoadSuccess: function (data) {
+
+                        $(".agreeLink").click(function () {
+                            agreeClickEvent($(this).attr("uid"));
+                            return false;
+                        });
+                        $(".opposeLink").click(function () {
+                            removeClickEvent($(this).attr("uid"));
+                            return false;
+                        })
+                    },
+                    onDblClickRow: function (row, $element) {
+                        var index = layer.open({
+                            title: '活动详情',
+                            type: 2,
+                            shadeClose: true,
+                            content: '/Activity/OrgSeeDetails/' + row["ActivityID"],
+                            area: ['1000px', '700px']
+                        });
+                    },
+                });
+            };
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {  //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,  //页面大小
+                    offset: params.offset, //页码
+                };
+                return temp;
+            };
+            return oTableInit;
+        };
 
         function initTable(queryParam) {
             $('#tb_activity').bootstrapTable('destroy');
@@ -171,7 +288,7 @@
             ids = ids.substr(0, ids.length - 1);
             $.post("/Activity/EditOfList", { ids, ids }, function (data) {
                 if (data == "success") {
-                    initTable();
+                    oTable.Init();
                     layer.alert("操作成功");
                 } else if (data == "null") {
                     layer.alert("至少选择一列");
@@ -184,7 +301,7 @@
         function agreeClickEvent(data) {
             $.post("/Activity/EditOfList", { ids: data }, function (data) {
                 if (data == "success") {
-                    initTable();
+                    oTable.Init();
                     layer.alert("操作成功");
                 } else if (data == "null") {
                     layer.alert("至少选择一列");
@@ -209,7 +326,7 @@
             ids = ids.substr(0, ids.length - 1);
             $.post("/Activity/DeleteOfList", { ids, ids }, function (data) {
                 //初始化表格
-                initTable();
+                oTable.Init();
                 if (data == "success") {
                     layer.alert("删除成功");
                 } else if (data == "null") {
@@ -222,7 +339,7 @@
 
         function removeClickEvent(data) {
             $.post("/Activity/DeleteOfList", { ids: data }, function (data) {
-                initTable();
+                oTable.Init();
                 if (data == "success") {
                     layer.alert("删除成功");
                 } else if (data == "null") {
