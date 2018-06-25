@@ -18,9 +18,12 @@
     <script src="~/Content/bootstrap-table/bootstrap-table-zh-CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
     <script type="text/javascript">
+        var oTable;
         $(function () {
             //初始化表格
-            initTable();
+            oTable = new TableInit();
+            oTable.Init();
+
             $("#btn_agrees").click(function () {
                 agreeSelectClickEvent();
             });
@@ -30,104 +33,120 @@
         });
 
         //初始化表格
-        function initTable(queryParam) {
-            $('#tb_user').bootstrapTable('destroy');
-            $('#tb_user').bootstrapTable({
-                contentType: "application/x-www-form-urlencoded",
-                url: '/UserInfo/GetAllUserOfAuditing',
-                method: 'post',
-                toolbar: '#toolbar',
-                striped: true,
-                cache: false,
-                pagination: true,
-                queryParams: queryParam,
-                sidePagination: "server",
-                pageNumber: 1,
-                pageSize: 10,
-                pageList: [10, 20, 50, 100],
-                smartDisplay: false,
-                showColumns: true,
-                showRefresh: true,
-                minimumCountColumns: 3,
-                clickToSelect: true,
-                uniqueId: "UserInfoID",
-                columns: [
-                    {
-                        field: 'checked',
-                        checkbox: true,
-                    },
-                    {
-                        field: 'UserInfoShowName',
-                        title: '真实姓名',
-                        visible: true,
-                        width: '10%',
-                        align: 'center',
-                    },
-                    {
-                        field: 'OrganizeInfoShowName',
-                        title: '团队名称',
-                        visible: true,
-                        width: '20%',
-                        align: 'center',
-                    },
-                    {
-                        field: 'PoliticalName',
-                        title: '申请前政治面貌',
-                        visible: true,
-                        width: '10%',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            if (row["PoliticalName"] == row["UpdateName"])
-                                return null;
-                            else
-                                return row["PoliticalName"];
+
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_user').bootstrapTable('refresh', oTableInit.queryParams);
+                $('#tb_user').bootstrapTable({
+                    contentType: "application/x-www-form-urlencoded",
+                    url: '/UserInfo/GetAllUserOfAuditing',
+                    method: 'post',
+                    toolbar: '#toolbar',
+                    striped: true,
+                    cache: false,
+                    pagination: true,
+                    queryParams: oTableInit.queryParams,
+                    sidePagination: "server",
+                    pageNumber: 1,
+                    pageSize: 10,
+                    pageList: [10, 20, 50, 100],
+                    smartDisplay: false,
+                    showColumns: true,
+                    showRefresh: true,
+                    minimumCountColumns: 3,
+                    clickToSelect: true,
+                    uniqueId: "UserInfoID",
+                    columns: [
+                        {
+                            field: 'checked',
+                            checkbox: true,
+                        },
+                        {
+                            field: 'UserInfoShowName',
+                            title: '真实姓名',
+                            visible: true,
+                            width: '10%',
+                            align: 'center',
+                        },
+                        {
+                            field: 'OrganizeInfoShowName',
+                            title: '团队名称',
+                            visible: true,
+                            width: '20%',
+                            align: 'center',
+                        },
+                        {
+                            field: 'PoliticalName',
+                            title: '申请前政治面貌',
+                            visible: true,
+                            width: '10%',
+                            align: 'center',
+                            formatter: function (value, row, index) {
+                                if (row["PoliticalName"] == row["UpdateName"])
+                                    return null;
+                                else
+                                    return row["PoliticalName"];
+                            }
+                        },
+                        {
+                            field: 'UpdateName',
+                            title: '申请后政治面貌',
+                            visible: true,
+                            width: '10%',
+                            align: 'center',
+                        },
+                        {
+                            field: 'UserDurationPropartyTime',
+                            title: '预备党员活动时长',
+                            visible: false,
+                            width: '10%',
+                            align: 'center',
+                        },
+                        {
+                            field: 'operate',
+                            title: '操作',
+                            align: 'center',
+                            width: '25%',
+                            formatter: operateFormatter,
                         }
+                    ],
+                    onLoadSuccess: function (data) {
+                        $(".agreeLink").click(function () {
+                            agreeClickEvent($(this).attr("uid"));
+                            return false;
+                        });
+                        $(".opposeLink").click(function () {
+                            opposeClickEvent($(this).attr("uid"));
+                            return false;
+                        })
                     },
-                    {
-                        field: 'UpdateName',
-                        title: '申请后政治面貌',
-                        visible: true,
-                        width: '10%',
-                        align: 'center',
-                    },
-                    {
-                        field: 'UserDurationPropartyTime',
-                        title: '预备党员活动时长',
-                        visible: false,
-                        width: '10%',
-                        align: 'center',
-                    },
-                    {
-                        field: 'operate',
-                        title: '操作',
-                        align: 'center',
-                        width: '25%',
-                        formatter: operateFormatter,
+                    onDblClickRow: function (row, $element) {
+                        var index = layer.open({
+                            type: 2,
+                            title: false,
+                            closeBtn: 0,
+                            maxmin: false,
+                            shadeClose: true,
+                            area: ['800px', '830px'],
+                            content: '/UserInfo/OrgEditUser/' + row["UserInfoID"]
+                        });
                     }
-                ],
-                onLoadSuccess: function (data) {
-                    $(".agreeLink").click(function () {
-                        agreeClickEvent($(this).attr("uid"));
-                        return false;
-                    });
-                    $(".opposeLink").click(function () {
-                        opposeClickEvent($(this).attr("uid"));
-                        return false;
-                    })
-                },
-                onDblClickRow: function (row, $element) {
-                    var index = layer.open({
-                        type: 2,
-                        title: false,
-                        closeBtn: 0,
-                        maxmin: false,
-                        shadeClose: true,
-                        area: ['800px', '830px'],
-                        content: '/UserInfo/OrgEditUser/' + row["UserInfoID"]
-                    });
-                }
-            });
+                });
+            };
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {  //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,  //页面大小
+                    offset: params.offset, //页码
+                };
+                return temp;
+            };
+            return oTableInit;
         };
+
+
         //生成操作框图标
         function operateFormatter(value, row, index) {
             return [
@@ -155,7 +174,7 @@
             $.post("/UserInfo/EditOfList", { ids, ids }, function (data) {
 
                 if (data == "success") {
-                    initTable();
+                    oTable.Init();
                     alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
@@ -168,7 +187,7 @@
         function agreeClickEvent(data) {
             $.post("/UserInfo/EditOfList", { ids: data }, function (data) {
                 if (data == "success") {
-                    initTable();
+                    oTable.Init();
                     alert("操作成功");
                 } else if (data == "null") {
                     alert("至少选择一列");
@@ -194,7 +213,7 @@
             $.post("/UserInfo/DeleteOfList", { ids, ids }, function (data) {
                 if (data == "success") {
                     alert("操作成功");
-                    initTable();
+                    oTable.Init();
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
@@ -208,7 +227,7 @@
             $.post("/UserInfo/DeleteOfList", { ids: data }, function (data) {
                 if (data == "success") {
                     alert("操作成功");
-                    initTable();
+                    oTable.Init();
                 } else if (data == "null") {
                     alert("至少选择一列");
                 } else {
