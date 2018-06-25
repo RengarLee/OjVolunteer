@@ -72,7 +72,8 @@ namespace OjVolunteer.UIPortal.Controllers
                 UserInfoPhone = phone,
                 OrganizeInfoID = Convert.ToInt32(OrganizeInfoList),
                 UpdatePoliticalID = Convert.ToInt32(PoliticalList),
-                PoliticalID = Convert.ToInt32(PoliticalList),
+                //默认为群众
+                PoliticalID = 24,
                 Status = delAuditing,
                 UserInfoIcon = System.Configuration.ConfigurationManager.AppSettings["DefaultIconPath"],
             };
