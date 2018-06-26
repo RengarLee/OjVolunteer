@@ -124,6 +124,7 @@ a:active{
 		margin: 0 auto;
 		text-align: center;
 	}
+    /*设置导入图标样式 */
 	.icon-huodong,
 	.icon-paixingbang,
 	.icon-scanning,
@@ -221,6 +222,7 @@ a:active{
 		align-items: center;
 		color: #333;
 	}
+        /*设置导入图标在下方固定导航栏的样式 */
 	.navbt .btBar .icon-paixingbang,
 	.navbt .btBar .icon-compass,
 	.navbt .btBar .icon-edit,
