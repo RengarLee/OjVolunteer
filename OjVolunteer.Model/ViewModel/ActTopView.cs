@@ -14,5 +14,6 @@ namespace OjVolunteer.Model.ViewModel
         public decimal ActivityTime { get; set; }
         public int OrgId { get; set; }
         public string Icon { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }

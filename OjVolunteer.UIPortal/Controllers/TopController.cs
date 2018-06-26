@@ -58,7 +58,7 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int OrgId = int.Parse(Request["OrgId"] ?? "-1");
             int TimeType = int.Parse(Request["TimeType"] ?? "1");
-            var PageData = ActivityDetailService.GetTop(OrgId, TimeType, pageSize, pageIndex,out int total);
+            var PageData = ActivityDetailService.GetTopCache(OrgId, DateTime.Now.AddDays(-3), DateTime.Now, pageSize, pageIndex, out int total);
             return Json(new { total, rows = PageData.ToList() }, JsonRequestBehavior.AllowGet);
         }
 
@@ -79,7 +79,8 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int OrgId = int.Parse(Request["OrgId"] ?? "-1");
             int TimeType = int.Parse(Request["TimeType"] ?? "1");
-            var PageData = ActivityDetailService.GetTop(OrgId, TimeType, pageSize, pageIndex, out int total);
+            
+            var PageData = ActivityDetailService.GetTopCache(OrgId, DateTime.Now.AddDays(-3), DateTime.Now, pageSize, pageIndex, out int total);
             if (PageData.Count() > 0)
             {
                 return Json(new { msg = "success", data = PageData }, JsonRequestBehavior.AllowGet);
@@ -95,14 +96,18 @@ namespace OjVolunteer.UIPortal.Controllers
             int typeId = int.Parse(Request["typeId"] ?? "0");
             int OrgId = int.Parse(Request["OrgId"] ?? "-1");
             int TimeType = int.Parse(Request["TimeType"] ?? "1");
-            if (typeId == 0)//活动时长
+            if (typeId == 0)
             {
-                int Rank = ActivityDetailService.GetRank(LoginUser.UserInfoID,OrgId,TimeType, out decimal time);
+                DateTime Start = DateTime.Parse(DateTime.Now.ToString("yyyy-MM"));
+                DateTime End = DateTime.Now;
+                int Rank = ActivityDetailService.GetRankCache(LoginUser.UserInfoID, OrgId, Start,End, out decimal time);
                 return Json(new { Rank, Num = time }, JsonRequestBehavior.AllowGet);
             }
-            else//心得点赞
+            else
             {
-                int Rank = ActivityDetailService.GetRank(LoginUser.UserInfoID, OrgId, TimeType, out decimal time);
+                DateTime Start = DateTime.Parse(DateTime.Now.ToString("yyyy"));
+                DateTime End = DateTime.Now;
+                int Rank = ActivityDetailService.GetRankCache(LoginUser.UserInfoID, OrgId, Start,End, out decimal time);
                 return Json(new { Rank, Num = time }, JsonRequestBehavior.AllowGet);
             }
         }
