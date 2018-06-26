@@ -506,15 +506,7 @@ namespace OjVolunteer.UIPortal.Controllers
             var allDepartment = DepartmentService.GetEntities(u => u.Status == delNormal).AsQueryable();
             ViewBag.DepartmentList = (from u in allDepartment select new SelectListItem() { Selected = false, Text = u.DepartmentName, Value = u.DepartmentID + "" }).ToList();
             var allOrganizeInfo = OrganizeInfoService.GetEntities(u => u.Status == delNormal && u.OrganizeInfoManageId != null).AsQueryable();
-            if (LoginOrganize.OrganizeInfoManageId != null)
-            {
-                allOrganizeInfo = allOrganizeInfo.Where(u => u.OrganizeInfoID == LoginOrganize.OrganizeInfoID).AsQueryable();
-            }
             ViewBag.OrganizeinfoList = (from u in allOrganizeInfo select new SelectListItem() { Selected = false, Text = u.OrganizeInfoShowName, Value = u.OrganizeInfoID + "" }).ToList();
-            if (LoginOrganize.OrganizeInfoID != user.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
-            {
-                return Redirect("/Login/Index");
-            }
             ViewBag.Status = user.Status;
             ViewData.Model = user;
             return View();
@@ -525,11 +517,7 @@ namespace OjVolunteer.UIPortal.Controllers
         public ActionResult OrgEditUser(UserInfo userInfo)
         {
             if (ModelState.IsValid)
-            {
-                if (userInfo.OrganizeInfoID != LoginOrganize.OrganizeInfoID && LoginOrganize.OrganizeInfoManageId != null)
-                {
-                    return Content("fail");
-                }
+            { 
                 if (UserInfoService.UpdateUser(userInfo))
                 {
                     return Content("success");
