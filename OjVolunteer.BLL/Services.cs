@@ -130,4 +130,12 @@ namespace OjVolunteer.BLL
             CurrentDal = DbSession.UserInfoDal;
         } 
 	}
+	
+	public partial class v_User_ActDetailService:BaseService<v_User_ActDetail>,Iv_User_ActDetailService 
+    {
+		public override void SetCurrentDal()
+        {
+            CurrentDal = DbSession.v_User_ActDetailDal;
+        } 
+	}
 }

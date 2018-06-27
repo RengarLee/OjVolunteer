@@ -33,5 +33,7 @@ namespace OjVolunteer.IDAL
 		IUserEnrollDal UserEnrollDal { get;}
 	 
 		IUserInfoDal UserInfoDal { get;}
+	 
+		Iv_User_ActDetailDal v_User_ActDetailDal { get;}
 	}
 }

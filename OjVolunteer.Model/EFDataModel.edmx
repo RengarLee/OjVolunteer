@@ -229,6 +229,20 @@
           <Property Name="UserInfoIcon" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="UserInfoTalkCount" Type="int" Nullable="false" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“OjVolunteer.dbo.v_User_ActDetail”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="v_User_ActDetail">
+          <Key>
+            <PropertyRef Name="ActivityDetailID" />
+            <PropertyRef Name="UserInfoId" />
+            <PropertyRef Name="ActivityDetailTime" />
+          </Key>
+          <Property Name="ActivityDetailID" Type="int" Nullable="false" />
+          <Property Name="UserInfoId" Type="int" Nullable="false" />
+          <Property Name="ActivityDetailTime" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="OrganizeInfoID" Type="int" />
+        </EntityType>
         <Association Name="FK_ACTIVITY_REFERENCE_ORGANIZE">
           <End Role="OrganizeInfo" Type="Self.OrganizeInfo" Multiplicity="0..1" />
           <End Role="Activity" Type="Self.Activity" Multiplicity="*" />
@@ -449,6 +463,15 @@
           <EntitySet Name="UserDuration" EntityType="Self.UserDuration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserEnroll" EntityType="Self.UserEnroll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="v_User_ActDetail" EntityType="Self.v_User_ActDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_User_ActDetail].[ActivityDetailID] AS [ActivityDetailID], 
+    [v_User_ActDetail].[UserInfoId] AS [UserInfoId], 
+    [v_User_ActDetail].[ActivityDetailTime] AS [ActivityDetailTime], 
+    [v_User_ActDetail].[CreateTime] AS [CreateTime], 
+    [v_User_ActDetail].[OrganizeInfoID] AS [OrganizeInfoID]
+    FROM [dbo].[v_User_ActDetail] AS [v_User_ActDetail]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_ACTIVITY_REFERENCE_ORGANIZE" Association="Self.FK_ACTIVITY_REFERENCE_ORGANIZE">
             <End Role="OrganizeInfo" EntitySet="OrganizeInfo" />
             <End Role="Activity" EntitySet="Activity" />
@@ -626,6 +649,7 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserBadge" EntitySet="UserBadge" />
           </AssociationSet>
+          <EntitySet Name="v_User_ActDetail" EntityType="OjVolunteerModel.v_User_ActDetail" />
         </EntityContainer>
         <EntityType Name="Activity">
           <Key>
@@ -1159,6 +1183,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="v_User_ActDetail">
+          <Key>
+            <PropertyRef Name="ActivityDetailID" />
+            <PropertyRef Name="UserInfoId" />
+            <PropertyRef Name="ActivityDetailTime" />
+          </Key>
+          <Property Name="ActivityDetailID" Type="Int32" Nullable="false" />
+          <Property Name="UserInfoId" Type="Int32" Nullable="false" />
+          <Property Name="ActivityDetailTime" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="OrganizeInfoID" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1401,6 +1437,17 @@
                 <ScalarProperty Name="BadgeID" ColumnName="BadgeID" />
                 <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
                 <ScalarProperty Name="UserBadgeID" ColumnName="UserBadgeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_User_ActDetail">
+            <EntityTypeMapping TypeName="OjVolunteerModel.v_User_ActDetail">
+              <MappingFragment StoreEntitySet="v_User_ActDetail">
+                <ScalarProperty Name="OrganizeInfoID" ColumnName="OrganizeInfoID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="ActivityDetailTime" ColumnName="ActivityDetailTime" />
+                <ScalarProperty Name="UserInfoId" ColumnName="UserInfoId" />
+                <ScalarProperty Name="ActivityDetailID" ColumnName="ActivityDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

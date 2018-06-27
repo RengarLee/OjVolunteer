@@ -95,6 +95,49 @@ namespace OjVolunteer.BLL
             return list;
         }
 
+        #region 视图未完成
+        //private List<ActTopView> GetDataOfView(int OrgId, DateTime actStart, DateTime actEnd, out int total)
+        //{
+        //    short delNormal = (short)Model.Enum.DelFlagEnum.Normal;
+
+        //    List<ActTopView> list = Common.Cache.CacheHelper.GetCache("ActTop") as List<ActTopView>;
+        //    if (list == null)
+        //    {
+        //        list = DbSession.v_User_ActDetailDal.GetEntities(true)
+        //            .Select(n => new ActTopView
+        //            {
+        //                UserInfoID = n.UserInfoId,
+        //                ActivityTime = n.ActivityDetailTime,
+        //                OrgId = (int)n.OrganizeInfoID,
+        //                CreateTime = (DateTime)n.CreateTime
+        //            })
+        //           .ToList();
+        //        Common.Cache.CacheHelper.SetCache("ActTop", list, DateTime.Now.AddDays(1));
+        //    }
+
+        //    //组织
+        //    if (OrgId != -1)
+        //    {
+        //        list = list.Where(u => u.OrgId == OrgId).ToList();
+        //    }
+
+        //    //时间筛选
+        //    list = list.Where(u => u.CreateTime >= actStart && u.CreateTime <= actEnd).ToList();
+
+        //    //排序
+        //    list = list.GroupBy(q => q.UserInfoID).Select(q => new ActTopView
+        //    {
+        //        UserInfoID = q.Key,
+        //        ActivityTime = q.Sum(i => i.ActivityTime),
+        //    }).OrderByDescending(i => i.ActivityTime).ToList();
+
+        //    //总人数
+        //    total = list.Count();
+
+        //    return list;
+        //}
+        #endregion
+
         //查找用户信息
         private List<ActTopView> GetUser(List<ActTopView> list)
         {

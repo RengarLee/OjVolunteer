@@ -24,4 +24,5 @@ namespace OjVolunteer.IDAL
 	public partial interface IUserDurationDal : IBaseDal<UserDuration>{}
 	public partial interface IUserEnrollDal : IBaseDal<UserEnroll>{}
 	public partial interface IUserInfoDal : IBaseDal<UserInfo>{}
+	public partial interface Iv_User_ActDetailDal : IBaseDal<v_User_ActDetail>{}
 }

@@ -139,6 +139,9 @@
     <Compile Include="ViewModel\TalkTopView.cs" />
     <Compile Include="ViewModel\TalkView.cs" />
     <Compile Include="ViewModel\ActTopView.cs" />
+    <Compile Include="v_User_ActDetail.cs">
+      <DependentUpon>EFDataModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

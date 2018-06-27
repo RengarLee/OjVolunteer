@@ -42,6 +42,7 @@
         <EntityTypeShape EntityType="OjVolunteerModel.UserBadge" Width="1.5" PointX="7" PointY="17.875" />
         <AssociationConnector Association="OjVolunteerModel.FK_UserBadge_Badge" />
         <AssociationConnector Association="OjVolunteerModel.FK_UserBadge_UserInfo" />
+        <EntityTypeShape EntityType="OjVolunteerModel.v_User_ActDetail" Width="1.5" PointX="5.375" PointY="1.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

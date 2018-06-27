@@ -80,5 +80,10 @@ namespace OjVolunteer.DALFactory
 		{
 			get { return StaticDalFactory.GetUserInfoDal(); }
 		}
+		
+		public Iv_User_ActDetailDal v_User_ActDetailDal
+		{
+			get { return StaticDalFactory.Getv_User_ActDetailDal(); }
+		}
 	}
 }

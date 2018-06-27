@@ -71,4 +71,8 @@ namespace OjVolunteer.EFDAL
 	public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
     {
 	}
+		
+	public partial class v_User_ActDetailDal:BaseDal<v_User_ActDetail>,Iv_User_ActDetailDal
+    {
+	}
 }

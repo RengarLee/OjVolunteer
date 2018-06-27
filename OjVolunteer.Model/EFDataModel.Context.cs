@@ -40,5 +40,6 @@ namespace OjVolunteer.Model
         public virtual DbSet<UserInfo> UserInfo { get; set; }
         public virtual DbSet<Badge> Badge { get; set; }
         public virtual DbSet<UserBadge> UserBadge { get; set; }
+        public virtual DbSet<v_User_ActDetail> v_User_ActDetail { get; set; }
     }
 }

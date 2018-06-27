@@ -45,4 +45,7 @@
 
 	<object name="UserInfoService" type="OjVolunteer.BLL.UserInfoService, OjVolunteer.BLL" singleton="false" >
   </object>
+
+	<object name="v_User_ActDetailService" type="OjVolunteer.BLL.v_User_ActDetailService, OjVolunteer.BLL" singleton="false" >
+  </object>
 </objects>

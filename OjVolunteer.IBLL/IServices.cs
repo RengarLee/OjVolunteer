@@ -67,4 +67,8 @@ namespace OjVolunteer.IBLL
     public partial interface IUserInfoService:IBaseService<UserInfo>
     {
     }
+	
+    public partial interface Iv_User_ActDetailService:IBaseService<v_User_ActDetail>
+    {
+    }
 }

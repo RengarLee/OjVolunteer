@@ -109,5 +109,11 @@ namespace OjVolunteer.DALFactory
 			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".UserInfoDal")
 				as IUserInfoDal;
 		}
+	
+		public static Iv_User_ActDetailDal Getv_User_ActDetailDal()
+		{
+			return Assembly.Load(assemblyName).CreateInstance(assemblyName + ".v_User_ActDetailDal")
+				as Iv_User_ActDetailDal;
+		}
 	}
 }
