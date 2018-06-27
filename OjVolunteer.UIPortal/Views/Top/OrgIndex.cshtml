@@ -22,10 +22,16 @@
         <div id="toolbar_activity" class="btn-group">
             <div class="layui-inline" style="margin-left:10px;width:200px;">
                 <select id="act_org" lay-verify="required" lay-filter="activity">
-                    <option value="-1">所有团队</option>
-                    @{ var list = ViewBag.OrganizeInfoList as List<OrganizeInfo>;
-            foreach (var data in list)
-            {
+                    @{ var list = ViewBag.OrganizeInfoList as List<OrganizeInfo>; }
+                    @{ if (list.Count != 1)
+        {
+                <option value="-1">所有团队</option>
+
+
+} }
+                    @{
+        foreach (var data in list)
+        {
                 <option value="@data.OrganizeInfoID">@data.OrganizeInfoShowName</option>
 }
 
