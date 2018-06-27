@@ -40,10 +40,11 @@
                 </select>
             </div>
             <div class="layui-inline" style="margin-left:10px;width:200px;">
-                <select id="act_time" lay-verify="required" lay-filter="activity">
-                    <option value="1">月</option>
-                    <option value="3">年</option>
-                </select>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="time" placeholder="选择时间">
+                    </div>
+                </div>
             </div>
                 
             </div>
@@ -63,18 +64,29 @@
         <script src="~/Scripts/datapattern.js"></script>
         <script src="~/Content/bootstrap-table/bootstrap-table-filter-control.js"></script>
         <script type="text/javascript">
-            $(function () {
-                initTable_Activity();
-            });
 
             layui.use('form', function () {
                 var form1 = layui.form;
                 form1.on('select(activity)', function (data) {
                     initTable_Activity();
                 });
+
+            });
+            layui.use('laydate', function () { 
+                var laydate = layui.laydate;
+                laydate.render({
+                    elem: '#time'
+                    , range: true
+                    , done: function (value) {
+                        var s = value.split(" - ");
+                        var start = s[0];
+                        var end = s[1];
+                        initTable_Activity(start, end);
+                    }
+                });
             });
 
-            function initTable_Activity(queryParam) {
+            function initTable_Activity(start, end) {
                 var offset_a;
                 $("#tb_activity").bootstrapTable('destroy');
                 $('#tb_activity').bootstrapTable({
@@ -90,7 +102,8 @@
                             pageSize: param.limit,
                             pageIndex: ((param.offset) / (param.limit)) + 1,
                             OrgId: $("#act_org option:selected").val(),
-                            TimeType: $("#act_time option:selected").val(),
+                            Start : start,
+                            End : end,
                         }
                         offset_a = param.offset;
                         return temp;

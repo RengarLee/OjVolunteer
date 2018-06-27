@@ -57,8 +57,9 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageSize = int.Parse(Request["pageSize"] ?? "5");
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int OrgId = int.Parse(Request["OrgId"] ?? "-1");
-            int TimeType = int.Parse(Request["TimeType"] ?? "1");
-            var PageData = ActivityDetailService.GetTopCache(OrgId, DateTime.Now.AddDays(-3), DateTime.Now, pageSize, pageIndex, out int total);
+            DateTime Start = DateTime.Parse(Request["Start"]);
+            DateTime End = DateTime.Parse(Request["End"]).AddDays(1);
+            var PageData = ActivityDetailService.GetTopCache(OrgId, Start, End, pageSize, pageIndex, out int total);
             return Json(new { total, rows = PageData.ToList() }, JsonRequestBehavior.AllowGet);
         }
 
