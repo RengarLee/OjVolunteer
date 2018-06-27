@@ -152,10 +152,8 @@
                             zanNums++;
                             zan.find('span').text(zanNums);
                             zan.addClass('yiZan');
-                        } else if (data["msg"] == "fail") {
-                            layer.msg('点赞失败,稍后再试！');
                         }
-                        if (data["msg"] == "nologin") {
+                        else if (data["msg"] == "nologin") {
                             layer.msg('请先登录！');
                         }
                     });
