@@ -79,6 +79,9 @@ namespace OjVolunteer.BLL
                 list = list.Where(u => u.OrgId == OrgId).ToList();
             }
 
+            //时间筛选
+            list = list.Where(u => u.CreateTime >= actStart && u.CreateTime <= actEnd).ToList();
+
             //排序
             list = list.GroupBy(q => q.UserInfoID).Select(q => new ActTopView
             {

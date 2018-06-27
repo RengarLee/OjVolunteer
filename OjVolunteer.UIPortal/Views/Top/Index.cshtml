@@ -82,7 +82,7 @@
         });
 
         function GetActivityData(pageIndex, pageSize, orgId, timeId) {
-            $.post("/Top/ActivityData", { pageIndex: pageIndex, pageSize: pageSize, OrgId: orgId, TimeSpan: timeId }, function (data) {
+            $.post("/Top/ActivityData", { pageIndex: pageIndex, pageSize: pageSize, OrgId: orgId, TimeType: timeId }, function (data) {
                 $("#btnevent").remove();
                 if (data["msg"] == "success") {
                     for (var i in data["data"]) {

@@ -79,8 +79,19 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int OrgId = int.Parse(Request["OrgId"] ?? "-1");
             int TimeType = int.Parse(Request["TimeType"] ?? "1");
-            
-            var PageData = ActivityDetailService.GetTopCache(OrgId, DateTime.Now.AddDays(-3), DateTime.Now, pageSize, pageIndex, out int total);
+            DateTime dt = DateTime.Now.AddMonths(1);
+            DateTime Start;
+            if (TimeType == 1)
+            {
+                Start = DateTime.Parse(dt.ToString("yyyy-MM"));
+            }
+            else
+            {
+                Start = new DateTime(dt.Year, 1, 1);
+            }
+            DateTime End = DateTime.Now;
+
+            var PageData = ActivityDetailService.GetTopCache(OrgId, Start, End, pageSize, pageIndex, out int total);
             if (PageData.Count() > 0)
             {
                 return Json(new { msg = "success", data = PageData }, JsonRequestBehavior.AllowGet);
@@ -96,17 +107,18 @@ namespace OjVolunteer.UIPortal.Controllers
             int typeId = int.Parse(Request["typeId"] ?? "0");
             int OrgId = int.Parse(Request["OrgId"] ?? "-1");
             int TimeType = int.Parse(Request["TimeType"] ?? "1");
-            if (typeId == 0)
+            DateTime dt = DateTime.Now;
+            if (TimeType == 1)// 月排行
             {
-                DateTime Start = DateTime.Parse(DateTime.Now.ToString("yyyy-MM"));
-                DateTime End = DateTime.Now;
+                DateTime Start = DateTime.Parse(dt.ToString("yyyy-MM")).AddMonths(1);
+                DateTime End = dt;
                 int Rank = ActivityDetailService.GetRankCache(LoginUser.UserInfoID, OrgId, Start,End, out decimal time);
                 return Json(new { Rank, Num = time }, JsonRequestBehavior.AllowGet);
             }
-            else
+            else// 年排行
             {
-                DateTime Start = DateTime.Parse(DateTime.Now.ToString("yyyy"));
-                DateTime End = DateTime.Now;
+                DateTime Start = new DateTime(dt.Year, 1, 1);
+                DateTime End = dt;
                 int Rank = ActivityDetailService.GetRankCache(LoginUser.UserInfoID, OrgId, Start,End, out decimal time);
                 return Json(new { Rank, Num = time }, JsonRequestBehavior.AllowGet);
             }
