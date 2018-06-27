@@ -540,7 +540,7 @@ namespace OjVolunteer.UIPortal.Controllers
 
             if (LoginUser != null)
             {
-                DataPage = DataPage.Where(u => u.ActivityManagerID == LoginUser.UserInfoID||(!u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ","))).AsQueryable();
+                DataPage = DataPage.Where(u =>(u.ActivityManagerID == LoginUser.UserInfoID)||(!u.ActivityMajor.Contains("," + LoginUser.MajorID + ",") && !u.ActivityPolitical.Contains("," + LoginUser.PoliticalID + ",") && !u.ActivityDepartment.Contains("," + LoginUser.DepartmentID + ","))).AsQueryable();
             }
             return DataPage;
         }
