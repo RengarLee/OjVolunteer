@@ -80,7 +80,7 @@ namespace OjVolunteer.UIPortal.Controllers
             int pageIndex = int.Parse(Request["pageIndex"] ?? "1");
             int OrgId = int.Parse(Request["OrgId"] ?? "-1");
             int TimeType = int.Parse(Request["TimeType"] ?? "1");
-            DateTime dt = DateTime.Now.AddMonths(1);
+            DateTime dt = DateTime.Now;
             DateTime Start;
             if (TimeType == 1)
             {
@@ -111,7 +111,7 @@ namespace OjVolunteer.UIPortal.Controllers
             DateTime dt = DateTime.Now;
             if (TimeType == 1)// 月排行
             {
-                DateTime Start = DateTime.Parse(dt.ToString("yyyy-MM")).AddMonths(1);
+                DateTime Start = DateTime.Parse(dt.ToString("yyyy-MM"));
                 DateTime End = dt;
                 int Rank = ActivityDetailService.GetRankCache(LoginUser.UserInfoID, OrgId, Start,End, out decimal time);
                 return Json(new { Rank, Num = time }, JsonRequestBehavior.AllowGet);

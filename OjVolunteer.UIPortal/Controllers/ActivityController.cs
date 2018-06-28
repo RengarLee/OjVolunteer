@@ -731,7 +731,7 @@ namespace OjVolunteer.UIPortal.Controllers
             {
                 ids.Add(Convert.ToInt32(str));
             }
-            if (ActivityService.AddBeforeActivity(activity,ids))
+            if (ActivityService.AddBeforeActivity(activity, ids))
             {
                 return Json(new { msg = "success" }, JsonRequestBehavior.AllowGet);
             }
