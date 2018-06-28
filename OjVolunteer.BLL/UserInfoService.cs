@@ -270,6 +270,7 @@ namespace OjVolunteer.BLL
                         DbSession.UserDurationDal.Update(duration);
                     }
                 }
+                DbSession.SaveChanges();
                 return NormalListByULS(ids);
             }
             catch (Exception e)
