@@ -392,6 +392,7 @@
     <Content Include="Content\oj\images\hot-img8.jpg" />
     <Content Include="Content\oj\images\hot-img9.jpg" />
     <Content Include="Content\oj\images\icon1.png" />
+    <Content Include="Content\oj\images\ID.jpg" />
     <Content Include="Content\oj\images\password.png" />
     <Content Include="Content\oj\images\topback.png" />
     <Content Include="Content\oj\images\update-img.png" />
@@ -420,6 +421,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\App\MobileImageUpload.js" />
     <Content Include="Scripts\App\mobileimgupdata.js" />
+    <Content Include="Scripts\App\watermark.js" />
     <Content Include="Scripts\bootstrap-table-filter-control.js" />
     <Content Include="Scripts\bootstrap-table-zh-CN.js" />
     <Content Include="Scripts\bootstrap-table.js" />
@@ -535,6 +537,7 @@
     <Content Include="Views\OrganizeInfo\UpdatePwd.cshtml" />
     <Content Include="Views\Top\OrgIndex.cshtml" />
     <Content Include="Views\Activity\Test.cshtml" />
+    <Content Include="Views\UserInfo\IDCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Upload\ActivityImages\" />

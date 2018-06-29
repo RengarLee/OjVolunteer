@@ -1,0 +1,44 @@
+﻿@model OjVolunteer.Model.UserInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IDCard</title>
+</head>
+<body>
+    <div>
+        <h4>UserInfo</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserInfoShowName)
+            </dt>
+
+        </dl>
+    </div>
+    <div id="text"></div>
+    <div style="text-align: center;" id="qrcode"></div>
+    <div><img src="~/Content/oj/images/ID.jpg" /></div>
+    <p>
+    </p>
+    <script src="~/Content/qrcode/qrcode.js"></script>
+    <script src="~/Scripts/App/watermark.js"></script>
+    <script>
+        //var domain = "http://" + window.location.host;
+        //var url = "234";
+        //URL = domain + url;
+        //new QRCode(document.getElementById("qrcode"), URL);
+        watermark(['/Content/oj/images/ID.jpg'])
+            .image(watermark.text.center('MyPhoto', '55px bold', '#000', 1))
+            .then(function (img) {
+                document.getElementById('text').appendChild(img);
+            });
+    </script>
+</body>
+</html>

@@ -606,5 +606,12 @@ namespace OjVolunteer.UIPortal.Controllers
             return Redirect("/Login/");
         }
         #endregion
+
+        #region 电子义工证
+        public ActionResult IDCard()
+        {
+            return View(LoginUser);
+        }
+        #endregion
     }
 }
